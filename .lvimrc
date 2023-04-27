@@ -1,0 +1,2 @@
+nnoremap <leader>c :AsyncRun ./scripts/compile.sh<cr>
+nnoremap <leader>m :AsyncRun ./scripts/ud_mplrc.sh<cr>

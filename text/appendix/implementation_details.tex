@@ -1,0 +1,40 @@
+\chapter{Implementation Details}
+
+A bunch of Python code listings illustrating how certain things described in
+the main text are implemented.
+
+\section{Computing the gradient and Hessian for non-linear programming}
+
+In this section, a description of how the fidelity, its gradient, and its
+Hessian (Equation \ref{eq:fidelity-grad-hess}) are computed is provided.
+
+\pylisting{code_listings/obj_grad_hess/definition.py}
+
+We will start by constructing the model array $\bx$. It is necessary to know
+the form of each oscillator in $\bx$ to compute its derivatives.
+\begin{subequations}
+    \begin{gather}
+        \bx = \exp\left(\symbf{Z}\right) \symbf{\alpha},\\
+        \symbf{Z} = \symbf{\tau} \otimes \symbf{z},\\
+        \symbf{\tau}\left[n\right] = (n-1)\Dt\ \forall n \in \lbrace0, \cdots, N - 1\rbrace\\
+        \symbf{z}\left[m\right] = 2 \pi \iu f_m- \eta_m\ \forall m \in \lbrace 1, \cdots, M \rbrace\\
+        \symbf{\alpha}\left[m\right] = a_m \exp\left(\iu \phi_m\right)
+    \end{gather}
+\end{subequations}
+Therefore a $\mathbb{C}^{N \times M}$ array $\bX_m$ is created, such that
+\begin{equation}
+    \bX_m = \exp\left(\symbf{Z}\right) * \alpha
+\end{equation}
+\nomenclature[M]{$*$}{Broadcasting notation, as is commonly performed in
+numerical computations. See
+\href{https://numpy.org/doc/stable/user/basics.broadcasting.html}{this page of
+the NumPy documentation} for details}
+
+
+\pylisting{code_listings/obj_grad_hess/x_per_osc.py}
+
+
+\section{Multiplet prediction}
+\label{sec:multiplet prediction}
+
+\pylisting{code_listings/multiplet_prediction.py}

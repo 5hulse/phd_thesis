@@ -1,0 +1,96 @@
+\section{Outline of the Problem}
+\begin{subequations}
+    \begin{gather}
+        \bY \left[\none, \cdots, \nD\right] =
+            \bX \left( \bth \right) \left[\none, \cdots, \nD\right] +
+            \bW \left[\none, \cdots, \nD\right]
+            \quad \forall \nd \in \mathbb{N}_0 : \nd < \Nd,\label{eq:y}
+             \\
+        \bX \left(\bth\right) \left[\none, \cdots, \nD\right] =
+        \sum_{m=0}^{M-1} \bdam \exp\left(
+                \iu \bdphim
+            \right)
+            \prod_{d=1}^D
+            \exp\left(
+                \left[ 2 \pi \iu \left(\bdfdm - \foffd\right) - \bdetadm \right] \nd \Dtd
+            \right),
+            \label{eq:x}
+            \\
+        \bW \left[\none, \cdots, \nD\right] \sim
+            \mathcal{N_C}\left(0, 2\sigma^2\right),
+    \end{gather}
+\end{subequations}%
+where $\Dtd = \nicefrac{1}{\fswd}$. Under this model, it is assumed that
+\iac{FID} consists of a summation of $M$ damped complex sinusoids in the
+presence in \ac{AWGN}. It is the goal of parametric estimation to establish the
+identity of all the quantities which describe the model component $\bX$. These
+can be distilled into the vector $\bth \in \mathbb{R}^{2(D + 2)M}$:
+
+
+Due to the assumed \ac{AWGN} nature of the noise array, the \ac{pdf} of an individual noise component
+$w \coloneq \symbf{W}\left[\none, \cdots, \nD\right]$is
+\begin{equation}
+    p(w) =
+        \frac{1}{2\pi \sigma^2}
+        \exp\left( -\frac{\left\lvert w \right\rvert^2}{2\sigma^2}\right).
+\end{equation}
+as the elements are independent and identically distributed, the joint \ac{pdf}
+describing the entire noise array is given by the product of each element's
+\ac{pdf}:
+\begin{equation}
+    \begin{split}
+        p\left(\bW\right) &=
+            \prod_{\none=0}^{\None - 1}
+            \cdots
+            \prod_{\nD=0}^{\ND - 1}
+            \frac{1}{2\pi \sigma^2}
+            \exp\left(
+                -\frac
+                {\left\lvert w \right\rvert^2}
+                {2\sigma^2}\right) \\
+            &= \frac{1}{\left(2\pi \sigma^2\right)^{\mathfrak{N}}}
+            \exp\left( -\frac{\left\lVert \bW \right\rVert^2}{2\sigma^2}\right)
+    \end{split}
+\end{equation}
+where $\mathfrak{N} = \None \cdots \ND$ is the total number of points in the
+signal. As the noise array is the difference between the data and model, the
+likelihood function of $\bth$ given $\bY$, $\mathcal{L}\left(\bth \vert
+\bY\right)$, is given by
+\begin{equation}
+    \mathcal{L}\left(\bth \vert \bY\right) =
+    \frac{1}{\left(2\pi \sigma^2\right)^{\mathfrak{N}}}
+        \exp\left( -\frac{\left\lVert \bY - \bX(\bth) \right\rVert^2}{2\sigma^2}\right).
+\end{equation}
+It is common to consider instead the log-likelihood function of $\bth$ given
+$\bY$, $\ell\left(\bth \vert \bY\right)$. As application of the logarithm is a
+monotonic transformation, the arguments of the maxima of $\mathcal{L}$ and
+$\ell$ are equivalent.
+\begin{equation}
+    \ell\left(\bth \vert \bY\right) =
+        -\mathfrak{N} \ln\left(2 \pi \sigma^2\right)
+        -\frac{\left\lVert \bY - \bX(\bth) \right\rVert^2}{2\sigma^2}.
+    \label{eq:log-likeihood}
+\end{equation}
+Equation \ref{eq:log-likeihood} implies that the optimal set of parameters
+$\bth^{(*)}$
+is that which minimises the
+(square) norm of the difference between the data and model
+\begin{equation}
+    \bthstar = \argmax_{\bth \in \mathbb{R}^{2(D+2)M}}
+        \ell\left(\bth \vert \bY\right) \equiv
+        \argmin_{\bth \in \mathbb{R}^{2(D+2)M}} \left\lVert \bY - \bX(\bth) \right\rVert^2.
+    \label{eq:argmin_y-x}
+\end{equation}
+The application of \ac{NLP} is a well-established approach to solve such a
+problem\cite{Fletcher1987,Nocedal2006}. The basic principle behind \ac{NLP} is
+to iteratively explore - in a methodical way - how a function varies with its
+arguments, using information about the function and optionally its
+derivatives, and to terminate once conditions have been achieved which imply an
+extremum has been found. While derivative-free approaches to \ac{NLP} do
+exist,\note{(cite examples like simplex, simmulated annealing, BOBYQA?)} in
+scenarios where the function under consideration has well-defined,
+computationally tractable derivatives, the use of these can be valuable to
+solving optimisation problems. The problem outlined in Equation
+\ref{eq:argmin_y-x} is such an example.
+
+

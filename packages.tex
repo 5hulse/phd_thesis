@@ -1,0 +1,112 @@
+\usepackage{lipsum}% Remove this once there is no dummy text
+\usepackage{amsmath}
+\allowdisplaybreaks[1]
+\DeclareMathOperator{\diag}{diag}
+\DeclareMathOperator{\IFT}{IFT}
+\DeclareMathOperator{\range}{range}
+\DeclareMathOperator{\rank}{rank}
+\DeclareMathOperator{\Var}{Var}
+\DeclareMathOperator{\SNR}{SNR}
+\DeclareMathOperator{\SVD}{SVD}
+\DeclareMathOperator{\EIGENVALUES}{EIGENVALUES}
+\usepackage{amsthm}
+\newtheorem{remark}{Remark}
+
+\usepackage{mathtools}
+\usepackage{nicefrac}
+
+\newtheorem{definition}{Definition} %
+\newtheorem{theorem}{Theorem} %
+
+\usepackage{siunitx}
+\DeclareSIUnit \gauss {G}
+\DeclareSIUnit \partspermillion {ppm}
+\sisetup{detect-all}
+
+\usepackage{etoolbox}
+\usepackage[printonlyused]{acronym}
+\preto\chapter\acresetall
+
+\usepackage{tikz}
+\newcommand*\circled[1]{{\scriptsize\tikz[baseline=(char.base)]{
+            \node[shape=circle,draw,inner sep=1pt] (char) {#1};}}}
+
+\usepackage{hyperref}
+\definecolor{linkblue}{HTML}{0000ee}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=linkblue,
+    citecolor=black,
+}
+\usepackage{cleveref}
+
+\usepackage{nomencl}
+\renewcommand{\nompreamble}{\pagestyle{plain}}
+\makenomenclature
+\usepackage{ifthen}
+
+\usepackage{upgreek}% For upright capital delta
+\usepackage[
+    doi=false,
+    isbn=false,
+    url=false,
+    eprint=false,
+    sorting=none,
+]{biblatex}
+\DeclareDelimFormat{postnotedelim}{\addcolon\space}
+\DeclareFieldFormat{postnote}{\mknormrange{#1}}
+
+\usepackage{MnSymbol}% For conditional independence symbol
+\usepackage{graphicx}
+\graphicspath{{figures/}}
+\newcommand\scalemath[2]{\scalebox{#1}{\mbox{\ensuremath{\displaystyle #2}}}}
+
+\usepackage{booktabs}
+\usepackage{colortbl}
+
+\usepackage{minted,tcolorbox,listings}
+\tcbuselibrary{listings,minted,breakable,skins}
+\usemintedstyle{gruvboxlight}
+\definecolor{gruvbox_bg}{HTML}{fbf1c7}
+\definecolor{gruvbox_fg}{HTML}{3c3836}
+\renewcommand{\theFancyVerbLine}{\ttfamily\small
+    \textcolor{gruvbox_fg}{\arabic{FancyVerbLine}}}
+
+\newtcbinputlisting{\pylisting}[1]{%
+    listing only,
+    minted language=python,
+    minted style=default,
+    listing file={#1},
+    boxrule=1pt,
+    code={\setlength{\parskip}{0.05in}\singlespacing},
+    colframe=black,
+    colback=white,
+    enhanced,
+    breakable,
+    top=0pt,
+    bottom=0pt,
+    width=\textwidth,
+    minted options = {
+        linenos,
+        tabsize=0,
+        breaklines,
+        autogobble=false,
+        mathescape,
+        numbersep=2.2mm,
+        xleftmargin=3mm
+    },
+    overlay = {
+    \begin{tcbclipinterior}
+        \fill[white] (frame.south west) rectangle ([xshift=5mm]frame.north west);
+    \end{tcbclipinterior}
+    }
+}
+
+\usepackage{pdfpages}
+
+\usepackage{algorithm}
+\usepackage{algpseudocode}
+\makeatletter
+\algrenewcommand\ALG@beginalgorithmic{\footnotesize}
+\makeatother

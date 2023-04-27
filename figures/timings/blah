@@ -1,0 +1,389 @@
+Filename: /home/simon/Documents/DPhil/projects/NMR-EsPy/nmrespy/mpm.py
+
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+   162  165.258 MiB  165.258 MiB           1       @profile
+   163                                             def _mpm_1d(self) -> None:
+   164                                                 """Perform 1-dimensional Matrix Pencil Method."""
+   165                                                 # Normalise data
+   166  165.258 MiB    0.000 MiB           1           norm = nlinalg.norm(self.data)
+   167  165.258 MiB    0.000 MiB           1           normed_data = self.data / norm
+   168                                         
+   169                                                 # Number of points
+   170  165.258 MiB    0.000 MiB           1           N = self.data.size
+   171                                         
+   172                                                 # Pencil parameter.
+   173                                                 # Optimal when between N/2 and N/3 (see Lin's paper)
+   174  165.258 MiB    0.000 MiB           1           L = int(np.floor(N / 3))
+   175  165.258 MiB    0.000 MiB           1           if self.output_mode:
+   176                                                     print(f"--> Pencil Parameter: {L}")
+   177                                         
+   178                                                 # Construct Hankel matrix
+   179  165.934 MiB    0.676 MiB           1           Y = slinalg.hankel(normed_data[: N - L], normed_data[N - L - 1 :])
+   180                                         
+   181  165.934 MiB    0.000 MiB           1           if self.output_mode:
+   182                                                     print("--> Hankel data matrix constructed:")
+   183                                                     print(f"\tSize:   {Y.shape[0]} x {Y.shape[1]}")
+   184                                                     gibibytes = Y.nbytes / (2 ** 30)
+   185                                                     if gibibytes >= 0.1:
+   186                                                         print(f"\tMemory: {round(gibibytes, 4)}GiB")
+   187                                                     else:
+   188                                                         print(f"\tMemory: {round(gibibytes * (2**10), 4)}MiB")
+   189                                         
+   190                                                 # Singular value decomposition of Y
+   191                                                 # returns singular values: min(N-L, L)-length vector
+   192                                                 # and right singular vectors (LxL size matrix)
+   193  165.934 MiB    0.000 MiB           1           if self.output_mode:
+   194                                                     print("--> Performing Singular Value Decomposition...")
+   195  170.660 MiB    4.727 MiB           1           _, sigma, Vh = nlinalg.svd(Y)
+   196  170.660 MiB    0.000 MiB           1           V = Vh.T
+   197                                         
+   198                                                 # Compute the MDL in order to estimate the number of oscillators
+   199  170.660 MiB    0.000 MiB           1           if self.output_mode:
+   200                                                     print("--> Computing number of oscillators...")
+   201                                         
+   202  170.660 MiB    0.000 MiB           1           if self.oscillators == 0:
+   203                                                     if self.output_mode:
+   204                                                         print("\tNumber of oscillators will be estimated using MDL")
+   205                                                     self.oscillators = self._mdl_1d(sigma, N)
+   206                                         
+   207                                                 else:
+   208  170.660 MiB    0.000 MiB           1               if self.output_mode:
+   209                                                         print("\tNumber of oscillations has been pre-defined")
+   210                                         
+   211  170.660 MiB    0.000 MiB           1           if self.output_mode:
+   212                                                     print(f"\tNumber of oscillations: {self.oscillators}")
+   213                                         
+   214  170.660 MiB    0.000 MiB           1           if self.oscillators == 0:
+   215                                                     if self.output_mode:
+   216                                                         print("No oscillators detected!")
+   217                                                         self.params = None
+   218                                                         return
+   219                                         
+   220                                                 # Determine signal poles
+   221  170.660 MiB    0.000 MiB           1           if self.output_mode:
+   222                                                     print("--> Computing signal poles...")
+   223                                         
+   224  170.660 MiB    0.000 MiB           1           Vm = V[:, : self.oscillators]  # Retain M first right singular vectors
+   225  170.660 MiB    0.000 MiB           1           V1 = Vm[:-1, :]  # Remove last column
+   226  170.660 MiB    0.000 MiB           1           V2 = Vm[1:, :]  # Remove first column
+   227                                         
+   228                                                 # Determine first M signal poles (others should be 0)
+   229  170.660 MiB    0.000 MiB           1           V1plus = nlinalg.pinv(V1)
+   230  170.660 MiB    0.000 MiB           1           V2V1 = V2 @ V1plus
+   231  172.422 MiB    1.762 MiB           1           poles = nlinalg.eig(V2V1)[0][: self.oscillators]
+   232                                         
+   233                                                 # Compute complex amplitudes
+   234  172.422 MiB    0.000 MiB           1           if self.output_mode:
+   235                                                     print("--> Computing complex amplitudes...")
+   236                                         
+   237                                                 # Pseudoinverse of Vandermonde matrix of poles multiplied by
+   238                                                 # vector of complex amplitudes
+   239  172.422 MiB    0.000 MiB           1           sp = self.start_point[0]
+   240  172.422 MiB    0.000 MiB           1           alpha = (
+   241  172.422 MiB    0.000 MiB           1               nlinalg.pinv(np.power.outer(poles, np.arange(sp, N + sp))).T @ normed_data
+   242                                                 )
+   243                                         
+   244  172.422 MiB    0.000 MiB           1           params = self._generate_params(alpha, poles.reshape((1, self.oscillators)))
+   245  172.422 MiB    0.000 MiB           1           params[:, 0] *= norm
+   246  172.422 MiB    0.000 MiB           1           self.params, self.oscillators = self._remove_negative_damping(params)
+
+
+Filename: /home/simon/Documents/DPhil/projects/NMR-EsPy/nmrespy/mpm.py
+
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+   162  166.383 MiB  166.383 MiB           1       @profile
+   163                                             def _mpm_1d(self) -> None:
+   164                                                 """Perform 1-dimensional Matrix Pencil Method."""
+   165                                                 # Normalise data
+   166  166.383 MiB    0.000 MiB           1           norm = nlinalg.norm(self.data)
+   167  166.383 MiB    0.000 MiB           1           normed_data = self.data / norm
+   168                                         
+   169                                                 # Number of points
+   170  166.383 MiB    0.000 MiB           1           N = self.data.size
+   171                                         
+   172                                                 # Pencil parameter.
+   173                                                 # Optimal when between N/2 and N/3 (see Lin's paper)
+   174  166.383 MiB    0.000 MiB           1           L = int(np.floor(N / 3))
+   175  166.383 MiB    0.000 MiB           1           if self.output_mode:
+   176                                                     print(f"--> Pencil Parameter: {L}")
+   177                                         
+   178                                                 # Construct Hankel matrix
+   179  170.043 MiB    3.660 MiB           1           Y = slinalg.hankel(normed_data[: N - L], normed_data[N - L - 1 :])
+   180                                         
+   181  170.043 MiB    0.000 MiB           1           if self.output_mode:
+   182                                                     print("--> Hankel data matrix constructed:")
+   183                                                     print(f"\tSize:   {Y.shape[0]} x {Y.shape[1]}")
+   184                                                     gibibytes = Y.nbytes / (2 ** 30)
+   185                                                     if gibibytes >= 0.1:
+   186                                                         print(f"\tMemory: {round(gibibytes, 4)}GiB")
+   187                                                     else:
+   188                                                         print(f"\tMemory: {round(gibibytes * (2**10), 4)}MiB")
+   189                                         
+   190                                                 # Singular value decomposition of Y
+   191                                                 # returns singular values: min(N-L, L)-length vector
+   192                                                 # and right singular vectors (LxL size matrix)
+   193  170.043 MiB    0.000 MiB           1           if self.output_mode:
+   194                                                     print("--> Performing Singular Value Decomposition...")
+   195  180.859 MiB   10.816 MiB           1           _, sigma, Vh = nlinalg.svd(Y)
+   196  180.859 MiB    0.000 MiB           1           V = Vh.T
+   197                                         
+   198                                                 # Compute the MDL in order to estimate the number of oscillators
+   199  180.859 MiB    0.000 MiB           1           if self.output_mode:
+   200                                                     print("--> Computing number of oscillators...")
+   201                                         
+   202  180.859 MiB    0.000 MiB           1           if self.oscillators == 0:
+   203                                                     if self.output_mode:
+   204                                                         print("\tNumber of oscillators will be estimated using MDL")
+   205                                                     self.oscillators = self._mdl_1d(sigma, N)
+   206                                         
+   207                                                 else:
+   208  180.859 MiB    0.000 MiB           1               if self.output_mode:
+   209                                                         print("\tNumber of oscillations has been pre-defined")
+   210                                         
+   211  180.859 MiB    0.000 MiB           1           if self.output_mode:
+   212                                                     print(f"\tNumber of oscillations: {self.oscillators}")
+   213                                         
+   214  180.859 MiB    0.000 MiB           1           if self.oscillators == 0:
+   215                                                     if self.output_mode:
+   216                                                         print("No oscillators detected!")
+   217                                                         self.params = None
+   218                                                         return
+   219                                         
+   220                                                 # Determine signal poles
+   221  180.859 MiB    0.000 MiB           1           if self.output_mode:
+   222                                                     print("--> Computing signal poles...")
+   223                                         
+   224  180.859 MiB    0.000 MiB           1           Vm = V[:, : self.oscillators]  # Retain M first right singular vectors
+   225  180.859 MiB    0.000 MiB           1           V1 = Vm[:-1, :]  # Remove last column
+   226  180.859 MiB    0.000 MiB           1           V2 = Vm[1:, :]  # Remove first column
+   227                                         
+   228                                                 # Determine first M signal poles (others should be 0)
+   229  180.859 MiB    0.000 MiB           1           V1plus = nlinalg.pinv(V1)
+   230  185.047 MiB    4.188 MiB           1           V2V1 = V2 @ V1plus
+   231  191.160 MiB    6.113 MiB           1           poles = nlinalg.eig(V2V1)[0][: self.oscillators]
+   232                                         
+   233                                                 # Compute complex amplitudes
+   234  191.160 MiB    0.000 MiB           1           if self.output_mode:
+   235                                                     print("--> Computing complex amplitudes...")
+   236                                         
+   237                                                 # Pseudoinverse of Vandermonde matrix of poles multiplied by
+   238                                                 # vector of complex amplitudes
+   239  191.160 MiB    0.000 MiB           1           sp = self.start_point[0]
+   240  191.160 MiB    0.000 MiB           1           alpha = (
+   241  191.160 MiB    0.000 MiB           1               nlinalg.pinv(np.power.outer(poles, np.arange(sp, N + sp))).T @ normed_data
+   242                                                 )
+   243                                         
+   244  191.641 MiB    0.480 MiB           1           params = self._generate_params(alpha, poles.reshape((1, self.oscillators)))
+   245  191.641 MiB    0.000 MiB           1           params[:, 0] *= norm
+   246  191.641 MiB    0.000 MiB           1           self.params, self.oscillators = self._remove_negative_damping(params)
+
+
+Filename: /home/simon/Documents/DPhil/projects/NMR-EsPy/nmrespy/mpm.py
+
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+   162  166.996 MiB  166.996 MiB           1       @profile
+   163                                             def _mpm_1d(self) -> None:
+   164                                                 """Perform 1-dimensional Matrix Pencil Method."""
+   165                                                 # Normalise data
+   166  166.996 MiB    0.000 MiB           1           norm = nlinalg.norm(self.data)
+   167  166.996 MiB    0.000 MiB           1           normed_data = self.data / norm
+   168                                         
+   169                                                 # Number of points
+   170  166.996 MiB    0.000 MiB           1           N = self.data.size
+   171                                         
+   172                                                 # Pencil parameter.
+   173                                                 # Optimal when between N/2 and N/3 (see Lin's paper)
+   174  166.996 MiB    0.000 MiB           1           L = int(np.floor(N / 3))
+   175  166.996 MiB    0.000 MiB           1           if self.output_mode:
+   176                                                     print(f"--> Pencil Parameter: {L}")
+   177                                         
+   178                                                 # Construct Hankel matrix
+   179  174.789 MiB    7.793 MiB           1           Y = slinalg.hankel(normed_data[: N - L], normed_data[N - L - 1 :])
+   180                                         
+   181  174.789 MiB    0.000 MiB           1           if self.output_mode:
+   182                                                     print("--> Hankel data matrix constructed:")
+   183                                                     print(f"\tSize:   {Y.shape[0]} x {Y.shape[1]}")
+   184                                                     gibibytes = Y.nbytes / (2 ** 30)
+   185                                                     if gibibytes >= 0.1:
+   186                                                         print(f"\tMemory: {round(gibibytes, 4)}GiB")
+   187                                                     else:
+   188                                                         print(f"\tMemory: {round(gibibytes * (2**10), 4)}MiB")
+   189                                         
+   190                                                 # Singular value decomposition of Y
+   191                                                 # returns singular values: min(N-L, L)-length vector
+   192                                                 # and right singular vectors (LxL size matrix)
+   193  174.789 MiB    0.000 MiB           1           if self.output_mode:
+   194                                                     print("--> Performing Singular Value Decomposition...")
+   195  200.344 MiB   25.555 MiB           1           _, sigma, Vh = nlinalg.svd(Y)
+   196  200.344 MiB    0.000 MiB           1           V = Vh.T
+   197                                         
+   198                                                 # Compute the MDL in order to estimate the number of oscillators
+   199  200.344 MiB    0.000 MiB           1           if self.output_mode:
+   200                                                     print("--> Computing number of oscillators...")
+   201                                         
+   202  200.344 MiB    0.000 MiB           1           if self.oscillators == 0:
+   203                                                     if self.output_mode:
+   204                                                         print("\tNumber of oscillators will be estimated using MDL")
+   205                                                     self.oscillators = self._mdl_1d(sigma, N)
+   206                                         
+   207                                                 else:
+   208  200.344 MiB    0.000 MiB           1               if self.output_mode:
+   209                                                         print("\tNumber of oscillations has been pre-defined")
+   210                                         
+   211  200.344 MiB    0.000 MiB           1           if self.output_mode:
+   212                                                     print(f"\tNumber of oscillations: {self.oscillators}")
+   213                                         
+   214  200.344 MiB    0.000 MiB           1           if self.oscillators == 0:
+   215                                                     if self.output_mode:
+   216                                                         print("No oscillators detected!")
+   217                                                         self.params = None
+   218                                                         return
+   219                                         
+   220                                                 # Determine signal poles
+   221  200.344 MiB    0.000 MiB           1           if self.output_mode:
+   222                                                     print("--> Computing signal poles...")
+   223                                         
+   224  200.344 MiB    0.000 MiB           1           Vm = V[:, : self.oscillators]  # Retain M first right singular vectors
+   225  200.344 MiB    0.000 MiB           1           V1 = Vm[:-1, :]  # Remove last column
+   226  200.344 MiB    0.000 MiB           1           V2 = Vm[1:, :]  # Remove first column
+   227                                         
+   228                                                 # Determine first M signal poles (others should be 0)
+   229  200.344 MiB    0.000 MiB           1           V1plus = nlinalg.pinv(V1)
+   230  204.340 MiB    3.996 MiB           1           V2V1 = V2 @ V1plus
+   231  209.648 MiB    5.309 MiB           1           poles = nlinalg.eig(V2V1)[0][: self.oscillators]
+   232                                         
+   233                                                 # Compute complex amplitudes
+   234  209.648 MiB    0.000 MiB           1           if self.output_mode:
+   235                                                     print("--> Computing complex amplitudes...")
+   236                                         
+   237                                                 # Pseudoinverse of Vandermonde matrix of poles multiplied by
+   238                                                 # vector of complex amplitudes
+   239  209.648 MiB    0.000 MiB           1           sp = self.start_point[0]
+   240  209.648 MiB    0.000 MiB           1           alpha = (
+   241  209.648 MiB    0.000 MiB           1               nlinalg.pinv(np.power.outer(poles, np.arange(sp, N + sp))).T @ normed_data
+   242                                                 )
+   243                                         
+   244  209.648 MiB    0.000 MiB           1           params = self._generate_params(alpha, poles.reshape((1, self.oscillators)))
+   245  209.648 MiB    0.000 MiB           1           params[:, 0] *= norm
+   246  209.648 MiB    0.000 MiB           1           self.params, self.oscillators = self._remove_negative_damping(params)
+
+
+Filename: /home/simon/Documents/DPhil/projects/NMR-EsPy/nmrespy/mpm.py
+
+Line #    Mem usage    Increment  Occurrences   Line Contents
+=============================================================
+   162  166.789 MiB  166.789 MiB           1       @profile
+   163                                             def _mpm_1d(self) -> None:
+   164                                                 """Perform 1-dimensional Matrix Pencil Method."""
+   165                                                 # Normalise data
+   166  166.789 MiB    0.000 MiB           1           norm = nlinalg.norm(self.data)
+   167  166.789 MiB    0.000 MiB           1           normed_data = self.data / norm
+   168                                         
+   169                                                 # Number of points
+   170  166.789 MiB    0.000 MiB           1           N = self.data.size
+   171                                         
+   172                                                 # Pencil parameter.
+   173                                                 # Optimal when between N/2 and N/3 (see Lin's paper)
+   174  166.789 MiB    0.000 MiB           1           L = int(np.floor(N / 3))
+   175  166.789 MiB    0.000 MiB           1           if self.output_mode:
+   176                                                     print(f"--> Pencil Parameter: {L}")
+   177                                         
+   178                                                 # Construct Hankel matrix
+   179  181.246 MiB   14.457 MiB           1           Y = slinalg.hankel(normed_data[: N - L], normed_data[N - L - 1 :])
+   180                                         
+   181  181.246 MiB    0.000 MiB           1           if self.output_mode:
+   182                                                     print("--> Hankel data matrix constructed:")
+   183                                                     print(f"\tSize:   {Y.shape[0]} x {Y.shape[1]}")
+   184                                                     gibibytes = Y.nbytes / (2 ** 30)
+   185                                                     if gibibytes >= 0.1:
+   186                                                         print(f"\tMemory: {round(gibibytes, 4)}GiB")
+   187                                                     else:
+   188                                                         print(f"\tMemory: {round(gibibytes * (2**10), 4)}MiB")
+   189                                         
+   190                                                 # Singular value decomposition of Y
+   191                                                 # returns singular values: min(N-L, L)-length vector
+   192                                                 # and right singular vectors (LxL size matrix)
+   193  181.246 MiB    0.000 MiB           1           if self.output_mode:
+   194                                                     print("--> Performing Singular Value Decomposition...")
+   195  222.992 MiB   41.746 MiB           1           _, sigma, Vh = nlinalg.svd(Y)
+   196  222.992 MiB    0.000 MiB           1           V = Vh.T
+   197                                         
+   198                                                 # Compute the MDL in order to estimate the number of oscillators
+   199  222.992 MiB    0.000 MiB           1           if self.output_mode:
+   200                                                     print("--> Computing number of oscillators...")
+   201                                         
+   202  222.992 MiB    0.000 MiB           1           if self.oscillators == 0:
+   203                                                     if self.output_mode:
+   204                                                         print("\tNumber of oscillators will be estimated using MDL")
+   205                                                     self.oscillators = self._mdl_1d(sigma, N)
+   206                                         
+   207                                                 else:
+   208  222.992 MiB    0.000 MiB           1               if self.output_mode:
+   209                                                         print("\tNumber of oscillations has been pre-defined")
+   210                                         
+   211  222.992 MiB    0.000 MiB           1           if self.output_mode:
+   212                                                     print(f"\tNumber of oscillations: {self.oscillators}")
+   213                                         
+   214  222.992 MiB    0.000 MiB           1           if self.oscillators == 0:
+   215                                                     if self.output_mode:
+   216                                                         print("No oscillators detected!")
+   217                                                         self.params = None
+   218                                                         return
+   219                                         
+   220                                                 # Determine signal poles
+   221  222.992 MiB    0.000 MiB           1           if self.output_mode:
+   222                                                     print("--> Computing signal poles...")
+   223                                         
+   224  222.992 MiB    0.000 MiB           1           Vm = V[:, : self.oscillators]  # Retain M first right singular vectors
+   225  222.992 MiB    0.000 MiB           1           V1 = Vm[:-1, :]  # Remove last column
+   226  222.992 MiB    0.000 MiB           1           V2 = Vm[1:, :]  # Remove first column
+   227                                         
+   228                                                 # Determine first M signal poles (others should be 0)
+   229  222.992 MiB    0.000 MiB           1           V1plus = nlinalg.pinv(V1)
+   230  230.309 MiB    7.316 MiB           1           V2V1 = V2 @ V1plus
+   231  239.031 MiB    8.723 MiB           1           poles = nlinalg.eig(V2V1)[0][: self.oscillators]
+   232                                         
+   233                                                 # Compute complex amplitudes
+   234  239.031 MiB    0.000 MiB           1           if self.output_mode:
+   235                                                     print("--> Computing complex amplitudes...")
+   236                                         
+   237                                                 # Pseudoinverse of Vandermonde matrix of poles multiplied by
+   238                                                 # vector of complex amplitudes
+   239  239.031 MiB    0.000 MiB           1           sp = self.start_point[0]
+   240  239.031 MiB    0.000 MiB           1           alpha = (
+   241  239.031 MiB    0.000 MiB           1               nlinalg.pinv(np.power.outer(poles, np.arange(sp, N + sp))).T @ normed_data
+   242                                                 )
+   243                                         
+   244  239.031 MiB    0.000 MiB           1           params = self._generate_params(alpha, poles.reshape((1, self.oscillators)))
+   245  239.031 MiB    0.000 MiB           1           params[:, 0] *= norm
+   246  239.031 MiB    0.000 MiB           1           self.params, self.oscillators = self._remove_negative_damping(params)
+
+
+
+
+512 pts
+
+
+
+
+1024 pts
+
+
+
+
+1536 pts
+
+
+
+
+2048 pts
+
+
+
+
+2560 pts
+
+

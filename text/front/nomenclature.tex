@@ -1,0 +1,182 @@
+\renewcommand\nomgroup[1]{%
+    \item[\bfseries
+    \ifstrequal{#1}{A}{General Mathematics}{%
+    \ifstrequal{#1}{B}{Complex Numbers}{%
+    \ifstrequal{#1}{C}{Number sets}{%
+    \ifstrequal{#1}{D}{Probability}{%
+    \ifstrequal{#1}{E}{Vectors, Matrices, and Arrays}{%
+    \ifstrequal{#1}{O}{Other symbols}{}}}}}}%
+]}
+
+%%% General maths
+\nomenclature[A,01]{$\mathcal{A} \coloneq \mathcal{B}$}{$\mathcal{A}$ is defined to be equal to $\mathcal{B}$}
+\nomenclature[A,02]{$\lfloor a \rfloor$}{The nearest integer to $a$, such that $\lfloor a \rfloor \leq a$}
+\nomenclature[A,03]{$\lceil a \rceil$}{The nearest integer to $a$, such that $\lceil a \rceil \geq a$}
+\nomenclature[A,04]{$\lfloor a \rceil$}{The nearest integer to $a$}
+\nomenclature[A,05]{$a \bmod b$}{$a$ modulo $b$, given by \[a \bmod b = a - \left\lfloor \frac{a}{b} \right\rfloor\]}
+%%% Complex numbers
+\nomenclature[B,01]{$\iu$}{The imaginary unit, $\iu \coloneq \sqrt{-1}$}
+\nomenclature[B,02]{$\Re(z)$}{The real component of $z$}%
+\nomenclature[B,03]{$\Im(z)$}{The imaginary component of $z$}%
+\nomenclature[B,04]{$\left\lvert z \right\rvert$}{
+    The absolute value of $z$, given by
+    \[
+        \left\lvert z \right\rvert =
+            \sqrt{
+                \Re(z)^2 + \Im(z)^2
+            }
+    \]
+}
+%%% Arrays
+\nomenclature[E,01]{$\cdot^{\mathrm{T}}$}{Transpose}%
+\nomenclature[E,02]{$\cdot^{\dagger}$}{Conjugate transpose, equivalent to $\cdot^{*\mathrm{T}}$}
+\nomenclature[E,03]{$\cdot^{\circlearrowright (d)}$}{Right circular rotation by along axis $d$ of the array by one element.
+    For example, for a 2D matrix $\symbf{A} \in \mathbb{F}^{\None \times \Ntwo}$, $\symbf{A}^{\circlearrowright (1)}$ is given by
+    \[
+        \begin{bmatrix}
+            \symbf{A} \left[ \None - 1, 0 \right] &
+            \symbf{A} \left[ \None - 1, 1 \right] &
+            \cdots &
+            \symbf{A} \left[ \None - 1, \Ntwo - 1 \right] \\
+            \symbf{A} \left[ 0, 0 \right] &
+            \symbf{A} \left[ 0, 1 \right] &
+            \cdots &
+            \symbf{A} \left[ 0, \Ntwo - 1 \right] \\
+            \vdots &
+            \vdots &
+            \ddots &
+            \vdots \\
+            \symbf{A} \left[ \None - 2, 0 \right] &
+            \symbf{A} \left[ \None - 2, 1 \right] &
+            \cdots &
+            \symbf{A} \left[ \None - 2, \Ntwo - 1 \right] \\
+        \end{bmatrix}
+    \]
+}
+\nomenclature[E,04]{$\symbf{A}^+$}{
+    The Moore-Penrose pseudo inverse of $\symbf{A} \in \mathbb{C}^{m \times
+    n}$ is a matrix $\in \mathbb{C}^{n \times m}$ given by
+    \[
+        \symbf{A}^+ = \left(\symbf{A}^{\dagger} \symbf{A}\right)^{-1} \symbf{A}^{\dagger}.
+    \]
+}
+\nomenclature[E,05]{$\diag(\symbf{v})$}{
+    Given a vector $\symbf{v} \in \mathbb{F}^N$, this creates a matrix
+    $\in \mathbb{F}^{N \times N}$ of the form
+    \[
+        \diag(\symbf{v}) =
+        \begin{bmatrix}
+            \symbf{v}[0] & 0 & \cdots & 0 \\
+            0 & \symbf{v}[1] & \cdots & 0 \\
+            \vdots & \vdots & \ddots & \vdots\\
+            0 & 0 & \cdots & \symbf{v}[N-1]
+        \end{bmatrix}
+    \]
+}
+\nomenclature[E,06]{$\left\langle \symbf{A}, \symbf{B}\right\rangle$}{
+    The inner product of $\symbf{A}$ and $\symbf{B}$, two $D$-dimensional
+    arrays over the field $\mathbb{C}$ with the same dimensions, given by
+\[
+    \left\langle \symbf{A}, \symbf{B}\right\rangle =
+    \sum_{\none = 0}^{\None-1} \cdots
+    \sum_{\nD = 0}^{\ND-1} \left(
+        \symbf{A}\left[\none, \cdots, \nD\right]^*
+        \symbf{B}\left[\none, \cdots, \nD\right]
+    \right)
+\]
+}
+\nomenclature[E,07]{$\lVert \symbf{A} \rVert$}{The norm of $\symbf{A}$, given by
+\[
+    \left\lVert\symbf{A}\right\rVert =
+    \sqrt{\left\langle\symbf{A},\symbf{A}\right\rangle}
+\]
+}
+\nomenclature[E,08]{$\nabla f(\symbf{x})$}{
+    The gradient of a differentiable, scalar value function $f: \mathbb{R}^{n}
+    \rightarrow \mathbb{R}$, given by
+    \[
+        \nabla f(\symbf{x}) =
+        \begin{bmatrix}
+            \frac{\partial f}{\partial \symbf{x}\left[ 0 \right]} &
+            \frac{\partial f}{\partial \symbf{x}\left[ 1 \right]} &
+            \cdots &
+            \frac{\partial f}{\partial \symbf{x}\left[ n-1 \right]}
+        \end{bmatrix}\T
+    \]
+}
+\nomenclature[E,09]{$\nabla^2 f(\symbf{x})$}{
+    The Hessian of a twice-differentiable, scalar value function $f: \mathbb{R}^{n}
+    \rightarrow \mathbb{R}$, given by
+    \[
+        \nabla^2 f(\symbf{x}) =
+        \def\arraystretch{1.4}
+        \begin{bmatrix}
+            \frac{\partial^2 f}{\partial \symbf{x}\left[ 0 \right]^2} &
+            \frac{\partial^2 f}
+            {
+                \partial \symbf{x}\left[ 0 \right]
+                \partial \symbf{x}\left[ 1 \right]
+                ^{\vphantom{2}}
+            } &
+            \cdots &
+            \frac{\partial^2 f}
+            {
+                \partial \symbf{x}\left[ 0 \right]
+                \partial \symbf{x}\left[ n-1 \right]
+                ^{\vphantom{2}}
+            } \\
+            \frac{\partial^2 f}
+            {
+                \partial \symbf{x}\left[ 1 \right]
+                \partial \symbf{x}\left[ 0 \right]
+                ^{\vphantom{2}}
+            } &
+            \frac{\partial^2 f}{\partial \symbf{x}\left[ 1 \right]^2} &
+            \cdots &
+            \frac{\partial^2 f}
+            {
+                \partial \symbf{x}\left[ 1 \right]
+                \partial \symbf{x}\left[ n-1 \right]
+                ^{\vphantom{2}}
+            } \\
+            \vdots & \vdots & \ddots & \vdots \\
+            \frac{\partial^2 f}
+            {
+                \partial \symbf{x}\left[ n-1 \right]
+                \partial \symbf{x}\left[ 0 \right]
+                ^{\vphantom{2}}
+            } &
+            \frac{\partial^2 f}
+            {
+                \partial \symbf{x}\left[ n-1 \right]
+                \partial \symbf{x}\left[ 1 \right]
+                ^{\vphantom{2}}
+            } &
+            \cdots &
+            \frac{\partial^2 f}{\partial \symbf{x}\left[ n-1 \right]^2} &
+        \end{bmatrix}
+    \]
+}
+\nomenclature[D,01]{$x \sim \mathcal{X}$}{$x$ behaves according to distribution $\mathcal{X}$}
+\nomenclature[D,02]{$A \upmodels B$}{$A$ and $B$ are conditionally independent}
+\nomenclature[D,03]{$\mathcal{N}\left(\mu, \sigma^2\right)$}{
+    Normal (Gaussian) distribution with mean $\mu$ and variance $\sigma^2$:
+    \[
+        \mathcal{N}\left(x \hspace*{2pt} \vert \hspace*{2pt}\mu, \sigma^2\right) =
+            \frac{1}{\sqrt{2\pi \sigma^2}}
+            \exp\left( -\frac{(x - \mu)^2}{2\sigma^2}\right)
+    \]
+}
+\nomenclature[D,04]{$\mathcal{N_C}\left(\mu, \sigma^2\right)$}{Complex normal distribution with mean $\mu$ and variance $\nicefrac{\sigma^2}{2}$}%
+%%% Other symbols
+\nomenclature[O,02]{$\foffd$}{Transmitter offset in dimension $d$}
+\nomenclature[O,03]{$\fswd$}{Sweep width (spectral window) in dimension $d$}
+\nomenclature[O,04]{$\Dtd$}{Sampling rate in dimension $d$}
+%%% Sets
+\nomenclature[C,01]{$\mathbb{C}$}{The set of complex numbers}%
+\nomenclature[C,02]{$\mathbb{N}$}{The set of natural numbers with zero excluded}%
+\nomenclature[C,03]{$\mathbb{N}_0$}{The set of natural numbers with zero included}%
+\nomenclature[C,04]{$\mathbb{R}$}{The set of real numbers}%
+\nomenclature[C,05]{$\mathbb{R}_{>0}$}{The set of positive real numbers}%
+\nomenclature[C,05]{$\mathbb{Z}$}{The set of integers}%
+\printnomenclature[1in]

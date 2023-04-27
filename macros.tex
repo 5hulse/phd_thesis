@@ -1,0 +1,247 @@
+\newcommand{\CN}{\mathbb{C}^{\hspace*{.5pt}N}}
+\newcommand{\bw}{\symbf{w}}
+\newcommand{\bW}{\symbf{W}}
+\newcommand{\ntwonew}{n^{(2)}_{\text{new}}}
+\newcommand{\Fone}{F^{(1)}}
+\newcommand{\Ftwo}{F^{(2)}}
+\newcommand\note[1]{\textcolor{red}{\textbf{#1}}}
+
+\newcommand{\espy}{\textsc{NMR-EsPy}}
+
+%% Data array
+\newcommand{\by}{\symbf{y}}
+\newcommand{\bY}{\symbf{Y}}
+
+%% Transpose
+\newcommand{\T}{^{\mathrm{T}}}
+
+%% X and derivatives
+\newcommand{\bx}{\symbf{x}}
+\newcommand{\bX}{\symbf{X}}
+\newcommand{\bXth}{\symbf{X}\left(\symbf{\theta}\right)}
+\newcommand{\bXthstar}{\symbf{X}\left( \bthstar \right)}
+\newcommand{\bXelem}{\symbf{X} \left[\none, \cdots, \nD\right]}
+\newcommand\xderiv[1]{
+    \frac{\partial x}
+    {\partial #1}
+}
+\newcommand\xderivtwosame[1]{
+    \frac{\partial^2 x}
+    {\partial #1^2}
+}
+\newcommand\xderivtwodiff[2]{
+    \frac{\partial^2 x}
+    {\partial #1 \partial #2}
+}
+
+\newcommand{\bdthY}{\bth \hspace*{2pt} \vert \hspace*{2pt} \bY}
+\newcommand{\bdthzeroY}{\bthzero \hspace*{2pt} \vert \hspace*{2pt} \bY}
+
+\newcommand{\kmax}{k_{\text{max}}}
+
+%% Variances
+\newcommand{\circvar}{\Var_{\circ}(\bdphi)}
+\newcommand{\linvar}{\Var_{\vert}(\bdphi)}
+
+\newcommand{\bp}{\symbf{p}}
+\newcommand{\bpk}{\bp^{(k)}}
+\newcommand{\bpkplusone}{\bp^{(k+1)}}
+
+%% Fidelity
+\newcommand{\F}{\mathcal{F}}
+\newcommand{\Fth}{\F(\bth)}
+\newcommand{\Fphi}{\F_{\phi}}
+\newcommand{\FphiQ}{\F_{\phi Q}}
+\newcommand{\FQth}{\F_Q\left(\bth\right)}
+\newcommand{\FthY}{\F\left( \bdthY \right)}
+\newcommand{\FphithY}{\Fphi\left( \bdthY \right)}
+\newcommand{\Fphithk}{\Fphi\left( \bthk \right)}
+\newcommand{\Fphithkpk}{\Fphi\left( \bthk + \bpk \right)}
+\newcommand{\FphiQthk}{\FphiQ\left( \bthk \right)}
+\newcommand{\FphiQthkpk}{\FphiQ\left( \bthk + \bpk \right)}
+\newcommand{\Fthstar}{\mathcal{F}\left(\bthstar\right)}
+\newcommand{\Fthone}{\mathcal{F}\left(\symbf{\theta}^{(1)}\right)}
+\newcommand{\Fthk}{\mathcal{F}\left(\symbf{\theta}^{(k)}\right)}
+\newcommand{\Fthkpk}{\F\left( \bthk + \bpk \right)}
+\newcommand{\FQthk}{\F_Q\left( \bthk \right)}
+\newcommand{\FQthkpk}{\F_Q\left( \bthk + \bpk \right)}
+
+%% Gradients of Fidelity
+\newcommand{\bdg}{\symbf{g}}
+\newcommand{\bdgth}{\bdg \left( \bth \right)}
+\newcommand{\bdgthY}{\bdg \left( \bdthY \right)}
+\newcommand{\bdgthzeroY}{\bdg \left( \bdthzeroY \right)}
+\newcommand{\bdgthk}{\bdg \left( \bthk \right)}
+\newcommand{\bdgthkplusone}{\bdg \left( \bthkplusone \right)}
+\newcommand{\bdgthstar}{\bdg \left( \bthstar \right)}
+\newcommand{\gradF}{\nabla \F}
+\newcommand{\gradFthY}{\nabla \FthY}
+\newcommand{\gradFth}{\nabla \Fth}
+
+%% Hessians of Fidelity
+\newcommand{\bdH}{\symbf{H}}
+\newcommand{\bdHth}{\bdH \left( \bth \right)}
+\newcommand{\bdHthk}{\bdH \left( \bthk \right)}
+\newcommand{\bdHthY}{\bdH \left( \bdthY \right)}
+\newcommand{\bdHthstar}{\bdH \left( \bthstar \right)}
+\newcommand{\hessF}{\nabla^2 \F}
+\newcommand{\hessFthY}{\nabla^2 \FthY}
+\newcommand{\hessFth}{\nabla^2 \Fth}
+
+%% Hankel matrices
+\newcommand{\HY}{\symbf{H}_{\bY}}
+\newcommand{\HYtilde}{\widetilde{\symbf{H}}_{\bY}}
+\newcommand{\HYtildeone}{\widetilde{\symbf{H}}_{\bY1}}
+\newcommand{\HYtildetwo}{\widetilde{\symbf{H}}_{\bY2}}
+\newcommand{\HX}{\symbf{H}_{\bX}}
+\newcommand{\HXone}{\symbf{H}_{\bX1}}
+\newcommand{\HXtwo}{\symbf{H}_{\bX2}}
+\newcommand{\EY}{\symbf{E}_{\bY}}
+\newcommand{\EYtilde}{\widetilde{\symbf{E}}_{\bY}}
+
+%% Pencil parameters
+\newcommand{\Lone}{L^{(1)}}
+\newcommand{\Ltwo}{L^{(2)}}
+
+%% Time-points
+\newcommand{\tone}{t^{(1)}}
+\newcommand{\ttwo}{t^{(2)}}
+
+%% General mathematics
+\DeclareMathOperator*{\argmax}{arg\,max}
+\DeclareMathOperator*{\argmin}{arg\,min}
+\newcommand{\iu}{\mathrm{i}}
+\newcommand\vpsub[1]{_{\vphantom{#1}}}
+\newcommand\vpsup[1]{^{\vphantom{#1}}}
+\newcommand{\Tr}{\operatorname{Tr}}
+
+%% Parameter vector
+\newcommand{\bth}{\symbf{\theta}}
+\newcommand{\bthzero}{\symbf{\theta}^{(0)}}
+\newcommand{\bthone}{\symbf{\theta}^{(1)}}
+\newcommand{\bthk}{\symbf{\theta}^{(k)}}
+\newcommand{\bthkplusone}{\symbf{\theta}^{(k+1)}}
+\newcommand{\bthstar}{\symbf{\theta}^{(*)}}
+
+%m% Sampling rates
+\newcommand{\taud}{\tau^{(d)}}
+\newcommand{\Dt}{\Updelta_t}
+\newcommand{\Dtone}{\Updelta_t^{(1)}}
+\newcommand{\Dttwo}{\Updelta_t^{(2)}}
+\newcommand{\Dtd}{\Updelta_t^{(d)}}
+
+%% Complex amplitudes
+\newcommand{\bdalpha}{\symbf{\alpha}}
+\newcommand{\bdalpham}{\bdalpha \left[ m \right]}
+
+%% Signal poles
+\newcommand{\bdzone}{\symbf{z}^{(1)}}
+\newcommand{\bdzonem}{\bdzone \left[ m \right]}
+\newcommand{\bdzd}{\symbf{z}^{(d)}}
+\newcommand{\bdzdm}{\bdzd \left[ m \right]}
+\newcommand{\bdZone}{\symbf{Z}^{(1)}}
+\newcommand{\bdZonem}{\bdZone \left[ m \right]}
+\newcommand{\bdztwo}{\symbf{z}^{(2)}}
+\newcommand{\bdztwom}{\bdztwo \left[ m \right]}
+
+%% Amplitudes
+\newcommand{\bda}{\symbf{a}}
+\newcommand{\bdazero}{\symbf{a}^{(0)}}
+\newcommand{\bdastar}{\symbf{a}^{(*)}}
+\newcommand{\bdam}{\bda\left[ m \right]}
+
+%% Phases
+\newcommand{\bdphi}{\symbf{\phi}}
+\newcommand{\bdphim}{\bdphi\left[ m \right]}
+
+%% Frequencies
+\newcommand{\fsw}{f_{\mathrm{sw}}}
+\newcommand{\fswone}{f_{\mathrm{sw}}^{(1)}}
+\newcommand{\fswtwo}{f_{\mathrm{sw}}^{(2)}}
+\newcommand{\fswd}{f_{\mathrm{sw}}^{(d)}}
+\newcommand{\foff}{f_{\text{off}}}
+\newcommand{\foffd}{f_{\mathrm{off}}^{(d)}}
+\newcommand{\foffone}{f_{\mathrm{off}}^{(1)}}
+\newcommand{\fofftwo}{f_{\mathrm{off}}^{(2)}}
+\newcommand{\fone}{f^{(1)}}
+\newcommand{\ftwo}{f^{(2)}}
+\newcommand{\foscone}{f_1}
+\newcommand{\fM}{f_M}
+\newcommand{\foneone}{f_1^{(1)}}
+\newcommand{\ftwoone}{f_1^{(2)}}
+\newcommand{\fDone}{f_1^{(D)}}
+\newcommand{\fonem}{f_m^{(1)}}
+\newcommand{\ftwom}{f_m^{(2)}}
+\newcommand{\fdm}{f_m^{(d)}}
+\newcommand{\bdfone}{\symbf{f}^{(1)}}
+\newcommand{\bdftwo}{\symbf{f}^{(2)}}
+\newcommand{\bdfd}{\symbf{f}^{(d)}}
+\newcommand{\bdfDminusone}{\symbf{f}^{(D-1)}}
+\newcommand{\bdfD}{\symbf{f}^{(D)}}
+\newcommand{\bdf}{\symbf{f}}
+\newcommand{\bdfm}{\bdf\left[ m \right]}
+\newcommand{\bdfonem}{\bdfone\left[ m \right]}
+\newcommand{\bdftwom}{\bdftwo\left[ m \right]}
+\newcommand{\bdfdm}{\bdfd\left[ m \right]}
+\newcommand{\bdfDm}{\bdfD\left[ m \right]}
+
+%% Damping factors
+\newcommand{\etaone}{\eta^{(1)}}
+\newcommand{\etatwo}{\eta^{(2)}}
+\newcommand{\etaoneone}{\eta_1^{(1)}}
+\newcommand{\etatwoone}{\eta_1^{(2)}}
+\newcommand{\etaonem}{\eta_m^{(1)}}
+\newcommand{\etatwom}{\eta_m^{(2)}}
+\newcommand{\etadm}{\eta_m^{(d)}}
+\newcommand{\etaDone}{\eta_1^{(D)}}
+\newcommand{\etaDM}{\eta_M^{(D)}}
+\newcommand{\etaoscone}{\eta_1}
+\newcommand{\etaM}{\eta_M}
+\newcommand{\bdeta}{\symbf{\eta}}
+\newcommand{\bdetam}{\bdeta\left[ m \right]}
+\newcommand{\bdetaone}{\symbf{\eta}^{(1)}}
+\newcommand{\bdetatwo}{\symbf{\eta}^{(2)}}
+\newcommand{\bdetad}{\symbf{\eta}^{(d)}}
+\newcommand{\bdetaDminusone}{\symbf{\eta}^{(D-1)}}
+\newcommand{\bdetaD}{\symbf{\eta}^{(D)}}
+\newcommand{\bdetaonem}{\bdetaone\left[ m \right]}
+\newcommand{\bdetatwom}{\bdetatwo\left[ m \right]}
+\newcommand{\bdetadm}{\bdetad\left[ m \right]}
+\newcommand{\bdetaDm}{\bdetaD\left[ m \right]}
+
+%% Datapoint indices
+\newcommand{\none}{n^{(1)}_{\vphantom{t}}}
+\newcommand{\ntwo}{n^{(2)}_{\vphantom{t}}}
+\newcommand{\nd}{n^{(d)}_{\vphantom{t}}}
+\newcommand{\nD}{n^{(D)}_{\vphantom{t}}}
+
+%% Number of datapoints
+\newcommand{\None}{N^{(1)}}
+\newcommand{\Ntwo}{N^{(2)}}
+\newcommand{\Nthree}{N^{(3)}}
+\newcommand{\Nd}{N^{(d)}}
+\newcommand{\ND}{N^{(D)}}
+
+%% Operators
+\newcommand{\FT}{\operatorname{FT}}
+
+%% Indices
+\newcommand{\idxn}{\left[n\right]}
+\newcommand{\idxntwo}{\left[\ntwo\right]}
+\newcommand{\idxnonentwo}{\left[\none,\ntwo\right]}
+
+%% Nuclei
+\newcommand{\proton}{\textsuperscript{1}H}
+\newcommand{\carbon}{\textsuperscript{13}C}
+
+%% 2DJ Signals
+\newcommand{\jresfid}{\symbf{Y}_{\mathrm{2DJ}}}
+\newcommand{\jresspec}{\symbf{S}_{\mathrm{2DJ}}}
+\newcommand{\jresspectilt}{\symbf{S}_{\mathrm{tilt}}}
+\newcommand{\specps}{\symbf{s}_{\mathrm{PS}}}
+
+%% Trust radius
+\newcommand{\trustradius}[1]{\Updelta^{(#1)}}
+\newcommand{\trmax}{\Updelta_{\text{max}}}
+
+\newcommand{\bCth}{\symbf{C}\left( \bth \right)}

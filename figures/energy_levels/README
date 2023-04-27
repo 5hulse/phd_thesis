@@ -1,0 +1,2 @@
+energy_levels_fig.pdf - Plots of variation in energy, relative to the energy when $B_0 = \num{0} \si{\tesla}$, for the spins states of \sscr{1}H, \sscr{7}Li, and \sscr{17}O.
+Field strnegth goes up to 23.5T, which is approximately the magnetic field strength corresponding to a 1GHz spectrometer (23.49T). 
