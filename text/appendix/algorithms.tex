@@ -1,0 +1,245 @@
+\clearpage
+\section{Additional Algorithms}
+
+\begin{algorithm}[h!]
+    \begin{algorithmic}[1]
+        \caption[
+            Filtering procedure for 1D data.
+        ]
+        {
+            Filtering procedure for 1D data.
+            $\symbf{r}_{\text{interest}}$ is a vector of length 2 containing
+            the indices of the left and right bounds of the region of interest.
+            These would typically be provided in units of \unit{\hertz} or
+            \unit{\partspermillion} by a user. Conversion to array indices can
+            be carried out using \eqref{eq:fidx}.
+            $\symbf{r}_{\text{noise}}$ contains the left and right bounds of
+            the region used to estimate the noise variance.
+            \textsc{RandomSample} indicates taking a random sample from the
+            given distribution.
+        }
+        \label{alg:filter-1d}
+        \Procedure{Filter$1$D}{
+            $\by \in \mathbb{C}^{\None},
+            \symbf{r}_{\text{interest}} \in \mathbb{N}_0^2,
+            \symbf{r}_{\text{noise}} \in \mathbb{N}_0^2
+            $}
+            \State $\by_{\text{ve}} \gets \textsc{VirtualEcho$1$D}\left(\by\right)$;
+            \State $\symbf{s}_{\text{ve}} \gets \FT\left(\by_{\text{ve}}\right)$;
+            \State $l^{(1)}_{\text{idx}}, r^{(1)}_{\text{idx}} \gets \symbf{r}_{\text{interest}}[0], \symbf{r}_{\text{interest}}[1]$;
+            \State $l^{(1)}_{\text{idx,noise}}, r^{(1)}_{\text{idx,noise}} \gets \symbf{r}_{\text{noise}}[0], \symbf{r}_{\text{noise}}[1]$;
+            \State $c_{\text{idx}}^{(1)} \gets \nicefrac{\left(l_{\text{idx}}^{(1)} + r_{\text{idx}}^{(1)}\right)}{2}$;
+            \State $b_{\text{idx}}^{(1)} \gets r_{\text{idx}}^{(1)} - l_{\text{idx}}^{(1)}$;
+            \State $\symbf{g} \gets \textsc{SuperGaussian$1$D}\left(\None_{\vphantom{\text{idx}}}, c_{\text{idx}}^{(1)}, b_{\text{idx}}^{(1)}\right)$;
+            \State $\symbf{s}_{\text{noise}} \gets \symbf{s}_{\text{ve}} \left[
+                l^{(1)}_{\text{idx,noise}} : r^{(1)}_{\text{idx,noise}} + 1
+            \right]
+            $;
+            \State $\sigma^2 \gets \Var\left(\symbf{s}_{\text{noise}}\right)$;
+            \State $\symbf{w}_{\sigma^2} \gets \symbf{0} \in \mathbb{R}^{2\None}$;
+            \For {$\none = 0, \cdots, \None - 1$}
+                \State $\symbf{w}_{\sigma^2}\left[ \none \right] \gets \textsc{RandomSample}\left(\mathcal{N}\left(0, \sigma^2\right)\right)$;
+            \EndFor
+            \State $\widetilde{\symbf{s}}_{\text{ve}} \gets \symbf{s}_{\text{ve}} \odot \symbf{g} + \symbf{w}_{\sigma^2} \odot \left(\symbf{1} - \symbf{g}\right)$;
+            \State $\widetilde{\symbf{y}}_{\text{ve}} \gets \IFT \left( \widetilde{\symbf{s}}_{\text{ve}} \right)$;
+            \State $\widetilde{\symbf{y}} \gets \widetilde{\symbf{y}}_{\text{ve}}\left[ : \None \right]$;
+            \State \textbf{return} $\widetilde{\symbf{y}}$;
+        \EndProcedure
+        \Statex
+        \Procedure{VirtualEcho$1$D}{$\by \in \mathbb{C}^{\None}$}
+            \State $\symbf{t}_1 \gets
+            \begin{bmatrix}
+                \by \\ \symbf{0} \in \mathbb{C}^{\None}
+            \end{bmatrix}
+            $;
+            \State $\symbf{t}_2 \gets
+            \begin{bmatrix}
+            \symbf{0} \in \mathbb{C}^{\None} \\ {\by^*}^{\leftrightsquigarrow (1)}
+            \end{bmatrix}^{\circlearrowright (1)}
+            $;
+            \State $\by_{\text{ve}} \gets \symbf{t}_1 + \symbf{t}_2$;
+            \State $\by_{\text{ve}}[0] \gets \nicefrac{\by_{\text{ve}}[0]}{2}$;
+            \State \textbf{return} $\by_{\text{ve}}$;
+        \EndProcedure
+        \Statex
+        \Procedure{SuperGaussian$1$D}{$N \in \mathbb{N}, c_{\text{idx}} \in \mathbb{R}_{>0}, b_{\text{idx}} \in \mathbb{N}$}
+            \State $\symbf{g} \gets \symbf{0} \in \mathbb{R}^{N}$;
+            \For {$n = 0, \cdots, N - 1$}
+                \State $\symbf{g}\left[ n \right] \gets \exp\left(
+                    -2^{41} \left(
+                        \frac{n - c_{\text{idx}}}{b_{\text{idx}}}
+                    \right)^{40}
+                    \right)
+                $;
+                \Comment{$p$ in \eqref{eq:super-Gaussian-onedim} has been set to 40.}
+            \EndFor
+            \State \textbf{return} $\symbf{g}$
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[h!]
+    \begin{algorithmic}[1]
+        \caption{Filtering procedure for 2D data.}
+        \label{alg:filter-2d}
+        \Procedure{Filter$2$D}{$\bY_{\cos} \in \mathbb{C}^{\None \times \Ntwo}, \bY_{\sin} \in \mathbb{C}^{\None \times \Ntwo}, \symbf{R}_{\text{interest}} \in \mathbb{N}_0^{2 \times 2}, \symbf{R}_{\text{noise}} \in \mathbb{N}_0^{2 \times 2}$}
+            \State $\bY_{\text{ve}} \gets \textsc{VirtualEcho$2$D}\left(\bY_{\cos}, \bY_{\sin}\right)$;
+            \State $\symbf{S}_{\text{ve}} \gets \FT\left(\bY_{\text{ve}}\right)$;
+            \State $
+                l^{(1)}_{\text{idx}},
+                r^{(1)}_{\text{idx}},
+                l^{(2)}_{\text{idx}},
+                r^{(2)}_{\text{idx}}
+                \gets
+                \symbf{R}_{\text{interest}}[0,0],
+                \symbf{R}_{\text{interest}}[0,1],
+                \symbf{R}_{\text{interest}}[1,0],
+                \symbf{R}_{\text{interest}}[1,1]
+                $;
+            \For{$d = 1, 2$}
+                \State $c_{\text{idx}}^{(d)} \gets \nicefrac{\left(l_{\text{idx}}^{(d)} + r_{\text{idx}}^{(d)}\right)}{2}$;
+                \State $b_{\text{idx}}^{(d)} \gets r_{\text{idx}}^{(d)} - l_{\text{idx}}^{(d)}$;
+                \State $\symbf{g}^{(d)} \gets \textsc{SuperGaussian$1$D}\left( 2\Nd_{\vphantom{\text{idx}}}, c_{\text{idx}}^{(d)}, b_{\text{idx}}^{(d)} \right)$;
+                \State $\symbf{G} \gets  \symbf{g}^{(1)} \otimes \symbf{g}^{(2)}$;
+            \EndFor
+            \State $
+                l^{(1)}_{\text{idx,noise}},
+                r^{(1)}_{\text{idx,noise}},
+                l^{(2)}_{\text{idx,noise}},
+                r^{(2)}_{\text{idx,noise}}
+                \gets
+                \symbf{R}_{\text{noise}}[0,0],
+                \symbf{R}_{\text{noise}}[0,1],
+                \symbf{R}_{\text{noise}}[1,0],
+                \symbf{R}_{\text{noise}}[1,1]
+                $;
+            \State $\symbf{S}_{\text{noise}} \gets \symbf{S}_{\text{ve}} \left[
+                    l^{(1)}_{\text{idx,noise}} :
+                    r^{(1)}_{\text{idx,noise}} + 1,
+                    l^{(2)}_{\text{idx,noise}} :
+                    r^{(2)}_{\text{idx,noise}} + 1
+                \right] $
+            \State $\sigma^2 \gets \Var\left(\symbf{S}_{\text{noise}}\right)$;
+            \State $\symbf{W}_{\sigma^2} \gets \symbf{0} \in \mathbb{R}^{2\None \times 2\Ntwo}$;
+            \For {$\none = 0, \cdots, 2\None - 1$}
+                \For {$\ntwo = 0, \cdots, 2\Ntwo - 1$}
+                    \State $\symbf{W}_{\sigma^2}\left[ \none, \ntwo \right] \gets \textsc{RandomSample}\left(\mathcal{N}\left(0, \sigma^2\right)\right)$;
+                \EndFor
+            \EndFor
+            \State $\widetilde{\symbf{S}}_{\text{ve}} \gets \symbf{S}_{\text{ve}} \odot \symbf{G} + \symbf{W}_{\sigma^2} \odot \left(\symbf{1} - \symbf{G}\right)$;
+            \State $\widetilde{\symbf{Y}}_{\text{ve}} \gets \IFT \left( \widetilde{\symbf{S}}_{\text{ve}} \right)$;
+            \State $\widetilde{\symbf{Y}} \gets \widetilde{\symbf{Y}}_{\text{ve}}\left[ :\None, :\Ntwo \right]$;
+            \State \textbf{return} $\widetilde{\symbf{Y}}$;
+        \EndProcedure
+        \Statex
+        \Procedure{VirtualEcho$2$D}{$\bY_{\cos} \in \mathbb{C}^{\None \times \Ntwo}, \bY_{\sin} \in \mathbb{C}^{\None \times \Ntwo} $}
+            \State $\symbf{\Psi}_{++} \gets
+                \Re\left(\bY_{\cos}\right) -
+                \Im\left(\bY_{\sin}\right) + \iu \left(
+                \Im\left(\bY_{\cos}\right) +
+                \Re\left(\bY_{\sin}\right)
+            \right)
+            $;
+            \State $\symbf{\Psi}_{+-} \gets
+                \Re\left(\bY_{\cos}\right) +
+                \Im\left(\bY_{\sin}\right) + \iu \left(
+                \Re\left(\bY_{\sin}\right) -
+                \Im\left(\bY_{\cos}\right)
+            \right)
+            $;
+            \State $\symbf{\Psi}_{-+} \gets
+                \Re\left(\bY_{\cos}\right) +
+                \Im\left(\bY_{\sin}\right) + \iu \left(
+                \Im\left(\bY_{\cos}\right) -
+                \Re\left(\bY_{\sin}\right)
+            \right)
+            $;
+            \State $\symbf{\Psi}_{--} \gets
+                \Re\left(\bY_{\cos}\right) -
+                \Im\left(\bY_{\sin}\right) - \iu \left(
+                \Im\left(\bY_{\cos}\right) +
+                \Re\left(\bY_{\sin}\right)
+            \right)
+            $;
+            \State $\symbf{Z} \gets \symbf{0} \in \mathbb{C}^{\None \times \Ntwo}$
+            \State $\symbf{T}_1 \gets
+                \begin{bmatrix}
+                    \symbf{\Psi}_{++} & \symbf{Z} \\
+                    \symbf{Z} & \symbf{Z}
+                \end{bmatrix}
+            $;
+            \State $\symbf{T}_2 \gets
+                \begin{bmatrix}
+                    \symbf{Z} & \symbf{\Psi}_{+-}^{\leftrightsquigarrow (2)} \\
+                    \symbf{Z} & \symbf{Z}
+                \end{bmatrix}^{\circlearrowright (2)}
+            $;
+            \State $\symbf{T}_3 \gets
+                \begin{bmatrix}
+                    \symbf{Z} & \symbf{Z}\\
+                    \symbf{\Psi}_{-+}^{\leftrightsquigarrow (1)} & \symbf{Z}
+                \end{bmatrix}^{\circlearrowright (1)}
+            $;
+            \State $\symbf{T}_4 \gets
+                \begin{bmatrix}
+                    \symbf{Z} & \symbf{Z}\\
+                    \symbf{Z} & \symbf{\Psi}_{--}^{\leftrightsquigarrow (1,2)}
+                \end{bmatrix}^{\circlearrowright (1,2)}
+            $;
+            \State $\bY_{\text{ve}} \gets \symbf{T}_1 + \symbf{T}_2 + \symbf{T}_3 + \symbf{T}_4$;
+            \For{$\none = 0, \cdots, 2 \None - 1$}
+                \State $\bY_{\text{ve}}\left[\none, 0\right] \gets
+                    \nicefrac{\bY_{\text{ve}}\left[\none, 0\right]}{2}
+                $;
+            \EndFor
+            \For{$\ntwo = 0, \cdots, 2 \Ntwo - 1$}
+                \State $\bY_{\text{ve}}\left[0, \ntwo \right] \gets
+                    \nicefrac{\bY_{\text{ve}}\left[0,\hspace*{1pt} \ntwo \right]}{2}
+                $;
+            \EndFor
+            \State \textbf{return} $\bY_{\text{ve}}$;
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}[h!]
+    \begin{algorithmic}[1]
+        \caption{Filtering procedure for 2DJ data.}
+        \label{alg:filter-2dj}
+        \Procedure{Filter$2$DJ}{
+            $\bY \in \mathbb{C}^{\None \times \Ntwo},
+            \symbf{r}_{\text{interest}} \in \mathbb{N}_0^2,
+            \symbf{r}_{\text{noise}} \in \mathbb{N}_0^2$
+        }
+            \State $\bY_{\text{ve}} \gets \symbf{0} \in \mathbb{C}^{\None \times 2 \Ntwo}$;
+            \For{$\none = 0, \cdots, \None - 1$}
+                \State $\bY_{\text{ve}}\left[\none, :\right] \gets \textsc{VirtualEcho$1$D}\left(\bY\left[\none, :\right]\right)$;
+            \EndFor
+            \State $\symbf{S}_{\text{ve}} \gets \FT^{(2)}\left(\bY_{\text{ve}}\right)$;
+            \State $l^{(2)}_{\text{idx}}, r^{(2)}_{\text{idx}} \gets \symbf{r}_{\text{interest}}[0], \symbf{r}_{\text{interest}}[1]$;
+            \State $l^{(2)}_{\text{idx,noise}}, r^{(2)}_{\text{idx,noise}} \gets \symbf{r}_{\text{noise}}[0], \symbf{r}_{\text{noise}}[1]$;
+            \State $c_{\text{idx}}^{(2)} \gets \nicefrac{\left(l_{\text{idx}}^{(2)} + r_{\text{idx}}^{(2)}\right)}{2}$;
+            \State $b_{\text{idx}}^{(2)} \gets r_{\text{idx}}^{(2)} - l_{\text{idx}}^{(2)}$;
+            \State $\symbf{g}^{(1)} \gets \symbf{1} \in \mathbb{R}^{\None}$;
+            \State $\symbf{g}^{(2)} \gets \textsc{SuperGaussian$1$D}\left(\Ntwo_{\vphantom{\text{idx}}}, c_{\text{idx}}^{(2)}, b_{\text{idx}}^{(2)}\right)$;
+            \State $\symbf{G} \gets \symbf{g}^{(1)} \otimes \symbf{g}^{(2)}$;
+            \State $\symbf{S}_{\text{noise}} \gets \symbf{S}_{\text{ve}} \left[
+                :, l^{(2)}_{\text{idx,noise}} : r^{(2)}_{\text{idx,noise}} + 1
+            \right]
+            $;
+            \State $\sigma^2 \gets \Var\left(\symbf{S}_{\text{noise}}\right)$;
+            \State $\symbf{W}_{\sigma^2} \gets \symbf{0} \in \mathbb{R}^{\None \times 2 \Ntwo}$;
+            \For {$\none = 0, \cdots, \None - 1$}
+                \For {$\ntwo = 0, \cdots, 2\Ntwo - 1$}
+                    \State $\symbf{W}_{\sigma^2}\left[ \none, \ntwo \right] \gets \textsc{RandomSample}\left(\mathcal{N}\left(0, \sigma^2\right)\right)$;
+                \EndFor
+            \EndFor
+            \State $\widetilde{\symbf{S}}_{\text{ve}} \gets \symbf{S}_{\text{ve}} \odot \symbf{G} + \symbf{W}_{\sigma^2} \odot \left(\symbf{1} - \symbf{G}\right)$;
+            \State $\widetilde{\symbf{Y}}_{\text{ve}} \gets \IFT^{(2)} \left( \widetilde{\symbf{S}}_{\text{ve}} \right)$;
+            \State $\widetilde{\symbf{Y}} \gets \widetilde{\symbf{Y}}_{\text{ve}}\left[ :, :\Ntwo \right]$;
+            \State \textbf{return} $\widetilde{\symbf{Y}}$;
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+\clearpage

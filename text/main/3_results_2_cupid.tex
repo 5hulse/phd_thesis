@@ -428,46 +428,52 @@ acquired using \ac{CUPID} is compared with a spectrum acquired using
 \ac{PSYCHE}.
 
 \subsubsection{``Four Multiplets''}
-The CUPID procedure was applied on a series of datasets generated
-such that part of the spectrum comprised four ddd multiplet structures with
-significant overlap. To achieve this, a spin-system with 7 spins was
-constructed (Figure \ref{fig:four_multiplets}.a). 4 of the spins (the
-\emph{``estimated spins''}) were assigned random chemical shifts sampled from a
-uniform distribution with frequencies in the range $\pm \qty{20}{\hertz}$ ($\pm
-\qty{0.04}{\partspermillion}$).  Each of these 4 spins were coupled with the
-remaining 3 spins (the \emph{``coupling spins''}), with each coupling randomly
-sampled from a uniform distribution in the range $\pm\qty{10}{\hertz}$.
+\begin{figure}
+    \centering
+    \includegraphics{four_multiplets/four_multiplets}
+    \caption{TODO}
+    \label{fig:four-multiplets}
+\end{figure}
+A series of simulated \proton\ \ac{2DJ} datasets were generated such that
+within a particular region, four ddd multiplet structures with significant
+overlap existed. To achieve this, a spin-system with 7 spins was
+formed (Figure \ref{fig:four-multiplets}.a). 4 of the spins (the
+``estimated spins'') were assigned random chemical shifts sampled from
+$\mathcal{U}(\qty{-20}{\hertz}, \qty{20}{\hertz})$.
+Each of the estimated spins were coupled with the
+remaining 3 spins (the ``coupling spins''), with each coupling randomly
+sampled from
+$\mathcal{U}(\qty{-10}{\hertz}, \qty{10}{\hertz})$.
 The coupling spins were given chemical shifts such that they lay far from the
-estimated spins in the spectrum. White Gaussian noise was added to the
-FID, with a variance such that the SNR of the FID was approximately
-\qty{30}{\deci\bel}.  Estimation was then performed on a filtered FID
-comprising the signals from the estimated spins ($l = \qty{30}{\hertz}$, $r =
-\qty{-30}{\hertz}$). Figure \ref{fig:four_multiplets}.b illustrates the
-appearance of 5 such datasets generated using the approach. Table
+estimated spins in the spectrum. \ac{AWGN} noise was added to the
+FID, with a variance such that its SNR approximately \qty{30}{\deci\bel}.
+Estimation was then performed on a filtered FID containing the signals from the
+estimated spins
+($l^{(2)}_{\unit{\hertz}} = \qty{30}{\hertz},
+r^{(2)}_{\unit{\hertz}} = \qty{-30}{\hertz}$).
+Panel d of Figure \ref{fig:four-multiplets} illustrates 5 such datasets
+generated using this approach. Table
 \ref{tab:shifts_and_couplings} provides the chemical shifts and scalar
 couplings present in each spin system.
 
 Each filtered FID comprised 32 ($4 \times 2^3$) oscillators. To assess the
-estimation procedure's ability, for each dataset generated:
-\begin{enumerate}
-    \item A random integer from the range $[33, 40]$ was given as the initial
-        number of oscillators. In this way, the initial guess would always
-        comprise an excessive number of oscillators.
-    \item An initial guess was generated using the MEMP:
-        $\symbf{\theta}^{(0)}$.
-    \item The initial guess was subjected to non-linear programming, generating
-        the optimised result $\symbf{\theta}^{(*)}$.
-    \item Spurious oscillators were checked for, using the criteria outlined in
-        Section \ref{subsec:spurious_oscillators}, with the threshold for
-        multiplet assignment set to double the spectral resolution in the
-        direct dimension:
-        \[
-            \epsilon = \nicefrac{2f_{\text{sw}}^{(2)}}{\Ntwo}.
-        \]
-        If spurious oscillators were found, these were removed, and non-linear
-        programming was run on the updated set of parameters, updating
-        $\symbf{\theta}^{(*)}$.
-\end{enumerate}
+estimation procedure's ability, for each dataset generated, random integer from
+the range $[33, 40]$ was given as the initial number of oscillators. Hence,
+the initial guess would always comprise an excessive number of oscillators.
+% An initial guess was generated using the MEMP:
+%         $\symbf{\theta}^{(0)}$.
+%     \item The initial guess was subjected to non-linear programming, generating
+%         the optimised result $\symbf{\theta}^{(*)}$.
+%     \item Spurious oscillators were checked for, using the criteria outlined in
+%         Section \ref{subsec:spurious_oscillators}, with the threshold for
+%         multiplet assignment set to double the spectral resolution in the
+%         direct dimension:
+%         \[
+%             \epsilon = \nicefrac{2f_{\text{sw}}^{(2)}}{\Ntwo}.
+%         \]
+%         If spurious oscillators were found, these were removed, and non-linear
+%         programming was run on the updated set of parameters, updating
+%         $\symbf{\theta}^{(*)}$.
 For each random spin system generated, the method was effective at producing an
 estimation result with 32 oscillators, as desired, despite the excessive number
 that the initial guess possessed. Most excessive oscillators were purged from
@@ -477,5 +483,3 @@ oscillators) were then detected using multiplet assignment and removed. The
 pure-shift spectra generated using CUPID closely agree with spectra generated
 by running a Spinach simulation on a spin system with the same chemical shifts,
 but with all scalar couplings set to \qty{0}{\hertz}.
-
-
