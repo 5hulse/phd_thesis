@@ -38,7 +38,7 @@
     Path           = fonts,%
     Extension    = .otf,%
     Path         = fonts/,%
-    StylisticSet = {3,5,8},%
+    StylisticSet = {2,8},%
 ]
 \setmonofont{FiraMono}[%
     Scale       = MatchLowercase,%
