@@ -1,6 +1,83 @@
 \clearpage
 \section{Additional Algorithms}
 
+\begin{algorithm}
+    \caption[
+        Steihaug-Toint method for determining an update for nonlinear
+        programming.
+    ]{
+        Steihaug-Toint method for determining an update for nonlinear
+        programming. This is equivalent to Algorithm 7.2 in \cite{Nocedal2006}.
+    }
+    \label{alg:steihaug-toint}
+    \begin{algorithmic}[1]
+        \Procedure{SteihaugToint}{
+            $\bY \in \mathbb{C}^{\None \times \cdots \times \ND},
+            \bthk \in \mathbb{R}^{2(1 + D)M},
+            \trustradius{k} \in \mathbb{R}_{>0}
+            $
+        }
+            \State $\symbf{g} \gets \nabla \FphithkY$;
+            \Comment{Grad vector: \eqref{eq:grad}}
+            \State $\symbf{H} \gets \nabla^2 \FphithkY$;
+            \Comment{Hessian matrix, either exact: \eqref{eq:hess} or approximate: \eqref{eq:hess-approx}}
+            \State $\epsilon^{(k)} \gets \min\left(
+                    \nicefrac{1}{2},
+                    \sqrt{\left\lVert \symbf{g} \right\rVert}
+                \right)
+                \left\lVert \symbf{g} \right\rVert
+                $;
+            \State $\symbf{z}^{(0)} \gets \symbf{0} \in \mathbb{R}^{6M}$;
+            \State $\symbf{r}^{(0)} \gets \symbf{g}$;
+            \State $\symbf{d}^{(0)} \gets -\symbf{r}^{(0)}$;
+            \If {$\left \lVert \symbf{r}^{(0)} \right \rVert < \epsilon^{(k)}$}
+                \State \textbf{return} $\symbf{z}^{(0)}$;
+            \EndIf
+            \For {$j = \lbrace 0, 1, \cdots \rbrace$}
+                \If {
+                    ${\symbf{d}^{(j)}}^{\mathrm{T}}
+                    \symbf{H}
+                    \symbf{d}^{(j)}
+                    \leq 0$
+                }
+                \State Find $\tau$ such that $\symbf{p}^{(k)} = \symbf{z}^{(j)} + \tau \symbf{d}^{(j)}$
+                    minimises $\FphiQthkpk$, subject to
+                    $\left \lVert \symbf{p}^{(k)} \right \rVert = \trustradius{k}$;
+                    \State \textbf{return} $\symbf{p}^{(k)}$;
+                \EndIf
+                \State $\alpha^{(j)} \gets \dfrac
+                    {{\symbf{r}^{(j)}}^{\mathrm{T}} \symbf{r}^{(j)}}
+                    {
+                        {\symbf{d}^{(j)}}^{\mathrm{T}}
+                        \symbf{H}
+                        \symbf{d}^{(j)}
+                    }$;
+                \State $\symbf{z}^{(j+1)} \gets \symbf{z}^{(j)} + \alpha^{(j)} \symbf{d}^{(j)}$;
+                \If {$\left \lVert \symbf{z}^{(j+1)} \right \rVert < \epsilon^{(k)}$}
+                    \State Find $\tau \in \mathbb{R}_{>0}$ such that
+                        $\symbf{p}^{(k)} = \symbf{z}^{(j)} + \tau \symbf{d}^{(j)}$
+                        satisfies
+                        $\left \lVert \symbf{p}^{(k)} \right \rVert = \trustradius{k}$;
+                    \State \textbf{return} $\symbf{p}^{(k)}$;
+                \EndIf
+                \State $\symbf{r}^{(j+1)} \gets
+                    \symbf{r}^{(j)} +
+                    \alpha^{(j)}
+                    \symbf{H}
+                    \symbf{d}^{(j)}$;
+                    \If{$\left\lVert \symbf{r}^{(j+1)} \right \rVert < \epsilon^{(k)}$}
+                    \State \textbf{return} $\symbf{z}^{(j+1)}$;
+                \EndIf
+                \State $\beta^{(j+1)} \gets
+                    \dfrac{{\symbf{r}^{(j+1)}}^{\mathrm{T}} \symbf{r}^{(j+1)}}{{\symbf{r}^{(j)}}^{\mathrm{T}} \symbf{r}^{(j)}}$;
+                \State $\symbf{d}^{(j+1)} \gets -\symbf{r}^{(j+1)} + \beta^{(j+1)} \symbf{d}^{(j)}$;
+            \EndFor
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+
+
 \begin{algorithm}[h!]
     \begin{algorithmic}[1]
         \caption[
@@ -238,6 +315,32 @@
             \State $\widetilde{\symbf{Y}}_{\text{ve}} \gets \IFT^{(2)} \left( \widetilde{\symbf{S}}_{\text{ve}} \right)$;
             \State $\widetilde{\symbf{Y}} \gets \widetilde{\symbf{Y}}_{\text{ve}}\left[ :, :\Ntwo \right]$;
             \State \textbf{return} $\widetilde{\symbf{Y}}$;
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{algorithm}
+    \caption{An algorithm for multiplet assignment of a \ac{2DJ} estimation result.}
+    \label{alg:mp-assign}
+    \begin{algorithmic}[1]
+        \Procedure {MultipletAssign}{$\bth \in \mathbb{R}^{6M}, \epsilon \in \mathbb{R}_{>0}$}
+        \State $\bdfone, \bdftwo \gets \bth\left[2M : 3M\right], \bth\left[3M : 4M\right]$;
+        \State $\textsc{Map} \gets \textsc{HashMap}\left[\mathbb{R}, \textsc{Vector}\left[\mathbb{N}_0\right]\right]$;
+        \For {$m = \lbrace 0, \cdots, M-1 \rbrace$}
+            \State $f_{\text{c}} = \bdftwom - \bdfonem$;
+            \State $\textsc{Assigned} \gets \textsc{False}$;
+            \For {$f_{\text{mp}}, \symbf{i}$ \textbf{in} \textsc{Map}}
+                \If{$\left \lvert f_{\text{c}} - f_{\text{mp}} \right \rvert < \epsilon$}
+                    \State $\symbf{i} \gets \left[ \symbf{i}\T \hspace{5pt} m \right]\T$;
+                    \State $\textsc{Assigned} \gets \textsc{True}$;
+                    \State \textbf{break};
+                \EndIf
+            \EndFor
+            \If{$\textsc{Assigned} = \textsc{False}$}
+                \State \textsc{Map}.insert $\left(f_{\text{c}}, \left[m\right]\right)$;
+            \EndIf
+        \EndFor
+        \State \textbf{return} \textsc{Map};
         \EndProcedure
     \end{algorithmic}
 \end{algorithm}

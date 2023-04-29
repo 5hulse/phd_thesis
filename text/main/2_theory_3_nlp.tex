@@ -106,13 +106,13 @@ consideration of it will now be made.
 
 \subsubsection{Trust Region Methods}
 
-The structure of a trust region method is presented in Algorithm
+The structure of a typical trust region method is presented in Algorithm
 \ref{alg:nlp} (ignoring lines
 \ref{state:neg-amp-start}--\ref{state:neg-amp-end}, which is a custom addition,
-see Section \ref{subsec:phase-variance}). An initial radius for the region
+see Section \ref{subsec:phase-variance}). An initial trust radius for the region
 $\trustradius{0}$ is defined, along with a maximum permitted trust radius
 $\trmax$, to ensure that excessively adventurous steps do not take place.
-For each iteration, one then seeks a solution to the sub-problem
+For each iteration, a solution to the following sub-problem is sought:
 \begin{equation}
     \begin{split}
         \bpk = \argmin_{\bp \in \mathbb{R}^{n}}
@@ -125,11 +125,11 @@ For each iteration, one then seeks a solution to the sub-problem
 This sub-problem is not usually minimised exactly, but instead an efficient
 means of determining a sufficiently good value for $\bpk$ is used.
 Common approaches include computing the Cauchy point and the Dogleg
-method\cite[Section 4.1]{Nocedal2006}, and a truncated conjugate-gradient
-approach, also known as the \ac{ST} method\cite[Algorithm7.2]{Nocedal2006},
-which is employed in this work. In the \ac{ST} approach, iterates of
-the conjugate-gradient method are used, until either they go beyond the trust
-region, or negative curvature is discovered. \note{Algorithm in appendix?}
+method, and a truncated conjugate-gradient
+approach, also known as the \ac{ST} method\cite[Chapter 7]{Nocedal2006},
+which is employed in this work (Algorithm \ref{alg:steihaug-toint}). In the
+\ac{ST} approach, iterates of the conjugate-gradient method are used, until
+either they go beyond the trust region, or negative curvature is discovered.
 
 Once a step $\bpk$ is determined, a metric is considered which indicates how
 effectively the quadratic estimate at the proposed update $\bthkplusone = \bthk
@@ -155,7 +155,7 @@ quadratic model reflects the true fidelity poorly, such that the proposed
 update should be rejected
 (lines \ref{state:small-rho-start}-\ref{state:small-rho-end}).
 As well as this, the trust region's radius should be
-decreased to ensure the model does behave faithfully.
+decreased such that the model is more likely to behave faithfully
 (lines \ref{state:decrease-tr-start}-\ref{state:decrease-tr-end}). The exact
 thresholds which dictate whether to accept an update, and whether to adjust the
 trust region radius are customisable. The hard-coded numerical values found in
@@ -165,7 +165,7 @@ Algorithm \ref{alg:nlp} are the values used in this work, and the defaults in
 \subsection{Non-linear programming applied to FID estimation}
 Returning to the problem of FID estimation, the fidelity $\FthY
 : \mathbb{C}^{\None \times \cdots \times \ND} \times
-\mathbb{R}^{2(D+2)M} \rightarrow \mathbb{R}$ is given by
+\mathbb{R}^{2(1 + D)M} \rightarrow \mathbb{R}$ is given by
 \begin{equation}
     \FthY = \left \lVert \bY - \bXth \right \rVert^2.
 \end{equation}
@@ -176,8 +176,8 @@ Returning to the problem of FID estimation, the fidelity $\FthY
     To make the result reflect the actual dataset, the final amplitudes $\bdastar$
     are multiplied by $\lVert \symbf{Y} \rVert$.
 \end{remark}
-The elements of the gradient vector $\bdgthY \in \mathbb{R}^{2(D+2)M}$ and
-the Hessian matrix $\bdHthY \in \mathbb{R}^{2(D+2)M \times 2(D+2)M}$ are then
+The elements of the gradient vector $\bdgthY \in \mathbb{R}^{2(1+D)M}$ and
+the Hessian matrix $\bdHthY \in \mathbb{R}^{2(1+D)M \times 2(1+D)M}$ are then
 derived by taking the first and second partial derivatives of the fidelity with
 respect to the elements in $\bth$, respectively:
 \begin{subequations}
@@ -208,9 +208,9 @@ respect to the elements in $\bth$, respectively:
     \end{gather}
     \label{eq:fidelity-grad-hess}
 \end{subequations}
-$\forall i,j \in \lbrace 0, \cdots, 2(D + 2)M - 1 \rbrace$.
+$\forall i,j \in \lbrace 0, \cdots, 2(1+D)M - 1 \rbrace$.
 The complete set of first derivatives of a particular element of the model $x
-\coloneq \bXelem$ (see Equation \ref{eq:x}) are as follows $\forall m \in
+\coloneq \bXelem$ (see \eqref{eq:x}) is as follows $\forall m \in
 \lbrace 0, \cdots, M - 1 \rbrace$:
 \begin{subequations}
     \begin{gather}
@@ -228,7 +228,7 @@ The complete set of first derivatives of a particular element of the model $x
             - \Dtd \nd x.
     \end{gather}
 \end{subequations}
-The complete set of the second derivatives are given by
+The complete set of the second derivatives is given by
 \begin{subequations}
     \begin{gather}
         \xderivtwosame{\bth\left[m\right]} \equiv
@@ -340,8 +340,6 @@ to that of Newton's method close to local minima.  Despite this, by invoking
 this approximation, the rate of convergence (i.e. the number of iterations
 required to reach $\bthstar$ tends to be adversely affected. (See Section
 \ref{subsec:optim-vis} for an example of this phenomenon)
-
-
 
 \subsection{Phase Variance Minimisation}
 \label{subsec:phase-variance}
@@ -590,24 +588,24 @@ so that finally a useable expression for the standard errors is arrived at:
     \begin{algorithmic}[1]
         \Procedure {NLP}{$\bY \in \mathbb{C}^{\None \times \cdots \times \ND}, \bthzero \in \mathbb{R}^{2(D + 1)M}$}
             \State $\trustradius{0} \gets \nicefrac{1}{10} \left\lVert \bdgthzeroY \right\rVert$;
-            \State $\trmax \gets 16 \Delta^{(0)}$;
+            \State $\trmax \gets 16 \trustradius{0}$;
             \For {$k = 0, 1, \cdots $}
-                \State $\symbf{p}^{(k)} \gets \textsc{SteihaugToint}\left(\symbf{Y}, \symbf{\theta}^{(k)}, \Delta^{(k)}\right)$;
-                \Comment{See Algorithm \ref{alg:cg-steihaug}}
+            \State $\symbf{p}^{(k)} \gets \textsc{SteihaugToint}\left(\symbf{Y}, \symbf{\theta}^{(k)}, \trustradius{k}\right)$;
+                \Comment{See Algorithm \ref{alg:steihaug-toint}}
                 \State $\rho^{(k)} \gets
                     \frac
                         {\Fphithk - \Fphithkpk}
                         {\FphiQthk - \FphiQthkpk}$;
                 \If {$\rho_k < \nicefrac{1}{4}$}
                 \label{state:decrease-tr-start}
-                    \State $\Delta^{(k+1)} \gets \nicefrac{1}{4} \Delta^{(k)}$;
+                \State $\trustradius{k+1} \gets \nicefrac{1}{4} \trustradius{k}$;
                     \label{state:decrease-tr-end}
-                \ElsIf {$\rho_k > \nicefrac{3}{4}$ \textbf{ and } $\left\lVert \symbf{p}^{(k)} \right\rVert = \Delta^{(k)}$}
+                    \ElsIf {$\rho_k > \nicefrac{3}{4}$ \textbf{ and } $\left\lVert \symbf{p}^{(k)} \right\rVert = \trustradius{k}$}
                 \label{state:increase-tr-start}
-                    \State $\Delta^{(k+1)} \gets \min\left(2 \Delta^{(k)}, \trmax\right)$;
+                \State $\trustradius{k+1} \gets \min\left(2 \trustradius{k}, \trmax\right)$;
                     \label{state:increase-tr-end}
                 \Else
-                    \State $\Delta^{(k+1)} \gets \Delta^{(k)}$;
+                \State $\trustradius{k+1} \gets \trustradius{k}$;
                 \EndIf
                 \If{$\rho^{(k)} > \nicefrac{3}{20}$}
                 \label{state:large-rho-start}
@@ -641,8 +639,6 @@ so that finally a useable expression for the standard errors is arrived at:
         \EndProcedure
     \end{algorithmic}
 \end{algorithm}
-
-
 
 \subsection{Visualisation of a simple example}
 \label{subsec:optim-vis}

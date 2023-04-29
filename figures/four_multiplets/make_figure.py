@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Thu 27 Apr 2023 15:22:11 BST
+# Last Edited: Fri 28 Apr 2023 18:41:35 BST
 
 from pathlib import Path
 import matplotlib as mpl
@@ -18,10 +18,6 @@ ytop = 52.
 ax1_ylim = (15, -15)
 plots_left = 0.055
 plots_right = 0.99
-# system_left = 0.01
-# system_right = 0.2
-# system_h = 0.4
-# spin_size = 400
 
 colors = mpl.rcParams["axes.prop_cycle"].by_key()["color"]
 
@@ -155,7 +151,7 @@ for i, axs in enumerate(plot_axes.T):
         axs[0].plot(
             ps_shifts + ps_xshift,
             ps_spectrum.real + cupid_shift,
-            color="#808080",
+            color="#c0c0c0",
         )
         axs[0].plot(
             line.get_xdata(),
