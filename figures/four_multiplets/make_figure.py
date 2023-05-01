@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Fri 28 Apr 2023 18:41:35 BST
+# Last Edited: Mon 01 May 2023 20:42:14 BST
 
 from pathlib import Path
 import matplotlib as mpl
@@ -28,92 +28,15 @@ fig, plot_axes = plt.subplots(
     ncols=5,
     gridspec_kw={
         "top": 0.99,
-        "bottom": 0.07,
+        "bottom": 0.09,
         "left": plots_left,
         "right": plots_right,
         "hspace": 0.,
         "wspace": 0.04,
         "height_ratios": (2, 1),
     },
-    figsize=(6, 4),
+    figsize=(6, 3),
 )
-
-# system_ax = fig.add_axes(
-#     [system_left, 0.5 - system_h / 2, system_right - system_left, system_h]
-# )
-
-# system_ax.set_xticks([])
-# system_ax.set_yticks([])
-
-
-# active_x = np.linspace(0.1, 0.9, 4)
-# active_y = np.linspace(0.1, 0.1, 4)
-# for x, y, color, letter in zip(
-#     active_x, active_y, colors, reversed(("A", "B", "C", "D"))
-# ):
-#     system_ax.scatter(
-#         x,
-#         y,
-#         facecolor=color,
-#         edgecolor="k",
-#         transform=system_ax.transAxes,
-#         s=spin_size,
-#     )
-#     system_ax.text(
-#         x,
-#         y,
-#         f"\\textbf{{{letter}}}",
-#         ha="center",
-#         va="center",
-#         transform=system_ax.transAxes,
-#         fontsize=10,
-#     )
-
-# passive_x = np.linspace(0.2, 0.8, 3)
-# passive_y = np.linspace(0.9, 0.9, 3)
-# for x, y, letter in zip(passive_x, passive_y, ("G", "F", "E")):
-#     system_ax.scatter(
-#         x,
-#         y,
-#         facecolor="#808080",
-#         edgecolor="k",
-#         transform=system_ax.transAxes,
-#         s=spin_size,
-#     )
-#     system_ax.text(
-#         x,
-#         y,
-#         f"\\textbf{{{letter}}}",
-#         ha="center",
-#         va="center",
-#         transform=system_ax.transAxes,
-#         fontsize=10,
-#     )
-
-# for act_x, act_y, color in zip(active_x, active_y, colors):
-#     for i, (pas_x, pas_y) in enumerate(zip(passive_x, passive_y)):
-#         if i == 0:
-#             ls = "-"
-#         elif i == 1:
-#             ls = "--"
-#         elif i == 2:
-#             ls = ":"
-#         system_ax.plot(
-#             [act_x, pas_x],
-#             [act_y, pas_y],
-#             color=color,
-#             transform=system_ax.transAxes,
-#             zorder=0,
-#             ls=ls,
-#         )
-# system_ax.text(
-#     0.02,
-#     0.95,
-#     "\\textbf{a.}",
-#     transform=system_ax.transAxes,
-# )
-
-# panel_labels(fig, 0.253, (0.96, 0.625, 0.44, 0.36), start=98)
 
 estimator_dir = estimator_dir / "estimators"
 for i, axs in enumerate(plot_axes.T):
@@ -180,9 +103,9 @@ for i, axs in enumerate(plot_axes.T):
         f2 = params[mp, 3]
         axs[1].scatter(f2, f1, s=4, edgecolor="none", facecolor=color, alpha=1)
         for ax in axs:
-            ax.axvline(cf, color=color, ls="--", alpha=0.4, zorder=0)
+            ax.axvline(cf, color=color, ls="-", zorder=100, lw=0.5)
 
-    axs[0].text(0.985, 0.96, f"Run {i + 1}", transform=axs[0].transAxes, fontsize=8, ha="right")
+    axs[0].text(0.985, 0.945, f"\\textbf{{Run {i + 1}}}", transform=axs[0].transAxes, fontsize=7, ha="right")
 
     axs[0].set_xticks([])
     axs[1].set_xticks([20, 0, -20])
@@ -196,10 +119,12 @@ for i, axs in enumerate(plot_axes.T):
     axs[0].set_ylim(top=ytop)
     axs[1].set_ylim(ax1_ylim)
 
+plot_axes[1, 0].set_yticks([-10, -5, 0, 5, 10])
+
 fig.text((plots_left + plots_right) / 2, 0.01, "\\textsuperscript{1}H (Hz)", ha="center", fontsize=8)  # noqa: E501
 
 label_x = 0.06
-label_ys = (0.965, 0.62, 0.44, 0.355)
+label_ys = (0.96, 0.615, 0.44, 0.355)
 for i, label_y in enumerate(label_ys, start=97):
     char = chr(i)
     fig.text(label_x, label_y, f"\\textbf{{{char}.}}")

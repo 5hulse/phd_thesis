@@ -1,11 +1,14 @@
 \section{Outline of the Problem}
+\label{sec:theory-outline}
+For the purposes of this work, it is always assumed that an \ac{FID} to be
+estimated is hypercomplex in form, meaning that it obeys
+\eqref{eq:general-fid} with $\zeta = \exp(\iu \cdot)\ \forall d \in \lbrace 1,
+\cdots D \rbrace$:
 \begin{subequations}
     \begin{gather}
         \bY \left[\none, \cdots, \nD\right] =
             \bX \left( \bth \right) \left[\none, \cdots, \nD\right] +
-            \bW \left[\none, \cdots, \nD\right]
-            \quad \forall \nd \in \mathbb{N}_0 : \nd < \Nd,\label{eq:y}
-             \\
+            \bW \left[\none, \cdots, \nD\right] \\
         \bX \left(\bth\right) \left[\none, \cdots, \nD\right] =
         \sum_{m=0}^{M-1} \bdam \exp\left(
                 \iu \bdphim
@@ -26,15 +29,14 @@ presence in \ac{AWGN}. It is the goal of parametric estimation to establish the
 identity of all the quantities which describe the model component $\bX$. These
 can be distilled into the vector $\bth \in \mathbb{R}^{2(D + 2)M}$:
 
-
 Due to the assumed \ac{AWGN} nature of the noise array, the \ac{pdf} of an individual noise component
-$w \coloneq \symbf{W}\left[\none, \cdots, \nD\right]$is
+$w \coloneq \symbf{W}\left[\none, \cdots, \nD\right]$ is
 \begin{equation}
     p(w) =
         \frac{1}{2\pi \sigma^2}
         \exp\left( -\frac{\left\lvert w \right\rvert^2}{2\sigma^2}\right).
 \end{equation}
-as the elements are independent and identically distributed, the joint \ac{pdf}
+As the elements are independent and identically distributed, the joint \ac{pdf}
 describing the entire noise array is given by the product of each element's
 \ac{pdf}:
 \begin{equation}
@@ -52,8 +54,7 @@ describing the entire noise array is given by the product of each element's
             \exp\left( -\frac{\left\lVert \bW \right\rVert^2}{2\sigma^2}\right)
     \end{split}
 \end{equation}
-where $\mathfrak{N} = \None \cdots \ND$ is the total number of points in the
-signal. As the noise array is the difference between the data and model, the
+As the noise array is the difference between the data and model, the
 likelihood function of $\bth$ given $\bY$, $\mathcal{L}\left(\bth \vert
 \bY\right)$, is given by
 \begin{equation}

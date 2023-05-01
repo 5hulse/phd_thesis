@@ -290,15 +290,14 @@ A.5]{Levitt2007} (see Figure \ref{fig:quadrature}), such that \acp{FID} adopt
 the form of a summation of $M$ complex exponentials (oscillators), where $M \in
 \mathbb{N}$ is the number of resonances contributing to the signal. Each
 resonance will be subjected to damping due to relaxation phenomena, which is
-typically exponential in nature.  An \ac{FID} acquired with $N$ samples
-therefore conventionally takes the form
+typically exponential in nature.  An \ac{FID} acquired with $N$ samples $\by
+\in \mathbb{C}^{N}$ therefore takes the form
 \begin{subequations}
     \begin{gather}
-        \CN \ni
         \by \left[n\right] =
             \bx \left[ n \right] +
             \bw \left[ n \right]
-            \quad \forall n \in \mathbb{N}_0 : n < N,
+            \quad \forall n \in \lbrace 0, 1, \cdots, N - 1 \rbrace,
             \label{eq:y=x+w} \\
         \bx \left[n\right] =
             \sum_{m=0}^{M-1} \bdam \exp\left(
@@ -314,8 +313,8 @@ $\foff$ is included to account for the transmitter offset, which is the
 difference between the carrier wave frequency of the transmitter and the
 spectrometer basic frequency. \eqref{eq:1d} indicates that \iac{FID} comprises
 contributions from the (modellable) evolution of the spin magnetisation $\bx$
-and experimental noise $\bw$ (\emph{vide infra}). Each oscillator is defined by
-four parameters:
+and experimental noise $\bw$ (\emph{vide infra}). Each oscillator which
+contributes to $\bx$ is defined by four parameters:
 \begin{itemize}
     \item $a \in \mathbb{R}_{>0}$ - the amplitude,
     \item $\phi \in (-\pi, \pi]$ - the phase,
@@ -329,12 +328,14 @@ four parameters:
     \bth =
     \begin{bmatrix}
         \symbf{a}\T & \symbf{\phi}\T & \symbf{f}\T & \symbf{\eta}\T
-    \end{bmatrix}\T.
+    \end{bmatrix}\T,
 \end{equation}
+where $\bda \in \mathbb{R}^M$ is a vector of all amplitudes, $\bdphi \in
+\mathbb{R}^M$ is a vector of all phases, etc.
 
 Multidimensional experiments involve incrementing one or more experimental
-parameters, and acquiring multiple \ac{1D} \acp{FID} with the same form as in
-\eqref{eq:1d} for each parameter/set of parameters. In a $D$-dimensional
+parameters (a common example being a particular delay period in the pulse
+sequence), in order to obtain an array of \ac{1D} \acp{FID}. In a $D$-dimensional
 dataset, each contributing resonance is parameterised by an amplitude and phase
 as before, and also $D$ distinct frequencies and corresponding damping factors,
 such that a general parameter vector  $\bth \in \mathbb{R}^{2(1+D)M}$ is
@@ -370,23 +371,19 @@ $\bY \in \mathbb{C}^{\None \times \cdots \times \ND}$ can be expressed as
     \begin{gather}
         \begin{split}
             \bY\left[\none, \cdots, \nD\right] =
-                &\sum_{m=0}^{M-1} \bdam \exp\left( \iu \bdphim \right) \times \\
-                &\prod_{d=1}^D
+                &\sum_{m=0}^{M-1} \bdam \exp\left( \iu \bdphim \right) \\
+                &\times \prod_{d=1}^D
                 \zeta\left(2 \pi \left(\symbf{f}^{(d)}_{\vphantom{\text{off}}}[m]  - \foffd\right) \nd \Dtd\right)
-                \exp\left(-\symbf{\eta}^{(d)}_{\vphantom{\text{off}}}[m] \nd \Dtd\right) +\\
-                &\symbf{W}\left[n^{(1)}, \cdots, n^{(D)}\right]
+                \exp\left(-\symbf{\eta}^{(d)}_{\vphantom{\text{off}}}[m] \nd \Dtd\right)\\
+                &+\symbf{W}\left[n^{(1)}, \cdots, n^{(D)}\right]
         \end{split}\\
-        \bY\left[\none, \cdots, \nD\right] =
-            \sum_{m=0}^{M-1} \bdalpham
-            \prod_{d=1}^D \bdzd[m] +
-            \symbf{W}\left[n^{(1)}, \cdots, n^{(D)}\right], \\
         \zeta(\cdot)
         \begin{cases}
             = \exp(\iu\cdot) & d = D \\
             \in \left\lbrace \cos(\cdot), \sin(\cdot), \exp(\iu\cdot) \exp(-\iu\cdot)\right\rbrace & \text{otherwise}
         \end{cases},
     \end{gather}
-    \label{eq:general fid}%
+    \label{eq:general-fid}%
 \end{subequations}%
 
 Without any specific knowledge about the experiment, it is typical to assume
@@ -416,18 +413,17 @@ appendix}
     \end{split}
 \end{equation}
 where $\mathfrak{N} \coloneq \None \cdots \ND$ is the total number of points
-the signal comprises. Due to he large dynamic range that the \ac{SNR} can
-exhibit, it is commonplace to express it using a logarithmic scale instead, in
-decibels (\unit{\deci\bel}):
+the signal comprises. Due to the large dynamic range that the \ac{SNR} can
+exhibit, it is commonplace to express it using a logarithmic scale instead,
+using decibels (\unit{\deci\bel}):
 \begin{equation}
     \begin{split}
         \SNR_{\unit{\deci\bel}} &\coloneq 10 \log_{10} \left(\SNR\right).
     \end{split}
 \end{equation}
-From this, the noise variance associated with a signal a given
-$\SNR_{\unit{\deci\bel}}$ is
+From this, the noise variance associated with a signal is
 \begin{equation}
-    \sigma^2 = \frac{1}{ 20^{\nicefrac{\SNR_{\unit{\deci\bel}}}{10}}\mathfrak{N}}
+    \sigma^2 = \frac{1}{ 20^{\frac{\SNR_{\unit{\deci\bel}}}{10}}\mathfrak{N}}
         \sum_{\none=0}^{\None-1} \cdots \sum_{\nd=0}^{\ND-1}
         \left \lvert \bX \left[\none, \cdots, \nD \right] \right \rvert^2
 \end{equation}
