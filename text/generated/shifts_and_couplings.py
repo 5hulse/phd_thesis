@@ -1,7 +1,7 @@
 # shifts_and_couplings.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Fri 28 Apr 2023 19:02:04 BST
+# Last Edited: Tue 02 May 2023 22:12:09 BST
 
 from pathlib import Path
 import pickle
@@ -15,24 +15,26 @@ with open(RESULT_DIR / "sucrose/couplings.pkl", "rb") as fh:
     couplings = pickle.load(fh)
 
 table = """
-\\begin{longtable}[h!]{c c c}
+\\begin{longtable}[h!]{c c c c}
 \\caption[
-    The isotropic chemical shifts and scalar couplings used in simulated datasets.
+The isotropic chemical shifts and scalar couplings used in simulated datasets presented in this work.
 ]{
-The isotropic chemical shifts and scalar couplings used in the simulated examples presented in Section \\ref{subsec:simulated_results}.
+The isotropic chemical shifts ($\\delta$), corresponding rotating frame
+frequencies ($\\omega_{\\text{rot}}$), and scalar couplings ($J$) used in simulated
+datasets presented in this work.
 }
 \\label{tab:shifts_and_couplings}\\\\
 \\hline
-\\textbf{Spin} & \\textbf{Shift} (\\unit{\\partspermillion}/\\unit{\\hertz}) & \\textbf{Couplings} (\\unit{\\hertz}) \\\\
+Spin & $\\delta$ (\\unit{\\partspermillion}) & $\\omega_{\\text{rot}}$ (\\unit{\\hertz}) & $J$ (\\unit{\\hertz}) \\\\
 \\hline
 \\endfirsthead
 \\hline
-\\textbf{Spin} & \\textbf{Shift} (\\unit{\\partspermillion}/\\unit{\\hertz}) & \\textbf{Couplings} (\\unit{\\hertz}) \\\\
+Spin & $\\delta$ (\\unit{\\partspermillion}) & $\\omega_{\\text{rot}}$ (\\unit{\\hertz}) & $J$ (\\unit{\\hertz}) \\\\
 \\hline
 \\endhead
 \\hline
 \\endlastfoot
-\\multicolumn{3}{r}{Continues on next page...}\\\\
+\\multicolumn{4}{r}{Continues on next page...}\\\\
 \\hline
 \\endfoot
 <FOUR-MP>
@@ -56,14 +58,14 @@ for coupling in couplings:
 
 sucrose_data = (
     "\\hline\n"
-    "\\multicolumn{3}{c}{\\textbf{Sucrose}}\\\\\n"
+    "\\multicolumn{4}{c}{\\textbf{Sucrose}}\\\\\n"
     "\\hline\n"
 )
 for i, shift in enumerate(shifts, start=1):
-    sucrose_data += f"\\textbf{{{chr(64 + i)}}} & {shift:.4g}/{shift*300:.4g} & "
+    sucrose_data += f"\\textbf{{{chr(64 + i)}}} & {shift:.3f} & {shift*300:.1f} & "
     if i in per_spin_couplings:
         sucrose_data += ", ".join(
-            [f"\\textbf{{{chr(64 + spin2)}}}: ${freq:.2f}$"
+            [f"\\textbf{{{chr(64 + spin2)}}}: ${freq:.3f}$"
              for spin2, freq in per_spin_couplings[i]]
         )
     else:
@@ -79,7 +81,7 @@ with open(RESULT_DIR / "four_multiplets/shifts_and_couplings.txt", "r") as fh:
 shift_regex = re.compile(r"^\d: (-?\d\.\d+)")
 coupling_regex = re.compile(r"^\d: (.*?)\n")
 for i in range(1, 6):
-    four_mp_data += f"\\hline\n\\multicolumn{{3}}{{c}}{{\\textbf{{Four Multiplets, Run {i}}}}}\\\\\n\\hline\n"
+    four_mp_data += f"\\hline\n\\multicolumn{{4}}{{c}}{{\\textbf{{Four Multiplets, Run {i}}}}}\\\\\n\\hline\n"
     for _ in range(5):
         txt.pop(0)
     for _ in range(2):
@@ -91,11 +93,11 @@ for i in range(1, 6):
         coupling_line = txt[spin + 4]
         couplings = ", ".join(
             [
-                f"\\textbf{{{chr(69 + i)}:}} {float(x):.4g}" for i, x in
+                f"\\textbf{{{chr(69 + i)}:}} {float(x):.3f}" for i, x in
                 enumerate(re.search(coupling_regex, coupling_line).group(1).split(", "))
             ]
         )
-        four_mp_data += f"\\textbf{{{chr(65 + spin)}}} & {shift_ppm:.4g}/{shift_hz:.4g} & {couplings} \\\\\n"
+        four_mp_data += f"\\textbf{{{chr(65 + spin)}}} & \\num{{{shift_ppm:.2e}}} & {shift_hz:.2f} & {couplings} \\\\\n"
     for _ in range(9):
         txt.pop(0)
 

@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Mon 01 May 2023 20:42:14 BST
+# Last Edited: Tue 02 May 2023 21:58:27 BST
 
 from pathlib import Path
 import matplotlib as mpl
@@ -103,7 +103,7 @@ for i, axs in enumerate(plot_axes.T):
         f2 = params[mp, 3]
         axs[1].scatter(f2, f1, s=4, edgecolor="none", facecolor=color, alpha=1)
         for ax in axs:
-            ax.axvline(cf, color=color, ls="-", zorder=100, lw=0.5)
+            ax.axvline(cf, color=color, ls="-", zorder=-1, lw=0.5)
 
     axs[0].text(0.985, 0.945, f"\\textbf{{Run {i + 1}}}", transform=axs[0].transAxes, fontsize=7, ha="right")
 

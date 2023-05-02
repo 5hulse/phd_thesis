@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Mon 01 May 2023 19:53:16 BST
+# Last Edited: Tue 02 May 2023 21:54:19 BST
 
 from pathlib import Path
 import pickle
@@ -18,7 +18,7 @@ from utils import (
     raise_axes,
 )
 
-RESULT_DIR = Path("/tmp/results").resolve()
+RESULT_DIR = Path("~/Documents/DPhil/results").expanduser()
 
 result_dir = RESULT_DIR / "cupid/sucrose"
 estimator_path = result_dir / "estimator"
@@ -48,7 +48,7 @@ fig, axs = estimator.plot_result(
     contour_color="k",
     contour_lw=0.1,
     multiplet_colors=colors,
-    marker_size=2.,
+    marker_size=1.,
     figsize=(6, 3),
     region_unit="ppm",
     axes_region_separation=0.01,
@@ -100,25 +100,19 @@ mx0, mn0 = axs[0, 0].get_xlim()
 mx1, mn1 = axs[0, 1].get_xlim()
 
 for i, (x, y, s) in enumerate(zip(label_xs, label_ys, label_texts)):
-    # if i == 2:
-    #     x += 0.012
-    # elif i == 3:
-    #     x -= 0.012
     if i == 7:
-        x += 0.014
-    elif i == 8:
-        x -= 0.014
+        x += 0.01
     if mn0 < x < mx0:
         axs[0, 0].text(
             x, y, s, ha="center",
             bbox={"facecolor": "w", "pad": 0.5, "edgecolor": "none"},
-            zorder=1000, fontsize=8,
+            zorder=1000, fontsize=7,
         )
     elif mn1 < x < mx1:
         axs[0, 1].text(
             x, y, s, ha="center",
             bbox={"facecolor": "w", "pad": 0.5, "edgecolor": "none"},
-            zorder=1000, fontsize=8,
+            zorder=1000, fontsize=7,
         )
 
 raise_axes(axs, 1.07)
@@ -130,6 +124,6 @@ for ax_col in axs.T:
         color = line.get_color()
         line.remove()
         for ax in ax_col:
-            ax.axvline(x, color=color, alpha=0.4, ls="-", zorder=500, lw=0.5)
+            ax.axvline(x, color=color, ls="-", zorder=-1, lw=0.5)
 
 fig.savefig(save_path)

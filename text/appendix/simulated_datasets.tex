@@ -1,3 +1,29 @@
 \section{Information on simulated datasets}
+\label{sec:simulated-datasets}
+
+Table \ref{tab:shifts_and_couplings} provides a specification of the chemical
+shifts and scalar couplings that made up the spin systems used to construct
+simulated data with Spinach. In all cases, the dataset was generated using the
+\texttt{new\_spinach} method associated with the relevant
+\texttt{Estimator} object in \ac{EsPy}. The \texttt{new\_spianch} method takes the
+chemical shifts and scalar couplings as arguments, as well as a specification
+of the basic experiment parameters including the number of points sampled, the
+sweep width, etc. It instantiates a
+\href{https://www.mathworks.com/help/matlab/matlab-engine-for-python.html}{MATLAB\textregistered\
+engine}, and runs a Spinach simulation, and finally stores the simulated
+\ac{FID} within a new \texttt{Estimator} object.
+
+For the \ac{2DJ} sucrose dataset, the chemical shifts and couplings were
+extracted from a logfile of a Guassian computation which ships with Spinach at
+the path
+\path{SPINACHROOT/examples/standard_systems/sucrose.log}.
+This file was loaded, and the chemical shift tensors and couplings for the 22 spins
+were extracted. Isotropic chemical shifts were determined for each spin $i
+\in \lbrace 1, \cdots, 22\rbrace$ via
+\begin{equation}
+    \sigma^{\text{iso}}_i = \frac{\Tr \symbf{\sigma}_i}{3},
+\end{equation}
+where $\symbf{\sigma}_i \in \mathbb{R}^{3 \times 3}$ is the chemical shift
+tensor of spin $i$.
 
 \input{text/generated/shifts_and_couplings}

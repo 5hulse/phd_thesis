@@ -17,7 +17,7 @@ axes.xmargin: .03
 axes.ymargin: .03
 axes.labelpad: 0
 # LINES
-lines.linewidth: 1
+lines.linewidth: 0.8
 lines.markersize: 4
 # TEXT (XeLaTeX)
 font.size: 10

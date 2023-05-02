@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Mon 01 May 2023 20:08:31 BST
+# Last Edited: Tue 02 May 2023 22:50:52 BST
 
 from pathlib import Path
 
@@ -10,7 +10,6 @@ from matplotlib.patches import ConnectionPatch
 import matplotlib as mpl
 import numpy as np
 from utils import (
-    THESIS_DIR,
     add_pure_shift_labels,
     get_pure_shift_labels,
     fix_linewidths,
@@ -18,7 +17,7 @@ from utils import (
     raise_axes,
 )
 
-RESULT_DIR = Path("/tmp/results/cupid").resolve()
+RESULT_DIR = Path("~/Documents/DPhil/results/cupid").expanduser()
 
 # === CONFIGURATION ===
 estimator_path = RESULT_DIR / "quinine/estimator_postedit"
@@ -31,16 +30,15 @@ ax_top = onedim_shift + 3e6
 
 # =====================
 
-
 estimator = ne.Estimator2DJ.from_pickle(estimator_path)
-
+print(2 * estimator.default_multiplet_thold)
 colors = mpl.rcParams["axes.prop_cycle"].by_key()["color"]
 fig, axs = estimator.plot_result(
     axes_right=0.98,
     axes_bottom=0.09,
     axes_top=0.975,
     axes_left=0.055,
-    multiplet_thold=1.2,
+    multiplet_thold=2 * estimator.default_multiplet_thold,
     region_unit="ppm",
     contour_base=1.8e4,
     contour_nlevels=10,
@@ -54,7 +52,7 @@ fig, axs = estimator.plot_result(
     xaxis_label_height=0.015,
     xaxis_ticks=[
         (0, (5.8, 5.7, 5.6)),
-        (1, (4.95,)),
+        (1, (4.9,)),
         (2, (3.7,)),
         (3, (3.1,)),
         (4, (2.75, 2.65)),
@@ -67,7 +65,7 @@ fig, axs = estimator.plot_result(
 fig.texts[0].set_fontsize(8)
 axs[1, 0].set_yticks([-20, -10, 0, 10, 20])
 
-fix_linewidths(axs, mpl.rcParams["lines.linewidth"])
+fix_linewidths(axs, 0.8)
 panel_labels(fig, 0.06, (0.94, 0.5, 0.4, 0.28))
 
 _, shifts = estimator.get_shifts(unit="ppm", meshgrid=False)
@@ -85,7 +83,7 @@ spec_without_h2o = cupid_spectrum[r1_slice[0]:r1_slice[1]]
 prev_spec = axs[0][1].get_lines()[-3]
 vshift = prev_spec.get_ydata()[0] - spec_without_h2o[0]
 prev_spec.remove()
-specline = axs[0][1].plot(shifts_r1, spec_without_h2o + vshift, color="k")
+specline = axs[0][1].plot(shifts_r1, spec_without_h2o + vshift, color="k", lw=0.8)
 
 raise_axes(axs, 1.07)
 n_ax = axs[0].size
@@ -109,24 +107,22 @@ for i, (ax0, ax1) in enumerate(zip(axs[0], axs[1])):
             zorder=-1,
         )
         ax1.add_patch(con)
-        ax0.axvline(x, color=line.get_color(), lw=0.5, zorder=500)
+        ax0.axvline(x, color=line.get_color(), lw=0.5, zorder=-1)
 
 # Label pure shift peaks
 xs, ys, ss = get_pure_shift_labels(estimator, yshift=2.1e6)
-xs[3] -= 0.008
-xs[6] -= 0.018
-xs[7] += 0.015
-xs[10] -= 0.004
+xs[6] -= 0.015
 ss[3] = "(D)*"
-add_pure_shift_labels(axs[0], xs, ys, ss, fs=8)
+add_pure_shift_labels(axs[0], xs, ys, ss, fs=7)
 
 
 fig.text(
-    0.32,
+    0.30,
     0.41,
     "H\\textsubscript{2}\\hspace{-0.7pt}O",
     color=colors[4],
-    fontsize=6,
+    fontsize=8,
 )
+
 
 fig.savefig(save_path)
