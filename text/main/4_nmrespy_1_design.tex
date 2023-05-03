@@ -1,0 +1,86 @@
+\section{The Structure of \acs{EsPy}}
+
+\subsection{Why \textsc{Python}?}
+There a number of reasons why \textsc{Python} was the chosen programming
+language for \ac{EsPy}:
+\begin{itemize}
+    \item It has a large user-base, particularly within the scientific
+        community.
+    \item The \textsc{SciPy} ecosystem\cite{Virtanen2020}, including the packages
+        \textsc{NumPy}\cite{Harris2020} and
+        \textsc{Matplotlib}\cite{Hunter2007} is a powerful tool which enables
+        high-performance scientific computation in \textsc{Python}
+    \item Being a scripting language makes \textsc{Python} ideal for
+        exploring datasets in a step-by-step fashion. This is useful in the
+        context of \ac{NMR} estimation, as the user may want to
+        (a) inspect and pre-process then data, ten (b) determine the regions
+        they wish to estimate, then (c) setup the estimation routine, and
+        finally (d) output the estimation result. This can be achieved rather
+        easily by hacking and re-running \textsc{Python} scripts or by using
+        ``notebook'' environments, such as \textsc{Jupyter}.
+    \item It is free and open-source, as opposed to well-known scientific
+        computing platforms such as \textsc{Matlab}\textregistered\ and
+        \textsc{Mathematica}.
+    \item \textsc{Python} supports sophisticated object-oriented programming
+        features, such as multiple levels of inheritance.
+\end{itemize}
+
+Probably the biggest drawback of \textsc{Python} is its slow performance on
+account of it being an interpreted\footnote{
+    With interpreted languages, the source code is processed line-by-line at
+    the time of running by an interpreter. This differs from compiled
+    languages, where prior to being run, the source code is converted to
+    machine-readable byte-code.
+}
+, dynamically typed\footnote{
+    Dynamically typed languages, as opposed to statically typed languages like
+    \textsc{C}, \textsc{C++}, \textsc{Java}, \textsc{Rust} etc. allow for a
+    variable which is initially assigned a given type to be re-assigned to a
+    completely different type.
+}, language with relies on garbage collection\footnote{
+    Garbage collection involves a program routinely checking for any memory
+    that has become dereferenced, and clearing this memory up.
+}
+for memory management. While \textsc{NumPy} provides interfaces to run fast
+computations with pre-compiled C-code, a significant performnace benefit would
+likely be realised if a low-level compiled language like C, C++, or
+\textsc{Rust} were used. However the development time in writing programs with
+these lower-level languages is typically a lot greater than with a language
+with a higher level of abstraction like \textsc{Python}.
+
+\subsection{???}
+The fundamental user-facing object that \ac{EsPy} provides is the
+\texttt{Estimator} class and its numerous inherited classes, which facilitate
+the estimation of different types of \ac{NMR} data. A
+complete list of estimator objects at the time of writing is given in Table
+\ref{tab:estimators}
+
+\begin{longtable}{c p{9cm}}
+\caption[
+    A complete list of estimator objects provided by \ac{EsPy} at the time of writing.
+]{
+    A complete list of estimator objects provided by \ac{EsPy} at the time of writing.
+    \note{Maybe indicate that the inv rec and diffusion estimators share
+    similar functionality, except for the amplitude fitting. Diffusion
+experiments only differ in definition of fitting constant.}
+}
+\label{tab:estimators}\\
+\hline
+Type & Description \\
+\hline
+\texttt{Estimator1D} & For consideration of 1D datasets. \\
+\texttt{Estimator2D} & For consideration of 2D datasets comprising a pair of
+States (amplitude-modulated) signals. \\
+\texttt{Estimator2DJ} & For consideration of \ac{2DJ} datasets. This object
+provides the functionality to generate pure shift spectra and assign multiplet
+structures using \ac{CUPID}.\\
+\texttt{EstimatorInvRec} & For consideration of inversion recovery ($T_1$)
+experiments. \\
+\texttt{EstimatorDiffusionMonopolar} & For consideration of monopolar gradient
+diffusion experiments. \\
+\texttt{EstimatorDiffusionBipolar} & For consideration of bipolar gradient
+diffusion experiments. \\
+\texttt{EstimatorDiffusionOneshot} & For consideration of one-shot \ac{DOSY}
+experiments. \\
+\hline
+\end{longtable}

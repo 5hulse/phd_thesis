@@ -595,7 +595,7 @@ the integrals of these...}
 
 \subsubsection{Dexamethasone}
 
-\begin{figure}%
+\begin{sidewaysfigure}%
     \centering%
     \includegraphics{dexamethasone_cupid/dexamethasone_cupid.pdf}%
     \caption[
@@ -612,4 +612,32 @@ the integrals of these...}
         with the locations of assigned oscillators given as coloured points.
     }
     \label{fig:dexamethasone-cupid}%
-\end{figure}%
+\end{sidewaysfigure}%
+\note{Double check mp thold}
+
+Figure \ref{fig:dexamethasone-cupid} shows the result of applying CUPID on a
+dataset acquired from a sample dexamethasone in DMSO-d\textsubscript{6}. A
+pure-shift spectrum was also acquired using the
+\ac{TSE-PSYCHE} experiment\cite{Foroozandeh2018,Foroozandeh2015} for
+comparison.
+\ac{CUPID} generated a pure-shift spectrum with overall excellent agreement
+with the PSYCHE spectrum. Certain multiplet structures in the spectrum exhibit
+splitting in $\Ftwo$, on account of heteronuclear couplings to \textsuperscript{19}F. Most
+notable are those derived from spins D, H \& O. For the D multiplet, the
+magnitude of $J_{\textsuperscript{1}H,\textsuperscript{19}F}$ is very small
+such that assigning these to separate oscillators is infeasible.
+For the spin N multiplet, two separate structures were successfully assigned
+(see the orange and green multiplets around \qty{2.1}{\partspermillion}).
+The estimation routine was unsuccessful at accurately estimating the structure
+associated with spin H, where a severe under-fitting occurred. An under-fitting
+of this structure even occurred when the estimation was re-run using
+considerable over-estimation of the model order, with most oscillators in the
+initial guess being purged during the \ac{NLP} procedure. The result of
+under-fitting, as already discussed, leads to peaks in the final \ac{CUPID}
+spectrum being broadened, with the spin H multiplet providing an extreme
+example of this. The most downfield peaks in the CUPID spectrum (corresponding
+to aromatic and hydroxyl protons) also appear to be noticeably broadened
+relative to their PSYCHE equivalents. This is also probably due to
+under-fitting of the relevant multiplet structures, though to a far less
+noticeable extent than for spin H. \note{Any other reason why this might be so?}
+
