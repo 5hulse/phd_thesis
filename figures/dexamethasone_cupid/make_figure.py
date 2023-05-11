@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Wed 03 May 2023 11:49:01 BST
+# Last Edited: Thu 04 May 2023 20:28:14 BST
 
 from pathlib import Path
 
@@ -16,7 +16,7 @@ from utils import (
     panel_labels,
 )
 
-mpl.rcParams["lines.linewidth"] = 0.5
+# mpl.rcParams["lines.linewidth"] = 0.5
 
 DATA_DIR = Path("~/Documents/DPhil/data").expanduser()
 RESULT_DIR = Path("~/Documents/DPhil/results/cupid").expanduser()
@@ -26,27 +26,26 @@ estimator_path = RESULT_DIR / "dexamethasone/estimator_postedit"
 estimator = ne.Estimator2DJ.from_pickle(estimator_path)
 estimator._results[6].region = (None, (estimator._results[6].region[1][0], 1540.))
 
-thold = 2 * estimator.default_multiplet_thold
+thold = (estimator.sw()[1] / estimator.default_pts[1])
 print(thold)
-exit()
 colors = mpl.rcParams["axes.prop_cycle"].by_key()["color"]
 fig, axs = estimator.plot_result(
     multiplet_thold=thold,
     region_unit="ppm",
     contour_base=3.e3,
     contour_nlevels=10,
-    contour_factor=1.6,
+    contour_factor=1.8,
     contour_color="k",
     contour_lw=0.1,
     multiplet_colors=colors,
-    marker_size=1.,
+    marker_size=3.,
     multiplet_show_45=False,
     multiplet_show_center_freq=True,
-    axes_bottom=0.09,
-    axes_left=0.05,
+    axes_bottom=0.062,
+    axes_left=0.035,
     axes_right=0.995,
-    axes_top=0.98,
-    xaxis_label_height=0.015,
+    axes_top=0.985,
+    xaxis_label_height=0.01,
     jres_sinebell=True,
     ratio_1d_2d=(3., 1.),
     xaxis_ticks=[
@@ -60,7 +59,7 @@ fig, axs = estimator.plot_result(
         (8, (1.8, 1.6, 1.4)),
         (9, (1, 0.8)),
     ],
-    figsize=(6, 3),
+    figsize=(9, 4.5),
 )
 fig.texts[0].set_fontsize(8)
 
@@ -127,7 +126,7 @@ for i, ax in enumerate(axs[0]):
         zorder=58,
     )
 
-    ax.set_ylim(top=1.5e6)
+    ax.set_ylim(top=1.47e6)
 
     breaklines = [
         line for line in ax.get_lines()
@@ -148,18 +147,16 @@ fig.text(
     zorder=100,
 )
 
-panel_labels(fig, 0.055, (0.945, 0.635, 0.475, 0.38, 0.29))
+panel_labels(fig, 0.04, (0.96, 0.635, 0.47, 0.38, 0.29))
 
 axs[1][0].set_yticks([20, 10, 0, -10, -20])
 
 xs, ys, ss = get_pure_shift_labels(estimator, thold=25000)
 xs[7] = (xs[7] + xs.pop(7)) / 2
 xs.pop(11)
-xs[12] -= 0.01
-xs[13] += 0.03
-xs[14] -= 0.03
-xs[-2] += 0.005
-xs[-1] -= 0.005
+# xs[12] -= 0.01
+xs[13] += 0.02
+xs[14] -= 0.02
 ys[7] = max(ys[7], ys.pop(7))
 ys.pop(11)
 ys = [8.7e5 + y for y in ys]

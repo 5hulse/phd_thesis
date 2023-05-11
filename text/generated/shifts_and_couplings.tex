@@ -1,87 +1,167 @@
 
-\begin{longtable}[h!]{c c c c}
+\begin{longtable}[h!]{c c c c c c}
 \caption[
-The isotropic chemical shifts and scalar couplings used in simulated datasets presented in this work.
+The isotropic chemical shifts, scalar couplings and relaxation times
+associated with spin systems used in \textsc{Spinach} simulations.
 ]{
 The isotropic chemical shifts ($\delta$), corresponding rotating frame
-frequencies ($\omega_{\text{rot}}$), and scalar couplings ($J$) used in simulated
-datasets presented in this work.
+frequencies ($\omega_{\text{rot}}$), scalar couplings ($J$), and
+relaxation times ($T_1$, $T_2$, if applicable)
+associated with spin systems used in \textsc{Spinach} simulations.
 }
 \label{tab:shifts_and_couplings}\\
 \hline
-Spin & $\delta$ (\unit{\partspermillion}) & $\omega_{\text{rot}}$ (\unit{\hertz}) & $J$ (\unit{\hertz}) \\
+Spin & $\delta$ (\unit{\partspermillion}) & $\omega_{\text{rot}}$ (\unit{\hertz}) & $J$ (\unit{\hertz}) & $T_1$ (\unit{\second}) & $T_2$ (\unit{\second})\\
 \hline
 \endfirsthead
 \hline
-Spin & $\delta$ (\unit{\partspermillion}) & $\omega_{\text{rot}}$ (\unit{\hertz}) & $J$ (\unit{\hertz}) \\
+Spin & $\delta$ (\unit{\partspermillion}) & $\omega_{\text{rot}}$ (\unit{\hertz}) & $J$ (\unit{\hertz}) & $T_1$ (\unit{\second}) & $T_2$ (\unit{\second})\\
 \hline
 \endhead
 \hline
 \endlastfoot
-\multicolumn{4}{r}{Continues on next page...}\\
+\multicolumn{6}{r}{Continues on next page...}\\
 \hline
 \endfoot
 \hline
-\multicolumn{4}{c}{\textbf{Four Multiplets, Run 1}}\\
+\multicolumn{6}{c}{\textbf{Four Multiplets, Run 1}}\\
 \hline
-\textbf{A} & \num{-2.78e-02} & -13.93 & \textbf{E:} -9.627, \textbf{F:} -8.202, \textbf{G:} 6.742 \\
-\textbf{B} & \num{-7.11e-03} & -3.56 & \textbf{E:} -4.491, \textbf{F:} 5.333, \textbf{G:} 9.303 \\
-\textbf{C} & \num{-1.63e-03} & -0.81 & \textbf{E:} 3.953, \textbf{F:} 5.422, \textbf{G:} 5.914 \\
-\textbf{D} & \num{1.53e-02} & 7.66 & \textbf{E:} -7.902, \textbf{F:} -4.556, \textbf{G:} 6.217 \\
+\textbf{A} & \num{-2.78e-02} & -13.93 & \textbf{E:} -9.627, \textbf{F:} -8.202, \textbf{G:} 6.742 & -- & --\\
+
+\textbf{B} & \num{-7.11e-03} & -3.56 & \textbf{E:} -4.491, \textbf{F:} 5.333, \textbf{G:} 9.303 & -- & --\\
+
+\textbf{C} & \num{-1.63e-03} & -0.81 & \textbf{E:} 3.953, \textbf{F:} 5.422, \textbf{G:} 5.914 & -- & --\\
+
+\textbf{D} & \num{1.53e-02} & 7.66 & \textbf{E:} -7.902, \textbf{F:} -4.556, \textbf{G:} 6.217 & -- & --\\
 \hline
-\multicolumn{4}{c}{\textbf{Four Multiplets, Run 2}}\\
+\multicolumn{6}{c}{\textbf{Four Multiplets, Run 2}}\\
 \hline
-\textbf{A} & \num{-1.48e-02} & -7.38 & \textbf{E:} -7.492, \textbf{F:} 0.917, \textbf{G:} 2.933 \\
-\textbf{B} & \num{-1.18e-02} & -5.88 & \textbf{E:} -4.304, \textbf{F:} -1.815, \textbf{G:} 5.420 \\
-\textbf{C} & \num{-4.32e-03} & -2.16 & \textbf{E:} 4.832, \textbf{F:} 7.573, \textbf{G:} 8.268 \\
-\textbf{D} & \num{1.76e-02} & 8.80 & \textbf{E:} -9.244, \textbf{F:} -1.816, \textbf{G:} -0.478 \\
+\textbf{A} & \num{-1.48e-02} & -7.38 & \textbf{E:} -7.492, \textbf{F:} 0.917, \textbf{G:} 2.933 & -- & --\\
+
+\textbf{B} & \num{-1.18e-02} & -5.88 & \textbf{E:} -4.304, \textbf{F:} -1.815, \textbf{G:} 5.420 & -- & --\\
+
+\textbf{C} & \num{-4.32e-03} & -2.16 & \textbf{E:} 4.832, \textbf{F:} 7.573, \textbf{G:} 8.268 & -- & --\\
+
+\textbf{D} & \num{1.76e-02} & 8.80 & \textbf{E:} -9.244, \textbf{F:} -1.816, \textbf{G:} -0.478 & -- & --\\
 \hline
-\multicolumn{4}{c}{\textbf{Four Multiplets, Run 3}}\\
+\multicolumn{6}{c}{\textbf{Four Multiplets, Run 3}}\\
 \hline
-\textbf{A} & \num{-2.23e-02} & -11.17 & \textbf{E:} -5.347, \textbf{F:} -1.851, \textbf{G:} 1.407 \\
-\textbf{B} & \num{1.13e-02} & 5.66 & \textbf{E:} 6.425, \textbf{F:} 7.291, \textbf{G:} 9.806 \\
-\textbf{C} & \num{2.53e-02} & 12.64 & \textbf{E:} -8.640, \textbf{F:} 0.613, \textbf{G:} 6.998 \\
-\textbf{D} & \num{2.84e-02} & 14.21 & \textbf{E:} -8.613, \textbf{F:} 0.782, \textbf{G:} 3.830 \\
+\textbf{A} & \num{-2.23e-02} & -11.17 & \textbf{E:} -5.347, \textbf{F:} -1.851, \textbf{G:} 1.407 & -- & --\\
+
+\textbf{B} & \num{1.13e-02} & 5.66 & \textbf{E:} 6.425, \textbf{F:} 7.291, \textbf{G:} 9.806 & -- & --\\
+
+\textbf{C} & \num{2.53e-02} & 12.64 & \textbf{E:} -8.640, \textbf{F:} 0.613, \textbf{G:} 6.998 & -- & --\\
+
+\textbf{D} & \num{2.84e-02} & 14.21 & \textbf{E:} -8.613, \textbf{F:} 0.782, \textbf{G:} 3.830 & -- & --\\
 \hline
-\multicolumn{4}{c}{\textbf{Four Multiplets, Run 4}}\\
+\multicolumn{6}{c}{\textbf{Four Multiplets, Run 4}}\\
 \hline
-\textbf{A} & \num{-2.03e-02} & -10.16 & \textbf{E:} -8.646, \textbf{F:} 6.719, \textbf{G:} 7.921 \\
-\textbf{B} & \num{3.53e-03} & 1.77 & \textbf{E:} -8.857, \textbf{F:} 4.314, \textbf{G:} 9.197 \\
-\textbf{C} & \num{8.61e-03} & 4.30 & \textbf{E:} -0.620, \textbf{F:} 1.767, \textbf{G:} 6.567 \\
-\textbf{D} & \num{2.06e-02} & 10.30 & \textbf{E:} -9.060, \textbf{F:} 2.355, \textbf{G:} 9.810 \\
+\textbf{A} & \num{-2.03e-02} & -10.16 & \textbf{E:} -8.646, \textbf{F:} 6.719, \textbf{G:} 7.921 & -- & --\\
+
+\textbf{B} & \num{3.53e-03} & 1.77 & \textbf{E:} -8.857, \textbf{F:} 4.314, \textbf{G:} 9.197 & -- & --\\
+
+\textbf{C} & \num{8.61e-03} & 4.30 & \textbf{E:} -0.620, \textbf{F:} 1.767, \textbf{G:} 6.567 & -- & --\\
+
+\textbf{D} & \num{2.06e-02} & 10.30 & \textbf{E:} -9.060, \textbf{F:} 2.355, \textbf{G:} 9.810 & -- & --\\
 \hline
-\multicolumn{4}{c}{\textbf{Four Multiplets, Run 5}}\\
+\multicolumn{6}{c}{\textbf{Four Multiplets, Run 5}}\\
 \hline
-\textbf{A} & \num{-9.16e-03} & -4.58 & \textbf{E:} -8.281, \textbf{F:} 1.621, \textbf{G:} 3.229 \\
-\textbf{B} & \num{-2.79e-03} & -1.40 & \textbf{E:} 1.655, \textbf{F:} 4.219, \textbf{G:} 6.998 \\
-\textbf{C} & \num{3.00e-03} & 1.50 & \textbf{E:} -4.280, \textbf{F:} 1.045, \textbf{G:} 5.896 \\
-\textbf{D} & \num{2.74e-02} & 13.72 & \textbf{E:} -9.316, \textbf{F:} -8.322, \textbf{G:} -3.938 \\
+\textbf{A} & \num{-9.16e-03} & -4.58 & \textbf{E:} -8.281, \textbf{F:} 1.621, \textbf{G:} 3.229 & -- & --\\
+
+\textbf{B} & \num{-2.79e-03} & -1.40 & \textbf{E:} 1.655, \textbf{F:} 4.219, \textbf{G:} 6.998 & -- & --\\
+
+\textbf{C} & \num{3.00e-03} & 1.50 & \textbf{E:} -4.280, \textbf{F:} 1.045, \textbf{G:} 5.896 & -- & --\\
+
+\textbf{D} & \num{2.74e-02} & 13.72 & \textbf{E:} -9.316, \textbf{F:} -8.322, \textbf{G:} -3.938 & -- & --\\
 
 \hline
-\multicolumn{4}{c}{\textbf{Sucrose}}\\
+\multicolumn{6}{c}{\textbf{Sucrose}}\\
 \hline
-\textbf{A} & 6.005 & 1801.6 & \textbf{B}: $2.285$ \\
-\textbf{B} & 3.510 & 1053.1 & \textbf{A}: $2.285$, \textbf{C}: $4.657$, \textbf{H}: $4.828$ \\
-\textbf{C} & 3.934 & 1180.2 & \textbf{B}: $4.657$, \textbf{D}: $4.326$ \\
-\textbf{D} & 3.423 & 1027.0 & \textbf{C}: $4.326$, \textbf{E}: $4.851$ \\
-\textbf{E} & 4.554 & 1366.1 & \textbf{D}: $4.851$, \textbf{F}: $5.440$, \textbf{G}: $2.288$ \\
-\textbf{F} & 3.891 & 1167.4 & \textbf{E}: $5.440$, \textbf{G}: $-6.210$ \\
-\textbf{G} & 4.287 & 1286.2 & \textbf{E}: $2.288$, \textbf{F}: $-6.210$, \textbf{K}: $7.256$ \\
-\textbf{H} & 3.332 & 999.5 & \textbf{B}: $4.828$ \\
-\textbf{I} & 1.908 & 572.3 & -- \\
-\textbf{J} & 1.555 & 466.6 & -- \\
-\textbf{K} & 0.644 & 193.3 & \textbf{G}: $7.256$ \\
-\textbf{L} & 4.042 & 1212.5 & \textbf{M}: $-4.005$, \textbf{S}: $1.460$ \\
-\textbf{M} & 4.517 & 1355.0 & \textbf{L}: $-4.005$ \\
-\textbf{N} & 3.889 & 1166.7 & \textbf{O}: $4.253$ \\
-\textbf{O} & 4.635 & 1390.4 & \textbf{N}: $4.253$, \textbf{P}: $4.448$, \textbf{U}: $3.221$ \\
-\textbf{P} & 4.160 & 1248.0 & \textbf{O}: $4.448$, \textbf{R}: $4.733$ \\
-\textbf{Q} & 4.021 & 1206.2 & \textbf{R}: $-4.182$ \\
-\textbf{R} & 4.408 & 1322.4 & \textbf{P}: $4.733$, \textbf{Q}: $-4.182$, \textbf{V}: $1.350$ \\
-\textbf{S} & 0.311 & 93.3 & \textbf{L}: $1.460$ \\
-\textbf{T} & 1.334 & 400.2 & -- \\
-\textbf{U} & 0.893 & 267.9 & \textbf{O}: $3.221$ \\
-\textbf{V} & 0.150 & 45.0 & \textbf{R}: $1.350$ \\
+\textbf{A} & 6.005 & 1801.6 & \textbf{B}: $2.285$& --& -- \\
+\textbf{B} & 3.510 & 1053.1 & \textbf{A}: $2.285$, \textbf{C}: $4.657$, \textbf{H}: $4.828$& --& -- \\
+\textbf{C} & 3.934 & 1180.2 & \textbf{B}: $4.657$, \textbf{D}: $4.326$& --& -- \\
+\textbf{D} & 3.423 & 1027.0 & \textbf{C}: $4.326$, \textbf{E}: $4.851$& --& -- \\
+\textbf{E} & 4.554 & 1366.1 & \textbf{D}: $4.851$, \textbf{F}: $5.440$, \textbf{G}: $2.288$& --& -- \\
+\textbf{F} & 3.891 & 1167.4 & \textbf{E}: $5.440$, \textbf{G}: $-6.210$& --& -- \\
+\textbf{G} & 4.287 & 1286.2 & \textbf{E}: $2.288$, \textbf{F}: $-6.210$, \textbf{K}: $7.256$& --& -- \\
+\textbf{H} & 3.332 & 999.5 & \textbf{B}: $4.828$& --& -- \\
+\textbf{I} & 1.908 & 572.3 & --& --& -- \\
+\textbf{J} & 1.555 & 466.6 & --& --& -- \\
+\textbf{K} & 0.644 & 193.3 & \textbf{G}: $7.256$& --& -- \\
+\textbf{L} & 4.042 & 1212.5 & \textbf{M}: $-4.005$, \textbf{S}: $1.460$& --& -- \\
+\textbf{M} & 4.517 & 1355.0 & \textbf{L}: $-4.005$& --& -- \\
+\textbf{N} & 3.889 & 1166.7 & \textbf{O}: $4.253$& --& -- \\
+\textbf{O} & 4.635 & 1390.4 & \textbf{N}: $4.253$, \textbf{P}: $4.448$, \textbf{U}: $3.221$& --& -- \\
+\textbf{P} & 4.160 & 1248.0 & \textbf{O}: $4.448$, \textbf{R}: $4.733$& --& -- \\
+\textbf{Q} & 4.021 & 1206.2 & \textbf{R}: $-4.182$& --& -- \\
+\textbf{R} & 4.408 & 1322.4 & \textbf{P}: $4.733$, \textbf{Q}: $-4.182$, \textbf{V}: $1.350$& --& -- \\
+\textbf{S} & 0.311 & 93.3 & \textbf{L}: $1.460$& --& -- \\
+\textbf{T} & 1.334 & 400.2 & --& --& -- \\
+\textbf{U} & 0.893 & 267.9 & \textbf{O}: $3.221$& --& -- \\
+\textbf{V} & 0.150 & 45.0 & \textbf{R}: $1.350$& --& -- \\
+
+\hline
+\multicolumn{6}{c}{\textbf{Five Multiplets, Run 1}}\\
+\hline
+\textbf{A} & \num{1.33e+00} & 665.99 & \textbf{F:} 10.965, \textbf{G:} 12.657, \textbf{H:} 17.070 & 2.178 & --\\
+
+\textbf{B} & \num{1.47e+00} & 735.44 & \textbf{F:} 3.610, \textbf{G:} 2.543, \textbf{H:} 8.448 & 4.430 & --\\
+
+\textbf{C} & \num{1.31e+00} & 653.87 & \textbf{F:} 10.630, \textbf{G:} 6.282, \textbf{H:} 3.012 & 3.319 & --\\
+
+\textbf{D} & \num{1.41e+00} & 705.01 & \textbf{F:} 8.101, \textbf{G:} 4.589, \textbf{H:} 9.068 & 1.007 & --\\
+
+\textbf{E} & \num{1.30e+00} & 650.23 & \textbf{F:} 3.014, \textbf{G:} 16.537, \textbf{H:} 15.587 & 4.992 & --\\
+\hline
+\multicolumn{6}{c}{\textbf{Five Multiplets, Run 2}}\\
+\hline
+\textbf{A} & \num{1.47e+00} & 733.07 & \textbf{F:} 19.488, \textbf{G:} 18.279, \textbf{H:} 3.147 & 3.600 & --\\
+
+\textbf{B} & \num{1.36e+00} & 681.25 & \textbf{F:} 11.924, \textbf{G:} 8.400, \textbf{H:} 5.515 & 3.905 & --\\
+
+\textbf{C} & \num{1.30e+00} & 651.61 & \textbf{F:} 13.672, \textbf{G:} 6.543, \textbf{H:} 16.275 & 4.291 & --\\
+
+\textbf{D} & \num{1.43e+00} & 713.48 & \textbf{F:} 12.007, \textbf{G:} 5.141, \textbf{H:} 9.981 & 1.687 & --\\
+
+\textbf{E} & \num{1.49e+00} & 744.53 & \textbf{F:} 8.715, \textbf{G:} 14.309, \textbf{H:} 9.805 & 3.214 & --\\
+\hline
+\multicolumn{6}{c}{\textbf{Five Multiplets, Run 3}}\\
+\hline
+\textbf{A} & \num{1.32e+00} & 658.87 & \textbf{F:} 4.984, \textbf{G:} 18.119, \textbf{H:} 10.642 & 3.846 & --\\
+
+\textbf{B} & \num{1.44e+00} & 719.50 & \textbf{F:} 13.518, \textbf{G:} 14.381, \textbf{H:} 3.074 & 1.018 & --\\
+
+\textbf{C} & \num{1.37e+00} & 683.34 & \textbf{F:} 8.758, \textbf{G:} 16.689, \textbf{H:} 12.956 & 4.766 & --\\
+
+\textbf{D} & \num{1.35e+00} & 676.98 & \textbf{F:} 17.648, \textbf{G:} 7.514, \textbf{H:} 3.918 & 3.414 & --\\
+
+\textbf{E} & \num{1.49e+00} & 746.76 & \textbf{F:} 16.396, \textbf{G:} 7.455, \textbf{H:} 11.352 & 1.827 & --\\
+
+\hline
+\multicolumn{6}{c}{\textbf{Strychinine}}\\
+\hline
+\textbf{A} & 7.167 & 2150.1 & \textbf{B}: $7.490$, \textbf{C}: $1.080$, \textbf{D}: $0.230$& 1.74& 1.26 \\
+\textbf{B} & 7.098 & 2129.4 & \textbf{A}: $7.490$, \textbf{C}: $7.440$, \textbf{D}: $0.980$& 2.47& 1.78 \\
+\textbf{C} & 7.255 & 2176.5 & \textbf{A}: $1.080$, \textbf{B}: $7.440$, \textbf{D}: $7.900$& 2.50& 1.80 \\
+\textbf{D} & 8.092 & 2427.6 & \textbf{A}: $0.230$, \textbf{B}: $0.980$, \textbf{C}: $7.900$& 5.12& 3.69 \\
+\textbf{E} & 3.860 & 1158.0 & \textbf{I}: $10.410$& 1.26& 0.91 \\
+\textbf{F} & 3.132 & 939.6 & \textbf{G}: $-17.340$, \textbf{H}: $3.340$& 0.52& 0.37 \\
+\textbf{G} & 2.670 & 801.0 & \textbf{F}: $-17.340$, \textbf{H}: $8.470$& 0.55& 0.39 \\
+\textbf{H} & 4.288 & 1286.4 & \textbf{F}: $3.340$, \textbf{G}: $8.470$, \textbf{I}: $3.300$& 0.89& 0.64 \\
+\textbf{I} & 1.276 & 382.8 & \textbf{E}: $10.410$, \textbf{H}: $3.300$, \textbf{J}: $3.290$& 0.97& 0.70 \\
+\textbf{J} & 3.150 & 945.0 & \textbf{I}: $3.290$, \textbf{K}: $4.110$, \textbf{L}: $1.960$, \textbf{R}: $1.610$, \textbf{T}: $0.470$& 1.07& 0.77 \\
+\textbf{K} & 2.360 & 708.0 & \textbf{J}: $4.110$, \textbf{L}: $-14.350$, \textbf{M}: $4.330$& 0.42& 0.30 \\
+\textbf{L} & 1.462 & 438.6 & \textbf{J}: $1.960$, \textbf{K}: $-14.350$, \textbf{M}: $2.420$& 0.41& 0.30 \\
+\textbf{M} & 3.963 & 1188.9 & \textbf{K}: $4.330$, \textbf{L}: $2.420$& 1.15& 0.83 \\
+\textbf{N} & 1.890 & 567.0 & \textbf{O}: $-13.900$, \textbf{P}: $5.500$, \textbf{Q}: $7.200$& 0.48& 0.35 \\
+\textbf{O} & 1.890 & 567.0 & \textbf{N}: $-13.900$, \textbf{P}: $3.200$, \textbf{Q}: $10.700$& 0.47& 0.34 \\
+\textbf{P} & 3.219 & 965.7 & \textbf{N}: $5.500$, \textbf{O}: $3.200$, \textbf{Q}: $-13.900$& 0.49& 0.36 \\
+\textbf{Q} & 2.878 & 863.4 & \textbf{N}: $7.200$, \textbf{O}: $10.700$, \textbf{P}: $-13.900$& 0.42& 0.30 \\
+\textbf{R} & 3.716 & 1114.8 & \textbf{J}: $1.610$, \textbf{S}: $-14.800$, \textbf{T}: $1.790$& 0.47& 0.34 \\
+\textbf{S} & 2.745 & 823.5 & \textbf{R}: $-14.800$& 0.45& 0.33 \\
+\textbf{T} & 5.915 & 1774.5 & \textbf{J}: $0.470$, \textbf{R}: $1.790$, \textbf{U}: $7.000$, \textbf{V}: $6.100$& 1.48& 1.06 \\
+\textbf{U} & 4.148 & 1244.4 & \textbf{T}: $7.000$, \textbf{V}: $-13.800$& 0.48& 0.34 \\
+\textbf{V} & 4.066 & 1219.8 & \textbf{T}: $6.100$, \textbf{U}: $-13.800$& 0.55& 0.40 \\
 
 \hline
 \end{longtable}

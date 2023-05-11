@@ -3,6 +3,7 @@ Before discussing the details of the specific \ac{NLP} problem outlined above,
 an general overview is given.
 
 \subsection{An overview of non-linear programming}
+\label{subsec:nlp-overview}
 In an optimisation problem, the goal is to determine the minimum (or maximum)
 of a function $\Fth: \mathbb{R}^n \rightarrow \mathbb{R}, n \in \mathbb{N}$, of
 called the \emph{cost function} or \emph{fidelity}.
@@ -168,6 +169,7 @@ Returning to the problem of FID estimation, the fidelity $\FthY
 \mathbb{R}^{2(1 + D)M} \rightarrow \mathbb{R}$ is given by
 \begin{equation}
     \FthY = \left \lVert \bY - \bXth \right \rVert^2.
+    \label{eq:fidelity}
 \end{equation}
 \begin{remark}
     \label{rem:norm-data}

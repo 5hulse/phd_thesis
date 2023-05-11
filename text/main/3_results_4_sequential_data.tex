@@ -1,136 +1,16 @@
-\section{Sequential Datasets}
-\label{sec}
+\section{Amplitude-attenuated Datasets}
+\label{sec:seq}
 
-There are a number of two-dimensional \ac{NMR} experiments in which the
+There are a number of \ac{2D} \ac{NMR} experiments in which the
 variation of a parameter in the pulse sequence leads to the generation of
-\acp{FID} of the same form except for an attenuation in their amplitudes. These
-include experiments for the determination of translational diffusion rates and
-relaxation properties such as $T_1$, $T_2$, and $T_{1\rho}$. Estimation of such
-datasets using nonlinear programming is attractive as after the first \ac{FID}
-has been estimated without \textit{a priori} information, subsequent \acp{FID}
-can be estimated using the previous result as an initial guess. On top of this,
-only the amplitudes of each increment need to be optimised, as the phases,
-frequencies and damping factors will be unperturbed across increments.
+\acp{FID} of the same form except for an attenuation in their amplitudes across
+increments. These include experiments for the determination of translational
+diffusion rates and relaxation properties such as longitudinal and transverse
+decoherence rates. Here, an extension to the \ac{1D} estimation technique is
+described, facilitating the determination of these properties.
 
-In this chapter, a generalised approach to analysing such datasets using the
-estimation procedure presented in Chapter \ref{chap:theory} is presented.
-
-\subsection{Methodology}
-
-\subsubsection{Outline of the problem}
-There are numerous experiments in which the pulse sequence is repeated over
-multiple values of a certain parameter $\symbf{v} \in \mathbb{R}^I$. Examples
-of this are various relaxation experiments (Section
-\ref{sec:relaxation_experiments}) in which this parameter is effectively the
-amount of time relaxation is allowed to occur, and diffusion experiments
-(Section \ref{sec:diffusion_experiments}) in which it is the strength of the
-diffusion-encoding \acp{PFG}. These experiments lead to an FID $\symbf{Y} \in
-\mathbb{C}^{I \times N}$ in which the value of the experimental parameter
-attenuates the amplitudes of the contributing resonances:
-\begin{equation}
-    Y[i, n] = \sum_{m=1}^M a_m^{(i)} \exp\left(\iu \phi_m\right)
-        \exp\left(\left(2 \pi \iu f_m - \eta_m \right) n \Dt\right).
-\end{equation}
-The variation of the amplitudes of all resonances is described by the parameter
-vector $\symbf{p} \in \mathbb{R}^{2M}$:
-\begin{equation}
-    \symbf{p} = \left[
-        \zeta_1, \psi_1, \zeta_2, \psi_2, \cdots, \zeta_M, \psi_M
-    \right]^{\mathrm{T}}.
-\end{equation}
-$\symbf{\zeta} = \lbrace\zeta_1, \cdots, \zeta_M\rbrace$ are a set of scaling
-parameters, one per oscillator, that are not typically of
-interest, but that are necessary for extracting  $\symbf{\psi} = \lbrace
-\psi_1, \cdots, \psi_M \rbrace$, the of set parameters of interest (relaxation
-rates, diffusion rates, etc. associated with each oscillator). The amplitudes
-vary from increment to increment as a result of some function $\mathcal{A}$,
-whose form varies across different types of experiments (see Table
-\ref{tab:seq_equations}). In general:
-\begin{equation}
-    a^{(i)}_m = a_m(v_i, \zeta_m, \psi_m) = \zeta_m \mathcal{A}\left(v_i, \psi_m \right)
-\end{equation}
-
-\begin{table}
-    \begin{center}
-        \begin{tabular}{ccccccc}
-            \hline
-            Experiment &
-            $v$ &
-            $\zeta$ &
-            $\psi$ &
-            $\mathcal{A}(v, \psi)$ &
-            $\frac{\partial \mathcal{A}(v, \psi)}{\partial \psi}$ &
-            $\frac{\partial^2 \mathcal{A}(v, \psi)}{\partial \psi^2}$ \\ \hline
-            Inversion Recovery &
-            $\tau$ &
-            $a_{\infty}$ &
-            $T_1$ &
-            $\left(1 - 2 \exp \left(-\frac{\tau}{T_{1}}\right)\right)$ &
-            $-\frac{2 \tau}{T_1^2} \exp\left(-\frac{\tau}{T_1}\right)$ &
-            $\frac{2 \tau}{T_1^3} \exp\left(-\frac{\tau}{T_1}\right)\left(2 - \frac{\tau}{T_1}\right)$\\
-            CPMG &
-            $n_{\textrm{cycles}}$ &
-            $a_0$ &
-            $T_2$ &
-            ? &
-            ? &
-            ? \\
-            Diffusion &
-            $g$ &
-            $a_0$ &
-            $D$ &
-            $\exp\left(-c g^2 D\right)$ &
-            $-c g^2 \exp\left(-c g^2 D\right)$ &
-            $c^2 g^4 \exp\left(-c g^2 D\right)$ \\
-            \hline
-       \end{tabular}
-       \caption{
-           The various functional forms of $\mathcal{A}$ according to the
-           different sequential NMR experiments considered in this thesis.
-           $\mathcal{A}$ describes how the amplitude of a resonance is affected
-           by the experimental parameter $v$.
-       }
-       \label{tab:seq_equations}
-    \end{center}
-\end{table}
-
-Determination of $\psi_m$, the parameter of interest for a given oscillator can be achieved by nonlinear programming, via optimisation of the fidelity
-\begin{subequations}
-    \begin{gather}
-        \mathcal{F}\left(\zeta_m, \psi_m | \symbf{v}\right) =
-            \left \lVert \symbf{a}_m - \zeta_m \mathcal{A} \left(\symbf{v},
-            \psi_m\right) \right\rVert_2^2,\\
-        \symbf{a} = \left[a_m^{(1)}, a_m^{(2)}, \cdots,
-            a_m^{(I)}\right]^{\mathrm{T}}.
-    \end{gather}
-\end{subequations}
-
-Derivatives:
-\begin{subequations}
-    \begin{gather}
-        \frac{\partial \zeta_m \mathcal{A} \left(v_i, \psi_m\right)}
-            {\partial \zeta_m} =
-            \mathcal{A}\left(v_i, \psi_m\right) \\
-        \frac{\partial \zeta_m \mathcal{A} \left(v_i, \psi_m\right)}
-            {\partial \psi_m} =
-            \zeta_m \frac{\partial\mathcal{A}\left(v_i, \psi_m\right)}{\partial \psi_m}\\
-        \frac{\partial^2 \zeta_m \mathcal{A} \left(v_i, \psi_m\right)}
-            {\partial \zeta_m^2} = 0\\
-        \frac{\partial^2 \zeta_m \mathcal{A} \left(v_i, \psi_m\right)}
-            {\partial \psi_m \partial \zeta_m} =
-            \frac{\partial^2 \zeta_m \mathcal{A} \left(v_i, \psi_m\right)}
-            {\partial \zeta_m \partial \psi_m} =
-            \frac{\partial\mathcal{A}\left(v_i, \psi_m\right)}{\partial \psi_m}\\
-        \frac{\partial^2 \zeta_m \mathcal{A} \left(v_i, \psi_m\right)}
-            {\partial \psi_m^2} =
-            \zeta_m \frac{\partial^2 \mathcal{A}\left(v_i, \psi_m\right)}{\partial \psi_m^2}\\
-    \end{gather}
-\end{subequations}
-
-It therefore is necessary to determine the amplitudes of a given oscillator for a given increment, which is desribed in the next section
-
-\subsubsection{Determining amplitudes}
-
+After a description of relevant experiments, the estimation procedure is
+p
 
 \subsection{Relaxation experiments}
 \label{sec:relaxation_experiments}
@@ -170,13 +50,9 @@ derivatives of the model, required to construct the grad and Hess are
 \subsection{Diffusion experiments}
 \label{sec:diffusion_experiments}
 
-Along with their widespread use in dephasing undesired coherences in a pulse
-sequence, the use of \acp{PFG} is central to determining translational
-diffusion properties of species with NMR. The first showcase for extracting
-translational diffusion coefficients came from Stejskal and Tanner in 1965, in
-which they introduced the \ac{PGSE} pulse sequence\cite{Stejskal1965} (Figure
-\ref{fig:diffusion_sequences}.a).
-
+The first showcase for extracting translational diffusion coefficients came
+from Stejskal and Tanner in 1965, in which they introduced the \ac{PGSE} pulse
+sequence\cite{Stejskal1965} (Figure \ref{fig:diffusion_sequences}.a).
 The \ac{PGSE} sequence consists of a conventional spin-echo ($\ang{90}
 \xrightarrow{\tau} \ang{180} \xrightarrow{\tau} \text{acquire}$), with
 \acp{PFG} applied after each of the \ac{RF} pulses.
@@ -388,34 +264,371 @@ exact form of $\Delta^{\prime}$ used in Equation
 \ref{eq:stejskal_tanner_generic} will be extremely important for accurate
 measurements of $D$.
 
-The necessary first and second derivatives required to estimate the translational diffusion constant using the \ac{Trust NCG} algorithm are:
-\begin{subequations}
-   \begin{gather}
-       \frac{\partial a}{\partial a_0} = \exp\left(-c g^2 D\right) \\
-       \frac{\partial a}{\partial D} = -a_0 c g^2 \exp\left(-c g^2 D\right) \\
-       \frac{\partial^2 a}{\partial a_0^2} = 0\\
-       \frac{\partial^2 a}{\partial a_0 \partial D} =
-           \frac{\partial^2 a}{\partial D \partial a_0} =
-           -c g^2 \exp\left(-c g^2 D\right) \\
-       \frac{\partial^ 2 a}{\partial D^2} = a_0 c^2 g^4 \exp\left(-c g^2 D\right)
-   \end{gather}
-\end{subequations}
 
+\subsection{Methodology}
+
+\subsubsection{Outline of the problem}
+All the experiments described above can be described in a general fashion.
+Suppose the experiment is run with $K \in \mathbb{N}$ increments, such that there is a
+vector  $\symbf{p} \in \mathbb{R}^K$ which gives the experimental variable for
+each increment.
+The complete \ac{FID} that results from the experiment is expected to take the
+form $\symbf{Y} \in \mathbb{C}^{K \times \None}$ in which the value of the
+experimental parameter attenuates the amplitudes of the contributing
+resonances:
 \begin{equation}
-    \frac{\partial^n x}{\partial D^n} = \left(-c G^2\right)^n \exp\left(-c D G^2\right)
+    \bY\left[k, \none\right] = \sum_{m=0}^{M-1} \symbf{A}\left[k, m\right]  \exp\left(\iu \bdphim \right)
+    \exp\left(\left(2 \pi \iu \left(\bdfone_{\vphantom{\text{off}}} [m] -
+    \foffone\right) - \bdetaone_{\vphantom{\text{off}}} [m] \right) \none
+\Dtone\right).
 \end{equation}
+$\symbf{A} \in \mathbb{R}^{K \times M}$ is a matrix of the amplitudes of
+each oscillator across each increment. A complete parameter vector for this
+signal is given by $\bth \in \mathbb{R}^{(K + 3)M}$:
+\begin{equation}
+    \bth =
+    \begin{bmatrix}
+        \symbf{A}\left[0, :\right]\T \cdots & \symbf{A}\left[K-1, :\right]\T &
+        \bdphi\T & \left[\bdfone\right]\T & \left[\bdetaone\right]\T
+    \end{bmatrix}\T.
+\end{equation}
+The amplitudes are a function of the experiment parameter with the following
+form:
+\begin{equation}
+    \symbf{A}\left[k, m\right] =
+        \symbf{a}_0 \left[m\right]
+        \mathcal{A} \left(
+            \symbf{\psi}\left[m\right] \hspace*{2pt} | \hspace*{2pt}
+            \symbf{p}\left[k\right]
+        \right),
+\end{equation}
+where $\symbf{a}_0 \in \mathbb{R}^{M}$ is a vector of the ``maximal''
+amplitude for each oscillator, and $\symbf{\psi} \in \mathbb{R}^M$ is a vector
+of the parameter of interest (diffusion coefficient, relaxation time etc.) for
+each oscillator . $\symbf{a}_0 [m]$ can be thought of as the largest
+possible amplitude that could be obtained for oscillator $m$ with the given
+experiment:
+\begin{itemize}
+    \item In an inversion recovery experiment, the largest amplitude is
+        achieved as $\tau \rightarrow \infty$, as the spin system will have
+        returned back to equilibrium prior to the \ang{90} pulse.
+    \item With \ac{CPMG} experiments, the greatest amplitude will occur when
+        $n_{\text{cycles}} = 0$, as no time is designated for transverse
+        relaxation to take place.
+    \item For diffusion experiments, the largest amplitude is achieved when
+        $g=0$, since no diffusion-induced dephasing of spins in different
+        positions along the $z$-axis will have occurred.
+\end{itemize}
+The function $\mathcal{A}$ describes how the amplitudes of resonances are
+attenuated by the experimental variable, and has a form which is intimately
+linked to the type of experiment. See Table \ref{tab:seq-equations} for
+specific examples.
+\begin{table}
+    \begin{center}
+        \begin{tabular}{ccccccc}
+            \hline
+            Experiment &
+            $p$ &
+            $\psi$ &
+            $\mathcal{A}(\psi | p)$ &
+            $\frac{\partial \mathcal{A}(\psi | p)}{\partial \psi}$ &
+            $\frac{\partial^2 \mathcal{A}(\psi | p)}{\partial \psi^2}$ \\ \hline
+            Inversion Recovery &
+            $\tau$ &
+            $T_1$ &
+            $\left(1 - 2 \exp \left(-\frac{\tau}{T_{1}}\right)\right)$ &
+            $-\frac{2 \tau}{T_1^2} \exp\left(-\frac{\tau}{T_1}\right)$ &
+            $\frac{2 \tau}{T_1^3} \exp\left(-\frac{\tau}{T_1}\right)\left(2 - \frac{\tau}{T_1}\right)$\\
+            \acs{CPMG} &
+            $n_{\textrm{cycles}}$ &
+            $T_2$ &
+            \note{?} &
+            \note{?} &
+            \note{?} \\
+            Diffusion &
+            $g$ &
+            $D$ &
+            $\exp\left(-c g^2 D\right)$ &
+            $-c g^2 \exp\left(-c g^2 D\right)$ &
+            $c^2 g^4 \exp\left(-c g^2 D\right)$ \\
+            \hline
+       \end{tabular}
+       \caption[
+           The various functional forms of $\mathcal{A}$ according to the
+           different amplitude-attenuating NMR experiments considered.
+       ]
+       {
+           The various functional forms of $\mathcal{A}$ according to the
+           different amplitude-attenuating NMR experiments considered, along
+           with its first and second derivatives, which are required to extract
+           estimates of $\psi$ using \ac{NLP}.
+       }
+       \label{tab:seq-equations}
+    \end{center}
+\end{table}
 
-\subsection{Plotting DOSY-type results}
-Spectrum $S \in \mathbb{R}^{N, I}$ is given by
+\subsubsection{Estimating amplitude-attenuated datasets}
+The close relationship between signals across increments means that completely
+estimating each signal in turn is not necessary. Instead, after the first
+increment is estimated from scratch, yielding $\bth_0 \in \mathbb{R}^{4M}$,
+the phases, frequencies and damping factors are fixed, and subsequent
+increments are determined by taking the parameter estimate of the previous
+iteration $\bth_{k-1}$ and subjecting it to \ac{NLP} where only the amplitudes
+are allowed to be varied.  Thus, determining parameter estimates for each
+iteration where $k \neq 0$ is reduced to the problem\footnote{
+    $\mathcal{F}$ in \eqref{eq:fidelity-amp} reads as ``the fidelity
+    with respect to the amplitudes $\bda$, given phases $\bdphi$,
+    frequencies $\bdfone$, damping factors  $\bdetaone$, and \ac{FID}
+    $\bY[k,:]$''. The expression has exactly the same mathematical form as
+    \eqref{eq:fidelity}, though it emphasises that the phases, frequencies and
+    damping factors are no longer variables to be optimised, but fixed
+    parameters.
+}
+\begin{equation}
+    \symbf{A}[k,:] = \argmin_{\bda \in \mathbb{R}^M}
+        \mathcal{F}\left(\bda \hspace*{2pt} | \hspace*{2pt}
+        \bdphi, \bdfone, \bdetaone, \bY[k,:]\right).
+        \label{eq:fidelity-amp}
+\end{equation}
+A \ac{NLP} routine can solve this very efficiently, typically in few
+iterations, on account of the linear dependence of the model with respect to
+the oscillator amplitudes. The linear dependence also means that second
+derivatives of the model are all zero (see \eqref{eq:amp-second-deriv}),
+such that only first derivatives need to be computed to derive an exact Hessian
+matrix of the fidelity.
+
+\begin{algorithm}
+    \caption{
+        Routine for estimating a sequence of \ac{1D} \acp{FID} which exhibit
+        variation in amplitudes across increments. \textsc{NLPAmp} denotes a
+        routine which is akin to \textsc{NLP} (Algorithm \ref{alg:nlp}), except
+        only amplitudes are allowed to be altered, whilst phases, frequencies
+        and damping factors are fixed.
+    }
+    \label{alg:estimate-seq}
+    \begin{algorithmic}[1]
+        \Procedure{EstimateAmpAttenuated}{
+            $\bY \in \mathbb{C}^{K \times \None},
+            \symbf{r}_{\text{interest}} \in \mathbb{R}^2,
+            \symbf{r}_{\text{noise}} \in \mathbb{R}^2,
+            M \in \mathbb{N}_0$
+        }
+        \State $\bth_0, \symbf{\epsilon}_0 \gets \textsc{Estimate$1$D}\left(
+            \bY[0, :],
+            \symbf{r}_{\text{interest}},
+            \symbf{r}_{\text{noise}},
+            M
+            \right)
+        $;
+        \State $M \gets \nicefrac{\text{len}\left(\bth_0\right)}{4}$;
+        \State $\bth, \symbf{\epsilon} \gets  \symbf{0} \in \mathbb{R}^{(K + 3)M}, \symbf{0} \in \mathbb{R}^{(K + 3)M}$;
+        \Comment{Initialise complete parameter vector.}
+        \State $\bth[:M], \symbf{\epsilon}[:M] \gets \bth_0[:M], \symbf{\epsilon}_0[:M]$;
+        \Comment{Amplitudes for first increment.}
+        \State $\bth[KM:], \symbf{\epsilon}[KM:] \gets \bth_0[M:], \symbf{\epsilon}_0[M:]$;
+        \Comment{Phases, frequencies and damping factors, which are held constant across increments.}
+        \For{$k=1, \cdots, K-1$}
+            \State $\widetilde{\by} \gets \textsc{Filter$1$D}\left(
+                \symbf{Y}[k,:],
+                \symbf{r}_{\text{interest}},
+                \symbf{r}_{\text{noise}}
+                \right);
+                $
+            \Comment{Algorithm \ref{alg:filter-1d}.}
+            \State $\bth_{k}, \symbf{\epsilon}_k \gets \textsc{NLPAmp}\left(\widetilde{\by}, \bth_{k-1}\right)$;
+            \State $\bth[kM : (k+1)M], \symbf{\epsilon}[kM : (k+1)M] \gets \bth_k[:M], \symbf{\epsilon}_k[:M]$;
+            \Comment{Extract amplitudes.}
+        \EndFor
+        \State \textbf{return} $\bth, \symbf{\epsilon}$;
+        \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+\begin{remark}
+    Due to the linear dependence on amplitudes, an alternative means of
+    deriving amplitudes for each increment is to determine the following
+    $\forall k \in \lbrace 1, \cdots, K-1\rbrace$:
+    \begin{subequations}
+        \begin{gather}
+            \symbf{A}[k,:] = \symbf{\Lambda}^+ \bY[k,:], \\
+            \symbf{\Lambda} =
+            \begin{bmatrix}
+                \exp\left(\iu \bdphi [0]\right) & \cdots & \exp\left(\iu \bdphi[M-1]\right) \\
+                \exp\left(\iu \bdphi [0]\right) \symbf{z}[0] & \cdots & \exp\left(\iu \bdphi[M-1]\right) \symbf{z}[M-1]\\
+                \vdots & \ddots & \vdots \\
+                \exp\left(\iu \bdphi [0]\right) \symbf{z}[0]^{\None-1} & \cdots & \exp\left(\iu \bdphi[M-1]\right) \symbf{z}[M-1]^{\None-1}
+            \end{bmatrix},\\
+            \symbf{z}[m] = \exp\left(\left(2\pi \iu \left(\bdfone[m] - \foffone\right) - \bdetaone[m]\right)\Dtone \right).
+        \end{gather}
+    \end{subequations}
+\end{remark}
+
+
+\subsubsection{Determining the parameter of interest}
+Having generated a complete parameter estimate for the \ac{FID}, focus
+subsequently moves to determining the parameters of interest $\symbf{\psi}$.
+For each oscillator, the maximal amplitude and parameter of
+interest are determined by solving the following problem:
+\begin{equation}
+    \begin{bmatrix}
+        \bda_0^{(*)}[m] \\
+        \symbf{\psi}^{(*)}[m]
+    \end{bmatrix} =
+    \argmin_{
+        [a_0 \hspace*{5pt} \psi]\T \in \mathbb{R}^2
+    }
+    \left\lVert
+        \symbf{A}[:, m] - a_0 \mathcal{A} \left(\psi \hspace*{2pt} | \hspace*{2pt} \symbf{p}\right)
+    \right\rVert^2,
+\end{equation}
+which can also be solved using \iac{NLP} routine. The gradient vector and Hessian
+matrix of the fidelity take very similar functional forms to those for \ac{FID}
+estimation (see \eqref{eq:grad} and \eqref{eq:hess}), as both problems
+involve solving residual sum-of-squares problems.
+They are as follows $\forall i, j \in \lbrace 0, 1 \rbrace$:
 \begin{subequations}
     \begin{gather}
-        S = \sum_{m=1}^M \symbf{s}_m \otimes \frac{\symbf{d}}{\max\left(\symbf{d}\right)} \\
-        \symbf{s}_m = \FT\left\lbrace
-            a^{(1)}_m \exp\left(\iu \phi_m\right) \exp\left(\left(2 \pi \iu f_m - \eta_m\right) \symbf{n} \Dt\right)
-        \right\rbrace \\
-        \symbf{d}  = \exp\left(
-            -\frac{\left(\symbf{y} - \theta_2\right)^2}
-            {2 \sigma_2^2}
-        \right)
+        \symbf{g}[i] =
+            -2 \left \langle
+                \symbf{A}[:, m] - a_0 \mathcal{A}(\psi | \symbf{p}),
+                \frac{\partial a_0 \mathcal{A} (\psi | \symbf{p})}
+                {\partial \symbf{\vartheta}[i]}
+            \right \rangle\\
+        \symbf{H}[i,j] =
+            2 \left( \left \langle
+                \frac{\partial a_0 \mathcal{A} (\psi | \symbf{p})}{\partial \symbf{\vartheta}[i]},
+                \frac{\partial a_0 \mathcal{A} (\psi | \symbf{p})}{\partial \symbf{\vartheta}[j]}
+            \right \rangle -
+            \left \langle
+                \symbf{A}[:, m] - a_0 \mathcal{A}(\psi | \symbf{p}),
+                \frac{\partial^2 a_0 \mathcal{A} (\psi | \symbf{p})}{\partial \symbf{\vartheta}[i]\partial \symbf{\vartheta}[j]}
+            \right \rangle \right), \\
+            \mathbb{R}^2 \ni \symbf{\vartheta} = [a_0 \hspace*{10pt} \psi]\T,
     \end{gather}
 \end{subequations}
+with explicit expressions for the requisite first and second derivatives being
+\begin{subequations}
+    \begin{gather}
+        \frac{\partial a_0 \mathcal{A} (\psi | \symbf{p})}{\partial a_0} =
+            \mathcal{A} (\psi | \symbf{p}),\\
+        \frac{\partial a_0 \mathcal{A} (\psi | \symbf{p})}{\partial \psi} =
+            a_0 \frac{\partial \mathcal{A} (\psi | \symbf{p})}{\partial \psi},\\
+        \frac{\partial^2 a_0 \mathcal{A} (\psi | \symbf{p})}{\partial a_0^2} = 0,\\
+        \frac{\partial^2 a_0 \mathcal{A} (\psi | \symbf{p})}{\partial \psi^2} =
+            a_0 \frac{\partial^2 \mathcal{A} (\psi | \symbf{p})}{\partial \psi^2},\\
+        \frac{\partial^2 a_0 \mathcal{A} (\psi | \symbf{p})}{\partial a_0 \partial \psi} =
+            \frac{\partial^2 a_0 \mathcal{A} (\psi | \symbf{p})}{\partial \psi \partial a_0} =
+            \frac{\partial \mathcal{A} (\psi | \symbf{p})}{\partial \psi}.
+    \end{gather}
+\end{subequations}
+The functional forms of the first and second derivatives for the different
+experiments of interest of $\mathcal{A}$ are given in Table
+\ref{tab:seq-equations}.
+
+\subsubsection{Displaying results}
+Visualising the results from the routine described above can be done in a
+similar fashion to \ac{DOSY} analysis. For each oscillator in the estimation
+result, a \ac{2D} array is generated, corresponding to the outer product of the
+\ac{FT} of the oscillator ($\symbf{s}_m$) and a distribution describing the
+predicted value of $\psi$ ($\symbf{d}_m$).
+\begin{subequations}
+    \begin{gather}
+        \mathbb{R}^{R \times \None} \ni \symbf{S} = \sum_{m=0}^{M-1}
+        \frac{\symbf{d}_m}{\text{max}(\symbf{d}_m)} \otimes
+        \symbf{s}_m ,\label{eq:dosy-spectrum}\\
+        \symbf{s}_m = \Re\left(\FT\left(\bx_m\right)\right),\\
+        \bx_m\left[\none\right] = \bda_0[m] \exp\left(\iu \bdphim\right)
+        \exp\left(\left(2 \pi \iu \left(\bdfonem - \foffone\right) - \etaonem \right) \none \Dtone\right),
+    \end{gather}
+\end{subequations}
+where $R \in \mathbb{N}$ is the number of samples to generate the distribution from.
+The exact form that the distribution should take is not set in stone, though it
+should indicate two key pieces of information:
+(i) its maximum should coincide with the predicted value of $\psi$ and (ii) its
+width should indicate the certainty in the prediction. In this work, the
+distribution used is a Gaussian distribution with mean $\psi$ and standard
+deviation $c \epsilon_{\psi}$, where $\epsilon_{\psi}$ is the
+estimation error associated with the parameter of interest,\footnote{
+    The errors can be extracted from the Hessian matrix once the \ac{NLP}
+    routine has reached convergence. See section \ref{subsec:errors} for more
+    information.
+}
+and $c \in \mathbb{R}_{>0}$ is an arbitrary linewidth factor which can be chosen
+to ensure clear visibility of the peaks.\footnote{
+    In cases where the estimation error is small, the distribution can be
+    so sharp relative to the resolution used for plotting, that
+    $\text{max}(\symbf{d}_m)$ can be $0$. In these situations, errors arise due
+    to attempted division by $0$ (see \eqref{eq:dosy-spectrum}). Broadening the
+    distribution (i.e. setting $c > 1$) can resolve issues with plotting
+    discrete samples.
+}
+\begin{equation}
+    \symbf{d}_m\left[ r \right] = \exp\left(
+        - \frac{\left(r - \symbf{\psi}[m]\right)^2}{2 \left(c \symbf{\epsilon}_{\psi}[m]\right)^2}
+    \right)\quad \forall r \in \lbrace 0, \cdots, R-1 \rbrace.
+\end{equation}
+
+\subsection{Results}
+
+\subsubsection{``Five multiplets''}
+Figure \ref{fig:five-multiplets-invrec} shows the result of the described
+method in determining the $T_1$ values of resonances in a simulated inversion
+recovery datasets featuring 5 overlapping ddd multiplet structures. The spin
+systems used to generate the datasets were constructed in a similar way to that
+described for the ``Four Multiplets'' example in
+Section \ref{subsec:cupid-results}. In this case however, 5 estimated spins were
+present instead of 4. Some constraints were also placed on the shifts and
+couplings to ensure that no two oscillators would have frequencies with a
+difference less than $\nicefrac{\fswone}{\None}$. For each spin, a $T_1$ value
+was sampled from $\mathcal{U}(\qty{1}{\second}, \qty{5}{\second})$, and a $T_2$
+value was sampled from  $\mathcal{U}(\qty{0.2}{\second}, \qty{0.6}{\second})$.
+The inversion recovery experiment was simulated using Spinach, with the
+relaxation phenomena described by the ``Extended $T_1$/$T_2$
+approximation''\footnote{
+    As described in the Spinach documentation\cite{SpinachDocs}, longitudinal
+    spin states are assigned the rate $\nicefrac{1}{T_1}$ and transverse states
+    are assigned the rate $\nicefrac{1}{T_2}$. Multi-spin states are assigned
+    rates which are the summation of each spin's relevant rate.
+}. Each dataset was provided \ac{AWGN} such that the target \ac{SNR} of the
+datasets as a whole was \qty{40}{\deci\bel}.
+The estimation routine outlined by Algorithm \ref{alg:estimate-seq} was applied
+to the generate a parameter estimate of the
+\SIrange{1.6}{1.2}{\partspermillion} region.
+\begin{figure}
+    \includegraphics{five_multiplets_invrec/five_multiplets_invrec.pdf}
+    \caption[
+        Three examples of results generated on
+        simulated inversion recovery datasets comprising five ddd multiplet
+        structures.
+    ]
+    {
+        Three examples of results generated on
+        simulated inversion recovery datasets comprising five ddd multiplet
+        structures.
+        \textbf{a.} Plot of the result generated for the first increment ($\tau
+        = \qty{0}{\second}$), with each plot multiplied by $-1$. Black:
+        spectrum of the data. Coloured lines: spectra of individual oscillators
+        generated by the estimation routine. Oscillators with the same colour
+        are components of the same multiplet.
+        \textbf{b.} \ac{DOSY}-style contour plot of the result, with peak
+        positions along the x-axis and predicted $T_1$ values along the y-axis.
+        The broadness of the peaks along the y-axis indicate the relative
+        errors in the $T_1$ estimates. The distributions were generated with
+        the linewidth factor  $c=16$.
+        Dashed horizontal lines denote the true
+        $T_1$ values for each spin.
+        \textbf{c.} Estimation result for each increment for Run 3,
+        illustrating the evolution of the amplitudes of each oscillator with
+        $\tau$.
+    }
+    \label{fig:five-multiplets-invrec}
+\end{figure}
+Despite heavy overlap between peaks, the routine was high successful at
+assigning each resonance with a $T_1$ value that agreed with the true value
+(see panel b.). As is to be expected, in scenarios where little multiplet
+overlap existed, $T_1$ predictions tended to be more accurate, with smaller
+assocaited errors (see for example the purple and orange multiplets in Run 1.
+Nevertheless, adequate estimates could still be obtained in cases of severe
+overlap, especially when the predicted $T_1$s for all oscillators associated
+with a given multiplet are averaged. (see the red, blue and yellow multiplets
+in Run 1). Particular oscillators for which the estimate of $T_1$ is particularly far from the true value are often reassuringly associated with large errors, with examples denoted with an asterisk.

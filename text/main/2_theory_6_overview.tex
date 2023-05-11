@@ -1,19 +1,33 @@
-\section{Overview}
-Here, an overview summarising the proposed estimation technique is provided.
+\section{Summary}
+The matrix pencil-based methods described above are well established as
+effective procedures for parametric estimation of time-domain signals in a
+number of disciplines, including radar detection\cite{Hua1994},
+acoustics\cite{TODO}, and \ac{NMR}\cite{Lin1997}, with specific application to
+relaxometry being a recently introduced application \cite{Fricke2020,
+Wortge2023}. Due to considerable advances computational processing power since
+the introduction of the technique, estimates can be acquired from \ac{NMR}
+signals in reasonable times. One notable downside of the technique that has
+been realised while assessing its effectiveness in parametrising \ac{NMR}
+\ac{FID}s is its propensity to return oscillators with unexpected phase
+behaviour, especially in scenarios involving resonances with close frequencies.
+For this reason, estimating phase-corrected \acp{FID}, using the result of the
+\ac{MPM} as an initial guess to feed into a phase-variance penalised \ac{NLP}
+routine was proposed as a means of improving parameter estimates. The theory
+underpinning the procedure has been explored in this chapter.
 
-\begin{enumerate}
-    \item Given \iac{FID} $\by$ for the \ac{1D} case, or the set of \acp{FID}
-        $\lbrace \bY_{\cos}, \bY_{\sin} \rbrace$ for the \ac{2D} case,
-        generate a filtered sub-FID $\widetilde{\bY}$ via the \ac{VE}
-        filtering approach.
-    \item Predict the number of oscillators $M$ using the \ac{MDL}.
-        Alternatively, provide a hard-coded estimate of $M$.
-    \item Generate an initial guess $\bthzero$ using the \ac{MPM} (\ac{1D}) or
-        \ac{MMEMPM} (\ac{2D}).
-    \item Subject $\bthzero$ to numerical optimisation, minimising the fidelity
-        \eqref{eq:fidelity-phasevar}, generating the final estimation result
-        $\bthstar$.
-\end{enumerate}
+The computational burden of running the procedure is large and often
+intractable for complete \ac{NMR} signals, which often comprise thousands of
+samples, and at least hundreds of contributing resonances. This has been
+illustrated through profiling both the \ac{CPU} time and the peak memory
+requirements for the \ac{1D} and \ac{2D} methods. \note{Say more when
+completed?} For this reason, a method to break \acp{FID} into
+frequency-filtered sub-signals, by filtering spectra derived using virtual
+echoes, is introduced.  This method enables to formation of signals with far
+fewer resonances and samples as compared to the full signal.
+
+Algorithm \ref{alg:1d-2d-summary} provides an overview of the principal steps
+involved in the \ac{1D} and \ac{2D} estimation procedures. Detailed algorithms
+for each step are presented elsewhere in this text.
 
 \begin{algorithm}
     \begin{algorithmic}[1]
@@ -23,6 +37,7 @@ Here, an overview summarising the proposed estimation technique is provided.
             An overview of the estimation procedure outlined in this work, for
             the consideration of \ac{1D} and \ac{2D} \ac{NMR} signals.
         }
+        \label{alg:1d-2d-summary}
         \Procedure{Estimate$1$D}{$
             \by \in \mathbb{C}^{\None},
             \symbf{r}_{\text{interest}} \in \mathbb{R}^2,
@@ -76,3 +91,7 @@ Here, an overview summarising the proposed estimation technique is provided.
         \EndProcedure
     \end{algorithmic}
 \end{algorithm}
+
+Having established an estimation routine, the next chapter focusses on its
+performance, as well as applications which are possible through parametric
+estimation.
