@@ -58,7 +58,7 @@ for each step are presented elsewhere in this text.
             \EndIf
             \State $\bthzero \gets \textsc{MPM}\left(\widetilde{\by}, M\right)$;
             \Comment{Algorithm \ref{alg:mpm}}
-            \State $\bthstar, \symbf{\epsilon}^{(*)} \gets \textsc{NLP}\left(\widetilde{\by}, \bthstar\right)$;
+            \State $\bthstar, \symbf{\epsilon}^{(*)} \gets \textsc{NLP}\left(\widetilde{\by}, \bthzero\right)$;
             \Comment{Algorithm \ref{alg:nlp}}
             \State \textbf{return} $\bthstar, \symbf{\epsilon}^{(*)}$;
         \EndProcedure
@@ -85,7 +85,7 @@ for each step are presented elsewhere in this text.
             \EndIf
             \State $\bthzero \gets \textsc{MMEMPM}\left(\widetilde{\bY}, M\right)$;
             \Comment{Algorithm \ref{alg:mmempm}}
-            \State $\bthstar, \symbf{\epsilon}^{(*)} \gets \textsc{NLP}\left(\widetilde{\bY}, \bthstar\right)$;
+            \State $\bthstar, \symbf{\epsilon}^{(*)} \gets \textsc{NLP}\left(\widetilde{\bY}, \bthzero\right)$;
             \Comment{Algorithm \ref{alg:nlp}}
             \State \textbf{return} $\bthstar, \symbf{\epsilon}^{(*)}$;
         \EndProcedure

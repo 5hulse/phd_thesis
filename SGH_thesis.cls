@@ -198,6 +198,8 @@
 {\titlerule*[.5pc]{.}\contentspage}
 []
 
+\titleformat{\paragraph}[runin]{\itshape}{}{0pt}{#1}[]
+
 %% Cpation formatting
 \RequirePackage[%
     font=singlespacing,%

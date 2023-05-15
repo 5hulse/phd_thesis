@@ -104,35 +104,6 @@ $\symbf{s}_{\text{ve}}$ such that $\Im\left(\symbf{s}_{\text{ve}}\right) =
 \symbf{0}$, with $\Re\left(\symbf{s}_{\text{ve}}\right)$ featuring absorption
 Lorentzian peaks (panel b of Figure \ref{fig:filtering}).
 
-\begin{figure}
-     \centering
-     \includegraphics{filtering/filtering.pdf}
-     \caption[
-         An illustration of the filtering procedure applied to a \acs{1D}
-         \acs{FID}.
-     ]{
-         An illustration of the filtering procedure applied to a \ac{1D}
-         \ac{FID}.
-         \textbf{a.} A \ac{VE} $\by_{\text{ve}}$, with the first and last
-         $\None$ points coloured red and blue, respectively. The middle of the
-         \ac{VE} is magnified to highlight its conjugate symmetry.
-         \textbf{b.} The \ac{FT} of the \ac{VE}, $\symbf{s}_{\text{ve}}$.
-         The region of interest (orange) and noise region (grey) are denoted.
-         \textbf{c.} A super-Gaussian function used as a band-pass filter,
-         $\symbf{g}$.
-         \textbf{d.} \acs{AWGN} vector to be added to the filtered spectrum.
-         The magnitude of the signal at each point is dependent on the
-         corresponding super-Gaussian value.
-         \textbf{e.} The filtered spectrum $\widetilde{\symbf{s}}_{\text{ve}}$,
-         formed by applying the super-Gaussian filter, and adding the noise
-         vector.
-         \textbf{f.} The \ac{IFT} of the filtered spectrum,
-         $\widetilde{\symbf{y}}_{\text{ve}}$, from which the final filtered
-         signal $\widetilde{\symbf{y}}$ is obtained by extracting
-         the first $\None$ points.
-     }
-     \label{fig:filtering}
- \end{figure}
 
 \subsubsection{The \acs{2D} \acl{VE}}
 The \ac{VE} concept can be generalised to any number of dimensions, assuming
@@ -141,7 +112,7 @@ thus requiring a set of $2^{D-1}$ signals for a $D$-dimensional dataset.
 \note{Maybe describe the general case in the appendix if you're bold enough?}
 For the
 \ac{2D} case, this corresponds to the pair of signals $\lbrace \bY_{\cos},
-\bY_{\sin} \rbrace$, given by \eqref{eq:general fid} with $D=2$ and $\zeta = \lbrace
+\bY_{\sin} \rbrace$, given by \eqref{eq:general-fid} with $D=2$ and $\zeta = \lbrace
 \cos(\cdot), \sin(\cdot) \rbrace$, taking the forms (with noise neglected)
 \begin{subequations}
     \begin{gather}
@@ -222,6 +193,19 @@ The virtual echo is then given by $\symbf{Y}_{\text{ve}} = \sum_{i=1}^4
 \symbf{T}_i$, with the first row and column divided by two. For a full outline
 of the 2D filtering procedure, see Algorithm \ref{alg:filter-2d}.
 
+It is possible to construct a virtual echo using an appropriate set of
+phase-modulated signals too, which for the \ac{2D} case would be $\lbrace
+\symbf{Y}_{\text{pos}}, \symbf{Y}_{\text{neg}}\rbrace$, given by
+\eqref{eq:general-fid} with $D=2$ and  $\zeta = \lbrace \exp(\iu \cdot),
+\exp(-\iu\cdot)\rbrace$. These can be used to generate an amplitude modulated pair via
+\begin{subequations}
+    \begin{gather}
+        \symbf{Y}_{\text{cos}} = \frac{\symbf{Y}_{\text{pos}} + \symbf{Y}_{\text{neg}}}{2},\\
+        \symbf{Y}_{\text{sin}} = \frac{\symbf{Y}_{\text{pos}} - \symbf{Y}_{\text{neg}}}{2\iu}.
+    \end{gather}
+\end{subequations}
+\note{Should give $\zeta$ a dimension index, i.e.  $\zeta^{(1)}$}
+
 \subsection{The filtering process}
 Having constructed a virtual echo $\symbf{Y}_{\text{ve}} \in \mathbb{C}^{2\None
 \times \cdots \times 2\ND}$, a spectrum with absorption Lorentzians is produced
@@ -284,6 +268,36 @@ generating the final filtered sub-FID $\widetilde{\bY} \in
 \end{equation}
 The scaling factor in \eqref{eq:yve-tilde} is to account for how many signals
 have been combined to generate the \ac{VE}.
+
+\begin{figure}
+     \centering
+     \includegraphics{filtering/filtering.pdf}
+     \caption[
+         An illustration of the filtering procedure applied to a \acs{1D}
+         \acs{FID}.
+     ]{
+         An illustration of the filtering procedure applied to a \ac{1D}
+         \ac{FID}.
+         \textbf{a.} A \ac{VE} $\by_{\text{ve}}$, with the first and last
+         $\None$ points coloured red and blue, respectively. The middle of the
+         \ac{VE} is magnified to highlight its conjugate symmetry.
+         \textbf{b.} The \ac{FT} of the \ac{VE}, $\symbf{s}_{\text{ve}}$.
+         The region of interest (orange) and noise region (grey) are denoted.
+         \textbf{c.} A super-Gaussian function used as a band-pass filter,
+         $\symbf{g}$.
+         \textbf{d.} \acs{AWGN} vector to be added to the filtered spectrum.
+         The magnitude of the signal at each point is dependent on the
+         corresponding super-Gaussian value.
+         \textbf{e.} The filtered spectrum $\widetilde{\symbf{s}}_{\text{ve}}$,
+         formed by applying the super-Gaussian filter, and adding the noise
+         vector.
+         \textbf{f.} The \ac{IFT} of the filtered spectrum,
+         $\widetilde{\symbf{y}}_{\text{ve}}$, from which the final filtered
+         signal $\widetilde{\symbf{y}}$ is obtained by extracting
+         the first $\None$ points.
+     }
+     \label{fig:filtering}
+\end{figure}
 
 \subsubsection{Determining $c^{(d)}$ and  $b^{(d)}$}
 The central index and bandwidth of the super-Gaussian filter function are given by the following expressions:
