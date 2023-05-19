@@ -1,7 +1,7 @@
 # utils.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Mon 01 May 2023 19:55:42 BST
+# Last Edited: Fri 19 May 2023 01:06:47 BST
 
 from pathlib import Path
 from typing import Iterable

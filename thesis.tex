@@ -40,7 +40,16 @@
 \input{text/main/4_nmrespy}
 \input{text/main/5_conclusions}
 \printbibliography
-\input{text/appendix/appendix}
-
+\appendix
+\renewcommand{\thealgorithm}{A\arabic{algorithm}}
+\renewcommand{\thefigure}{A\arabic{figure}}
+\renewcommand{\thetable}{A\arabic{table}}
+\setcounter{algorithm}{0}
+\setcounter{figure}{0}
+\setcounter{table}{0}
+\input{text/appendix/data_info.tex}
+\input{text/appendix/algorithms}
+\input{text/appendix/structures}
+\input{text/appendix/general_interest}
 % \input{text/appendix/nmrespy_docs}
 \end{document}

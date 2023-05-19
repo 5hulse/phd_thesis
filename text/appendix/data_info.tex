@@ -1,0 +1,177 @@
+\chapter{Information on Datasets}
+\label{chap:datasets}
+
+\section{Simulated datasets}
+\label{sec:simulated-datasets}
+
+\subsection{\textsc{\textsc{Spinach}} Simulations}
+Many of the simulated datasets presented in this work were generated using the
+\textsc{Spinach} \textsc{Matlab}\textregistered\ package\cite{Hogben2011}.
+In each case, the dataset was generated via a call to the \texttt{new\_spinach}
+method associated with the relevant \texttt{Estimator} object in \ac{EsPy}.
+\texttt{new\_spinach} works by instantiating a \href{https://www.mathworks.com/help/matlab/matlab-engine-for-python.html}{\textsc{Matlab}
+engine} from \textsc{Python}, which then runs a \textsc{\textsc{Spinach}} simulation of the relevant
+experiment with the specifications provided. The \ac{FID} generated is then
+stored within in a new \texttt{Estimator} object.
+Table \ref{tab:shifts_and_couplings} provides a specification of the chemical
+shifts and scalar couplings that made up the spin systems used to construct
+simulated data with \textsc{Spinach}. Tables \ref{tab:spinach-jres-params} and
+\ref{tab:spinach-invrec-params} specify key parameters used in each
+\ac{2DJ} and inversion recovery simulation, respectively.
+
+\subsubsection{Sucrose}
+The chemical shifts and couplings for sucrose were extracted from a
+\textsc{Gaussian}\cite{Gaussian03} logfile which ships with \textsc{Spinach} at
+the path \path{SPINACHROOT/examples/standard_systems/sucrose.log}.
+Isotropic chemical shifts were determined for each spin $i$ via
+\begin{equation}
+    \delta_i = \frac{\Tr \left( \symbf{\sigma}_i \right)}{3},
+\end{equation}
+where $\symbf{\sigma}_i \in \mathbb{R}^{3 \times 3}$ is the computed chemical
+shift tensor of spin $i$.
+
+\subsubsection{Strychnine}
+The strychnine spin system was derived from
+the \textsc{Spinach} function \texttt{<SPINACHROOT>/etc/strychnine.m}, which returns a
+spin system specification using chemical shifts and scalar couplings
+from\cite[Appendix 5]{Berger2004}, and atomic coordinates
+from\cite[Supplementary Material]{Butts2011}. To determine $T_1$ and  $T_2$
+values for each spin, the relaxation superoperator $\symbf{R}$ was
+constructed according to Redfield theory, under the assumption
+that the molecule was undergoing spherical isotropic rotation with a rotational
+correlation time of \qty{200}{\pico\second}, in a magnetic field of
+\qty{700}{\mega\hertz}. Individual $T_1$s and $T_2$s were then extracted using
+\begin{subequations}
+    \begin{gather}
+        T_{(1/2),i} = \frac{1}{R_{(1/2),i}}, \\
+        R_{1,i} = - \Re \left(
+            \symbf{l}_{z,i}^{\dagger} \symbf{R} \symbf{l}_{z,i}^{\vphantom{\dagger}}
+            \right),\\
+        R_{2,i} = - \Re \left(
+            \symbf{l}_{+,i}^{\dagger} \symbf{R} \symbf{l}_{+,i}^{\vphantom{\dagger}}
+            \right),
+    \end{gather}
+\end{subequations}
+where $\symbf{l}_{z,i}^{\vphantom{\dagger}}$ is the state vector of the
+Hilbert-space operator $\hat{L}_z$ for spin $i$, and
+$\symbf{l}_{+,i}^{\vphantom{\dagger}}$ is the corresponding vector for the
+$\hat{L}_+$ operator.
+
+\input{text/generated/shifts_and_couplings}
+\input{text/generated/spinach_parameters}
+\note{Table of spinach experiment parameters}
+\note{Description of 2DJ and Invrec simulations (i.e. relaxation model used, approximations to basis used etc.}
+
+\section{Experimental datasets}
+
+\subsection{Datasets related to \ac{CUPID}}
+
+The 2D J-Resolved datasets presented were acquired on various Bruker NMR
+spectrometers. In each case \texttt{jresqf}, the standard magnitude-mode
+sequence in Bruker's pulse sequence library, was used, which comprises:
+ $\nicefrac{\pi}{2}(\Phi_1) \rightarrow \nicefrac{\tone}{2} \rightarrow
+\pi(\Phi_{2}) \rightarrow \nicefrac{\tone}{2} \rightarrow \ttwo(\Phi_{\text{rx}})$, with
+the EXORCYCLE phase-cycling scheme\cite[Section 11.6]{Keeler2010}:
+\begin{equation*}
+    \begin{array}{lllll}
+        \Phi_{1}: & \ang{0} & \ang{0} & \ang{0} & \ang{0} \\
+        \Phi_{2}: & \ang{0} & \ang{90} & \ang{180} & \ang{270} \\
+        \Phi_{\text{rx}}: & \ang{0} & \ang{180} & \ang{0} & \ang{180}
+    \end{array}
+\end{equation*}
+Key experiment parameters are provided in Table \ref{tab:jres_params}.
+
+The pulse sequence used for the acquisition of the estradiol \ac{PSYCHE}
+spectrum (Figure \note{TODO}) is presented in Figure \ref{fig:psyche}, where
+pulses, gradients, and delays are described in detail. Equivalent parameters
+were used for the basic setup as the estradiol 2DJ experiment, given in Table
+\ref{tab:jres_params}.
+
+The dexamethasone \ac{PSYCHE} spectrum (Figure \ref{fig:dexamethasone-cupid}.a)
+was generated using the \ac{TSE-PSYCHE} experiment, which is presented in
+Figure \ref{fig:tse_psyche}.
+
+\input{text/generated/jres_params}
+
+\begin{figure}
+    \centering
+    \includegraphics{psyche_pulse_sequence/psyche_pulse_sequence.pdf}
+    \caption[
+        \acs{PSYCHE} pulse sequence used for the acquisition of estradiol data.
+    ]{
+        \acs{PSYCHE} pulse sequence used for the acquisition of estradiol data. All
+        delays are included, though they are not to scale.
+        Delays:
+        $d_0$ (relaxation delay): \qty{1}{\second},
+        $d_{16}$: (gradient recovery delay): \qty{200}{\micro\second},
+        $d_{18}$: \qty{200}{\micro\second},
+        $d_{19}$: \qty{1}{\milli\second},
+        $\tau_a$: \qty{1.3}{\milli\second},
+        $\tau_d$: \qty{18.9}{\milli\second}.
+        The \ac{PSYCHE} element featured two saltire chirp pulses with a
+        \ac{WURST}\cite{ODell2013}
+        amplitude envelope, with a target flip angle $\beta = \ang{20}$.
+        Each saltire pulse
+        had a bandwidth of \qty{10}{\kilo\hertz},
+        a duration of \qty{25}{\milli\second},
+        and a power of \qty{280}{\micro\watt}.
+        Hard pulses
+        had a power of \qty{31.537}{\watt},
+        with the duration of the $\nicefrac{\pi}{2}$ pulse being \qty{15}{\micro\second}.
+        $G_1$ and $G_2$ were gradients for coherence order selection.
+        Each comprised a 100-point sine shape profile, and lasted
+        \qty{1}{\milli\second}.
+        $G_3$ was a rectangular weak gradient applied during the PSYCHE
+        element, with a duration of \qty{52}{\milli\second}.
+        The gradeint strengths as a percentage of the maximum permissible
+        z-gradient were, respectively 31\%, 47\%, 1.6\%.
+        The phase cycling scheme used was:
+        $\Phi_1: 2 \times (\ang{0}, \ang{180})$;
+        $\Phi_2: 4 \times \ang{0}$;
+        $\Phi_3: 2 \times \ang{0}, 2 \times \ang{90}$;
+        $\Phi_{\text{rx}}: \ang{0}, \ang{180}, \ang{180}, \ang{0}$.
+    }
+    \label{fig:psyche}
+\end{figure}
+
+\begin{figure}
+    \centering
+    \includegraphics{tse_psyche_pulse_sequence/tse_psyche_pulse_sequence.pdf}
+    \caption[
+    \acs{TSE-PSYCHE} pulse sequence used for the acquisition of dexamethasone data.
+    ]{
+        \acs{TSE-PSYCHE} pulse sequence used for the acquisition of dexamethasone
+        data (Figure \ref{fig:dexamethasone-cupid}.a).
+        Delays:
+        $d_1$ (relaxation delay): \qty{2}{\second},
+        $d_{16}$: (gradient recovery delay): \qty{200}{\micro\second},
+        $\tau_a$: \qty{5}{\milli\second} ($= \nicefrac{1}{4
+        f_{\text{sw}}^{(1)}}$).
+        The hard $\nicefrac{\pi}{2}$ pulse had a duration of
+        \qty{12}{\micro\second}, and a power of \qty{24}{\watt}.
+        The two $\pi$ pulses were unidirectional frequency-swept (chirped) pulses,
+        with the first pulse sweeping from low to high frequencies, and the second
+        pulse sweeping from high to low. These each had a \acs{WURST} amplitude
+        envelope, lasted a duration of \qty{40}{\milli\second}, and had a power
+        of $\qty{11.05}{\milli\watt}$.
+        The \ac{PSYCHE} element had a target flip angle $\beta = \ang{15}$, and
+        featured two saltire chirp pulses. Both saltire pulses had a
+        \ac{WURST} amplitude envelope, a duration of \qty{15}{\milli\second},
+        and a power of
+        \qty{1.28}{\milli\watt}.
+        $g_1$, $g_3$ and $g_5$ were gradients for coherence order selection.
+        Each comprised a 100-point sine profile, and lasted
+        \qty{1}{\milli\second}. $g_2$, $g_4$ and $g_6$ were weak rectangular gradients
+        which were applied at the same time as the chirped pulses.
+        The magnitudes of gradients $g_1$ to  $g_6$ as a percentage of the
+        maximum permitted gradient were, respectively:
+        49\%, 2\%, 35\%, 3\%, 77\%, 2\%.
+        The phase cycling scheme used was:
+        $\Phi_1: 8 \times \ang{0}$;
+        $\Phi_2: 2 \times (2 \times \ang{0}, 2 \times \ang{180})$;
+        $\Phi_3: 2 \times (\ang{0}, \ang{90}), 2 \times (\ang{180}, \ang{270})$;
+        $\Phi_4: 8 \times \ang{0}$;
+        $\Phi_{\text{rx}}: 4 \times (\ang{0}, \ang{180})$.
+    }
+    \label{fig:tse_psyche}
+\end{figure}
