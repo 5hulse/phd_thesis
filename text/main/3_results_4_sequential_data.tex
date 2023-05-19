@@ -537,7 +537,7 @@ predicted value of $\psi$ ($\symbf{d}_m$).
 \begin{subequations}
     \begin{gather}
         \mathbb{R}^{R \times \None} \ni \symbf{S} = \sum_{m=0}^{M-1}
-        \frac{\symbf{d}_m}{\text{max}(\symbf{d}_m)} \otimes
+        \symbf{d}_m \otimes
         \symbf{s}_m ,\label{eq:dosy-spectrum}\\
         \symbf{s}_m = \Re\left(\FT\left(\bx_m\right)\right),\\
         \bx_m\left[\none\right] = \bda_0[m] \exp\left(\iu \bdphim\right)
@@ -565,11 +565,18 @@ to ensure clear visibility of the peaks.\footnote{
     distribution (i.e. setting $c > 1$) can resolve issues with plotting
     discrete samples.
 }
-\begin{equation}
-    \symbf{d}_m\left[ r \right] = \exp\left(
-        - \frac{\left(r - \symbf{\psi}[m]\right)^2}{2 \left(c \symbf{\epsilon}_{\psi}[m]\right)^2}
-    \right)\quad \forall r \in \lbrace 0, \cdots, R-1 \rbrace.
-\end{equation}
+\begin{subequations}
+    \begin{gather}
+        \symbf{d}_m\left[ r \right] = -\frac{1}{\sqrt{2 \pi \sigma_m^2}}
+        \exp\left(
+            - \frac{\left(p_r - \symbf{\psi}[m]\right)^2}{2 \sigma_m^2}
+        \right)\quad \forall r \in \lbrace 0, \cdots, R-1 \rbrace,\\
+        p_r = p_{\text{min}} + \frac{r (p_{\text{max}} - p_{\text{min}})}{R-1},\\
+        \sigma_m = c \symbf{\epsilon}[m].
+    \end{gather}
+\end{subequations}
+$p_{\text{min}}$ and $p_{\text{max}}$ specify the range of values over which to
+generate the distribution.
 
 \subsection{Results}
 
@@ -585,7 +592,7 @@ couplings to ensure that no two oscillators would have frequencies with a
 difference less than $\nicefrac{\fswone}{\None}$. For each spin, a $T_1$ value
 was sampled from $\mathcal{U}(\qty{1}{\second}, \qty{5}{\second})$, and a $T_2$
 value was sampled from  $\mathcal{U}(\qty{0.2}{\second}, \qty{0.6}{\second})$.
-The inversion recovery experiment was simulated using Spinach, with the
+The inversion recovery experiment was simulated using \textsc{Spinach}, with the
 relaxation phenomena described by the ``Extended $T_1$/$T_2$
 approximation''\footnote{
     As described in the Spinach documentation\cite{SpinachDocs}, longitudinal
@@ -635,3 +642,16 @@ Nevertheless, adequate estimates could still be obtained in cases of severe
 overlap, especially when the predicted $T_1$s for all oscillators associated
 with a given multiplet are averaged. (see the red, blue and yellow multiplets
 in Run 1). Particular oscillators for which the estimate of $T_1$ is particularly far from the true value are often reassuringly associated with large errors, with examples denoted with an asterisk.
+
+\subsubsection{Andrographolide Diffusion}
+
+\begin{sidewaysfigure}
+    \centering
+    \includegraphics{andrographolide_dosy/andrographolide_dosy.pdf}
+    \caption[
+        Andrographolide acs{DOSY}
+    ]{
+        \note{TODO} Andrographolide DOSY
+    }
+    \label{fig:andrographolide-dosy}
+\end{sidewaysfigure}
