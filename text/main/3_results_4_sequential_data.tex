@@ -644,14 +644,37 @@ with a given multiplet are averaged. (see the red, blue and yellow multiplets
 in Run 1). Particular oscillators for which the estimate of $T_1$ is particularly far from the true value are often reassuringly associated with large errors, with examples denoted with an asterisk.
 
 \subsubsection{Andrographolide Diffusion}
+Figure \ref{fig:andrographolide-dosy} illustrates the result of applying the
+estimation technique on a oneshot \ac{DOSY} dataset of andrographolide in
+unfresh \ac{DMSOd6}. The dataset indicates that the sample has been exposed to
+water for two reasons. First, the broad peak around
+\qty{3.3}{\partspermillion}, estimated to have a diffusion constant of
+\qty{4.6e-10}{\meter\squared\per\second}, is typical of water in \ac{DMSO}. A
+well as this, the acidic hydroxyl protons of andrographolide show significant
+line-broadening, and their estimated diffusion coefficients are far from those
+of the non-hydroxyl counterparts, on account of chemical exchange with water in
+the sample. The relevant peaks are indicated with an asterisk in Figure
+\ref{fig:andrographolide-dosy}.
 
+\note{Most andrographolide peaks lie at around
+\qty{2.5e-10}{\meter\squared\per\second}.
+\ac{DMSO} at \qty{2.5}{\partspermillion} heavily overlaps with andro. multiplet
+structures, which is indicated by certain peaks in the estimation result
+straying far from 2.5e-10 Data is not resolved enough to separate out peaks from DMSO and andrographolide so aggregated behaviour is observed.}
 \begin{sidewaysfigure}
     \centering
     \includegraphics{andrographolide_dosy/andrographolide_dosy.pdf}
     \caption[
-        Andrographolide acs{DOSY}
+        Result of estimating a Oneshot \acs{DOSY} dataset of andrographolide.
     ]{
-        \note{TODO} Andrographolide DOSY
+        Result of estimating a Oneshot \ac{DOSY} dataset of andrographolide in
+        unfresh \ac{DMSOd6}.
+        \textbf{a.} \ac{1D} spectrum.
+        \textbf{b.} \ac{DOSY}-style contour plot of the result of applying the
+        estimation routine outlined in this section, with darker contour lines
+        corresponding to more greater magnitude.
+        \textbf{c.} Diffusion profile obtained by summing the distribution in
+        \textbf{b.} along the $x$-axis.
     }
     \label{fig:andrographolide-dosy}
 \end{sidewaysfigure}
