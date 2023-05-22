@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Mon 22 May 2023 09:49:56 BST
+# Last Edited: Mon 22 May 2023 15:19:48 BST
 
 import numpy as np
 import matplotlib as mpl
@@ -13,9 +13,11 @@ mpl.rcParams["font.size"] = 7
 mpl.rcParams["lines.linewidth"] = 0.5
 
 AX0_YLIM = (-0.6, 1)
-AX1_YLIM = (-0.2, 0.47)
+AX1_YLIM = (-0.5, 0.5)
 HARD_PULSE_HEIGHT = 0.84
 
+GP1 = 0.4
+GP2 = 0.2
 
 def rect(ax, left, width, height, label):
     right = left + width
@@ -73,7 +75,9 @@ def sin(ax, left, width, height, label, neg=False):
         y *= -1
     ax.fill(x, y, color="k", clip_on=False, edgecolor="none")
     mid = (2 * left + width) / 2
-    ax.text(mid, height + 0.06, label, ha="center")
+    text_h = height + 0.06 if not neg else -height - 0.06
+    va = "bottom" if not neg else "top"
+    ax.text(mid, text_h, label, va=va, ha="center")
 
 
 def acqu(ax, left, width, height):
@@ -113,10 +117,11 @@ axs[1].set_ylim(AX1_YLIM)
 
 # === Configure element widths ===
 class Widths:
-    def __init__(self, d1, d16, p19, p30, delta1, acqu):
+    def __init__(self, d1, d16, p1, p19, p30, delta1, acqu):
         total = (
             d1 +
             8 * d16 +
+            7 * p1 +
             2 * p19 +
             6 * p30 +
             delta1 +
@@ -132,14 +137,58 @@ class Widths:
         return 2 * self.p1
 
 
-widths = Widths(2, 0.5, 1, 1.5, 4, 4)
+widths = Widths(2, 0.5, 0.5, 0.6, 1., 4, 4)
 
 delay(axs, "$d_1$", 0., widths.d1, left_line=False)
 left = widths.d1
-sin(axs[1], left, widths.p19, 0.1, "$g", neg=True)
+sin(axs[1], left, widths.p19, GP2, "$-g_2$", neg=True)
 left += widths.p19
 delay(axs, "$d_{16}$", left, widths.d16)
 left += widths.d16
+rect(axs[0], left, widths.p1, HARD_PULSE_HEIGHT, "$\\nicefrac{\\pi}{2}$ ($\\Phi_1$)")
+left += widths.p1
+sin(axs[1], left, widths.p30, 0.8 * GP1, "$(1 - \\alpha) g_1$")
+left += widths.p30
+delay(axs, "$d_{16}$", left, widths.d16)
+left += widths.d16
+rect(axs[0], left, widths.p2, HARD_PULSE_HEIGHT, "$\\pi$ ($\\Phi_2$)")
+left += widths.p2
+sin(axs[1], left, widths.p30, 1.2 * GP1, "$(1 + \\alpha) g_1$", neg=True)
+left += widths.p30
+delay(axs, "$d_{16}$", left, widths.d16)
+left += widths.d16
+rect(axs[0], left, widths.p1, HARD_PULSE_HEIGHT, "$\\nicefrac{\\pi}{2}$ ($\\Phi_3$)")
+left += widths.p1
+sin(axs[1], left, widths.p30, 0.4 * GP1, "$2\\alpha g_1$")
+left += widths.p30
+delay(axs, "$d_{16}$", left, widths.d16)
+left += widths.d16
+sin(axs[1], left, widths.p19, GP2, "$g_2$")
+left += widths.p19
+delay(axs, "$d_{16}$", left, widths.d16)
+left += widths.d16
+delay(axs, "$\Delta_1$", left, widths.delta1)
+left += widths.delta1
+sin(axs[1], left, widths.p30, 0.4 * GP1, "$2\\alpha g_1$")
+left += widths.p30
+delay(axs, "$d_{16}$", left, widths.d16)
+left += widths.d16
+rect(axs[0], left, widths.p1, HARD_PULSE_HEIGHT, "$\\nicefrac{\\pi}{2}$ ($\\Phi_4$)")
+left += widths.p1
+sin(axs[1], left, widths.p30, 0.8 * GP1, "$(1 - \\alpha) g_1$")
+left += widths.p30
+delay(axs, "$d_{16}$", left, widths.d16)
+left += widths.d16
+rect(axs[0], left, widths.p2, HARD_PULSE_HEIGHT, "$\\pi$ ($\\Phi_5$)")
+left += widths.p2
+sin(axs[1], left, widths.p30, 1.2 * GP1, "$(1 + \\alpha) g_1$", neg=True)
+left += widths.p30
+delay(axs, "$d_{16}$", left, widths.d16)
+left += widths.d16
+acqu(axs[0], left, widths.acqu, 0.41)
+
+
+
 # delay(axs, "$\\tau_a$", left, widths.taua)
 # left += widths.taua
 # sin(axs[1], left, widths.p16, 0.31, "$g_1$")
