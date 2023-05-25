@@ -1,32 +1,33 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Sun 21 May 2023 21:21:48 BST
+# Last Edited: Tue 23 May 2023 20:59:37 BST
 
 import matplotlib as mpl
 import nmrespy as ne
-from utils import RESULT_DIR, fix_linewidths
+from utils import RESULT_DIR, fix_linewidths, transfer
 
+
+COLORS = mpl.rcParams["axes.prop_cycle"].by_key()["color"]
 
 region_separation = 0.005
 
 estimator = ne.EstimatorDiffOneshot.from_pickle(
     RESULT_DIR / "diffusion/andrographolide/estimator_postedit",
 )
+
 ud_regions = {
-    1: ((5.800050185695225, 5.6),),
-    # 6: ((3.700084219682121, 3.1),),
-    # 7: ((2.7996756813633845, 2.4),),
+    1: ((5.8, 5.6),),
+    6: ((3.45, 3.15),),
+    7: ((2.6, 2.25),),
 }
 
-for i, res in enumerate(estimator._estimators[0]._results):
-    print(i, res.get_region(unit="ppm"))
-# exit()
+for est in estimator._estimators:
+    est._results.pop(8)
 
 for i, region in ud_regions.items():
     for est in estimator._estimators:
         est._results[i].region = estimator.convert(region, "ppm->hz")
-        est._results.pop(8)
 
 fig, axs = estimator.plot_dosy(
     y_range=(2.e-10, 5.e-10),
@@ -38,18 +39,33 @@ fig, axs = estimator.plot_dosy(
     distribution_width=2.5,
     region_separation=region_separation,
     label_peaks=False,
-    xaxis_ticks=[(0, [6.65]), (1, [5.7]), (2, list([5.1 - i * 0.2 for i in range(18)])), (4, [0.65])],
-    figsize=(6, 3),
+    xaxis_ticks=[
+        (0, [6.65]),
+        (1, [5.7]),
+        (2, list([5. - i * 0.2 for i in range(7)])),
+        (3, [3.4, 3.2]),
+        (4, [2.5, 2.3]),
+        (5, [2., 1.8, 1.6]),
+        (6, [1.4, 1.2]),
+        (7, [0.65]),
+    ],
+    figsize=(9, 3.5),
     gridspec_kwargs={
         "width_ratios": [1, 6],
-        "left": 0.057,
-        "right": 0.995,
+        "left": 0.045,
+        "right": 0.67,
         "bottom": 0.089,
     },
-    spectrum_line_kwargs={"linewidth": .8},
+    spectrum_line_kwargs={"linewidth": .6},
     oscillator_line_kwargs={"linewidth": .0},
     contour_kwargs={"linewidths": 0.05},
 )
+
+import numpy as np
+x = axs[1].lines[0].get_xdata()
+y = axs[1].lines[0].get_ydata()
+print(y[np.argmin(x)])
+exit()
 
 axs = list(axs)
 ax1_box = axs[1].get_position()
@@ -210,7 +226,59 @@ for i, (x, y, s) in enumerate(zip(label_xs, label_ys, labels)):
         ha="center",
     )
 
-for char, idx in zip(["a", "b", "c"], [0, 1, 3]):
+left, = convert(2.)
+right, = convert(1.6)
+
+for est in estimator._estimators:
+    reg8 = estimator.convert(est._results[8].region, "hz->ppm")[0]
+    est._results[8].region = estimator.convert(((2., reg8[1]),), "ppm->hz")
+    reg9 = estimator.convert(est._results[9].region, "hz->ppm")[0]
+    est._results[9].region = estimator.convert(((reg9[0], 1.6),), "ppm->hz")
+
+
+_, new_axs = estimator.plot_dosy(
+    y_range=(2.e-10, 3.e-10),
+    y_pts=128,
+    indices=[8, 9],
+    xaxis_unit="ppm",
+    contour_base=8.e8,
+    contour_factor=1.35,
+    contour_nlevels=14,
+    distribution_width=2.5,
+    region_separation=region_separation,
+    label_peaks=False,
+    figsize=(8, 3.),
+    gridspec_kwargs={
+        "width_ratios": [1, 6],
+        "left": 0.655,
+        "right": 0.99,
+        "bottom": 0.089,
+    },
+    oscillator_colors=COLORS,
+    spectrum_line_kwargs={"linewidth": .8},
+    oscillator_line_kwargs={"linewidth": .5},
+    contour_kwargs={"linewidths": 0.2},
+)
+
+for i in (0, 2):
+    _ax = new_axs[i].bbox._bbox
+    axs.append(fig.add_axes([_ax.x0, _ax.y0, _ax.x1 - _ax.x0, _ax.y1 - _ax.y0]))
+
+transfer(new_axs[0], axs[4], fig)
+transfer(new_axs[2], axs[5], fig)
+axs[5].set_yticks([2e-10 + i * 2e-11 for i in range(6)])
+axs[5].set_yticklabels([f"{2 + i * 0.2:.1f}" for i in range(6)])
+axs[5].set_xlabel(axs[5].get_xlabel(), labelpad=-1)
+
+# for i in (4, 5):
+#     axs[i].set_xlim(0.82, 0.09)
+
+axs[4].lines[-2].remove()
+axs[4].lines[-1].remove()
+axs[5].lines[-2].remove()
+axs[5].lines[-1].remove()
+
+for char, idx in zip(["a", "b", "c", "d"], [0, 1, 3, 4]):
     axs[idx].text(
         0.006 if idx != 1 else 0.03,
         0.91,

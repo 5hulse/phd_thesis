@@ -199,6 +199,7 @@
 []
 
 \titleformat{\paragraph}[runin]{\itshape}{}{0pt}{#1}[]
+\titlespacing{\paragraph}{0pt}{0pt}{10pt}[]
 
 %% Cpation formatting
 \RequirePackage[%
