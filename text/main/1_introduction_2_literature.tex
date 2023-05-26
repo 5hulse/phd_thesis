@@ -26,7 +26,7 @@ transform the raw output (the \ac{FID}) into the frequency domain, producing an
 \ac{NMR} spectrum. This is achieved through application of the \acf{FT}:
 \begin{subequations}
     \begin{flalign}
-        &\text{Continuous case:} &&\FT( x(t) )(f) =  \int_{-\infty}^{\infty} x(t) \exp \left(
+        &\text{Continuous case:} &&\FT( x(t) )(f) =  \int_{0}^{\infty} x(t) \exp \left(
             -2 \pi \iu t f \right) \mathrm{d} t
             \quad \forall t \in \mathbb{R},\\
         &\text{Discrete case:} &&\FT( \symbf{x} )[n] =  \sum_{k=0}^{N-1} \symbf{x}[k] \exp \left(
@@ -36,7 +36,7 @@ transform the raw output (the \ac{FID}) into the frequency domain, producing an
 \end{subequations}
 The \ac{FT} of a single exponentially-damped complex sinusoid takes the form of
 a Lorentzian\footnote{
-    For the discrete case, an upshot of only possessing data for $t > 0$ is
+    An upshot of only possessing data for $t \geq 0$ is
     that the \ac{FT} of an \ac{FID} features a vertical offset,
     such that the baseline does not sit at 0\cite{Tang1994}. This is corrected
     by halving the initial point of the \ac{FID} prior to \ac{FT}.
@@ -44,23 +44,21 @@ a Lorentzian\footnote{
 \begin{subequations}
     \begin{gather}
         s(f) = \FT\left(
-            a \exp(\iu \phi) \exp\left(\left(\iu \Updelta f - \etaone\right) t\right) \right) (f),\\
+            a \exp(\iu \phi) \exp\left(\left(\iu \Updelta f^{(1)} - \etaone\right) t\right) \right) (f),\\
         s(f) = \frac{a \exp(\iu \phi) }
-            {\etaone + \iu \Updelta f},\\
-        \Updelta f = 2 \pi \left(\fone - \foffone - f \right).
+            {\etaone + \iu \Updelta f^{(1)}},\\
+        \Updelta f^{(1)} = 2 \pi \left(\fone - \foffone - f \right).
     \end{gather}
 \end{subequations}
 When $a = \phi = 0$, this function is equivalent to the (unnormalised) \ac{pdf}
 of the Cauchy distribution. The \ac{FT} is a linear function, such that the
 \ac{FT} of a summation of signals is equivalent to the summation of the
 \acp{FT} of each signal. A corollary is that an \ac{NMR} spectrum comprises a
-series of Lorentzian ``peaks'', located at the resonance frequencies of
-detected
-coherences:
+series of Lorentzian ``peaks'', located at the resonance frequencies in the \ac{FID}:
 \begin{equation}
     s(f) = \sum_{m=0}^{M-1}
     \frac{\bdam \exp(\iu \bdphim)}
-    {\bdetaone + \iu \Updelta f_m}.
+    {\bdetaonem + \iu \Updelta f^{(1)}_m}.
     \label{eq:ft-summation}
 \end{equation}
 The \ac{FT} is a very attractive means of processing \ac{NMR} data, as it
@@ -70,12 +68,12 @@ properties being a fundamental skill that virtually all experimental chemists
 require\cite{Hore2015b}. Due to innate properties of the \ac{NMR} experiment,
 as well as features arising from analysing a discrete signal, the raw output
 from an \ac{NMR} experiment often leads to spectra with undesirable
-characteristics without any extra manipulation. An outline of extra processing
-steps that are frequently applied to \ac{NMR} data are now presented.
+characteristics without any extra manipulation. Extra processing
+steps that are frequently applied to \ac{NMR} data are now outlined.
 
 \subsubsection{Apodisation}
 Apodisation refers to the process of mutating a signal by multiplying it with a
-specified function, often called a \emph{window function}. Apodisation is frequently used for the purposes of either \emph{sensitivity enhancement} or \emph{resolution enhancement}.
+specified function, often called a \emph{window function}. Apodisation is used to achieve either \emph{sensitivity enhancement} or \emph{resolution enhancement}.
 
 \paragraph{Sensitivity Enhancement} As \iac{FID} progresses with time, the
 contributions from the desirable signal and experimental noise becomes more
@@ -84,40 +82,37 @@ such, multiplying the \ac{FID} with a function which is initially large, and
 gets progressively smaller with time can be used to enhance the sensitivity
 (i.e. the \ac{SNR}) of the \ac{FID}. The most common function to achieve this
 is the negative exponential such that a given point is multiplied by $\exp(-k
-\none)$. While this enhances sensitivity, application of this window function
-also has the undesirable effect of broadening the spectral peaks, which can
-make the spectrum harder to interpret, especially when resonances with similar
-frequencies exist.
+\none)$. Application of this window function
+simultaneously has the undesirable effect of broadening the spectral peaks (i.e. worsening spectral resolution).
 
 \paragraph{Resolution Enhancement} The resolving power of a spectrum is largely
-dictate by the broadness of the contributing peaks, which is directly related
+dictated by the broadness of the contributing peaks, which is directly related
 to the rate of damping associated with the contributing oscillators in the
 \ac{FID}. Resolution enhancement can be achieved by applying a window function
-that artificially reduced the rate of oscillator decay, by suppressing points
+that artificially reduces the rate of oscillator decay, by suppressing points
 that are early in the \ac{FID}. Popular examples of window functions for
 resolution enhancement are the Lorentz-Gauss function, which bestow a sharper,
 Gaussian shape to the peaks, and the sine-bell, which is commonly used in
-multidimensional experiments. All window functions reduce the sensitivity of
+multidimensional experiments. This call of window functions reduce the sensitivity of
 the resulting spectra, since initial points, where the desirable signal is at
 its greatest intensity, are attenuated.
 
 By being defined to decay to $0$ at the end of the \ac{FID}, window functions
 are also able to suppress \emph{truncation artefacts}, which appear when the
 \ac{FID} still possesses appreciable signal amplitude at the end of the
-acquisition period. Truncated \acp{FID} lead to peaks with a form that is akin
-to the convolution of the \ac{FT} of the untruncated \ac{FID}, with the
-\ac{FT} of a box-function, which takes the form $\nicefrac{sin(x)}{x}$.
+acquisition period. Truncated \acp{FID} lead spectra with peaks of a form that is akin to the convolution of the \ac{FT} of the untruncated \ac{FID}, with the
+\ac{FT} of a box-function, which takes the form of a sinc function ($\nicefrac{sin(x)}{x}$). The resulting artefacts in spectra are often referred to as \emph{sinc wiggles} for this reason.
 
 \subsubsection{Phase correction}
 The real and imaginary components of \eqref{eq:ft-summation} are as follows:
 \begin{subequations}
     \begin{gather}
         \Re(s(f)) = \sum_m
-        \frac{\bdam \left(\cos(\bdphim) \bdetaonem + \sin(\bdphim) \Updelta f_m\right)}
-        {\bdetaonem^2 + \left( \Updelta f_m \right)^2},\\
+        \frac{\bdam \left(\cos(\bdphim) \bdetaonem + \sin(\bdphim) \Updelta f^{(1)}_m\right)}
+        {\left(\bdetaonem\right)^2 + \left( \Updelta f^{(1)}_m \right)^2},\\
         \Im(s(f)) = \sum_m
-        \frac{\bdam \left(\sin(\bdphim) \bdetaonem - \cos(\bdphim) \Updelta f_m\right)}
-        {\bdetaonem^2 + \left( \Updelta f_m \right)^2}.
+        \frac{\bdam \left(\sin(\bdphim) \bdetaonem - \cos(\bdphim) \Updelta f^{(1)}_m\right)}
+        {\left(\bdetaonem\right)^2 + \left( \Updelta f^{(1)}_m \right)^2}.
     \end{gather}
 \end{subequations}
 If all oscillators have a phase of \ang{0}, the above expressions simplify to
@@ -135,7 +130,7 @@ If all oscillators have a phase of \ang{0}, the above expressions simplify to
 \end{subequations}
 Peaks of the form in \eqref{eq:absorption} are \emph{absorption} Lorentzians,
 while those of the form in \eqref{eq:dispersion} are \emph{dispersion}
-Lorentzians. As illustrated clearly in panel c2 of Figure
+Lorentzians. As illustrated in panel c2 of Figure
 \ref{fig:amp-phase-freq-damp}, a peak with an absorption lineshape is far more
 desirable than a dispersion one for two key reasons: (i) its maximum
 corresponds to the oscillator frequency, while a dispersion Lorentzian

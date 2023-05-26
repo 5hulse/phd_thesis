@@ -49,9 +49,9 @@ derivatives of the model, required to construct the grad and Hess are
 
 \subsection{Diffusion experiments}
 \label{sec:diffusion_experiments}
-
-The first showcase for extracting translational diffusion coefficients came
-from Stejskal and Tanner in 1965, in which they introduced the \ac{PGSE} pulse
+\ac{NMR} is well established as a means of determining the rates of diffusion of chemical species\cite{Johnson1999,Morris2009b}.
+The first showcase for determining translational diffusion coefficients came
+from Stejskal and Tanner, in which they described the \ac{PGSE} pulse
 sequence\cite{Stejskal1965} (Figure \ref{fig:diffusion_sequences}.a).
 The \ac{PGSE} sequence consists of a conventional spin-echo ($\ang{90}
 \xrightarrow{\tau} \ang{180} \xrightarrow{\tau} \text{acquire}$), with
@@ -127,19 +127,18 @@ strength, known widely as the Stejskal-Tanner equation:
 where
 $a_0 = \lim_{g \rightarrow 0} a$,
 $\gamma$ is the gyromagnetic ratio of the target nucleus
-(\unit{\mega\hertz\per\tesla}),
+(\unit{\radian \mega\hertz\per\tesla}), \note{Should check if radians are needed}
 $g$ is the gradient strength (\unit{\tesla\per\meter})\footnote{
     Gradient strengths are often expressed in units of
     \unit{\gauss\per\centi\meter}, which is equivalent to
     \qty[print-unity-mantissa = false]{e-2}{\tesla\per\meter}.
 },
-$\delta$ is the duration of the \acp{PFG} (\unit{\second}),
+$\delta$ is the duration of each \ac{PFG} (\unit{\second}),
 $\Delta$ is the delay between the \acp{PFG}, often known as the diffusion time
 (\unit{\second}),
 and $D$ is the translation diffusion constant of the species giving rise to the
-resonance (\unit{\meter\square\per\second}).
-While Equation \ref{eq:stejskal_tanner} is widely stated in the literature, it
-is only technically applicable to the scenario in which the \ac{PGSE} sequence
+resonance (\unit{\meter\squared\per\second}).
+While Equation \ref{eq:stejskal_tanner} is widely stated in the literature, it is only strictly applicable when the \ac{PGSE} sequence
 is used (or any other \emph{monopolar} sequence, \emph{vide infra}), and
 rectangular \acp{PFG} are applied
 \footnote{
@@ -149,20 +148,20 @@ rectangular \acp{PFG} are applied
     inductance.
 }.
 
-Tanner introduced a variant on the original \ac{PGSE} experiment called
+Tanner introduced a variant of the original \ac{PGSE} experiment called
 \ac{PGSTE}\cite{Tanner1970} (Figure \ref{fig:diffusion_sequences}.b). Instead
 of the diffusion period including a
-\ang{180} pulse, \ac{PGSTE} has two \ang{90} pulses, with the first being
+\ang{180} pulse, \ac{PGSTE} features two \ang{90} pulses, with the first being
 applied shortly after the initial \ac{PFG}, and the second being applied just
 before the second \ac{PFG}. The key difference between this and the \ac{PGSE}
-experiment is that relaxation of the signal during the diffusion time is
-dictated by longitudinal relaxation ($T_1$), rather than transverse relaxation
+experiment is that decoherence during the diffusion time is
+dictated by longitudinal relaxation ($T_1$) rather than transverse relaxation
 ($T_2$). \ac{PGSTE} is therefore favoured in scenarios where $T_1 \ll T_2$, as
-improved sensitivity will be achieved in the resulting \ac{FID}.
+improved sensitivity is attainable.
 
 
 Both \ac{PGSE} and \ac{PGSTE} employ \emph{monopolar} \acp{PFG} for diffusion
-encoding, in the sense that they are both polarised in a
+encoding, in the sense that both diffusion-encoding \acp{PFG} are polarised in a
 single direction. Experiments also exist which employ
 \emph{bipolar} gradient elements\cite{Cotts1989,Wu1995}, which consist of a
 \ac{PFG}, followed by a \ang{180} pulse, and then a second \ac{PFG} with the
@@ -175,11 +174,7 @@ have also developed the One-shot DOSY experiment\cite{Pelta2002} (Figure
 gradient strength (i.e. there is no requirement for a phase-cycling scheme).
 This is achieved through the use of bipolar gradients which comprise
 asymmetrical \acp{PFG} with relative powers $1 + \alpha : 1 - \alpha$ for some
-$\alpha > 0$
-\footnote{
-    $\alpha$ is typically set to be considerably less that $1$, commonly $0.2$.
-}.
-\note{Cite some review articles (Johnson, Morris 2009)}
+$ 0 > \alpha > 1$ (a common value is $0.2$).
 
 It is virtually always the case that the amplitudes of each resonance in the
 \ac{FID} abide by the following general form of the Stejskal-Tanner equation:
