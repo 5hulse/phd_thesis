@@ -10,14 +10,22 @@ and cryogenic probes\cite{Styles1984,Styles1989,Kovacs2005}, as well as simply i
 of scans (sensitivity $\propto \sqrt{\text{no. scans}}$). There are however
 few means of achieving better resolution beyond increased field strengths
 (resolution $\propto B_0$). Significant interest has therefore been
-given to the development of homodecoupled (``pure shift'')
+given to the development of broadband homodecoupled (``pure shift'')
 experiments\cite{Meyer2013,Adams2014,Zangger2015}, in which the
 effects of homonuclear scalar couplings are removed from the data. The presence
 of J-couplings, indicating the close proximity of spins in a chemical
 bonding sense, is a distinguishing feature of \ac{NMR}, and is often valuable for
 structural assignment. However, in many cases their effect can lead to spectra
 which are too crowded for meaningful insights to be gleamed.  Heteronuclear
-couplings, between spins with different nuclei (i.e. \proton\ and \carbon) are straightforward to decouple at the point of \ac{FID} acquisition, with numerous effective decoupling procedures available\cite{Shaka1983a, Shaka1983b,Shaka1985}. Homonuclear decoupling is a far more challenging procedure.
+couplings, between spins with different nuclei (i.e. \proton\ and \carbon) are
+straightforward to decouple at the point of \ac{FID} acquisition, with numerous
+effective decoupling procedures being available for around 40 years\cite{Shaka1983a,
+Shaka1983b,Shaka1985}.
+The removal of homonuclear couplings associated with a specific spin can also
+be achieved easily, by irradiating a specific spin with a weak \ac{RF}
+field\cite[Section 4.2]{Claridge2016}.
+Broadband homodecoupling (i.e. decoupling where are spins are simultaneously
+decoupled from each other) is a more challenging task.
 
 In this section, an overview of the key techniques which have
 been developed to generate pure shift spectra is given, starting with \ac{2DJ}
@@ -201,10 +209,10 @@ Original paper\cite{Foroozandeh2014}, tutorial paper\cite{Foroozandeh2018}, PSYC
 
 There have been previous descriptions of acquiring pure-shift spectra from
 conventional \ac{2DJ} datasets via more sophisticated post-processing methods.
-Nuzillard introduced \ac{ALPESTRE}\cite{Nuzillard1996}, \note{See \href{https://analyticalsciencejournals.onlinelibrary.wiley.com/doi/epdf/10.1002/mrc.2850}{this paper}} in which the parameters
-of each indirect-dimension FID are estimated using \ac{LPSVD}, such that
-there is a set of parameters $\symbf{\Theta} \in \mathbb{R}^{\Ntwo \times 4M}$
-with
+Nuzillard introduced \ac{ALPESTRE}\cite{Nuzillard1996,Martinez2012}, in which
+the parameters of each indirect-dimension FID are estimated using \ac{LPSVD},
+such that there is a set of parameters $\symbf{\Theta} \in \mathbb{R}^{\Ntwo
+\times 4M}$ with
 \begin{equation}
     \symbf{\Theta}\left[\ntwo\right] =
     \begin{bmatrix}
