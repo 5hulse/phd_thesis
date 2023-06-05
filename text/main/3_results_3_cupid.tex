@@ -618,7 +618,54 @@ affect the integrals of the pure shift peaks. \note{Should probably calculate
 the integrals of these...}
 
 \subsubsection{Camphor}
-\note{TODO}
+\begin{figure}%
+    \centering%
+    \includegraphics{camphor_cupid/camphor_cupid.pdf}%
+    \caption[
+        Application of \acs{CUPID} on a camphor dataset.
+    ]{
+        Application of \acs{CUPID} on camphor \ac{2DJ} dataset.
+        \textbf{a.} Black: the spectrum generated from \ac{FT} of the \ang{-45}
+        signal. Oscillators associated with strong coupling artefacts between
+        spins (F) and (G) were neglected. Grey: spectrum generated without
+        neglecting oscillators associated with strong coupling artefacts.
+        \textbf{b.} \acs{1D} spectrum produced from the first direct-dimension
+        \ac{FID} in the dataset. Note that, unlike a conventional pulse-acquire
+        spectrum, strong coupling artefacts are present.
+        \textbf{c.} Multiplet structures assigned ($\epsilon =
+        \nicefrac{2 \fswtwo}{\Ntwo} \approx \qty{1.23}{\hertz}$).
+        \textbf{d.} Contour plot of the absolute value mode \acs{2DJ} spectrum,
+        with the locations of assigned oscillators given as coloured points.
+    }
+    \label{fig:camphor-cupid}%
+\end{figure}%
+The application of \ac{CUPID} to the non-methyl regions of a \ac{2DJ}
+dataset of camphor (Figure \ref{fig:structures}.c) in \acs{DMSOd6} is presented
+in Figure \ref{fig:camphor-cupid}. As in the quinine case, there are instances
+of underfitting, which lead to broadening of the resulting pure shift peak,
+with the peak associated with spin (B) being the most drastic example of this.
+This example highlights the ability of \ac{CUPID} to remove undesirable
+\emph{strong coupling artefacts}\footnote{
+    As stressed in \cite{Thrippleton2005}, these are not strictly artefacts,
+    but rather genuine signals, which are expected to be present in the
+    \ac{2DJ} dataset. Despite this, the term is widespread in the literature.
+}from the final pure shift spectrum, which
+arise due to mixing effects induced by the \ang{180} pulse in the \ac{2DJ}
+sequence\cite{Thrippleton2005,Wider1983}.
+The effects of strong coupling lead to the presence of extra unexpected peaks
+which do not agree with the chemical shift of any spin associated with camphor.
+Such effects are observed between roughly \SIrange{1.35}{1.25}{\partspermillion} in
+the camphor spectrum, where artefacts associated with spins (F) and (G) exist.
+The estimation routine was able to determine parameters for
+the more intense oscillators which make up the strong coupling artefacts (these
+are coloured blue, yellow, and purple, while oscillators associated with the
+true multiplet structures for (F) and (G) are coloured red and green, respectively).
+Inclusion of all oscillators extracted by the estimation routine generates the
+spectrum in panel a, with the low-intensity grey peaks associated with the strong
+coupling effects included. However, in much the same way as the water signal in
+the quinine example could be neglected, it is trivial to construct the \ang{-45}
+signal with the oscillators associated with strong coupling neglected, which
+produces the black spectrum.
 
 \subsubsection{Dexamethasone}
 
@@ -651,23 +698,23 @@ comparison.
 \ac{CUPID} generated a pure-shift spectrum with overall excellent agreement
 with the \ac{TSE-PSYCHE} spectrum. Certain multiplet structures in the spectrum exhibit
 splitting in $\Ftwo$, on account of heteronuclear couplings to \textsuperscript{19}F. Most
-notable are those derived from spins D, H \& O. For the D multiplet, the
-magnitude of $J_{\textsuperscript{1}H,\textsuperscript{19}F}$ is very small
-such that assigning these to separate oscillators is infeasible.
-For the spin N multiplet, two separate structures were successfully assigned
+notable are those derived from spins (D), (H) \& (O). For the (D) multiplet, the
+magnitude of the heterocoupling is very small such that assigning these to
+separate oscillators is infeasible.
+For the spin (N) multiplet, two separate structures were successfully assigned
 (see the orange and green multiplets around \qty{2.1}{\partspermillion}).
 The estimation routine was unsuccessful at accurately estimating the structure
-associated with spin H, where a severe under-fitting occurred. An under-fitting
+associated with spin (H), where a severe under-fitting occurred. An under-fitting
 of this structure even occurred when the estimation was re-run using
 considerable over-estimation of the model order, with most oscillators in the
-initial guess being purged during the \ac{NLP} procedure. The result of
-under-fitting, as already discussed, leads to peaks in the final \ac{CUPID}
-spectrum being broadened, with the spin H multiplet providing an extreme
-example of this. The most downfield peaks in the CUPID spectrum (corresponding
-to aromatic and hydroxyl protons) also appear to be noticeably broadened
-relative to their PSYCHE equivalents. This is also probably due to
-under-fitting of the relevant multiplet structures, though to a far less
-noticeable extent than for spin H. \note{Any other reason why this might be so?}
+initial guess being purged during the \ac{NLP} procedure.
+The spin (H) multiplet provides an extreme example line-broadening in the pure
+shift spectrum on account of under-fitting. The most downfield peaks in the
+CUPID spectrum (corresponding to aromatic and hydroxyl protons) also appear to
+be noticeably broadened relative to their PSYCHE equivalents. This is also
+probably due to under-fitting of the relevant multiplet structures, though to a
+far less noticeable extent than for spin H. \note{Any other reason why this
+might be so?}
 
 \subsubsection{Estradiol}
 \note{TODO}

@@ -21,6 +21,7 @@ in this way. For example:
 }
 
 \subsection{Conventional NMR Analysis}
+\label{subsec:nmr-analysis}
 The conventional route to interpret \ac{NMR} experiments is to
 transform the raw output (the \ac{FID}) into the frequency domain, producing an
 \ac{NMR} spectrum. This is achieved through application of the \acf{FT}:
@@ -330,10 +331,13 @@ in \ac{NMR} data analysis, often with the intention of (a) propagating the
 artefacts and (b) correct the commonly corrupted initial points of the
 \ac{FID}, as a means of improving the spectral baseline. The concept of \ac{LP}
 stems from the idea that a deterministic signal, such as a \ac{1D} \ac{FID} can
-be described as a linear combination of a certain number of previous samples:
+be described as an \ac{AR} process, such that a given sample from the dataset
+can be described by a linear combination of a certain number of previous
+samples:
 \begin{equation}
     \by \left[\none\right] = \sum_{l=0}^{L-1}
     \symbf{c}[l] \hspace{2pt} \by \left[ \none - l - 1\right] + \symbf{e} [l]
+    \label{eq:forward-lp}
 \end{equation}
 $\forall \none \in \lbrace L, L + 1, \cdots, \None - 1 \rbrace$, where $L \in
 \mathbb{Z}$ defines the order of the linear estimator, and $\symbf{c} \in
@@ -345,87 +349,23 @@ linear combination of a certain number of subsequent points, using the set of
 \begin{equation}
     \by \left[\none\right] = \sum_{l=0}^{L-1}
     \symbf{b}[l] \hspace{2pt} \by \left[ \none + l + 1\right] + \symbf{e} [l]
+    \label{eq:backward-lp}
 \end{equation}
 $\forall \none \in \lbrace 0, 1, \cdots, \None - L - 1 \rbrace$. Determining
 the \ac{LP} coefficients enables the estimation of \ac{FID} values beyond the
-data actually acquired ($\none < 0$ and $\none > \None - 1$).
-
+data actually acquired ($\none < 0$ and $\none > \None - 1$). It should be noted that
+\eqref{eq:forward-lp} and \eqref{eq:backward-lp} are only valid for
+\acp{FID} without any corruption from experimental noise. Noisy datasets are
+instead an example of an \ac{ARMA} process. Despite this, due to the greater
+simplicity of the \ac{AR} model, it is far more common to employ this. The most
+common means of performing \ac{LP} is by solving the Yule-Walker
+equations\cite{Yule1927,Walker1931},
+which describe the relationship between the signal autocorrelation coefficients
+and the \ac{LP} coefficients\cite[Section 3.3]{Koehl1999}, with the
+Levinson-Durbin algorithm providing an efficient means of solving the
+equations\cite{Levinson1946,Durbin1960}.
 
 \note{Stuff below here has been copy-pasted from old document. Will need editing!}
-It was described in Section \ref{subsec:ar_nmr} that noiseless NMR signals
-obeying Eq. \ref{eq:general_x} are AR($M$) processes, while those corrupted
-with noise (Eq. \ref{eq:general_y}) are ARMA($M$,$M$) processes. Autoregressive
-methods applied to NMR data tend to assume the data is described by the more
-simple AR($M$) model despite the fact that it truly is an ARMA process. A
-popular method of extracting the underlying signal parameters
-$\left\lbrace b_k \right\rbrace $
-is application of the Yule-Walker method\cite{Yule1927,Walker1931}, an approach
-based on the autocorrelation coefficients of the data, which are approximated
-as
-\begin{equation}
-    R_i \equiv R_{-i}^* \approx \frac{1}{N-i} \sum_{n=0}^{N-i-1} y[n+i]^{\vphantom{*}} y[n]^*.
-\end{equation}
-Multiplying both sides of Eq. \ref{eq:forward_ar} by $y[n-i]^*$, and taking the
-expectation value, leads to:
-\begin{subequations}
-    \begin{gather}
-        \begin{gathered}
-            \mathbb{E}\left[ y[n] y[n-i]^* \right] =
-            \mathbb{E}\left[ -\sum_{k=1}^M b_m y[n-k] y[n-i]^* \right] +
-            \mathbb{E}\left[ w[n]y[n-i]^* \right]\\
-            \implies R_i = -\sum_{k=1}^M b_k R_{i-k} + \delta_i
-        \end{gathered}\\
-        \delta_i =
-        \begin{cases}
-            \sigma^2 & i = 0\\
-            0 & i > 0
-        \end{cases}
-    \end{gather}
-\end{subequations}
-Expressing this in matrix-vector format, one arrives at
-\begin{equation}
-    \begin{bmatrix}
-        R_0 & R_{-1} & \cdots & R_{-M} \\
-        R_1 & R_0 & \cdots & R_{1-M} \\
-        \vdots & \vdots & \ddots & \vdots \\
-        R_M & R_{M-1} & \cdots & R_0 \\
-    \end{bmatrix}
-    \begin{bmatrix}
-        1 \\ b_1 \\ \vdots \\ b_M
-    \end{bmatrix}
-    =
-    \begin{bmatrix}
-        \sigma^2 \\ 0 \\ \vdots \\ 0
-    \end{bmatrix}.
-\end{equation}
-The unknowns of this equation are the coefficients
-$\left\lbrace b_k \right\rbrace $
-and $\sigma^2$. Possibly the most easy-to-envisage approach to solving this is to compute the
-$\left\lbrace b_k \right\rbrace $s first via
-\begin{equation}
-    \begin{bmatrix}
-        b_1 \\ \vdots \\ b_M
-    \end{bmatrix}
-    = -
-    \begin{bmatrix}
-        R_0 & \cdots & R_{1-M} \\
-        \vdots & \ddots & \vdots \\
-        R_{M-1} & \cdots & R_0 \\
-    \end{bmatrix}^{-1}
-    \begin{bmatrix}
-        R_1 \\ \vdots \\ R_M
-    \end{bmatrix},
-\end{equation}
-and then to compute $\sigma^2$:
-\begin{equation}
-    \sigma^2 = R_0 + \sum_{k=1}^M b_k R_k.
-\end{equation}
-Computation of the inverse of the autocorrelation matrix via Gaussian
-elimination has an arithmetic complexity of $\mathcal{O}\left(n^3\right)$.  A
-more efficient approach is to use the Levinson-Durbin
-algorithm\cite{Levinson1946,Durbin1960} which exploits the Toeplitz structure
-of the matrix and runs in $\mathcal{O}\left(n^2\right)$ time.
-
 \subsection{Signal-Noise Subspace Separation Techniques}
 
 \subsubsection{LPSVD}
