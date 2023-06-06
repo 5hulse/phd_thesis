@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Sun 04 Jun 2023 19:35:42 BST
+# Last Edited: Tue 06 Jun 2023 11:05:06 BST
 
 import nmrespy as ne
 import matplotlib as mpl
@@ -11,7 +11,7 @@ import numpy as np
 
 sw = 500.e3
 pts = 2 ** 15
-nspins =30
+nspins = 30
 params = np.zeros((nspins, 4), dtype="float64")
 params[:, 0] = 1.
 freqs = np.linspace(-sw / 2, sw / 2, nspins + 2)
@@ -21,7 +21,7 @@ params[:, 3] = 1000.
 estimator = ne.BBQChili.new_from_parameters(
     params,
     100.e-6,
-    0.,
+    6.5e-6,
     500.e3,
     pts,
     sw,
