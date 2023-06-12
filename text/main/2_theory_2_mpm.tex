@@ -270,6 +270,7 @@ Algorithm \ref{alg:mpm} provides a pseudo-code description of the \ac{MPM} as im
     \end{algorithmic}
 \end{algorithm}
 
+
 \subsection{2D Matrix Enhancement and Matrix Pencil Method}
 The \ac{MPM} was extended for the consideration of \ac{2D} data by Hua with the
 \ac{MEMPM}\cite{Hua1992}. The method centers around the enhanced matrix $\EY
@@ -608,8 +609,14 @@ See Algorithm \ref{alg:mmempm}
     \end{algorithmic}
 \end{algorithm}
 
-
-
-
-
-\subsection{Model order selection: Minimum Description Length}
+\subsection{Model Order Selection}
+\note{
+    \begin{itemize}
+        \item MDL/AIC based on covariance matrix of data. Akin to singular
+            values of Hankel matrix.
+        \item Basic premise is to determine the point at which singular values
+            associated with matrix are no longer decreasing at a considerable
+            rate: premise that singular values of noise components should be
+            relatively constant and smaller than signal components.
+    \end{itemize}
+}

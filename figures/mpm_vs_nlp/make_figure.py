@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Wed 24 May 2023 15:50:24 BST
+# Last Edited: Sun 11 Jun 2023 19:28:51 BST
 
 from pathlib import Path
 import pickle
@@ -71,6 +71,7 @@ kwargs = {
     "oscillator_line_kwargs": {"linewidth": 0.6},
     "residual_line_kwargs": {"linewidth": 0.6},
     "plot_model": False,
+    "indices": [0],
 }
 
 residual_shifts = 5 * [30.]  #[30., 26., 26., 34., 50.]
@@ -89,13 +90,13 @@ oscillator_cols_nlp = [
     get_colors([0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 4, 4, 0, 0, 0, 0, 2, 0]),
     get_colors([0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0]),
 ]
-oscillator_cols_true = [
-    get_colors([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1]),
-    get_colors([0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0]),
-    get_colors([2, 2, 0, 0, 3, 3, 0, 4, 4, 1, 1, 1, 1, 1, 0, 0, 0, 4, 4, 0]),
-    get_colors([0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 0, 0, 0, 0, 2, 2, 0]),
-    get_colors([0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0]),
-]
+# oscillator_cols_true = [
+#     get_colors([0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 0, 1, 1, 1]),
+#     get_colors([0, 0, 0, 0, 0, 1, 1, 1, 1, 1, 0, 0, 1, 1, 1, 1, 1, 0, 0, 0]),
+#     get_colors([2, 2, 0, 0, 3, 3, 0, 4, 4, 1, 1, 1, 1, 1, 0, 0, 0, 4, 4, 0]),
+#     get_colors([0, 1, 1, 0, 0, 0, 0, 0, 0, 0, 4, 4, 4, 0, 0, 0, 0, 2, 2, 0]),
+#     get_colors([0, 0, 0, 0, 0, 1, 1, 1, 0, 0, 1, 1, 0, 0, 0, 0, 0, 0, 0]),
+# ]
 
 for i, (
     ax_col,
@@ -105,7 +106,7 @@ for i, (
     ytop,
     osc_cols_mpm,
     osc_cols_nlp,
-    osc_cols_true,
+    # osc_cols_true,
 ) in enumerate(zip(
     axs.T,
     estimators,
@@ -114,10 +115,10 @@ for i, (
     ytops,
     oscillator_cols_mpm,
     oscillator_cols_nlp,
-    oscillator_cols_true,
+    # oscillator_cols_true,
 )):
     kwargs["residual_shift"] = residual_shift
-    nlp_params = estimator.get_params()
+    nlp_params = estimator.get_params(indices=[0])
     mpm_params = estimator.get_results()[0].trajectory[0]
     remove_noise_coomponents(mpm_params)
     remove_noise_coomponents(nlp_params)
@@ -129,26 +130,26 @@ for i, (
             line.remove()
     transfer(_ax, axs[0, i], fig)
 
+    # True parameters
+    estimator._results[0].params = theta
+    _ax = estimator.plot_result(oscillator_colors="k", **kwargs)[1][0, 0]
+    _ax.lines[0].remove()
+    transfer(_ax, axs[1, i], fig)
+
     # MPM result
     estimator._results[0].params = remove_noise_coomponents(mpm_params)
     _ax = estimator.plot_result(oscillator_colors=osc_cols_mpm, **kwargs)[1][0, 0]
     _ax.lines[0].remove()
-    transfer(_ax, axs[1, i], fig)
+    transfer(_ax, axs[2, i], fig)
 
     # NLP result
     estimator._results[0].params = remove_noise_coomponents(nlp_params)
     _ax = estimator.plot_result(oscillator_colors=osc_cols_nlp, **kwargs)[1][0, 0]
     _ax.lines[0].remove()
-    transfer(_ax, axs[2, i], fig)
-
-    # True parameters
-    estimator._results[0].params = theta
-    _ax = estimator.plot_result(oscillator_colors=osc_cols_true, **kwargs)[1][0, 0]
-    _ax.lines[0].remove()
     transfer(_ax, axs[3, i], fig)
 
     for j, ax in enumerate(ax_col):
-        if j == 0:
+        if j in [0, 1]:
             ax.set_ylim(data_ylim)
         else:
             ax.set_ylim(osc_ylim)
