@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Fri 19 May 2023 00:32:36 BST
+# Last Edited: Tue 13 Jun 2023 10:06:17 BST
 
 import numpy as np
 import matplotlib as mpl
@@ -54,21 +54,50 @@ def chirp(ax, left, width, height, label, type_):
     x = np.linspace(left, left + width, 10000)
     x_saltire = np.linspace(0, 1, 10000)
     envelope = height * (1 - np.abs(np.cos(np.pi * x_saltire)) ** 50)
-    delta_F = 30
 
     if type_ == "saltire":
+        delta_F = 30
         delta_f = 0.
-    elif type_ == "hilo":
-        delta_f = delta_F / 2
-    elif type_ == "lohi":
-        delta_f = -delta_F / 2
+        phase = np.cos(
+            np.pi * delta_F * (x_saltire - 0.5) ** 2 -
+            2 * np.pi * delta_f * (x_saltire - 0.5)
+        )
+        y = np.abs(envelope * phase)
+        ax.plot(x, y, color="k", lw=0.6)
 
-    phase = np.cos(
-        np.pi * delta_F * (x_saltire - 0.5) ** 2 -
-        2 * np.pi * delta_f * (x_saltire - 0.5)
-    )
-    y = np.abs(envelope * phase)
-    ax.plot(x, y, color="k")
+    else:
+        y = np.abs(envelope)
+        ax.plot(x, y, color="k", lw=0.6)
+        if type_ == "lohi":
+            lft, right, bottom, top = (
+                x[600],
+                x[8500],
+                0.02,
+                height - 0.02,
+            )
+            xyA, xyB = (lft, bottom), (right, top)
+        if type_ == "hilo":
+            lft, right, bottom, top = (
+                x[1500],
+                x[9400],
+                0.02,
+                height - 0.02,
+            )
+            xyA, xyB = (lft, top), (right, bottom)
+
+        arrow = ConnectionPatch(
+            xyA,
+            xyB,
+            coordsA="data",
+            coordsB="data",
+            arrowstyle="-|>",
+            facecolor="k",
+            edgecolor="k",
+            lw=0.6,
+            mutation_scale=6,
+        )
+        ax.add_patch(arrow)
+
     mid = (2 * left + width) / 2
     ax.text(mid, height + 0.06, label, ha="center")
 

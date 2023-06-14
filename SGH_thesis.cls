@@ -214,7 +214,7 @@
   	\AtTextCenter{\makebox(0,0){\includegraphics[width=\textwidth]{theme_figures/beltcrest_grey.pdf}}%
   }}
 	\begin{center}
-  	\begin{minipage}[t][16.5cm][b]{\textwidth}
+  	\begin{minipage}[t][17.2cm][b]{\textwidth}
     	\begin{center}
         \huge
         \@title\\[1cm]

@@ -610,13 +610,79 @@ See Algorithm \ref{alg:mmempm}
 \end{algorithm}
 
 \subsection{Model Order Selection}
-\note{
-    \begin{itemize}
-        \item MDL/AIC based on covariance matrix of data. Akin to singular
-            values of Hankel matrix.
-        \item Basic premise is to determine the point at which singular values
-            associated with matrix are no longer decreasing at a considerable
-            rate: premise that singular values of noise components should be
-            relatively constant and smaller than signal components.
-    \end{itemize}
-}
+Up to this point, it has been assumed that the model order $M$ is known. Of
+course this isn't the case, and it will vary considerably from one \ac{FID} to
+another. There are various criteria which have been established for estimating
+the model order of a given signal, with the two most prominent being the
+\ac{AIC}\cite{Akaike1974} and \ac{MDL}\cite{Schwarz1978,Rissanen1978}. Both of these
+crieria consider a family of potential models which could describe a given
+dataset, parameterised by the vector $\bth$. For the purpose of \ac{FID} estimation,
+the family of potnetial models comprise \eqref{eq:x}, with variable $M$.
+Both the \ac{AIC} and \ac{MDL}, take the same general form:
+\begin{equation}
+    \mathcal{C}(k) = c \ln \left(\mathcal{L} \left(\hat{\bth} | \bY \right)
+    \right) + \mathcal{P}(k),
+\end{equation}
+where $p$ is the \acs{pdf} of a given model with model order $k$ at the
+\ac{MLE}\note{define in stats appendix}, $c \in \mathbb{R}$is a scaling
+constant, and  $\mathcal{P}$ is a penalising function, which acts to correct
+for bias. Of course, as the model order increases, the \ac{pdf} at the \ac{MLE}
+will increase in size, as a model with more parameters will be able to fit a
+given dataset more accurately.  Therefore a penalising term which is larger for
+higher $k$ is required in order to determine a parsimonius model order. Wax and Kailath
+derived an expression for the \ac{pdf} for model comprising a summation of
+complex sinusoids\cite{Wax1985}:
+\begin{equation}
+    \mathcal{L} \left( \hat{\bth} | \bY \right) = \left(
+        \frac{
+            \prod_{r=k+1}^{\Lone} \symbf{\lambda}[r]^{\nicefrac{1}{\Lone - k}}
+        }{
+            \frac{1}{\Lone - k} \sum_{r=k+1}^{\Lone} \symbf{\lambda}[r]
+        }
+        \right)^{\left(\Lone - k\right) \None},
+        \label{eq:wax-pdf}
+\end{equation}
+$\forall k \in \lbrace 0, 1, \cdots, \Lone - 1 \rbrace$.  $\symbf{\lambda} \in
+\mathbb{R}^{\Lone}$ is the set of eigenvalues of the sample covariance
+matrix of $\bY$. Equivalently, these are given by the singular values of the
+Hankel matrix $\symbf{H}_{\symbf{Y}}$. This is convenient, as the \ac{SVD} of
+$\symbf{H}_{\symbf{Y}}$ is already necessary to carry out the \ac{MPM}. The forms of
+the \ac{AIC} and \ac{MDL} are given by
+\begin{subequations}
+    \begin{gather}
+        \operatorname{AIC}(k) = -2 p \left(\hat{\bth} | \bY\right) + 2k(2\Lone - k), \\
+        \operatorname{MDL}(k) = -p \left(\hat{\bth} | \bY\right) + \tfrac{1}{2} k(2\Lone - k) \ln \None. \label{eq:mdl}
+    \end{gather}
+\end{subequations}
+\begin{figure}
+    \centering
+    \includegraphics{mdl/mdl.pdf}
+    \caption[
+        An visualisation of the behaviour of the \acs{MDL} for three different
+        \acsp{FID} comprising the same model, but with different noise variances.
+    ]{
+        An visualisation of the behaviour of the \acs{MDL} for three different
+        \acsp{FID} comprising the same model, but with different noise
+        variances. The model features 7 oscillators, comprising a 1:3:3:1 quartet
+        structure and a 1:2:1 triplet structure. The three \acsp{SNR} used were
+        \qty{20}{\deci\bel} (yellow), \qty{12}{\deci\bel} (blue), and
+        \qty{7}{\deci\bel} (red). The \acsp{FID} were generated with $\None =
+        256$.
+        \textbf{a.} Spectra of the three \acsp{FID}.
+        \textbf{b.} The values of the 14 most significant singular values
+        associated with the Hankel matrix $\symbf{H}_{\symbf{Y}}$ (the pencil
+        parameter $\Lone$ was set to $\lfloor \nicefrac{\None}{3} \rfloor =
+        85$).
+        \textbf{c.} Square points with dotted lines: The value of
+        $-\ln \mathcal{L}$ at the \ac{MLE}, given by the negative of
+        \eqref{eq:wax-pdf}.
+        Grey line: the penalty component of the \ac{MDL}, given by the second
+        term in \eqref{eq:mdl}.
+        Circular points with solid lines: the \ac{MDL}.
+        Stars denote the minimum of the \ac{MDL}. The \qty{20}{\deci\bel}
+        signal is correctly deemed to have a model order of 7, while the other
+        two are underestimated (predicted models orders are 5 and 2 for the
+        \qty{12}{\deci\bel} and \qty{7}{\deci\bel} \acsp{FID}, respectively).
+    }
+    \label{fig:mdl}
+\end{figure}

@@ -1,13 +1,13 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Wed 19 Apr 2023 19:44:20 BST
+# Last Edited: Tue 13 Jun 2023 13:48:00 BST
 
 import numpy as np
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-from matplotlib.patches import FancyArrowPatch
+from matplotlib.patches import FancyArrowPatch, Rectangle
 from mpl_toolkits.mplot3d import Axes3D, proj3d
 from matplotlib.legend_handler import HandlerPatch
 
@@ -49,7 +49,7 @@ axes = [
 
 
 time = 20
-points = 2048
+points = 1500
 tp = np.linspace(0, time, points)
 
 axes[0].plot(
@@ -73,8 +73,8 @@ texts = ['$z$', '$y$', '$x$', '$-y$', '$-x$']
 for coord, text in zip(coords, texts):
 	arrow = Arrow3D(
 		*coord,
-		mutation_scale=5,
-		lw=1.5,
+		mutation_scale=8,
+		lw=1.,
 		arrowstyle="-|>",
 		color="k",
 		linestyle='-',
@@ -97,20 +97,39 @@ x = a * np.cos(f * tp) * np.exp(-tp * d)
 y = - a * np.sin(f * tp) * np.exp(-tp * d)
 z = 1 - np.exp(-tp * 0.1)
 
-rate = 64
+rate = 60
+last = 1600
+last = int(np.floor(last / 64))
 axes[0].plot(x, y, z, lw=1., zorder=700)
+x_samples, y_samples, z_samples, tp_samples = [array[::rate][:last] for array in (x, y, z, tp)]
 axes[0].scatter(
-    x[::rate],
-    y[::rate],
-    z[::rate],
-    zorder=500,
+    x_samples,
+    y_samples,
+    z_samples,
+    zorder=5000,
     depthshade=False,
     s=8,
+    edgecolor="k",
+    lw=0.4,
 )
+
+proj_idxs = [1, 2, 3, 4, 5]
+x_projs, y_projs, z_projs, tp_projs = [
+    [array[i] for i in proj_idxs]
+    for array in (x_samples, y_samples, z_samples, tp_samples)
+]
+for x_proj, y_proj, z_proj, tp_proj in zip(x_projs, y_projs, z_projs, tp_projs):
+    line = axes[0].plot([x_proj, x_proj, x_proj], [0, 0, y_proj], [0, z_proj, z_proj], lw=0.5)[0]
+    color = line.get_color()
+    axes[1].plot([tp_proj, tp_proj], [0, x_proj], color=color, lw=0.5)
+    axes[0].plot([0, 0, x_proj], [y_proj, y_proj, y_proj], [0, z_proj, z_proj], ls=(0, (0.8, 0.8)), lw=0.5, color=color)
+    axes[2].plot([tp_proj, tp_proj], [0, y_proj], color=color, lw=0.5, ls=(0, (0.8, 0.8)))
+
+
 axes[1].plot(tp, x)
-axes[1].scatter(tp[::rate], x[::rate], s=8, edgecolor="k", lw=0.4, zorder=10)
+axes[1].scatter(tp_samples, x_samples, s=8, edgecolor="k", lw=0.4, zorder=10)
 axes[2].plot(tp, y)
-axes[2].scatter(tp[::rate], y[::rate], s=8, edgecolor="k", lw=0.4, zorder=10)
+axes[2].scatter(tp_samples, y_samples, s=8, edgecolor="k", lw=0.4, zorder=10)
 
 # # Hide grid lines
 axes[0].axis('off')
@@ -142,12 +161,23 @@ axes[2].set_xticklabels(
 )
 axes[1].set_xticklabels([])
 
-axes[1].set_ylabel('$\\symbf{p}(x)$')
-axes[2].set_ylabel('$\\symbf{p}(y)$')
+axes[1].set_ylabel('$p(x)$')
+axes[2].set_ylabel('$p(y)$')
 axes[2].set_xlabel('$t$', labelpad=2)
 
-for i, (x, y) in enumerate(zip((0.06, 0.445, 0.445), (0.94, 0.94, 0.48))):
+for i, (x, y) in enumerate(zip((0.01, 0.445, 0.445), (0.95, 0.94, 0.48))):
     fig.text(x, y, f"\\textbf{{{chr(97 + i)}.}}")
 
+rect = Rectangle(
+    (0.005, 0.01),
+    0.4,
+    0.98,
+    transform=fig.transFigure,
+    clip_on=False,
+    facecolor="none",
+    edgecolor="k",
+    lw=0.8,
+)
+axes[1].add_patch(rect)
 
-fig.savefig("figures/quadrature_detection/quadrature_detection_new.pdf")
+fig.savefig("figures/quadrature_detection/quadrature_detection_tmp.pdf")
