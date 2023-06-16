@@ -1,28 +1,39 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Mon 05 Jun 2023 14:11:25 BST
+# Last Edited: Thu 15 Jun 2023 13:50:00 BST
 
 import nmrespy as ne
 import matplotlib as mpl
 import matplotlib.pyplot as plt
+from matplotlib.patches import ConnectionPatch
 import numpy as np
 
 
 def chirp(ax, left, width, base, height):
-    x = np.linspace(left, left + width, 100000)
-    x_saltire = np.linspace(0, 1, 100000)
-    envelope = height * (1 - np.abs(np.cos(np.pi * x_saltire)) ** 50)
-    delta_F = 30
-    delta_f = -delta_F / 2
-    phase = np.cos(
-        np.pi * delta_F * (x_saltire - 0.5) ** 2 -
-        2 * np.pi * delta_f * (x_saltire - 0.5)
+    x = np.linspace(left, left + width, 10000)
+    x_saltire = np.linspace(0, 1, 10000)
+    y = 0.5 + height * (1 - np.abs(np.cos(np.pi * x_saltire)) ** 50)
+    ax.plot(x, y, color="k")
+    lft, right, bottom, top = (
+        x[300],
+        x[8800],
+        0.52,
+        0.5 + height - 0.02,
     )
-    y = np.abs(envelope * phase) + base
-    ax.plot(x, y, color="k", lw=0.7)
-    ax.plot(x, envelope + base, color="k")
-    mid = (2 * left + width) / 2
+    xyA, xyB = (lft, bottom), (right, top)
+    arrow = ConnectionPatch(
+        xyA,
+        xyB,
+        coordsA="data",
+        coordsB="data",
+        arrowstyle="-|>",
+        facecolor="k",
+        edgecolor="k",
+        lw=0.8,
+        mutation_scale=10,
+    )
+    ax.add_patch(arrow)
 
 
 fig, ax = plt.subplots(

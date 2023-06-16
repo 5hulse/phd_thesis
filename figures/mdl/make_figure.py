@@ -1,14 +1,18 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Wed 14 Jun 2023 11:53:07 BST
+# Last Edited: Wed 14 Jun 2023 21:19:11 BST
 
+import pickle
 import nmrespy as ne
 import numpy as np
 import scipy as sp
 import matplotlib as mpl
 import matplotlib.pyplot as plt
 
+import sys
+sys.path.insert(0, "figures/mdl")
+from curlybrace import curlyBrace
 
 colors = mpl.rcParams["axes.prop_cycle"].by_key()["color"]
 
@@ -32,6 +36,8 @@ def get_info(data):
     return sigma, pdf, penalty, mdl
 
 
+MAKE_FIDS = False
+
 left = 0.01
 right = 0.99
 top = 0.95
@@ -53,7 +59,7 @@ scatter_kwargs = dict(
 )
 
 expinfo = ne.ExpInfo(1, sw=1., default_pts=256)
-quartet_center = 0.75
+quartet_center = -0.25
 triplet_center = 0.3
 splitting = 0.03
 damping = 0.02
@@ -80,8 +86,16 @@ snrs = [7., 12., 20.]
 shifts = expinfo.get_shifts()[0]
 vshift = 0.
 ns = np.arange(max_order)
+
 for snr in snrs:
-    fid = expinfo.make_fid(params, snr=snr)
+    if MAKE_FIDS:
+        fid = expinfo.make_fid(params, snr=snr)
+        with open(f"figures/mdl/snr_{snr}.pkl", "wb") as fh:
+            pickle.dump(fid, fh)
+    else:
+        with open(f"figures/mdl/snr_{snr}.pkl", "rb") as fh:
+            fid = pickle.load(fh)
+
     svs, pdf, penalty, mdl = [x [:max_order] for x in get_info(fid)]
     color = axs[1].plot(ns, svs, zorder=0, **plot_kwargs)[0].get_color()
     axs[1].scatter(ns, svs, color=color, **scatter_kwargs)
@@ -102,11 +116,40 @@ for snr in snrs:
     vshift = np.amax(spec)
     axs[0].plot(shifts, spec)
 
+for i, x in enumerate(params[:, 2], start=1):
+    idx = expinfo.convert([float(x)], "hz->idx")[0]
+    y = np.amax(spec[idx - 2 : idx + 2]) + 0.25
+    if i == 1:
+        shift = -0.01
+    elif i == 2:
+        shift = -0.01
+    elif i == 3:
+        shift = 0.01
+    elif i == 4:
+        shift = 0.01
+    elif i == 5:
+        shift = -0.01
+    elif i == 7:
+        shift = 0.01
+    else:
+        shift = 0
+    axs[0].text(x + shift, y, f"({i})", color=color, ha="center", fontsize=6)
+
+axs[1].text(0.4, 2.73, "(6)", color=color, fontsize=6)
+curlyBrace(fig, axs[1], (1.3, 2.14), (2.3, 1.91), color=color, solid_capstyle="round")
+axs[1].text(2.3, 2.05, "(2), (3)", color=color, fontsize=6)
+curlyBrace(fig, axs[1], (3.3, 1.435), (4.3, 1.27), color=color, solid_capstyle="round")
+axs[1].text(4.25, 1.4, "(5), (7)", color=color, fontsize=6)
+curlyBrace(fig, axs[1], (5.7, 0.54), (4.7, 0.67), color=color, solid_capstyle="round")
+axs[1].text(3., 0.5, "(1), (4)", color=color, fontsize=6)
+
+
 axs[2].plot(ns, penalty, zorder=0, color="#808080", **plot_kwargs)
 axs[2].scatter(ns, penalty, color="#808080", **scatter_kwargs)
 
 axs[2].axvline(7., color="k", zorder=-1, lw=0.5)
 
+axs[0].set_ylim(top=np.amax(spec) + 0.7)
 axs[0].set_xticks([])
 axs[0].set_yticks([])
 axs[0].set_xlim(shifts[0], shifts[-1])
@@ -131,5 +174,5 @@ axs[1].set_yticks([0.] + list(axs[1].get_yticks())[:-1])
 axs[2].ticklabel_format(axis="y", style="sci", scilimits=(0, 0), useMathText=True)
 
 for i, ax in enumerate(axs):
-    ax.text(0.01, 0.93, f"\\textbf{{{chr(97 + i)}.}}", transform=ax.transAxes)
+    ax.text(0.01, 0.95, f"\\textbf{{{chr(97 + i)}.}}", transform=ax.transAxes)
 fig.savefig("figures/mdl/mdl.pdf")

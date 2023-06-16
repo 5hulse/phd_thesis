@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Wed 07 Jun 2023 18:28:54 BST
+# Last Edited: Thu 15 Jun 2023 13:36:11 BST
 
 import nmrespy as ne
 import matplotlib as mpl
@@ -9,12 +9,16 @@ from matplotlib.markers import MarkerStyle
 import matplotlib.pyplot as plt
 import numpy as np
 
+# mpl.use("tkAgg")
+# mpl.rcParams["text.usetex"] = False
 
-sw = 500.e3
+
+sw = 400.e3
 pts = 2 ** 15
-nspins = 31
+nspins = 30
 params = np.zeros((nspins, 4), dtype="float64")
 params[:, 0] = 1.
+params[:, 1] = 0.
 freqs = np.linspace(-sw / 2, sw / 2, nspins + 2)
 freqs = freqs[1:-1]
 params[:, 2] = freqs
@@ -22,14 +26,15 @@ params[:, 3] = 1000.
 estimator = ne.BBQChili.new_from_parameters(
     params,
     100.e-6,
-    6.5e-6,
-    500.e3,
+    0.,
+    400.e3,
     pts,
     sw,
     0.,
-    snr=50.,
+    snr=40.,
 )
 estimator.estimate(mpm_trim=2048, nlp_trim=4096)
+# estimator.prescan_delay = None
 
 
 shifts, = estimator.get_shifts()
@@ -87,7 +92,7 @@ for i, (ax, spectrum, ylim) in enumerate(zip(axs, spectra, ylims)):
     ax.text(0.005, 0.97, f"\\textbf{{{chr(97 + i)}.}}", transform=ax.transAxes, va="top")
 
 
-xticks = list(range(250, -300, -50))
+xticks = list(range(200, -250, -50))
 axs[2].set_xticks([x * 1000 for x in xticks])
 axs[2].set_xticklabels([str(i) for i in xticks])
 axs[2].set_xlabel("\\unit{\\kilo\\hertz}")
@@ -98,59 +103,70 @@ params = estimator.get_params()
 phi = params[:, 1]
 phi_quad = phi.copy()
 
-for i in range(16, -1, -1):
-    while True:
-        phase = phi_quad[i]
-        if phase > phi_quad[i + 1]:
-            break
-        else:
-            phi_quad[i] += 2 * np.pi
+pivot = 6
 
-for i in range(18, 31):
+for i in range(pivot - 1, -1, -1):
     while True:
         phase = phi_quad[i]
-        if phase > phi_quad[i - 1]:
+        if phase < phi_quad[i + 1]:
             break
         else:
-            phi_quad[i] += 2 * np.pi
+            phi_quad[i] -= 2 * np.pi
+
+for i in range(pivot + 1, nspins):
+    while True:
+        phase = phi_quad[i]
+        if phase < phi_quad[i - 1]:
+            break
+        else:
+            phi_quad[i] -= 2 * np.pi
 
 freq = params[:, 2]
 
 axs.append(
     fig.add_axes(
-        [right + 0.02, bottom, 1 - left - right - 0.02, top - bottom]
+        [right + 0.04, bottom, 1 - left - right - 0.04, top - bottom]
     )
 )
 colors = mpl.rcParams["axes.prop_cycle"].by_key()["color"]
 red, blue = colors[:2]
 kwargs = dict(
-    s=8,
+    s=10,
     edgecolor="k",
     lw=0.4,
 )
 matching = np.where(phi - phi_quad == 0)[0]
 left, right = matching[0], matching[-1]
-# axs[-1].scatter(freq[:left], phi[:left], color=red, **kwargs)
-# axs[-1].scatter(freq[right:], phi[right:], color=red, **kwargs)
-# axs[-1].scatter(freq[:left], phi_quad[:left], color=blue, **kwargs)
-# axs[-1].scatter(freq[right:], phi_quad[right:], color=blue, **kwargs)
-# axs[-1].scatter(
-#     freq[left:right + 1], phi[left:right + 1], color=red, marker=MarkerStyle("o", fillstyle="right"),
-#     **kwargs,
-# )
-# axs[-1].scatter(
-#     freq[left:right + 1], phi[left:right + 1], color=blue, marker=MarkerStyle("o", fillstyle="left"),
-#     **kwargs,
-# )
+axs[-1].scatter(freq[:left], phi[:left], color=red, **kwargs)
+axs[-1].scatter(freq[right:], phi[right:], color=red, **kwargs)
+axs[-1].scatter(freq[:left], phi_quad[:left], color=blue, **kwargs)
+axs[-1].scatter(freq[right:], phi_quad[right:], color=blue, **kwargs)
+axs[-1].scatter(
+    freq[left:right + 1], phi[left:right + 1], color=red, marker=MarkerStyle("o", fillstyle="right"),
+    **kwargs,
+)
+axs[-1].scatter(
+    freq[left:right + 1], phi[left:right + 1], color=blue, marker=MarkerStyle("o", fillstyle="left"),
+    **kwargs,
+)
 
-axs[-1].axhline(np.pi, color="k", ls=":")
-axs[-1].axhline(-np.pi, color="k", ls=":")
+axs[-1].axhline(np.pi, color="k", ls=(0, (1, 0.8)), zorder=-1)
+axs[-1].axhline(-np.pi, color="k", ls=(0, (1, 0.8)), zorder=-1)
 
 phi2, phi1, phi0 = np.polyfit(freq, phi_quad, 2)
 xs = np.linspace(-sw / 2, sw / 2, 100)
-term1 = xs * (0.5 * estimator.pulse_length + estimator.prescan_delay)
-term2 = 0.5 * (xs ** 2) * estimator.pulse_length / estimator.pulse_bandwidth
-axs[-1].plot(xs, 2 * np.pi * (term1 + term2))
 axs[-1].plot(xs, phi2 * xs ** 2 + phi1 * xs + phi0, color="k", zorder=-1)
+axs[-1].set_xticks([-2e5, 0, 2e5])
+axs[-1].set_xticklabels(["-200", "0", "200"])
+axs[-1].set_xlabel("\\unit{\\kilo\\hertz}")
+axs[-1].set_yticks([-np.pi, 0, np.pi])
+axs[-1].set_yticklabels(["$-\\pi$", "$0$", "$\\pi$"], va="center")
+axs[-1].set_ylabel("phase (\\unit{\\radian})", labelpad=-10)
+axs[-1].text(
+    0.01, 0.99, "\\textbf{{d.}}", transform=axs[-1].transAxes, va="top",
+    bbox={"facecolor": "w", "edgecolor": "none", "pad": 0.3},
+)
+axs[-1].set_xlim(reversed(axs[-1].get_xlim()))
+axs[-1].set_ylim(top=3 * np.pi)
 
 fig.savefig("figures/chirp_phase_vs_estimation/chirp_phase_vs_estimation.pdf")

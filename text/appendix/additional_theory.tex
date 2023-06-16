@@ -7,6 +7,154 @@ stuff etc.}
 \section{Additional Algorithms}
 
 \begin{algorithm}
+    \caption{The \acs{MMEMPM}.}
+    \label{alg:mmempm}
+    \begin{algorithmic}[1]
+        \Procedure {MMEMPM}{$\symbf{Y} \in \mathbb{C}^{\None \times \Ntwo}, M \in \mathbb{N}$}
+        \State $\Lone, \Ltwo \gets \left\lfloor \nicefrac{\None}{2} \right\rfloor, \left\lfloor \nicefrac{\Ntwo}{2} \right\rfloor$;
+        \For{$\none \gets \lbrace 0, \cdots, \None - 1 \rbrace$}
+            \State  $\symbf{H}_{\symbf{Y},\none} \gets
+                \def\arraystretch{1.4}
+            \begin{bmatrix}
+                \symbf{Y}\left[\none, 0\right] &
+                \symbf{Y}\left[\none, 1\right] &
+                \cdots &
+                \symbf{Y}\left[\none, \Ntwo-L^{(2)}\right]\\
+                \symbf{Y}\left[\none, 1\right] &
+                \symbf{Y}\left[\none, 2\right] &
+                \cdots &
+                \symbf{Y}\left[\none, \Ntwo-L^{(2)}+1\right]\\
+                \vdots & \vdots & \ddots & \vdots\\
+                \symbf{Y}\left[\none, L^{(2)} - 1\right] &
+                \symbf{Y}\left[\none, L^{(2)}\right] &
+                \cdots &
+                \symbf{Y}\left[\none, \Ntwo-1\right]\\
+            \end{bmatrix}
+        $
+        \EndFor;
+        \State $\symbf{E}_{\symbf{Y}} \gets
+        \begin{bmatrix}
+            \symbf{H}_{\symbf{Y},0} & \symbf{H}_{\symbf{Y},1} & \cdots & \symbf{H}_{\symbf{Y},\None - L^{(1)}}\\
+            \symbf{H}_{\symbf{Y},1} & \symbf{H}_{\symbf{Y},2} & \cdots & \symbf{H}_{\symbf{Y},\None - L^{(1)} + 1}\\
+            \vdots & \vdots & \ddots & \vdots\\
+            \symbf{H}_{\symbf{Y},L^{(1)} - 1} & \symbf{H}_{\symbf{Y},L^{(1)}} & \cdots & \symbf{H}_{\symbf{Y},\None - 1}
+        \end{bmatrix}
+        $;
+        \State $\symbf{U}_M^{\vphantom{\dagger}},
+            \symbf{\Sigma}_M^{\vphantom{\dagger}},
+            \symbf{V}_M^{\dagger} \gets
+            \textsc{TruncatedSVD}\left(\EY, M\right)$;
+        \State $\symbf{P} \gets \symbf{0} \in \mathbb{C}^{\Lone \Ltwo \times \Lone \Ltwo}$;
+        \State $r \gets 0$
+        \For{$i = 0, \cdots, \Ltwo - 1$}
+            \For{$j = 0, \cdots, \Lone - 1$}
+                \State $c \gets i + j \Ltwo$;
+                \State $\symbf{P}\left[r, c\right] \gets 1$;
+                \State $r = r + 1$;
+            \EndFor
+        \EndFor
+        \State $\symbf{U}_{M1}, \symbf{U}_{M2} \gets \symbf{U}_M\left[ : L^{(1)}(L^{(2)}-1)\right], \symbf{U}_M\left[L^{(2)}:\right]$;
+        \Comment{Last/First $L^{(2)}$ rows deleted}
+        \State $\symbf{z}^{(1)}, \symbf{W}^{(1)} \gets \textsc{Eigendecomposition}\left( \symbf{U}_{M1}^+ \symbf{U}_{M2}^{\vphantom{+}} \right)$;
+        \State $
+            \symbf{f}^{(1)},
+            \symbf{\eta}^{(1)} \gets
+            \left(
+                \nicefrac{f_{\text{sw}}^{(1)}}{2 \pi}
+            \right)
+            \Im \left( \ln \symbf{z}^{(1)} \right) + \foffone,
+            -\fswone \Re \left( \ln \symbf{z}^{(1)} \right)
+        $;
+        \State $\symbf{U}_{M\text{P}} \gets \symbf{P} \symbf{U}_M$;
+        \State $
+            \symbf{U}_{M\text{P}1},
+            \symbf{U}_{M \text{P} 2} \gets
+            \symbf{U}_{M \text{P}}\left[ : (L^{(1)}-1)L^{(2)}\right],
+            \symbf{U}_{M \text{P}}\left[L^{(1)}:\right]
+        $;
+        \Comment{Last/First $L^{(1)}$ rows deleted}
+        \State $
+            \symbf{z}^{(2)} \gets \operatorname{diag} \left(
+                \left[\symbf{W}^{(1)}\right]^{-1}
+                \symbf{U}_{M\text{P}1}^{+}
+                \symbf{U}_{M\text{P}2}^{\vphantom{+}}
+                \symbf{W}^{(1)}
+            \right)$;
+        \State $
+            \bdftwo,
+            \bdetatwo \gets
+            \left(
+                \nicefrac{\fswtwo}{2 \pi}
+            \right)
+            \Im \left( \ln \symbf{z}^{(2)} \right) + \fofftwo,
+            -\fswtwo \Re \left( \ln \symbf{z}^{(2)} \right)
+        $;
+        \State $
+        \symbf{Z}^{(2)}_{\text{L}} =
+        \begin{bmatrix}
+            \symbf{1} &
+            \bdztwo &
+            {\bdztwo}^2 &
+            \cdots &
+            {\bdztwo}^{\Ltwo-1}
+        \end{bmatrix}\T
+        $;
+        \State $
+            \symbf{Z}^{(2)}_{\text{R}} \gets
+            \begin{bmatrix}
+                \symbf{1} & \bdztwo & {\bdztwo}^2 & \cdots & {\bdztwo}^{\Ntwo - \Ltwo}
+            \end{bmatrix}
+        $;
+        \State $\symbf{Z}^{(1)}_{\text{D}} \gets \diag\left(\bdzone\right)$;
+       \State $
+            \symbf{E}_{\text{L}} \gets
+            \begin{bmatrix}
+                \symbf{Z}^{(2)}_{\text{L}} \\
+                \symbf{Z}^{(2)}_{\text{L}} \symbf{Z}^{(1)}_{\text{D}} \\
+                \vdots\\
+                \symbf{Z}^{(2)}_{\text{L}} \left[\symbf{Z}^{(1)}_{\text{D}}\right]^{\Lone - 1}
+            \end{bmatrix}
+        $;
+        \State $
+            \symbf{E}_{\text{R}} \gets
+            \begin{bmatrix}
+                \symbf{Z}^{(2)}_{\text{R}} &
+                \symbf{Z}^{(1)}_{\text{D}} \symbf{Z}^{(2)}_{\text{R}} &
+                \cdots &
+                \left[\symbf{Z}^{(1)}_{\text{D}}\right]^{\None - \Lone} \symbf{Z}^{(2)}_{\text{R}}
+            \end{bmatrix}
+        $;
+        \State $
+           \bdalpha \gets \diag
+           \left(
+               \symbf{E}_{\text{L}}^+
+               \symbf{E}_{\symbf{Y}}^{\vphantom{+}}
+               \symbf{E}_{\text{R}}^+
+           \right)
+           $;
+        \State $
+            \bda, \bdphi \gets
+            \left\lvert \bdalpha \right\rvert,
+            \arctan \left( \frac{\Im\left(\bdalpha\right)}{\Re\left(\bdalpha\right)} \right)
+        $;
+        \State $\symbf{\theta}^{(0)} \gets
+        \begin{bmatrix}
+            \bda\T &
+            \bdphi\T &
+            \left[\symbf{f}^{(1)}\right]\T &
+            \left[\symbf{f}^{(2)}\right]\T &
+            \left[\symbf{\eta}^{(1)}\right]\T &
+            \left[\symbf{\eta}^{(2)}\right]\T
+        \end{bmatrix}
+        ^{\mathrm{T}}$;
+        \State \textbf{return} $\symbf{\theta}^{(0)}$
+    \EndProcedure
+    \end{algorithmic}
+\end{algorithm}
+
+
+
+\begin{algorithm}
     \caption[
         Steihaug-Toint method for determining an update for nonlinear
         programming.

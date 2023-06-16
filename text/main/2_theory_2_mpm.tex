@@ -458,202 +458,62 @@ generated via
     \right)
 \end{equation}
 \note{Talk about case of paired eigenvalues.}
-
-See Algorithm \ref{alg:mmempm}
-
-\begin{algorithm}
-    \caption{
-        The \acl{MMEMPM}.
-    }
-    \label{alg:mmempm}
-    \begin{algorithmic}[1]
-        \Procedure {MMEMPM}{$\symbf{Y} \in \mathbb{C}^{\None \times \Ntwo}, M \in \mathbb{N}$}
-        \State $\Lone, \Ltwo \gets \left\lfloor \nicefrac{\None}{2} \right\rfloor, \left\lfloor \nicefrac{\Ntwo}{2} \right\rfloor$;
-        \For{$\none \gets \lbrace 0, \cdots, \None - 1 \rbrace$}
-            \State  $\symbf{H}_{\symbf{Y},\none} \gets
-                \def\arraystretch{1.4}
-            \begin{bmatrix}
-                \symbf{Y}\left[\none, 0\right] &
-                \symbf{Y}\left[\none, 1\right] &
-                \cdots &
-                \symbf{Y}\left[\none, \Ntwo-L^{(2)}\right]\\
-                \symbf{Y}\left[\none, 1\right] &
-                \symbf{Y}\left[\none, 2\right] &
-                \cdots &
-                \symbf{Y}\left[\none, \Ntwo-L^{(2)}+1\right]\\
-                \vdots & \vdots & \ddots & \vdots\\
-                \symbf{Y}\left[\none, L^{(2)} - 1\right] &
-                \symbf{Y}\left[\none, L^{(2)}\right] &
-                \cdots &
-                \symbf{Y}\left[\none, \Ntwo-1\right]\\
-            \end{bmatrix}
-        $
-        \EndFor;
-        \State $\symbf{E}_{\symbf{Y}} \gets
-        \begin{bmatrix}
-            \symbf{H}_{\symbf{Y},0} & \symbf{H}_{\symbf{Y},1} & \cdots & \symbf{H}_{\symbf{Y},\None - L^{(1)}}\\
-            \symbf{H}_{\symbf{Y},1} & \symbf{H}_{\symbf{Y},2} & \cdots & \symbf{H}_{\symbf{Y},\None - L^{(1)} + 1}\\
-            \vdots & \vdots & \ddots & \vdots\\
-            \symbf{H}_{\symbf{Y},L^{(1)} - 1} & \symbf{H}_{\symbf{Y},L^{(1)}} & \cdots & \symbf{H}_{\symbf{Y},\None - 1}
-        \end{bmatrix}
-        $;
-        \State $\symbf{U}_M^{\vphantom{\dagger}},
-            \symbf{\Sigma}_M^{\vphantom{\dagger}},
-            \symbf{V}_M^{\dagger} \gets
-            \textsc{TruncatedSVD}\left(\EY, M\right)$;
-        \State $\symbf{P} \gets \symbf{0} \in \mathbb{C}^{\Lone \Ltwo \times \Lone \Ltwo}$;
-        \State $r \gets 0$
-        \For{$i = 0, \cdots, \Ltwo - 1$}
-            \For{$j = 0, \cdots, \Lone - 1$}
-                \State $c \gets i + j \Ltwo$;
-                \State $\symbf{P}\left[r, c\right] \gets 1$;
-                \State $r = r + 1$;
-            \EndFor
-        \EndFor
-        \State $\symbf{U}_{M1}, \symbf{U}_{M2} \gets \symbf{U}_M\left[ : L^{(1)}(L^{(2)}-1)\right], \symbf{U}_M\left[L^{(2)}:\right]$;
-        \Comment{Last/First $L^{(2)}$ rows deleted}
-        \State $\symbf{z}^{(1)}, \symbf{W}^{(1)} \gets \textsc{Eigendecomposition}\left( \symbf{U}_{M1}^+ \symbf{U}_{M2}^{\vphantom{+}} \right)$;
-        \State $
-            \symbf{f}^{(1)},
-            \symbf{\eta}^{(1)} \gets
-            \left(
-                \nicefrac{f_{\text{sw}}^{(1)}}{2 \pi}
-            \right)
-            \Im \left( \ln \symbf{z}^{(1)} \right) + \foffone,
-            -\fswone \Re \left( \ln \symbf{z}^{(1)} \right)
-        $;
-        \State $\symbf{U}_{M\text{P}} \gets \symbf{P} \symbf{U}_M$;
-        \State $
-            \symbf{U}_{M\text{P}1},
-            \symbf{U}_{M \text{P} 2} \gets
-            \symbf{U}_{M \text{P}}\left[ : (L^{(1)}-1)L^{(2)}\right],
-            \symbf{U}_{M \text{P}}\left[L^{(1)}:\right]
-        $;
-        \Comment{Last/First $L^{(1)}$ rows deleted}
-        \State $
-            \symbf{z}^{(2)} \gets \operatorname{diag} \left(
-                \left[\symbf{W}^{(1)}\right]^{-1}
-                \symbf{U}_{M\text{P}1}^{+}
-                \symbf{U}_{M\text{P}2}^{\vphantom{+}}
-                \symbf{W}^{(1)}
-            \right)$;
-        \State $
-            \bdftwo,
-            \bdetatwo \gets
-            \left(
-                \nicefrac{\fswtwo}{2 \pi}
-            \right)
-            \Im \left( \ln \symbf{z}^{(2)} \right) + \fofftwo,
-            -\fswtwo \Re \left( \ln \symbf{z}^{(2)} \right)
-        $;
-        \State $
-        \symbf{Z}^{(2)}_{\text{L}} =
-        \begin{bmatrix}
-            \symbf{1} &
-            \bdztwo &
-            {\bdztwo}^2 &
-            \cdots &
-            {\bdztwo}^{\Ltwo-1}
-        \end{bmatrix}\T
-        $;
-        \State $
-            \symbf{Z}^{(2)}_{\text{R}} \gets
-            \begin{bmatrix}
-                \symbf{1} & \bdztwo & {\bdztwo}^2 & \cdots & {\bdztwo}^{\Ntwo - \Ltwo}
-            \end{bmatrix}
-        $;
-        \State $\symbf{Z}^{(1)}_{\text{D}} \gets \diag\left(\bdzone\right)$;
-       \State $
-            \symbf{E}_{\text{L}} \gets
-            \begin{bmatrix}
-                \symbf{Z}^{(2)}_{\text{L}} \\
-                \symbf{Z}^{(2)}_{\text{L}} \symbf{Z}^{(1)}_{\text{D}} \\
-                \vdots\\
-                \symbf{Z}^{(2)}_{\text{L}} \left[\symbf{Z}^{(1)}_{\text{D}}\right]^{\Lone - 1}
-            \end{bmatrix}
-        $;
-        \State $
-            \symbf{E}_{\text{R}} \gets
-            \begin{bmatrix}
-                \symbf{Z}^{(2)}_{\text{R}} &
-                \symbf{Z}^{(1)}_{\text{D}} \symbf{Z}^{(2)}_{\text{R}} &
-                \cdots &
-                \left[\symbf{Z}^{(1)}_{\text{D}}\right]^{\None - \Lone} \symbf{Z}^{(2)}_{\text{R}}
-            \end{bmatrix}
-        $;
-        \State $
-           \bdalpha \gets \diag
-           \left(
-               \symbf{E}_{\text{L}}^+
-               \symbf{E}_{\symbf{Y}}^{\vphantom{+}}
-               \symbf{E}_{\text{R}}^+
-           \right)
-           $;
-        \State $
-            \bda, \bdphi \gets
-            \left\lvert \bdalpha \right\rvert,
-            \arctan \left( \frac{\Im\left(\bdalpha\right)}{\Re\left(\bdalpha\right)} \right)
-        $;
-        \State $\symbf{\theta}^{(0)} \gets
-        \begin{bmatrix}
-            \bda\T &
-            \bdphi\T &
-            \left[\symbf{f}^{(1)}\right]\T &
-            \left[\symbf{f}^{(2)}\right]\T &
-            \left[\symbf{\eta}^{(1)}\right]\T &
-            \left[\symbf{\eta}^{(2)}\right]\T
-        \end{bmatrix}^{\mathrm{T}}
-        $;
-        \State \textbf{return} $\symbf{\theta}^{(0)}$
-    \EndProcedure
-    \end{algorithmic}
-\end{algorithm}
+\note{See Algorithm \ref{alg:mmempm}}
 
 \subsection{Model Order Selection}
-Up to this point, it has been assumed that the model order $M$ is known. Of
-course this isn't the case, and it will vary considerably from one \ac{FID} to
-another. There are various criteria which have been established for estimating
-the model order of a given signal, with the two most prominent being the
+The \ac{MPM} and \ac{MMEMPM} require a specification of the model order $M$.
+There are various non-subjective criteria which have been established for estimating
+the model order of a given signal, with probably the two most prominent being the
 \ac{AIC}\cite{Akaike1974} and \ac{MDL}\cite{Schwarz1978,Rissanen1978}. Both of these
-crieria consider a family of potential models which could describe a given
-dataset, parameterised by the vector $\bth$. For the purpose of \ac{FID} estimation,
-the family of potnetial models comprise \eqref{eq:x}, with variable $M$.
-Both the \ac{AIC} and \ac{MDL}, take the same general form:
+criteria consider a family of potential models which could describe a given
+set of observations, parametrised by the vector $\bth$. For the purpose of
+\ac{FID} estimation, the family of potential models comprise \eqref{eq:x}, with
+variable $M$.  Both the \ac{AIC} and \ac{MDL} take the same general form:
 \begin{equation}
-    \mathcal{C}(k) = c \ln \left(\mathcal{L} \left(\hat{\bth} | \bY \right)
-    \right) + \mathcal{P}(k),
+    \mathcal{C}(k) = -c \ln \left(\mathcal{L} \left(\hat{\bth} | \bY \right)
+    \right) + \mathcal{P}(k) \text{ with } \hat{\bth} \in \mathbb{R}^{4k},
 \end{equation}
-where $p$ is the \acs{pdf} of a given model with model order $k$ at the
-\ac{MLE}\note{define in stats appendix}, $c \in \mathbb{R}$is a scaling
-constant, and  $\mathcal{P}$ is a penalising function, which acts to correct
-for bias. Of course, as the model order increases, the \ac{pdf} at the \ac{MLE}
+$\forall k \in \lbrace 0, 1, \cdots \rbrace$. $\mathcal{L} \left(\hat{\bth} |
+\bY \right)$ is the likelihood
+function of a given model, with model order $k$, at the \ac{MLE}
+$\hat{\bth}$\note{define in stats appendix}, $c \in \mathbb{R}$ is a scaling
+constant, and $\mathcal{P}$ is a penalising function, which acts to correct
+for bias. As the model order increases, the likelihood function at the \ac{MLE}
 will increase in size, as a model with more parameters will be able to fit a
-given dataset more accurately.  Therefore a penalising term which is larger for
-higher $k$ is required in order to determine a parsimonius model order. Wax and Kailath
-derived an expression for the \ac{pdf} for model comprising a summation of
-complex sinusoids\cite{Wax1985}:
+given dataset more accurately. However, as the model order inceases, there will
+become a point where practically all of the deterministic part of the signal
+has been incorporated into the model, and increasing the model order further
+leads to the model also accounting for noise. The penalising term, which
+is larger for higher $k$, is required in order to estimate a model
+order which is parsimonious. Wax and Kailath derived an expression for the
+the likelihood at the \ac{MLE} for models comprising a summation of complex
+sinusoids\cite{Wax1985}:
 \begin{equation}
     \mathcal{L} \left( \hat{\bth} | \bY \right) = \left(
         \frac{
-            \prod_{r=k+1}^{\Lone} \symbf{\lambda}[r]^{\nicefrac{1}{\Lone - k}}
+            \prod_{r=k}^{\Lone-1} \symbf{\sigma}[r]^{\nicefrac{1}{\Lone - k}}
         }{
-            \frac{1}{\Lone - k} \sum_{r=k+1}^{\Lone} \symbf{\lambda}[r]
+            \frac{1}{\Lone - k} \sum_{r=k}^{\Lone-1} \symbf{\sigma}[r]
         }
         \right)^{\left(\Lone - k\right) \None},
         \label{eq:wax-pdf}
 \end{equation}
-$\forall k \in \lbrace 0, 1, \cdots, \Lone - 1 \rbrace$.  $\symbf{\lambda} \in
-\mathbb{R}^{\Lone}$ is the set of eigenvalues of the sample covariance
-matrix of $\bY$. Equivalently, these are given by the singular values of the
-Hankel matrix $\symbf{H}_{\symbf{Y}}$. This is convenient, as the \ac{SVD} of
-$\symbf{H}_{\symbf{Y}}$ is already necessary to carry out the \ac{MPM}. The forms of
-the \ac{AIC} and \ac{MDL} are given by
+$\forall k \in \lbrace 0, 1, \cdots, \Lone - 1 \rbrace$. $\symbf{\sigma} \in
+\mathbb{R}^{\Lone}$ is the set of singular values of $\symbf{H}_{\symbf{Y}}$,
+in decreasing order. The forms of the \ac{AIC} and \ac{MDL} are given by
 \begin{subequations}
     \begin{gather}
-        \operatorname{AIC}(k) = -2 p \left(\hat{\bth} | \bY\right) + 2k(2\Lone - k), \\
-        \operatorname{MDL}(k) = -p \left(\hat{\bth} | \bY\right) + \tfrac{1}{2} k(2\Lone - k) \ln \None. \label{eq:mdl}
+        \operatorname{AIC}(k) = -2 \ln\left( \mathcal{L} \left(\hat{\bth} | \bY\right) \right) + 2k(2\Lone - k), \\
+        \operatorname{MDL}(k) = -\ln\left( \mathcal{L} \left(\hat{\bth} | \bY\right) \right) + \tfrac{1}{2} k(2\Lone - k) \ln \None. \label{eq:mdl}
     \end{gather}
 \end{subequations}
+The \ac{AIC} is to be inconsistent in that it tends to overestimate the model
+order as the number of samples increases\cite{Wax1985}. For this reason, the
+\ac{MDL} has found greater favour in signal processing applications. The
+estimated model order is then given by
+\begin{equation}
+    M = \argmin_{k \in \mathbb{N}_0 :\ k < \Lone} \operatorname{MDL} (k).
+\end{equation}
 \begin{figure}
     \centering
     \includegraphics{mdl/mdl.pdf}
@@ -663,26 +523,41 @@ the \ac{AIC} and \ac{MDL} are given by
     ]{
         An visualisation of the behaviour of the \acs{MDL} for three different
         \acsp{FID} comprising the same model, but with different noise
-        variances. The model features 7 oscillators, comprising a 1:3:3:1 quartet
-        structure and a 1:2:1 triplet structure. The three \acsp{SNR} used were
-        \qty{20}{\deci\bel} (yellow), \qty{12}{\deci\bel} (blue), and
-        \qty{7}{\deci\bel} (red). The \acsp{FID} were generated with $\None =
-        256$.
+        variances. The model used to construct the \acp{FID} feature 7
+        oscillators. The three \acsp{SNR} used were
+        \qty{7}{\deci\bel} (red), \qty{12}{\deci\bel} (blue), and
+        \qty{20}{\deci\bel} (yellow). The \acsp{FID} were generated with $\None
+        = 256$.
         \textbf{a.} Spectra of the three \acsp{FID}.
         \textbf{b.} The values of the 14 most significant singular values
-        associated with the Hankel matrix $\symbf{H}_{\symbf{Y}}$ (the pencil
-        parameter $\Lone$ was set to $\lfloor \nicefrac{\None}{3} \rfloor =
+        associated with the Hankel matrix $\symbf{H}_{\symbf{Y}}$, with the
+        pencil parameter $\Lone$ set to $\lfloor \nicefrac{\None}{3} \rfloor =
         85$).
-        \textbf{c.} Square points with dotted lines: The value of
-        $-\ln \mathcal{L}$ at the \ac{MLE}, given by the negative of
-        \eqref{eq:wax-pdf}.
+        \textbf{c.} Square points with dotted lines: The negative log-likeliood
+        \ac{MLE}, i.e. the first term of \eqref{eq:mdl}.
         Grey line: the penalty component of the \ac{MDL}, given by the second
         term in \eqref{eq:mdl}.
         Circular points with solid lines: the \ac{MDL}.
-        Stars denote the minimum of the \ac{MDL}. The \qty{20}{\deci\bel}
+        Stars denote the minimum of the \ac{MDL} for a given \ac{FID}. The
+        \qty{20}{\deci\bel}
         signal is correctly deemed to have a model order of 7, while the other
-        two are underestimated (predicted models orders are 5 and 2 for the
+        two are underestimated (predicted models orders are 5 and 3 for the
         \qty{12}{\deci\bel} and \qty{7}{\deci\bel} \acsp{FID}, respectively).
     }
     \label{fig:mdl}
 \end{figure}
+Figure \ref{fig:mdl} illustrates the form of the \ac{MDL} for three signals
+with equivalent underlying models, with $M=7$, and noise instances with
+different variances. The first 14 singular values of $\symbf{H}_{\symbf{Y}}$
+are plotted in panel b, where it can be seen that beyond the first 7, after
+singular values accounting for signal components are accounted for, the
+following singular values, associated with noise, decrease at a far slower
+rate. The noise subspace for \acp{FID} with higher \acp{SNR} have singular
+values which are (a) smaller in magnitude and (b) more consistent, such that
+distinguishing the noise and signal subspaces is an easier task (cf. the
+yellow line in panel b and the red line). As such, the \ac{MDL} is more likely
+to provide a faithful estimate of the true number of components in the \ac{FID}
+(panel c).
+
+\note{Mention that multidimensional criteria are available, though not
+implemented in this work.}

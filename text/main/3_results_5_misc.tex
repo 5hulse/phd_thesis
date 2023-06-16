@@ -61,7 +61,12 @@ related to $\beta$ via
 \note{ref?}
 such that an appropriate pulse to achieve a flip angle of \ang{90} requires
 selecting a combination of $\nu_{\text{RF}}$, $\Updelta F$, and
-$\tau_{\text{p}}$ which satisfies $Q \approx 0.441$.
+$\tau_{\text{p}}$ which satisfies $Q \approx 0.441$\footnote{
+    The combination used in examples in this work are
+    $\nu_{\text{RF}} \approx \qty{16.8}{\kilo\hertz}$,
+    $\Updelta F = \qty{400}{\kilo\hertz}$,
+    $\tau_{\text{p}} = \qty{100}{\micro\second}$
+}.
 
 \begin{figure}
     \centering
@@ -88,8 +93,8 @@ $\tau_{\text{p}}$ which satisfies $Q \approx 0.441$.
     \label{fig:single-chirp}
 \end{figure}
 
-For a pulse with sufficiently low $\nu_{\text{RF}}$ (which in turn requires a
-sufficiently large $\tau_{\text{p}}$ for a given excitation bandwidth) it is
+For a pulse with sufficiently low $\nu_{\text{RF}}$, which requires a
+sufficiently large pulse duration for a given excitation bandwidth, it is
 valid to assume that the chirp induces an instantaneous \ang{90} rotation
 of a spin at the point of resonance. As such, resonances with different
 frequencies evolve for different amounts of time prior to the start of
@@ -101,11 +106,11 @@ acquisition, according to
     \label{eq:t0}
 \end{equation}
 $\tau_{\text{del}} + \nicefrac{1}{2} \tau_{\text{p}}$ is the amount of time
-between excitation and detection for an on-resonance oscillator. Resonances
+between excitation and detection for an on-resonance oscillator, which is
+excited exactly halfway through the pulse. Resonances
 with an frequency smaller than the transmitter are excited earlier and hence
 have a larger $t_0$, while the converse is true for resonances with greater
-frequencies. An illustration of this phenomenon is provided by Figure
-\ref{fig:single-chirp}.
+frequencies.
 
 \subsection{Quadratic phase correction and \acs{BBQCHILI}}
 Appropriate phasing of the spectrum generated via single chirp excitation can
@@ -183,21 +188,43 @@ output of the \ac{MPM} was used.
         with uniformly-separated resonance frequencies. The data was generated
         with
         $\None=2^{15}$,
-        $\fswone=\qty{500}{\kilo\hertz}$,
+        $\fswone=\qty{400}{\kilo\hertz}$,
         $\foffone=\qty{0}{\hertz}$,
         $\tau_{\text{p}} = \qty{100}{\micro\second}$,
-        $\tau_{\text{del}} = \qty{6.5}{\micro\second}$,
-        $\Updelta F = \qty{500}{\kilo\hertz}$.
+        $\tau_{\text{del}} = \qty{0}{\second}$,
+        $\Updelta F = \qty{400}{\kilo\hertz}$.
         \textbf{b.} Spectrum generated using quadratic phase correction, with
         \eqref{eq:quadratic-phase}.
         \textbf{c.} Spectrum generated from estimation using the \ac{MPM}, and
         back-propagation.
+        \textbf{d.} Estimated phases of each oscillator as a function of
+        frequency. Red points: phases wrapped within the range $(-\pi, \pi]$.
+        Blue points: the same phases, adjusted by addition of a suitable multiple
+        of $2 \pi$ to each red point in order to display the quadratic
+        dependence of the phases. Black curve: quadratic fit of the blue
+        points.
     }
     \label{fig:chirp-phase-vs-backprop}
 \end{figure}
 Figure \ref{fig:chirp-phase-vs-backprop} provides an illustration of both
 quadratic phase correction and the \ac{BBQCHILI} procedure, on a simulated
-dataset comprising 30 evenly-separated isolated spins.
-
-
-\note{Waitng for Ali for response about Gd-doped water data.}
+dataset comprising 30 non-coupled spins with evenly spaced resonance
+frequencies. A very large damping factor ($\qty{1000}{\per\second}$) was
+assigned to each oscillator, in order to highlight an extreme example of the
+baseline distortions which exist in the spectrum, which are evident from panel
+b. As explained above, more intense, narrower artefacts are associated with
+low-frequency resonances, where are larger gap between excitation exists. The
+\ac{MPM} was used to estimate the signal parameters, with only the first 2048
+considered\footnote{
+    Performing the \ac{MPM} on a signal with $2^{15}$ points would take (a) a
+    very long time, and (b) require a very large amount of \ac{RAM} (see Figure
+    \ref{fig:profiling}).
+}. The spectrum generated via frequency-dependent back-propagation is presented
+in panel c, where a well-phased spectrum without baseline distortion was
+achieved. An illustration of the variation of the estimated oscillator phases
+against their frequencies is presented in panel d, with the blue points being
+equivalent to the red points, except for addition of an appropriate multiple
+of $2\pi$, to show the quadratic behaviour. Fitting the blue points to a
+quadratic yielded a quadratic coefficient
+$\qty{-6.28e-10}{\radian\second\squared}$, in agreement with $-2 \pi
+\left(\nicefrac{\tau_{\text{p}}}{2 \Updelta F}\right)$.
