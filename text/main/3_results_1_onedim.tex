@@ -124,22 +124,6 @@ output of the \ac{MPM}, where crowded regions often get assigned oscillators
 with spurious complex amplitudes ($a$ and  $\phi$). \note{More discussion here...}
 
 \subsubsection{Andrographolide}
-Figure \ref{fig:andro-onedim} illustrates the outcome of applying the
-estimation routine to selected regions of a \textsuperscript{1}H dataset of
-andrographolide (Figure \ref{fig:structures}.e), in \acs{DMSOd6}. The \ac{NLP}
-routine is effective at resolving the spurious phase-behaviour often generated
-by the \ac{MPM}, while retaining reasonable fits to the data in most
-circumstances. It's ability to estimate parameters from resonances with high
-dynamic range is also evidenced by the fact that it was able to assign an
-intense, broad singlet, corresponding to water, alongside a nearby quartet
-corresponding the methylene in some residual ethanol in the sample.
-
-Probably the most challenging aspect of estimating \ac{NMR} signals is
-frequently being confronted with data that contains signals with incredibly
-similar frequencies, with this dataset is a prime example. Andrographoilde has
-a very dense coupling network, with some nuclei coupling to 4 or 5 other nuclei
-with appreciable coupling constants. A prime example of this is spin (Q). This nucleus has separate 3-bond (vicinal) couplings to the diasteroetopic (M) and (N). Furthermore, it is likely to have small but appreciable four-bond couplings with the axial nuclei (P), (W) and (X), with the dihedral angle between (Q) and each of these being...
-
 \begin{sidewaysfigure}
     \centering
     \includegraphics{andrographolide_onedim/andrographolide_onedim.pdf}
@@ -164,28 +148,52 @@ with appreciable coupling constants. A prime example of this is spin (Q). This n
     }
     \label{fig:andro-onedim}
 \end{sidewaysfigure}
-\note{TODO}
-\begin{itemize}
-    \item Figure \ref{fig:andro-onedim}.
-    \item Able to resolve signals with considerable variation in damping
-        (H\textsubscript{2}O vs (K), (L) signals, along with methylene quartet,
-        which is immersed in the broad singlet).
-    \item For particular multiplets, notably (P), (Q), residual provides
-        evidence for under-fit: systematic ``wiggles'' in the residual imply
-        single oscillator trying to fit frequency neighbourhood with more than
-        one oscillator.
-    \item Example illustrates considerable challenge in estimating datasets
-        from molecules with very dense coupling networks (common with
-        multi-cyclic molecules like andrographolide). (Q) provides extreme
-        example of many small couplings leading to multiplet structures which
-        are incredibly difficult to accurately resolve. Being an axial proton,
-        4-bond couplings to other axial protons (P, W, X) are likely large
-        enough to have an appreciable effect on lineshape (Karplus).
-    \item Estimating (O) signal was more successful. Being equatorial, 4-bond
-        couplings to other ring protons (\ang{60} dihedral angles) likely too
-        small to be noticeable. Small residual implies parsimonius (i.e. no
-        over-fit or under-fit) result: geminal coupling to (P), three-bond
-        couplings to (R) and (V).
-    \item (E/F): Small geminal alkene coupling.
-\end{itemize}
+Figure \ref{fig:andro-onedim} illustrates the outcome of applying the
+estimation routine to selected regions of a \textsuperscript{1}H dataset of
+andrographolide (Figure \ref{fig:structures}.e), in \acs{DMSOd6}. The \ac{NLP}
+routine is effective at resolving the spurious phase-behaviour often generated
+by the \ac{MPM}, while retaining reasonable fits to the data in most
+circumstances. It's ability to estimate parameters from resonances with high
+dynamic range is also evidenced by the fact that it was able to assign an
+intense, broad singlet, corresponding to water which has entered the sample
+over time, alongside a nearby quartet corresponding to the methylene of some
+residual ethanol in the sample.
+
+Probably the most challenging aspect of estimating \ac{NMR} signals is
+the fact that data frequently contains signals with incredibly
+similar frequencies, commonly due to the effect of scalar couplings. Molecules
+with fused ring systems such as andrographolide are prime examples of spin
+systems which generate such datasets, as they tend to have very dense coupling
+networks, and often exhibit appreciable long-range couplings (between spins
+separated by four or more bonds) alongside more prevalent two-bond (geminal)
+and three-bond (vicinal) couplings. Take the multiplet structure from spin (Q)
+as an example.
+This nucleus has separate 3-bond (vicinal) couplings to the
+diastereotopic protons (M) and (N), which are likely the greatest magnitude couplings
+associated with (Q). If these were the only couplings, a doublet of doublets
+(dd) structure would be expected, which is what has been fit by
+the estimation routine (see panel c in the region of
+\SIrange{1.85}{1.88}{\partspermillion}). However, a
+comparison of the data and the model indicates that there is clear discrepancy
+between the two, evidenced by systematic ``wobbles'' in the residual. An
+under-fit of the multiplet structure is therefore apparent. For comparison,
+note that the \ac{MPM} generated oscillators with phases deviating far from
+\ang{0} in order to agree as closely as possible to the data, however such a
+set of oscillators is unrealistic for a well-phased \ac{FID}. Four-bond couplings with
+magnitudes that are large enough to influence the appearance of (Q)'s
+multiplet structure must therefore be present. Similar scenarios are apparent for spins
+(P) and (V), which from a cursory inspection appear to comprise triplet of
+doublets (dt) and quartet of doublets (dq) multiplet structures, respectively\footnote{
+    The major couplings associated with (P) are a geminal coupling to (O), a vicinal
+    coupling to (V) with a dihedral angle of \ang{180}, and another vicinal coupling to
+    (R), with a dihedral angle of \ang{60}. The (O) and (V) couplings are
+    likely of similar magnitude, giving rise to the apparent triplet structure,
+    with the (R) coupling being smaller, based on the Karplus equation\note{CITE}.
+    For (V), a geminal coupling to (R), and vicinal couplings to (W) and (P),
+    both with \ang{180} dihedral angles, lead to the apparent quartet
+    structure, with a smaller vicinal coupling to (O).
+}
+, but which
+again have far more complex coupling structures due to the presence of small
+four-bond couplings.
 

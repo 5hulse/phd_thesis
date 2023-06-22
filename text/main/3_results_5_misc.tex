@@ -1,73 +1,46 @@
-\section{Phased broadband spectra from single chirp excitation}
+\section{Phased broadband spectra from chirp excitation}
 \label{sec:bbqchili}
 
-The are numerous nuclei of considerable interest to \ac{NMR} practitioners with
-very wide chemical shift ranges, including \textsuperscript{13}C,
-\textsuperscript{19}F -- of particular interest in the
-pharmaceutical industry -- and \textsuperscript{31}P. Attaining spectra
-covering the entire
-chemical shift range of such spins for use in quantitative applications is
-challenging due to off-resonance effects, which severely alter the amplitudes
-and phases of resonances with frequencies far from the transmitter
-frequency\cite[Section 3.4.1]{Cavanagh2007}. One popular means of achieving
-\emph{broadband} excitation, in which a consistent amplitude- and phase-profile
-across the spectral window the achieved, is to use swept-frequency (chirp)
-pulses, whose excitation frequency varies with
-time\cite{Bohlen1989,Bohlen1993}.
-The application of a single \ang{90} chirp pulse to achieve broadband
-excitation, while simple, yields spectra with undesirable phase behaviour, on
-account of resonances with different frequencies being excited at different
-moments during chirp application. However, with knowledge of the form of the
-chirp pulse, the expected phase of a particular resonance is determinable, and
-can be corrected with appropriate post-processing.
+The are numerous nuclei of value in \ac{NMR} with very wide chemical shift
+ranges, including \textsuperscript{13}C, \textsuperscript{19}F (of
+particular interest in the pharmaceutical industry) \textsuperscript{31}P,
+\textsuperscript{195}Pt.
+Attaining spectra covering the entire chemical shift range of such spins for
+use in quantitative applications is challenging due to off-resonance effects,
+which severely alter the amplitudes and phases of resonances with frequencies
+far from the transmitter frequency\cite[Section 3.4.1]{Cavanagh2007}. One
+popular means of achieving broadband excitation, in which a consistent
+amplitude- and phase-profile across a spectral window of tens or even hundreds
+of \unit{\kilo\hertz} the achieved, is to use \ac{FS} pulses, during
+which the frequency of \ac{RF} irradiation varies with
+time\cite{Foroozandeh2020}. One of the most common classes of \ac{FS} pulses
+are those where the variation of frequency with time is linear, with such
+pulses commonly referred to as \emph{chirp} pulses. The application of a single
+\ang{90} chirp pulse to achieve broadband excitation, while simple, yields
+spectra with undesirable phase behaviour, on account of resonances with
+different frequencies being excited at different moments in time.
+There are well-established methods for overcoming this using
+pulse sequences featuring an initial excitation, followed by one or more
+refocussing \ac{FS}
+pulses\cite{Bohlen1989,Bohlen1993,Cano2002,Power2016,Foroozandeh2019}.
 
-In this section, a description of a method given the name \ac{BBQCHILI} is
-presented, which provides a means of acquiring well-phased broadband spectra
-from single chirp excitation. \ac{BBQCHILI} comprises two key steps: (a)
-estimation of the acquired \ac{FID}'s parameters, (b) generation of a synthetic
-\ac{FID}, with each contributing oscillator being back-propagated by an
-appropriate amount, according to its resonance frequency. A description of the
-technique is presented, followed by an illustration of its performance on
-simulated and experimental datasets.
+With knowledge of the form of the chirp pulse, the expected phase of a
+particular resonance is determinable, and in this section, it will be shown
+that well-phased spectra can be obtained from excitation with a single \ac{FS}
+pulse when appropriate post-processing of the \ac{FID} is employed.
+The main advantage of being able to derive spectra with desirable features from
+a single chirp excitation experiment is the fact that ultra-broadband spectra
+can be generated using with a far shorter pulse sequence than state of the art
+methods such as \ac{CHORUS}\cite{Power2016,Foroozandeh2019}, where both a
+\ang{90} chirp pulse, and two \ac{180} chirp pulses are applied. Spectra with
+greater intensity, as which could include broad resonances from slowly tumbling
+species could therefore be realised.  Here, a description of the technique is
+presented, followed by an illustration of its performance on a simulated and an
+experimental dataset. This work is fairly nascent, and while the initial
+results presented here show promise, there is yet to be consideration on
+samples of greater interest.
 
-\subsection{An overview of single chirp excitation}
-Here, focus is limited to chirp pulses whose frequency varies linearly with
-time, which sweep from low to high frequencies. Such a pulse is defined by its
-duration $\tau_{\text{p}}$ (\unit{\second}),
-excitation bandwidth $\Updelta F$ (\unit{\hertz}),
-and \ac{RF} amplitude $\nu_{\text{RF}}$ (\unit{\hertz}).
-The frequencies that the pulse sweeps through are in the range $\left[\foffone -
-\nicefrac{1}{2} \Updelta F, \foffone + \nicefrac{1}{2} \Updelta F\right]$, and
-the rate at which the frequency of the chirp is increased (the sweep rate) is
-given by $\nicefrac{\Updelta F}{\tau_{\text{p}}}$.
-Figure \ref{fig:single-chirp} provides an illustration of a single chirp
-excitation experiment. After application of the chirp pulse, there is commonly
-a short \emph{pre-scan delay} $\tau_{\text{del}}$, typically on the order of
-\unit{\micro\second}, prior to the start of acquisition, which is also of
-relevance in order to process the \ac{FID}.
-
-The various pulse parameters are inter-related as follows:
-\begin{equation}
-    \nu_{\text{RF}} = \sqrt{
-        \frac{\Updelta F Q}{2 \pi \tau_{\text{p}}}
-    },
-\end{equation}
-where $Q \in \mathbb{R}_{>0}$ is the \emph{adiabaticity factor} \note{More
-detail/citation?}. For a pulse with flip angle  $\beta < \ang{180}$,  $Q$ is
-related to $\beta$ via
-\begin{equation}
-    Q = \frac{2}{\pi} \ln \left( \frac{2}{\cos(\beta) + 1} \right),
-\end{equation}
-\note{ref?}
-such that an appropriate pulse to achieve a flip angle of \ang{90} requires
-selecting a combination of $\nu_{\text{RF}}$, $\Updelta F$, and
-$\tau_{\text{p}}$ which satisfies $Q \approx 0.441$\footnote{
-    The combination used in examples in this work are
-    $\nu_{\text{RF}} \approx \qty{16.8}{\kilo\hertz}$,
-    $\Updelta F = \qty{400}{\kilo\hertz}$,
-    $\tau_{\text{p}} = \qty{100}{\micro\second}$
-}.
-
+\subsection{Chirp excitation}
 \begin{figure}
     \centering
     \includegraphics{single_chirp_illustration/single_chirp_illustration.pdf}
@@ -92,68 +65,110 @@ $\tau_{\text{p}}$ which satisfies $Q \approx 0.441$\footnote{
     }
     \label{fig:single-chirp}
 \end{figure}
+Here, focus is limited to chirp pulses which sweep from low to high
+frequencies. Such a pulse is parameterised by
+its duration $\tau_{\text{p}}$ (\unit{\second}),
+excitation bandwidth $\Updelta F$ (\unit{\hertz}),
+and \ac{RF} amplitude $\nu_{\text{RF}}$ (\unit{\hertz}).
+The frequencies that the pulse sweeps through are in the range $\left[\foffone -
+\nicefrac{1}{2} \Updelta F, \foffone + \nicefrac{1}{2} \Updelta F\right]$, and
+the rate at which the frequency of the chirp is increased (the sweep rate) is
+given by $\nicefrac{\Updelta F}{\tau_{\text{p}}}$.
+Figure \ref{fig:single-chirp} provides an illustration of a single chirp
+excitation experiment. After application of the chirp pulse, there is typically
+a short pre-scan delay $\tau_{\text{del}}$, usually on the order of a few
+\unit{\micro\second}, prior to the start of acquisition. While the pre-scan
+delay can be determined if an intimate knowledge of the spectrometer hardware
+is known, this varies from instrument to instrument, and is not trivial to
+ascertain.
 
+The various pulse parameters are inter-related as follows:
+\begin{equation}
+    \nu_{\text{RF}} = \sqrt{
+        \frac{\Updelta F Q}{2 \pi \tau_{\text{p}}}
+    },
+\end{equation}
+where $Q \in \mathbb{R}_{>0}$ is the \emph{adiabaticity factor}\cite{Kupce1995b}.
+For a pulse with flip angle  $\beta < \ang{180}$, $Q$ is related to $\beta$ via
+\begin{equation}
+    Q = \frac{2}{\pi} \ln \left( \frac{2}{\cos(\beta) + 1} \right),
+\end{equation}
+\note{ref?}
+such that an appropriate pulse to achieve a flip angle of \ang{90} requires
+selecting a combination of $\nu_{\text{RF}}$, $\Updelta F$, and
+$\tau_{\text{p}}$ which satisfies $Q \approx 0.441$\footnote{
+    The combination used in examples in this work are
+    $\nu_{\text{RF}} \approx \qty{16.8}{\kilo\hertz}$,
+    $\Updelta F = \qty{400}{\kilo\hertz}$,
+    $\tau_{\text{p}} = \qty{100}{\micro\second}$
+}.
 For a pulse with sufficiently low $\nu_{\text{RF}}$, which requires a
 sufficiently large pulse duration for a given excitation bandwidth, it is
-valid to assume that the chirp induces an instantaneous \ang{90} rotation
-of a spin at the point of resonance. As such, resonances with different
+reasonable to assume that the chirp pulse induces an instantaneous \ang{90}
+rotation
+of a spin at the point of resonance, as illustrated in Figure
+\ref{fig:single-chirp}. As such, resonances with different
 frequencies evolve for different amounts of time prior to the start of
 acquisition, according to
+\note{Double check this with Ali: his draft has $+$
+for last term, rather than $-$. I have $-$, as this makes  $t_0$ larger for
+frequencies less than the transmitter, as I would expect for a low-to-high
+sweep.}
 \begin{equation}
     t_0\left( \fone \right) =
         \tau_{\text{del}} + \frac{\tau_{\text{p}}}{2} -
         \frac{\left( \fone - \foffone \right) \tau_{\text{p}}}{2 \Updelta F}.
     \label{eq:t0}
 \end{equation}
-$\tau_{\text{del}} + \nicefrac{1}{2} \tau_{\text{p}}$ is the amount of time
+$\tau_{\text{del}} + \nicefrac{\tau_{\text{p}}}{2}$ is the amount of time
 between excitation and detection for an on-resonance oscillator, which is
 excited exactly halfway through the pulse. Resonances
 with an frequency smaller than the transmitter are excited earlier and hence
 have a larger $t_0$, while the converse is true for resonances with greater
-frequencies.
-
-\subsection{Quadratic phase correction and \acs{BBQCHILI}}
-Appropriate phasing of the spectrum generated via single chirp excitation can
-be reduced to a trivial zero-order problem by applying phase correction
-(Section \ref{subsec:nmr-analysis}), with \note{Check $2 \pi$}
+frequencies. The resulting overall phase as a function of frequency can be
+approximated as\cite{Foroozandeh2019}
 \begin{equation}
     \phi \left( \fone \right) =
-        \underbrace{
-            2 \pi \left(\fone - \foffone\right) \left(\tau_{\text{del}}
-            + \frac{\tau_{\text{p}}}{2} \right)
-        }_{\phi_1} -
-        \underbrace{
-            2 \pi \left(\fone - \foffone\right)^2 \left(
-            \frac{\tau_{\text{p}}}{2 \Updelta F} \right)
-        }_{\phi_2}.
+        \phi_0 +
+        2 \pi  \left(\tau_{\text{del}} + \frac{\tau_{\text{p}}}{2} \right)
+        \left(\fone - \foffone\right) +
+        2 \pi \left( \frac{\tau_{\text{p}}}{2 \Updelta F} \right)
+        \left(\fone - \foffone\right)^2.
     \label{eq:quadratic-phase}
 \end{equation}
-While \eqref{eq:quadratic-phase} is able to correct the quadratic phase
-behaviour of peaks, it is unable to address another issue with the dataset,
-which is the fact that for each resonance, a number of initial points are not
-present in the \ac{FID}.
-For any resonance, the signal that is actually detected can be thought of as
+One might assume that it is possible to generate phased spectra by simply
+applying phase correction to the spectrum, via
+\begin{equation}
+    s_{\phi} \left(\fone\right) =
+        s\left(\fone\right) \exp\left(-\iu \phi\left(\fone\right)\right).
+        \label{eq:spec-phase-chili}
+\end{equation}
+While the quadratic phase behaviour of peaks is corrected by doing this,
+another issue with the dataset is not addressed.
+For any resonance, the signal that is detected can be thought of as
 the difference between two signals: (a) the ``complete'' signal, which starts
 at the time of excitation, and (b) a ``truncated'' signal which is identical to
 the complete signal before acquisition, and which comprises zeros once
 acquisition has begun. The linear nature of the \ac{FT} dictates that the
 resulting delayed-acquisition spectrum comprises the difference between the
-\acp{FT} of the complete signal and the truncated signal.  The \ac{FT} of the
+\acp{FT} of the complete signal and the truncated signal.  The \ac{FT} of a
+severely
 truncated \ac{FID} is well approximated as a broad sinc wiggle with its maximum
 at the resonance frequency. The form of the wiggle depends on the delay between
 excitation and acquisition, with resonances of lower frequencies, for which
 more of the signal is missed, displaying deeper, and narrower artefacts. The
 result of applying quadratic phase correction is therefore a spectrum of
-well-phased peaks, but with severe baseline distortion, particularly to the
-right-hand (low frequency) end. Panel b of Figure
-\ref{fig:chirp-phase-vs-backprop} provides an example of this phenomenon.
+well-phased peaks, but with major baseline distortion, particularly to the low
+frequency end. Figures \ref{fig:bbqchili-sim} \& \ref{fig:bbqchili-real} both
+provide an example of this phenomenon (panel b).
 
+\subsection{Methodology}
 Both quadratic phase and missing point-derived baseline distortions can be
-resolved if an estimate of the \acp{FID} parameters is obtained. Estimation
-opens up the means of constructing \iac{FID} featuring oscillators which
+resolved if an estimate of the \acp{FID} parameters is obtained. This enables
+the construction of \iac{FID} featuring oscillators which
 are back-propagated, such that they begin not at the point of acquisition, but
 at the point of excitation. The appropriate start time for an oscillator with
-frequency $\fone$ is therefore given by $-t_0\left( \fone \right)$, with  $t_0$
+frequency $\fone$ is therefore given by $-t_0$, with  $t_0$
 defined in \eqref{eq:t0}. The resulting corrected \ac{FID} $\by_{\text{corr}}$
 is as follows:
 \begin{equation}
@@ -166,35 +181,35 @@ is as follows:
             \right).
     \end{split}
 \end{equation}
-Estimation can be carried out using the \ac{MPM}, with the option of applying
-\ac{NLP} afterwards. However, the variance of oscillator phases should not be
-included in the fidelity for \ac{NLP}, since the phases in the dataset are
-quadratically distributed. For the examples presented in this work, the direct
-output of the \ac{MPM} was used.
+In this work so far, it has been assumed that all oscillators that make up the
+data are of the same phase. Of course this isn't the case for signals
+generated from single-chirp excitation. As such, it is inappropriate to
+incorporate the variance of oscillator phases in fidelity for \ac{NLP}.
+For the examples presented in this work, \ac{NLP} was not applied: the direct
+output of the \ac{MPM} was used as the estimate of the \acp{FID} parameters.
 
+\subsection{Results}
 \begin{figure}
     \centering
     \includegraphics{chirp_phase_vs_estimation/chirp_phase_vs_estimation.pdf}
     \caption[
         Comparison of quadratic phase correction vs frequency-dependent
-        back-propagation in treating data derived from a single-chirp
-        excitation experiment.
+        back-propagation in treating simulated single-chirp excitation data.
     ]
     {
         Comparison of quadratic phase correction vs frequency-dependent
-        back-propagation in treating data derived from a single chirp
-        excitation experiment.
+        back-propagation in treating simulated single-chirp excitation data.
         \textbf{a.} Simulated spectrum for a spin system comprising 30 spins
         with uniformly-separated resonance frequencies. The data was generated
         with
-        $\None=2^{15}$,
+        $\None=2^{14}$,
         $\fswone=\qty{400}{\kilo\hertz}$,
         $\foffone=\qty{0}{\hertz}$,
         $\tau_{\text{p}} = \qty{100}{\micro\second}$,
         $\tau_{\text{del}} = \qty{0}{\second}$,
         $\Updelta F = \qty{400}{\kilo\hertz}$.
         \textbf{b.} Spectrum generated using quadratic phase correction, with
-        \eqref{eq:quadratic-phase}.
+        \eqref{eq:spec-phase-chili}.
         \textbf{c.} Spectrum generated from estimation using the \ac{MPM}, and
         back-propagation.
         \textbf{d.} Estimated phases of each oscillator as a function of
@@ -204,27 +219,62 @@ output of the \ac{MPM} was used.
         dependence of the phases. Black curve: quadratic fit of the blue
         points.
     }
-    \label{fig:chirp-phase-vs-backprop}
+    \label{fig:bbqchili-sim}
 \end{figure}
-Figure \ref{fig:chirp-phase-vs-backprop} provides an illustration of both
-quadratic phase correction and the \ac{BBQCHILI} procedure, on a simulated
-dataset comprising 30 non-coupled spins with evenly spaced resonance
-frequencies. A very large damping factor ($\qty{1000}{\per\second}$) was
-assigned to each oscillator, in order to highlight an extreme example of the
-baseline distortions which exist in the spectrum, which are evident from panel
-b. As explained above, more intense, narrower artefacts are associated with
-low-frequency resonances, where are larger gap between excitation exists. The
-\ac{MPM} was used to estimate the signal parameters, with only the first 2048
-considered\footnote{
-    Performing the \ac{MPM} on a signal with $2^{15}$ points would take (a) a
-    very long time, and (b) require a very large amount of \ac{RAM} (see Figure
-    \ref{fig:profiling}).
-}. The spectrum generated via frequency-dependent back-propagation is presented
-in panel c, where a well-phased spectrum without baseline distortion was
-achieved. An illustration of the variation of the estimated oscillator phases
-against their frequencies is presented in panel d, with the blue points being
-equivalent to the red points, except for addition of an appropriate multiple
-of $2\pi$, to show the quadratic behaviour. Fitting the blue points to a
-quadratic yielded a quadratic coefficient
-$\qty{-6.28e-10}{\radian\second\squared}$, in agreement with $-2 \pi
-\left(\nicefrac{\tau_{\text{p}}}{2 \Updelta F}\right)$.
+Figure \ref{fig:bbqchili-sim} provides a comparison of
+quadratic phase correction and estimation-based back-propagation on a
+simulated dataset comprising 30 non-interacting spins with evenly spaced
+resonance frequencies (relevant simulation parameters are provided in the
+figure caption). For the purposed of clarity, a very large damping factor
+($\qty{1000}{\per\second}$) was assigned to each oscillator, as this augments
+the baseline distortions in the spectrum. As explained above, more intense,
+narrower artefacts are associated with
+low-frequency resonances, where a longer time between excitation and
+acquisition exists. The \ac{MPM} was used to estimate the signal parameters,
+with only the first 2048 points considered. Performing the \ac{MPM} on a signal
+with $2^{14}$ points would take (a) a long time, and (b) require a very
+large amount of \ac{RAM} (see Figure \ref{fig:profiling}). Consideration of the
+first 2048 in an \ac{FID} is justifiable here, since all resonance frequencies
+are spaced reasonably far apart, such that oscillators in the signal become
+distinguishable early on into evolution. The spectrum generated via
+back-propagation is presented in panel c, where a well-phased spectrum without
+baseline distortion was achieved. An illustration of the variation of the
+estimated oscillator phases against their frequencies is presented in panel d,
+with the quadratic dependence clearly illustrated. Fitting the blue points in
+panel d to a quadratic function yielded a second-order coefficient of
+$\qty{-7.85e-10}{\radian\second\squared}$, in agreement with $-2 \pi
+\left(\nicefrac{\tau_{\text{p}}}{2 \Updelta F}\right)$ as expected.
+
+\note{Ask Ali for the original data (info on Chirp pulse, pulse sequence:
+assume its a sequential experiment where O1 is adjusted across increments)}
+A second illustration of the procedure is provided for a real dataset, derived
+from a sample of 1\% Gd-doped H\textsubscript{2}O in D\textsubscript{2}O.
+\note{Why dope with Gd? Is it to reduce the $T_2$ of water, in order to create
+more severe baseline distrotions?}
+The dataset was acquired using a \ac{2D} experiment, in which the transmitter
+offset was adjusted for each increment. As such, \acp{FID} with a single
+resonance of differing frequency from H\textsubscript{2}O are produced across
+the increments, which when summed lead to the spectrum in panel a of Figure
+\ref{fig:bbqchili-real}. As with the simulated case, severe baseline
+distortions are apparent when quadratic phase correction is applied (panel b),
+with the most severe dips exhibited by low-frequency resonances. Again, estimation-based back-propagation yields a far cleaner spectral baseline.
+\begin{figure}
+    \centering
+    \includegraphics{chirp_phase_vs_estimation_real_data/chirp_phase_vs_estimation_real_data.pdf}
+    \caption[
+        Comparison of quadratic phase correction vs frequency-dependent
+        back-propagation in treating experimental single-chirp excitation data
+        generated from a sample of Gd-doped H\textsubscript{2}O in
+        D\textsubscript{2}O.
+    ]{
+        Comparison of quadratic phase correction vs frequency-dependent
+        back-propagation in treating experimental single-chirp excitation data
+        generated from a sample of 1\% Gd-doped H\textsubscript{2}O in
+        D\textsubscript{2}O.
+        \textbf{a.} Spectrum generated directly from the acquired \ac{FID}.
+        \textbf{b.} Spectrum generated using quadratic phase correction.
+        \textbf{c.} Spectrum generated from estimation using the \ac{MPM},
+        followed by frequency-dependent back-propagation.
+    }
+    \label{fig:bbqchili-real}
+\end{figure}

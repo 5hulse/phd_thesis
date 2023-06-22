@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Thu 15 Jun 2023 13:36:11 BST
+# Last Edited: Wed 21 Jun 2023 14:43:47 BST
 
 import nmrespy as ne
 import matplotlib as mpl
@@ -14,7 +14,7 @@ import numpy as np
 
 
 sw = 400.e3
-pts = 2 ** 15
+pts = 2 ** 14
 nspins = 30
 params = np.zeros((nspins, 4), dtype="float64")
 params[:, 0] = 1.
@@ -31,7 +31,7 @@ estimator = ne.BBQChili.new_from_parameters(
     pts,
     sw,
     0.,
-    snr=40.,
+    snr=25.,
 )
 estimator.estimate(mpm_trim=2048, nlp_trim=4096)
 # estimator.prescan_delay = None
@@ -54,8 +54,8 @@ ylims = [(ymin - padb * h, ymax + padt * h) for (ymin, ymax), h in zip(ylims, he
 heights = [ymax - ymin for (ymin, ymax) in ylims]
 
 left = 0.012
-right = 0.7
-bottom = 0.105
+right = 0.72
+bottom = 0.095
 top = 0.99
 fig, axs = plt.subplots(
     nrows=len(spectra),
@@ -65,7 +65,7 @@ fig, axs = plt.subplots(
         "right": right,
         "bottom": bottom,
         "top": top,
-        "hspace": 0.,
+        "hspace": 0.04,
         "height_ratios": heights,
     },
     figsize=(6, 3),
@@ -74,14 +74,7 @@ fig, axs = plt.subplots(
 axs = axs.tolist()
 
 for i, (ax, spectrum, ylim) in enumerate(zip(axs, spectra, ylims)):
-    if i == 0:
-        ax.spines["bottom"].set_visible(False)
-        ax.set_xticks([])
-    elif i == 2:
-        ax.spines["top"].set_visible(False)
-    else:
-        ax.spines["bottom"].set_visible(False)
-        ax.spines["top"].set_visible(False)
+    if i != 2:
         ax.set_xticks([])
 
     ax.plot(shifts, spectrum, color="k")
@@ -89,7 +82,7 @@ for i, (ax, spectrum, ylim) in enumerate(zip(axs, spectra, ylims)):
     ax.set_ylim(ylim)
     ax.set_yticks([])
 
-    ax.text(0.005, 0.97, f"\\textbf{{{chr(97 + i)}.}}", transform=ax.transAxes, va="top")
+    ax.text(199e3, ylim[1] - 80., f"\\textbf{{{chr(97 + i)}.}}")
 
 
 xticks = list(range(200, -250, -50))
@@ -158,10 +151,10 @@ xs = np.linspace(-sw / 2, sw / 2, 100)
 axs[-1].plot(xs, phi2 * xs ** 2 + phi1 * xs + phi0, color="k", zorder=-1)
 axs[-1].set_xticks([-2e5, 0, 2e5])
 axs[-1].set_xticklabels(["-200", "0", "200"])
-axs[-1].set_xlabel("\\unit{\\kilo\\hertz}")
+axs[-1].set_xlabel("$f^{(1)}$ (\\unit{\\kilo\\hertz})", labelpad=-1.5)
 axs[-1].set_yticks([-np.pi, 0, np.pi])
 axs[-1].set_yticklabels(["$-\\pi$", "$0$", "$\\pi$"], va="center")
-axs[-1].set_ylabel("phase (\\unit{\\radian})", labelpad=-10)
+axs[-1].set_ylabel("$\\phi$ (\\unit{\\radian})", labelpad=-10)
 axs[-1].text(
     0.01, 0.99, "\\textbf{{d.}}", transform=axs[-1].transAxes, va="top",
     bbox={"facecolor": "w", "edgecolor": "none", "pad": 0.3},

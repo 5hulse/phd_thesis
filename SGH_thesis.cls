@@ -269,6 +269,10 @@
     \end{center}}%
     {}
 
+\renewenvironment{abstract}
+{\begin{frontmattersection}{Abstract}}
+{\end{frontmattersection}}
+
 \newenvironment{acknowledgements}
 {\begin{frontmattersection}{Acknowldegements}}
 {\end{frontmattersection}}

@@ -57,6 +57,8 @@
     url=false,
     eprint=false,
     sorting=none,
+    style=numeric-comp,
+    giveninits=true,
 ]{biblatex}
 \DeclareDelimFormat{postnotedelim}{\addcolon\space}
 \DeclareFieldFormat{postnote}{\mknormrange{#1}}
@@ -73,7 +75,7 @@
 
 \usepackage{minted,tcolorbox,listings}
 \tcbuselibrary{listings,minted,breakable,skins}
-\usemintedstyle{gruvboxlight}
+% \usemintedstyle{gruvboxlight}
 \definecolor{gruvbox_bg}{HTML}{fbf1c7}
 \definecolor{gruvbox_fg}{HTML}{3c3836}
 \renewcommand{\theFancyVerbLine}{\ttfamily\small
