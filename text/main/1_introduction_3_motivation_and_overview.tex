@@ -1,0 +1,45 @@
+\section{Overview of this work}
+
+\subsection{Conception and motivation}
+\note{Confirm whether this is accurate with Ali}
+The initial motivation for this thesis came from discussions within the NMR
+Methodology group in Manchester involving my principal
+supervisor Dr. Mohammadali Foroozandeh and coworkers (notably Prof. Gareth
+Morris and Prof. Mathias Nilsson) when Dr. Foroozandeh was a Postdoctoral
+researcher there. There was an interest in generating pure shift \ac{NMR}
+spectra from \acs{2DJ} spectra using an appropriate estimation and
+reconstruction algorithm. While little progress was made while Dr. Foroozandeh
+was in Manchester, he wished to continue with it after moving to Oxford to take
+up a research fellowship. I took on a project with a broader scope
+when I joined his nascent research group, starting with developing a routine
+and accompanying software for estimating \ac{1D} \acp{FID}. Subsequently, a
+number of applications involving \ac{FID} estimation were worked on, including
+the original \ac{2DJ} project.
+
+\subsection{Thesis Overview}
+This thesis is broken into three principal themes, which span the proceeding
+three chapters:
+\begin{itemize}
+    \item Chapter \ref{chap:theory} discusses the theory behind routines which
+        can be applied to determine parameter estimates which describe \ac{1D}
+        and \ac{2D} \ac{NMR} datasets.
+    \item Chapter \ref{chap:results} provides illustrations of the effectiveness
+        of the estimation routine on numerous \ac{NMR} datasets. Furthermore,
+        means in which the established estimation routine can be extended for
+        useful applications are explored, with these applications being:
+        \begin{itemize}
+            \item The generation of pure shift spectra with featuring peaks
+                with desirable lineshapes from \ac{2DJ} datasets (Section
+                \ref{sec:pure-shift}).
+            \item Analysis of amplitude-attenuated datasets, such as those
+                derived from diffusion and inversion recovery experiments
+                (Section \ref{sec:seq}).
+            \item Overcoming quadratic phase behaviour and baseline distortions
+                associated with excitation by a single \acl{FS} pulse (Section
+                \ref{sec:bbqchili}).
+        \end{itemize}
+    \item Chapter \ref{chap:nmrespy} describes the source code, called
+        \acs{EsPy}, which has been written to provide access to the described
+        routines presented.
+\end{itemize}
+

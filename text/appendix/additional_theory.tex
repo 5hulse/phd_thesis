@@ -1,10 +1,48 @@
-\clearpage
 \chapter{Additional Theory}
 
-\note{Add any extra theory stuff here: linear algebra definitions, probability
-stuff etc.}
+\section{Mathematical definitions}
 
-\section{Additional Algorithms}
+Descriptions of linear algebra and statics concepts that are referred to in
+this thesis are provided here. More detail can be found in numerous relevant
+texts\cite{Strang2018,Pawitan2001}.
+
+\subsection{Linear algebra}
+
+\note{TODO: rank, range}
+
+\subsubsection{\Acl{SVD}}
+\ac{SVD} is a generalisation of eigendecomposition for a matrix of any shape.
+Given a matrix $\symbf{A} \in \mathbb{C}^{m \times n}$, the \ac{SVD} is a
+factorisation given by
+\begin{equation}
+    \symbf{A} = \symbf{U} \symbf{\Sigma} \symbf{V}^{\dagger}.
+\end{equation}
+The matrices that make up the decomposition are as follows
+\begin{itemize}[label={}]
+    \item $\symbf{\Sigma} \in \mathbb{C}^{m \times n}$ is a rectangular
+        diagonal matrix with diagonal elements comprising the \emph{singular
+        values} in descending order of magnitude. The singular values are the
+        square roots of the non-zero eigenvalues of both
+        $\symbf{A}^{\dagger}\symbf{A}$ and
+        $\symbf{A}\symbf{A}^{\dagger}$.
+    \item $\symbf{U} \in \mathbb{C}^{m \times m}$ is a unitary matrix whose columns
+        comprise the \emph{left singular vectors}. The left singular vectors
+        are the eigenvectors of the matrix $\symbf{A}\symbf{A}^{\dagger}$.
+    \item $\symbf{V} \in \mathbb{C}^{n \times n}$ is a unitary matrix whose columns
+        comprise the \emph{right singular vectors}. The right singular vectors
+        are the eigenvectors of the matrix $\symbf{A}^{\dagger}\symbf{A}$.
+\end{itemize}
+One fundamental property of the \ac{SVD} is that the number of non-zero
+singular values is equivalent to the rank of the matrix. As the \ac{EYM}
+theorem highlights, the \ac{SVD} is valuable in constructing low-rank
+approximations of matrices, with applications in various fields such as signal
+processing, (see Section \ref{subsec:mpm}) and data compression.
+
+\subsection{Statistics and probability}
+
+\note{TODO: Likelihood function, PDF, MLE}
+
+\section{Additional algorithms}
 
 \begin{algorithm}
     \caption{The \acs{MMEMPM}.}

@@ -218,7 +218,7 @@
     	\begin{center}
         \huge
         \@title\\[1cm]
-      	\scshape\LARGE\bfseries\textcolor{headingcolor}{\@author}\\[0.5cm]
+      	\scshape\LARGE{\@author}\\[0.5cm]
       	\large\mdseries\upshape
       	\@college\\
       	University of Oxford\\[1cm]
