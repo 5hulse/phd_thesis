@@ -1,0 +1,25 @@
+\chapter{Results and Applications}
+\label{chap:results}
+
+This chapter showcases numerous results generated using the estimation
+technique outlined in Chapter \ref{chap:theory}. Sections \ref{sec:onedim} and
+\ref{sec:twodim} focus on results generated on \ac{1D} and
+\ac{2D} amplitude/phase-modulated paired datasets, respectively. The subsequent
+three sections showcase three distinct applications that estimation
+facilitates. In Section \ref{sec:pure-shift}, a means of generating broadband
+homodecoupled (pure shift) spectra through estimation of hypercomplex \ac{2DJ}
+datasets is provided. Section \ref{sec:seq} highlights how a standard \ac{1D}
+estimation routine can be extended to datasets featuring a series of \acp{FID}
+which feature attenuations in signal amplitudes across increments, such as
+inversion recovery ($T_1$) and diffusion experiments. Finally, a protocol to
+achieve ultra-broadband spectra through application of a single \ang{90}
+frequency-swept pulse, which are devoid of quadratic phase dependencies as well
+as severe baseline distortions, is provided. All the results and applications
+presented here were acquired using the \ac{EsPy} package, which is described in
+Chapter \ref{chap:nmrespy}. Relevant information on the setup of simulations
+and experiments can be found in Appendix \ref{chap:datasets}. \note{Result
+metics?}
+
+\input{text/main/3_onedim_1_examples}
+\input{text/main/3_onedim_2_sequential_data}
+\input{text/main/3_onedim_3_chirp_excitation}
