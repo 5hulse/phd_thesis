@@ -170,33 +170,47 @@ broadened.
 \end{figure}
 
 Figure \ref{fig:quinine-cupid} illustrates the result of applying \ac{CUPID} on
-a dataset generated from a sample comprising quinine in CD\textsubscript{3}OD,
-with all non-aromatic protons considered. The method successfully generated a
+a dataset generated from a sample comprising quinine (Figure
+\ref{fig:structures}.a) in CD\textsubscript{3}OD,
+with all signals arising from non-aromatic protons considered. The method
+successfully generated a
 pure shift spectrum with distinct peaks for each \textsuperscript{1}H
-environment. This example also highlights an added benefit of using \ac{CUPID}:
-the ability to suppress ``nuisance'' signals in the pure shift spectrum. In this
+environment. This example also highlights an added benefit of using \ac{CUPID};
+it provides the opportunity to suppress ``nuisance'' signals in the pure shift
+spectrum. In this
 example, an intense, broad singlet at around \qty{4.89}{\partspermillion}
 was detected (see the green peak at this frequency in panel c).
 The singlet was due to the presence of water in the sample and was a hindrance
 due to it overlapping heavily with the multiplet structure corresponding to
-spin D. To obtain a clean singlet for spin D in the pure shift spectrum, the
+spin (D). To obtain a clean singlet for spin (D) in the pure shift spectrum, the
 oscillator corresponding to the water signal was simply neglected from
-the parameter set used to
-generate the \ang{-45} signal. \note{Find reference for work
-talking about using estimation for solvent suppression.}
+the parameter set used to generate the \ang{-45} signal. This concept of neglecting
+nuisance signals through post-processing has been employed extensively, with
+the most prominent use case being solvent suppression. The most
+significant component in the data (assumed to be the solvent peak), is
+determined through \ac{SVD} or some other approach, and is automatically
+subtracted from the \ac{FID}\cite{Zhu1997}.
+In this case, the water signal is not automatically purged from the parameter
+set to construct the final pure shift spectrum, but a knowledgeable user would
+be able to locate the water signal, determine that it is undesirable to include
+in the pure shift spectrum, and neglect it.
+
 
 As eluded to already, a few of the peaks in the pure-shift spectrum are rather
 broad on account of the estimation routine under-fitting the relevant multiplet
 structure. The most notable example of this phenomenon in the quinine example
-comes from the peak for spin G, where significant overlap with spin F has likely
-compounded the task of accurately estimating the relevant oscillators \ac{FID}. With fewer than the
-true number of oscillators fitting a given multiplet structure, the \ac{NLP}
-routine will compensate by giving the oscillators it does have at its disposal
-large amplitudes and damping factors, so that they can reasonably fit multiple
-similar-frequency oscillators.
-While affecting peak linewdiths, this feature does not tend to significantly
-affect the integrals of the pure shift peaks. \note{Should probably calculate
-the integrals of these...}
+comes from the peak for spin (G), where close proximity with the spin (F)
+multiplet has likely compounded the task of accurately estimating the relevant
+oscillators. With fewer oscillators than the true number of contributing signals
+fitting a given multiplet structure, the \ac{NLP} routine will compensate by
+giving the oscillators it does have at its disposal large amplitudes and
+damping factors, so that they can reasonably fit multiple similar-frequency
+signals. This behaviour is also exhibited by the multiplet for spin (B),
+which comprises two pairs of very close signals in a dd structure. A single
+oscillator is fit to each pair of signals, culminating in a broadened pure
+shift peak. While linewdiths are affected by under-fitting hard-to-resolve
+multiplets, the integrals of the pure shift peaks are not typically perturbed
+significantly. \note{COMPUTE INTEGRALS}
 
 \subsection{Camphor}
 \begin{figure}%
@@ -223,32 +237,32 @@ the integrals of these...}
 The application of \ac{CUPID} to the non-methyl regions of a \ac{2DJ}
 dataset of camphor (Figure \ref{fig:structures}.c) in \acs{DMSOd6} is presented
 in Figure \ref{fig:camphor-cupid}. As in the quinine case, there are instances
-of underfitting, which lead to broadening of the resulting pure shift peak,
-with the peak associated with spin (B) being the most drastic example of this.
-This example highlights the ability of \ac{CUPID} to remove undesirable
-\emph{strong coupling artefacts}\footnote{
+of underfitting poorly resolved multiplets, resulting in broadened pure shift peaks.
+The peak associated with spin (B) is the most drastic case here, where 4
+vicinal couplings to protons with dihedral angles of \ang{60} are present,
+along with potentially more contributions from long range couplings.
+This example highlights the ability of \ac{CUPID} to remove another class of nuisance peak: \emph{strong coupling artefacts}\footnote{
     As stressed in \cite{Thrippleton2005}, these are not strictly artefacts,
     but rather genuine signals, which are expected to be present in the
     \ac{2DJ} dataset. Despite this, the term is widespread in the literature.
-}from the final pure shift spectrum, which
-arise due to mixing effects induced by the \ang{180} pulse in the \ac{2DJ}
-sequence\cite{Thrippleton2005,Wider1983}.
-The effects of strong coupling lead to the presence of extra unexpected peaks
+},
+which arise due to mixing effects induced by the \ang{180} pulse in the
+\ac{2DJ} sequence\cite{Thrippleton2005,Wider1983}.
+The effects of strong coupling lead to the presence of extra unexpected signals
 which do not agree with the chemical shift of any spin associated with camphor.
-Such effects are observed between roughly \SIrange{1.35}{1.25}{\partspermillion} in
-the camphor spectrum, where artefacts associated with spins (F) and (G) exist.
+An example of this is found between \SIrange{1.35}{1.25}{\partspermillion} in
+the \ac{2DJ} spectrum, where artefacts associated with spins (F) and (G) are
+located.
 The estimation routine was able to determine parameters for
-the more intense oscillators which make up the strong coupling artefacts (these
+the more intense signals which comprise the strong coupling artefacts (these
 are coloured blue, yellow, and purple, while oscillators associated with the
 true multiplet structures for (F) and (G) are coloured red and green, respectively).
 Inclusion of all oscillators extracted by the estimation routine generates the
 spectrum in panel a, with the low-intensity grey peaks associated with the strong
 coupling effects included. However, in much the same way as the water signal in
 the quinine example could be neglected, it is trivial to construct the \ang{-45}
-signal with the oscillators associated with strong coupling neglected, which
-produces the black spectrum.
-
-\subsection{Dexamethasone}
+signal with the oscillators associated with strong coupling artefacts left out,
+which produces the black spectrum.
 
 \begin{sidewaysfigure}%
     \centering%
@@ -271,6 +285,9 @@ produces the black spectrum.
 \end{sidewaysfigure}%
 \note{Double check mp thold}
 
+\subsection{Dexamethasone}
+
+
 Figure \ref{fig:dexamethasone-cupid} shows the result of applying CUPID on a
 dataset acquired from a sample dexamethasone in DMSO-d\textsubscript{6}. A
 pure-shift spectrum was also acquired using the
@@ -278,10 +295,10 @@ pure-shift spectrum was also acquired using the
 comparison.
 \ac{CUPID} generated a pure-shift spectrum with overall excellent agreement
 with the \ac{TSE-PSYCHE} spectrum. Certain multiplet structures in the spectrum exhibit
-splitting in $\Ftwo$, on account of heteronuclear couplings to \textsuperscript{19}F. Most
-notable are those derived from spins (D), (H) \& (O). For the (D) multiplet, the
+splitting in the direct dimension, on account of heteronuclear couplings to
+\textsuperscript{19}F. Most notable are those derived from spins (D), (H) \& (O). For the (D) multiplet, the
 magnitude of the heterocoupling is very small such that assigning these to
-separate oscillators is infeasible.
+separate oscillators was not achievable.
 For the spin (N) multiplet, two separate structures were successfully assigned
 (see the orange and green multiplets around \qty{2.1}{\partspermillion}).
 The estimation routine was unsuccessful at accurately estimating the structure

@@ -9,43 +9,64 @@ diffusion rates and relaxation properties such as longitudinal and transverse
 decoherence rates. Here, an extension to the \ac{1D} estimation technique is
 described, facilitating the determination of these properties.
 
-After a description of relevant experiments, the estimation procedure is
-p
-
 \subsection{Relaxation experiments}
-\label{sec:relaxation_experiments}
+\label{subsec:relaxation_experiments}
+Any spin system which has been perturbed from its equilibrium position will
+eventually return to equilibrium by a process called
+\emph{relaxation}\parencites[Chapter 5]{Cavanagh2007}{Goldman2001}{Kuprov2007}.
+In many applications, two fundamental quantities are of great value: the
+longitudinal relaxation rate and the transverse relaxation rate, quantified by
+the times $T_1$ and  $T_2$ respectively. From a vector model perspective, $T_1$
+indicates how rapidly the longitudinal component of the magnetisation vector
+recovers towards equilibrium, while $T_2$ indicates the rate at which
+transverse magnetisation decays to zero. Numerous factors affect these
+quantities, including the rate at which the spin tumbles in space, and its
+electronic environment. Well-known experiments exist to quantify both of these
+quantities.
 
-Integrals of peaks modelled with two parameters $\symbf{\theta} \in \mathbb{R}^2$:
-\begin{subequations}
-   \begin{gather}
-        \theta_1 = I_{\infty} = \lim_{\tau \rightarrow \infty} x\\
-        \theta_2 = T_1
-   \end{gather}
-\end{subequations}
+\note{PS figure}
 
+\subsubsection{Measuring $T_1$: Inversion recovery}
+The inversion recovery experiment involves the simple pulse sequence $\ang{180}
+\rightarrow \tau \rightarrow \ang{90} \rightarrow \tone$. The initial
+\ang{180} pulse inverts the magnetisation, so that it is along $-z$. During
+$\tau$, the spin system undergoes longitudinal
+relaxation. Finally, the \ang{90} pulse rotates the magnetisation into the
+transverse plane, enabling detection. The resultant phase and magnitude of the
+signal is directly related to the amount of time that longitudinal relaxation
+is allowed to occur. With $\tau = \qty{0}{\second}$, a signal with
+maximal amplitude, but a phase of \ang{180} will result. At the other extreme of
+very long $\tau$, the spin system will have reverted
+back to equilibrium, such that a signal which also has maximal amplitude, but a
+phase of \ang{0} will be realised. By sequentially adjusting $\tau$ in a
+\ac{2D} experiment, a series of spectra will be obtained in which the integral
+of each peak will vary according to
 \begin{equation}
-    \symbf{I}\left(\symbf{\theta}, \symbf{\tau}\right) =
-        I_{\infty} \left[ 1 - 2 \exp\left( -\frac{\symbf{\tau}}{T_1}\right) \right],
+    a\left(\tau\right) = a_{\infty} \left( 1 - 2 \exp\left( -\frac{\tau}{T_1}\right) \right),
 \end{equation}
+where $a_{\infty}$ is the integral of the peak acquired when the spin system
+has returned to equilibrium.
 
-Fitting this function is achieved by minimising L2-norm (reference it in
-previous discussion, and refer to grad and Hessian). The first and second
-derivatives of the model, required to construct the grad and Hess are
-\begin{subequations}
-    \begin{gather}
-        \frac{\partial I}{\partial I_{\infty}} =
-            1 - 2 \exp \left( -\frac{\tau}{T_1} \right)\\
-        \frac{\partial I}{\partial T_1} =
-        -\frac{2 I_{\infty} \tau}{T_1^2} \exp\left( -\frac{\tau}{T_1} \right)\\
-        \frac{\partial^2 I}{\partial I_{\infty}^2} = 0\\
-        \frac{\partial^2 I}{\partial I_{\infty} \partial T_1} =
-            \frac{\partial^2 I}{\partial T_1 \partial I_{\infty}} =
-            -\frac{2 \tau}{T_1^2} \exp\left(- \frac{\tau}{T_1} \right)\\
-        \frac{\partial^2 I}{\partial T_1^2} =
-            \frac{2 I_{\infty} \tau}{T_1^3} \exp\left(- \frac{\tau}{T_1} \right)
-            \left(2 - \frac{\tau}{T_1}\right)
-    \end{gather}
-\end{subequations}
+
+\subsubsection{Measuring $T_2$: \acs{CPMG}}
+In an analogous fashion to the inversion recovery experiment, by creating
+transverse magnetisation and leaving it to evolve for different amounts of
+time, it is possible to determine $T_2$. This might lead one to believe
+that the pulse sequence $\ang{90} \rightarrow \tau \rightarrow \tone$ would be
+effective for  $T_2$ determination. However the presence of J-modulation would
+generate undesirable spectra with phase-modulated peaks. As well as this the presence of field inhomogeneities will cause relaxation at a faster rate than anticipated, which is incorporated in the quantity $T_2^*$. The effects of
+J-modulation and field inhomogeneity can be nullified if rapid refocussing is
+applied, by subjecting the spin system to a train of spin echoes. The classic
+route to $T_2$ measurement is the \ac{CPMG}
+experiment\cite{Carr1954,Meiboom1958}, comprising $\ang{90}_x \rightarrow
+\left[ \tau \rightarrow \ang{180}_y \rightarrow \tau \right]_n \rightarrow
+\tone$, where the spin echo duration $\tau$ is short and fixed, and the number
+of cycles $n$ can be varied to alter the total evolution time. $T_2$ attenuates
+the intensity of the resulting signal according to
+\begin{equation}
+    a(n) = a_0 \exp\left(-\frac{2 \tau n}{T_2}\right),
+\end{equation}
+where $a_0$ is the intensity where no spin echo cycles were employed.
 
 \subsection{Diffusion experiments}
 \label{sec:diffusion_experiments}
@@ -266,11 +287,12 @@ measurements of $D$.
 generated for invrec and diffusion, and initial trust radius.}
 
 \subsubsection{Outline of the problem}
-All the experiments described above can be described in a general fashion.
-Suppose the experiment is run with $K \in \mathbb{N}$ increments, such that there is a
-vector  $\symbf{p} \in \mathbb{R}^K$ which gives the experimental variable for
-each increment.
-The complete \ac{FID} that results from the experiment is expected to take the
+The datasets arising from the experiments described above can be considered in
+a general fashion.
+Suppose the experiment of interest is run with $K \in \mathbb{N}$ increments,
+such that there is a vector  $\symbf{p} \in \mathbb{R}^K$ which gives the
+pulse sequence variable for each increment.
+The complete dataset that results from the experiment is expected to take the
 form $\symbf{Y} \in \mathbb{C}^{K \times \None}$ in which the value of the
 experimental parameter attenuates the amplitudes of the contributing
 resonances:
@@ -280,8 +302,8 @@ resonances:
     \foffone\right) - \bdetaone_{\vphantom{\text{off}}} [m] \right) \none
 \Dtone\right).
 \end{equation}
-$\symbf{A} \in \mathbb{R}^{K \times M}$ is a matrix of the amplitudes of
-each oscillator across each increment. A complete parameter vector for this
+$\symbf{A} \in \mathbb{R}^{K \times M}$ is a matrix of the oscillator amplitudes
+across the increments. A complete parameter vector for this
 signal is given by $\bth \in \mathbb{R}^{(K + 3)M}$:
 \begin{equation}
     \bth =
@@ -301,7 +323,7 @@ form:
         \right),
 \end{equation}
 where $\symbf{a}_0 \in \mathbb{R}^{M}$ is a vector of the ``maximal''
-amplitude for each oscillator, and $\symbf{\psi} \in \mathbb{R}^M$ is a vector
+amplitudes for the oscillators, and $\symbf{\psi} \in \mathbb{R}^M$ is a vector
 of the parameter of interest (diffusion coefficient, relaxation time etc.) for
 each oscillator . $\symbf{a}_0 [m]$ can be thought of as the largest
 possible amplitude that could be obtained for oscillator $m$ with the given
@@ -311,16 +333,16 @@ experiment:
         achieved as $\tau \rightarrow \infty$, as the spin system will have
         returned back to equilibrium prior to the \ang{90} pulse.
     \item With \ac{CPMG} experiments, the greatest amplitude will occur when
-        $n_{\text{cycles}} = 0$, as no time is designated for transverse
+        $n = 0$, as no time is designated for transverse
         relaxation to take place.
     \item For diffusion experiments, the largest amplitude is achieved when
-        $g=0$, since no diffusion-induced dephasing of spins in different
-        positions along the $z$-axis will have occurred.
+        $g=0$, since no diffusion-induced dephasing of spins will have
+        occurred.
 \end{itemize}
 The function $\mathcal{A}$ describes how the amplitudes of resonances are
 attenuated by the experimental variable, and has a form which is intimately
-linked to the type of experiment. See Table \ref{tab:seq-equations} for
-specific examples.
+linked to the type of experiment. For the experiments described, these forms
+are provided in Table \ref{tab:seq-equations}.
 \begin{table}
     \begin{center}
         \begin{tabular}{ccccccc}
@@ -338,11 +360,11 @@ specific examples.
             $-\frac{2 \tau}{T_1^2} \exp\left(-\frac{\tau}{T_1}\right)$ &
             $\frac{2 \tau}{T_1^3} \exp\left(-\frac{\tau}{T_1}\right)\left(2 - \frac{\tau}{T_1}\right)$\\
             \acs{CPMG} &
-            $n_{\textrm{cycles}}$ &
+            $n$ &
             $T_2$ &
-            \note{?} &
-            \note{?} &
-            \note{?} \\
+            $\exp\left(-\frac{2 \tau n}{T_2}\right)$ &
+            $\frac{2 \tau n}{T_2^2}\exp\left(-\frac{2 \tau n}{T_2}\right)$ &
+            $\frac{4 \tau^2 n^2}{T_2^3}\exp\left(-\frac{2 \tau n}{T_2}\right)$ \\
             Diffusion &
             $g$ &
             $D$ &
@@ -360,6 +382,7 @@ specific examples.
            different amplitude-attenuating NMR experiments considered, along
            with its first and second derivatives, which are required to extract
            estimates of $\psi$ using \ac{NLP}.
+           \note{Work out derivatives for CPMG. They are currently wrong!}
        }
        \label{tab:seq-equations}
     \end{center}
@@ -368,12 +391,12 @@ specific examples.
 \subsubsection{Estimating amplitude-attenuated datasets}
 The close relationship between signals across increments means that completely
 estimating each signal in turn is not necessary. Instead, after the first
-increment is estimated from scratch, yielding $\bth_0 \in \mathbb{R}^{4M}$,
+increment is estimated from scratch, yielding $\bth_{k=0} \in \mathbb{R}^{4M}$,
 the phases, frequencies and damping factors are fixed, and subsequent
 increments are determined by taking the parameter estimate of the previous
-iteration $\bth_{k-1}$ and subjecting it to \ac{NLP} where only the amplitudes
-are allowed to be varied.  Thus, determining parameter estimates for each
-iteration where $k \neq 0$ is reduced to the problem\footnote{
+iteration, and subjecting it to \ac{NLP} where only the amplitudes
+are allowed to be varied. Thus, determining parameter estimates for each
+iteration $k \in \lbrace1, \cdots, K-1\rbrace$ is reduced to the problem\footnote{
     $\mathcal{F}$ in \eqref{eq:fidelity-amp} reads as ``the fidelity
     with respect to the amplitudes $\bda$, given phases $\bdphi$,
     frequencies $\bdfone$, damping factors  $\bdetaone$, and \ac{FID}
@@ -385,7 +408,7 @@ iteration where $k \neq 0$ is reduced to the problem\footnote{
 \begin{equation}
     \symbf{A}[k,:] = \argmin_{\bda \in \mathbb{R}^M}
         \mathcal{F}\left(\bda \hspace*{2pt} | \hspace*{2pt}
-        \bdphi, \bdfone, \bdetaone, \bY[k,:]\right).
+        \bdphi_{k=0}, \bdfone_{k=0}, \bdetaone_{k=0}, \bY[k,:]\right).
         \label{eq:fidelity-amp}
 \end{equation}
 A \ac{NLP} routine can solve this very efficiently, typically in few
@@ -466,7 +489,8 @@ matrix of the fidelity.
 Having generated a complete parameter estimate for the \ac{FID}, focus
 subsequently moves to determining the parameters of interest $\symbf{\psi}$.
 For each oscillator, the maximal amplitude and parameter of
-interest are determined by solving the following problem:
+interest are determined by solving the following problem $\forall m \in \lbrace
+0, \cdots, M-1 \rbrace$:
 \begin{equation}
     \begin{bmatrix}
         \bda_0^{(*)}[m] \\
@@ -536,7 +560,7 @@ predicted value of $\psi$ ($\symbf{d}_m$).
         \symbf{s}_m ,\label{eq:dosy-spectrum}\\
         \symbf{s}_m = \Re\left(\FT\left(\bx_m\right)\right),\\
         \bx_m\left[\none\right] = \bda_0[m] \exp\left(\iu \bdphim\right)
-        \exp\left(\left(2 \pi \iu \left(\bdfonem - \foffone\right) - \etaonem \right) \none \Dtone\right),
+        \exp\left(\left(2 \pi \iu \left(\bdfonem - \foffone\right) - \bdetaonem \right) \none \Dtone\right),
     \end{gather}
     \label{eq:dosy-cross-product}
 \end{subequations}
@@ -544,10 +568,12 @@ where $R \in \mathbb{N}$ is the number of samples to generate the distribution f
 The exact form that the distribution should take is not set in stone, though it
 should indicate two key pieces of information:
 (i) its maximum should coincide with the predicted value of $\psi$ and (ii) its
-width should indicate the certainty in the prediction. In this work, the
-distribution used is a Gaussian distribution with mean $\psi$ and standard
-deviation $c \epsilon_{\psi}$, where $\epsilon_{\psi}$ is the
-estimation error associated with the parameter of interest,\footnote{
+width should indicate the level of uncertainty associated with the prediction.
+In this work, the
+distribution used is a Gaussian distribution with mean $\symbf{\psi}[m]$ and standard
+deviation $c \symbf{\epsilon}[m]$, where $\symbf{\epsilon}[m]$ is the
+estimation error associated with oscillator $m$'s parameter of
+interest,\footnote{
     The errors can be extracted from the Hessian matrix once the \ac{NLP}
     routine has reached convergence. See section \ref{subsec:errors} for more
     information.
@@ -556,19 +582,19 @@ and $c \in \mathbb{R}_{>0}$ is an arbitrary linewidth factor which can be chosen
 to ensure clear visibility of the peaks.\footnote{
     In cases where the estimation error is small, the distribution can be
     so sharp relative to the resolution used for plotting, that
-    $\text{max}(\symbf{d}_m)$ can be $0$. In these situations, errors arise due
-    to attempted division by $0$ (see \eqref{eq:dosy-spectrum}). Broadening the
-    distribution (i.e. setting $c > 1$) can resolve issues with plotting
-    discrete samples.
+    $\text{max}(\symbf{d}_m)$ can be $0$ if the peak of the distribution does
+    not coincide with one of the sampling values. In these situations, errors
+    arise due to attempted division by $0$ (see \eqref{eq:dosy-spectrum}).
+    Broadening the distribution (i.e. setting $c > 1$) resolves issues with
+    plotting discrete samples.
 }
 \begin{subequations}
     \begin{gather}
-        \symbf{d}_m\left[ r \right] = -\frac{1}{\sqrt{2 \pi \sigma_m^2}}
+        \symbf{d}_m\left[ r \right] = -\frac{1}{\sqrt{2 \pi (c \symbf{\epsilon}[m])^2}}
         \exp\left(
-            - \frac{\left(p_r - \symbf{\psi}[m]\right)^2}{2 \sigma_m^2}
+            - \frac{\left(p_r - \symbf{\psi}[m]\right)^2}{2 (c \symbf{\epsilon}[m])^2}
         \right)\quad \forall r \in \lbrace 0, \cdots, R-1 \rbrace,\\
-        p_r = p_{\text{min}} + \frac{r (p_{\text{max}} - p_{\text{min}})}{R-1},\\
-        \sigma_m = c \symbf{\epsilon}[m].
+        p_r = p_{\text{min}} + \frac{r (p_{\text{max}} - p_{\text{min}})}{R-1}.
     \end{gather}
     \label{eq:distribution}
 \end{subequations}
@@ -578,29 +604,6 @@ generate the distribution.
 \subsection{Results}
 
 \subsubsection{``Five multiplets''}
-Figure \ref{fig:five-multiplets-invrec} shows the result of the described
-method in determining the $T_1$ values of resonances in a simulated inversion
-recovery datasets featuring 5 overlapping ddd multiplet structures. The spin
-systems used to generate the datasets were constructed in a similar way to that
-described for the ``Four Multiplets'' example in
-Section \ref{subsec:cupid-results}. In this case however, 5 estimated spins were
-present instead of 4. Some constraints were also placed on the shifts and
-couplings to ensure that no two oscillators would have frequencies with a
-difference less than $\nicefrac{\fswone}{\None}$. For each spin, a $T_1$ value
-was sampled from $\mathcal{U}(\qty{1}{\second}, \qty{5}{\second})$, and a $T_2$
-value was sampled from  $\mathcal{U}(\qty{0.2}{\second}, \qty{0.6}{\second})$.
-The inversion recovery experiment was simulated using \textsc{Spinach}, with the
-relaxation phenomena described by the ``Extended $T_1$/$T_2$
-approximation''\footnote{
-    As described in the Spinach documentation\cite{SpinachDocs}, longitudinal
-    spin states are assigned the rate $\nicefrac{1}{T_1}$ and transverse states
-    are assigned the rate $\nicefrac{1}{T_2}$. Multi-spin states are assigned
-    rates which are the summation of each spin's relevant rate.
-}. Each dataset was provided \ac{AWGN} such that the target \ac{SNR} of the
-datasets as a whole was \qty{40}{\deci\bel}.
-The estimation routine outlined by Algorithm \ref{alg:estimate-seq} was applied
-to the generate a parameter estimate of the
-\SIrange{1.6}{1.2}{\partspermillion} region.
 \begin{figure}
     \includegraphics{five_multiplets_invrec/five_multiplets_invrec.pdf}
     \caption[
@@ -631,46 +634,41 @@ to the generate a parameter estimate of the
     }
     \label{fig:five-multiplets-invrec}
 \end{figure}
-Despite heavy overlap between peaks, the routine was high successful at
-assigning each resonance with a $T_1$ value that agreed with the true value
-(see panel b.). As is to be expected, in scenarios where little multiplet
+Figure \ref{fig:five-multiplets-invrec} shows the result of the described
+method in determining the $T_1$ values of resonances in a simulated inversion
+recovery datasets featuring 5 overlapping ddd multiplet structures. The spin
+systems used to generate the datasets were constructed in a similar way to that
+described for the ``Four Multiplets'' example in
+Section \ref{subsec:cupid-results}. In this case however, 5 estimated spins were
+present instead of 4. Constraints were also placed on the shifts and
+couplings to ensure that no two oscillators would have frequencies with a
+difference less than $\nicefrac{\fswone}{\None}$ \note{Describe in the
+appendix}. For each spin, a $T_1$ value
+was sampled from $\mathcal{U}(\qty{1}{\second}, \qty{5}{\second})$, and a $T_2$
+value was sampled from  $\mathcal{U}(\qty{0.2}{\second}, \qty{0.6}{\second})$.
+The inversion recovery experiment was simulated using \textsc{Spinach}, with the
+relaxation phenomena described by the ``extended $T_1$/$T_2$
+approximation'' (see Appendix \note{REF}).
+Each dataset was provided \ac{AWGN} such that the target \ac{SNR} of the
+datasets as a whole was \qty{40}{\deci\bel}.
+The estimation routine outlined by Algorithm \ref{alg:estimate-seq} was applied
+to the generate a parameter estimate of the region which contained signals from
+the estimated spins.
+
+Despite heavy overlap between peaks, the routine was successful at
+assigning each signal in the dataset with a $T_1$ value that closely agreed
+with the true value (see panel b.). As is to be expected, in scenarios where
+little multiplet
 overlap existed, $T_1$ predictions tended to be more accurate, with smaller
-assocaited errors (see for example the purple and orange multiplets in Run 1.
+associated errors (see for example the purple and orange multiplets in Run 1.
 Nevertheless, adequate estimates could still be obtained in cases of severe
 overlap, especially when the predicted $T_1$s for all oscillators associated
 with a given multiplet are averaged. (see the red, blue and yellow multiplets
-in Run 1). Particular oscillators for which the estimate of $T_1$ is particularly far from the true value are often reassuringly associated with large errors, with examples denoted with an asterisk.
+in Run 1). Particular oscillators for which the estimate of $T_1$ is
+particularly far from the true value tend to be associated with large errors,
+with examples denoted with an asterisk.
 
 \subsubsection{Andrographolide Diffusion}
-Figure \ref{fig:andrographolide-dosy} shows the result of applying the
-estimation technique on a oneshot \ac{DOSY} dataset of andrographolide in
-unfresh \acs{DMSOd6} at \qty{298}{\kelvin}. Exposure of the sample to water is
-evidenced by the broad
-peak around \qty{3.3}{\partspermillion}, estimated to have a diffusion constant
-of \qty{4.57e-10}{\meter\squared\per\second}. On top of this, the acidic
-hydroxyl protons (B, C, H) of andrographolide show significant line-broadening,
-and their estimated diffusion coefficients are considerably different compared
-with those of the non-hydroxyl protons, due chemical exchange with water in the
-sample\cite{Chen1998}.
-The diffusion profile generated suggests a diffusion constant of andrographolide of
-\qty{2.54e-10}{\meter\squared\per\second}. The predicted diffusion constant for
-each estimated oscillator shows decent consistency, especially with oscillators
-of greater intensity. Lower intensity oscillators - especially those which
-significantly overlap with other oscillators - tended to be associated with
-less consistent diffusion constants and larger errors with examples of this
-phenomenon apparent in panel d of the figure. A few oscillators also show a
-significant deviation at around \qty{2.5}{\partspermillion}. This is likely due to
-the presence of resonances from partially protonated \acs{DMSO}. As the data is
-insufficiently resolved to enable the separation of andrographoilde and
-\ac{DMSO} resonances in the estimation result, estimated oscillators which
-significantly overlap with \acs{DMSO} and andrographoilide resonances will have
-an amplitude profile influenced by both species, leading to an aggregated
-diffusion constant. As $D_{\text{DMSO}} > D_{\text{andrographoilide}}$, the
-affected oscillators show larger apparent diffusion constants.
-
-\note{Include result using TopSpin? Get similar value if i set \texttt{sigma}
-to 1 (it is 0.9)}
-
 \begin{sidewaysfigure}
     \centering
     \includegraphics{andrographolide_dosy/andrographolide_dosy.pdf}
@@ -692,3 +690,33 @@ to 1 (it is 0.9)}
     }
     \label{fig:andrographolide-dosy}
 \end{sidewaysfigure}
+Figure \ref{fig:andrographolide-dosy} shows the result of applying the
+estimation technique on a oneshot \ac{DOSY} dataset of andrographolide in
+unfresh \acs{DMSOd6} at \qty{298}{\kelvin}. Exposure of the sample to water is
+evidenced by the broad
+peak around \qty{3.3}{\partspermillion}, estimated to have a diffusion constant
+of \qty{4.57e-10}{\meter\squared\per\second}. On top of this, the acidic
+hydroxyl protons (B, C, H) of andrographolide show significant line-broadening,
+and their estimated diffusion coefficients are considerably different compared
+with those of the non-hydroxyl protons, due chemical exchange with water in the
+sample\cite{Chen1998}.
+The diffusion profile generated suggests a diffusion constant of andrographolide of
+\qty{2.54e-10}{\meter\squared\per\second}. The predicted diffusion constant for
+each estimated oscillator shows decent consistency, especially with oscillators
+of greater intensity. Lower intensity oscillators - especially those which
+significantly overlap with other oscillators - tended to be associated with
+less consistent diffusion constants and larger errors with examples of this
+phenomenon apparent in panel d of the figure. A few oscillators also show a
+significant deviation at around \qty{2.5}{\partspermillion}. This is likely due to
+the presence of signals that make up a 1:2:3:2:1 quintet due to the presence of
+partially protonated \acs{DMSO}. As the data is
+insufficiently resolved to enable the separation of andrographoilde and
+\ac{DMSO} signals in the estimation result, oscillators exist which
+will have an amplitude profile influenced by both species, leading to an
+aggregated diffusion constant. As $D_{\text{DMSO}} >
+D_{\text{andrographoilide}}$, the affected oscillators show larger apparent
+diffusion constants.
+
+\note{Include result using TopSpin? Get similar value if i set \texttt{sigma}
+to 1 (it is 0.9)}
+
