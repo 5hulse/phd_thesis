@@ -83,7 +83,35 @@
 
 \newtcbinputlisting{\pylisting}[1]{%
     listing only,
-    minted language=python,
+    minted language=python3,
+    minted style=default,
+    listing file={#1},
+    boxrule=1pt,
+    code={\setlength{\parskip}{0.05in}\singlespacing},
+    colframe=black,
+    colback=white,
+    enhanced,
+    breakable,
+    top=0pt,
+    bottom=0pt,
+    width=\textwidth,
+    minted options = {
+        linenos,
+        tabsize=0,
+        breaklines,
+        autogobble=false,
+        mathescape,
+        numbersep=2.2mm,
+        xleftmargin=3mm
+    },
+    overlay = {
+    \begin{tcbclipinterior}
+        \fill[white] (frame.south west) rectangle ([xshift=5mm]frame.north west);
+    \end{tcbclipinterior}
+    }
+}\newtcbinputlisting{\matlablisting}[1]{%
+    listing only,
+    minted language=matlab,
     minted style=default,
     listing file={#1},
     boxrule=1pt,
@@ -110,6 +138,8 @@
     \end{tcbclipinterior}
     }
 }
+
+
 
 \usepackage{pdfpages}
 

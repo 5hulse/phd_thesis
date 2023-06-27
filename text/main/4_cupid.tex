@@ -1,3 +1,39 @@
-\chapter{Pure shift spectra from \acs{2DJ} estimation}
+\chapter{Pure shift spectra from 2dj estimation}
 
-\input{text/main/4_cupid_1_overview}
+Two key features of the \ac{NMR} experiment for which improvements are
+constantly being sought are sensitivity and resolving power. There are numerous
+means of enhancing sensitivity, including technological advancements such as
+production of superconducting magnets with higher field
+strengths\cite{Maeda2019} (sensitivity $\propto B_0^{\nicefrac{7}{4}}$) and
+cryogenic probes\cite{Styles1984,Styles1989,Kovacs2005}, as well as simply
+increasing the number of scans (sensitivity $\propto \sqrt{\text{no. scans}}$).
+However, few means of achieving better resolution exist beyond increased field
+strengths (resolution $\propto B_0$). \note{Perhaps mention improved field
+homogeneities (shimming)?} Significant interest has therefore been given to the
+development of techniques which generate broadband homodecoupled (\emph{pure
+shift}) spectra, in which the effects of homonuclear scalar couplings are
+absent from the data. While often valuable for structural assignment purposes,
+the influence of scalar couplings can lead to spectra which are too crowded for
+meaningful insights to be gleamed. While it is commonplace to decouple
+heteronuclear couplings at the point of \ac{FID} acquisition\cite{Shaka1983a,
+Shaka1983b,Shaka1985}, homonuclear decoupling is far more challenging. At
+the time of writing, there are a number of of well-established pure shift
+experiments, which involve running a \ac{2D} pulse sequence, and concatenating
+the initial section of each \ac{FID}, in a process referred to as
+chunking\cite{Meyer2013,Adams2014,Zangger2015}. The key drawback of all of
+these techniques is that the resultant pure shift signal is considerably less sensitive relative to a standard pulse-acquire experiment, since only a subset
+\note{Does ``subset'' make sense?} of the available spin magnetisation
+contributes that which is detectable.
+\note{Describe strong couplings if this has not been done before now}.
+
+In this chapter, after a survey of the key pure shift techniques, a method for
+deriving pure shift spectra indirectly via the estimation of \ac{2DJ} datasets
+is presented, which has been given the name \acf{CUPID}. It is illustrated that
+by extracting the parameters which describe a \ac{2DJ} dataset, a pure shift
+spectrum can be produced without the signal loss associated with all
+experimental pure shift methods, and with desirable absorption-mode lineshapes.
+
+\input{text/main/4_cupid_1_pure_shift}
+\input{text/main/4_cupid_2_methodology}
+\input{text/main/4_cupid_3_results}
+\input{text/main/4_cupid_4_summary}

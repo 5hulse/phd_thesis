@@ -1,13 +1,13 @@
 # shifts_and_couplings.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Thu 11 May 2023 20:24:57 BST
+# Last Edited: Mon 26 Jun 2023 19:09:41 BST
 
 from pathlib import Path
 import pickle
 import re
 
-RESULT_DIR = Path("~/Documents/DPhil/results").expanduser()
+RESULT_DIR = Path("~/Documents/DPhil/results/cupid").expanduser()
 
 
 def pickle_load(path):

@@ -3,8 +3,6 @@
 
 \section{Simulated datasets}
 \label{sec:simulated-datasets}
-
-\subsection{\textsc{\textsc{Spinach}} Simulations}
 Many of the simulated datasets presented in this work were generated using the
 \textsc{Spinach} \textsc{Matlab}\textregistered\ package\cite{Hogben2011}.
 In each case, the dataset was generated via a call to the \texttt{new\_spinach}
@@ -13,13 +11,21 @@ method associated with the relevant \texttt{Estimator} object in \ac{EsPy}.
 engine} from \textsc{Python}, which then runs a \textsc{\textsc{Spinach}} simulation of the relevant
 experiment with the specifications provided. The \ac{FID} generated is then
 stored within in a new \texttt{Estimator} object.
-Table \ref{tab:shifts_and_couplings} provides a specification of the chemical
-shifts and scalar couplings that made up the spin systems used to construct
-simulated data with \textsc{Spinach}. Tables \ref{tab:spinach-jres-params} and
-\ref{tab:spinach-invrec-params} specify key parameters used in each
-\ac{2DJ} and inversion recovery simulation, respectively.
 
-\subsubsection{Sucrose}
+\subsection{\acs{2DJ}}
+The simulated datasets for the ``Four multiplets'' and Sucrose results in
+Sections \ref{subsec:four-mp} and \ref{subsec:sucrose-cupid} were generated
+using \ac{EsPy}'s \mintinline{python}{Estimator2DJ.new_spinach} method, with
+key parameters supplied to the simulation provided by Table
+\ref{tab:spinach-jres-params}.
+
+\input{text/generated/cupid_spinach_parameters}
+
+A \ac{2DJ} pulse sequence simulation does not ship with \textsc{Spinach}.
+Therefore, an in-house one was written, which is as follows:
+
+\matlablisting{code_listings/jres.m}
+
 The chemical shifts and couplings for sucrose were extracted from a
 \textsc{Gaussian}\cite{Gaussian03} logfile which ships with \textsc{Spinach} at
 the path \path{SPINACHROOT/examples/standard_systems/sucrose.log}.
@@ -30,7 +36,29 @@ Isotropic chemical shifts were determined for each spin $i$ via
 where $\symbf{\sigma}_i \in \mathbb{R}^{3 \times 3}$ is the computed chemical
 shift tensor of spin $i$.
 
-\subsubsection{Strychnine}
+The chemical shifts and couplings associated with the ``four multiplets''
+datasets were generated as described in the main text.
+
+\subsection{\textsc{\textsc{Spinach}} Simulations}
+Table \ref{tab:shifts_and_couplings} provides a specification of the chemical
+shifts and scalar couplings that made up the spin systems used to construct
+simulated data with \textsc{Spinach}. Tables \ref{tab:spinach-jres-params} and
+\ref{tab:spinach-invrec-params} specify key parameters used in each
+\ac{2DJ} and inversion recovery simulation, respectively.
+
+\subsubsection{Spin Systems}
+\paragraph{Sucrose}
+The chemical shifts and couplings for sucrose were extracted from a
+\textsc{Gaussian}\cite{Gaussian03} logfile which ships with \textsc{Spinach} at
+the path \path{SPINACHROOT/examples/standard_systems/sucrose.log}.
+Isotropic chemical shifts were determined for each spin $i$ via
+\begin{equation}
+    \delta_i = \frac{\Tr \left( \symbf{\sigma}_i \right)}{3},
+\end{equation}
+where $\symbf{\sigma}_i \in \mathbb{R}^{3 \times 3}$ is the computed chemical
+shift tensor of spin $i$.
+
+\paragraph{Strychnine}
 The strychnine spin system was derived from
 the \textsc{Spinach} function \texttt{<SPINACHROOT>/etc/strychnine.m}, which returns a
 spin system specification using chemical shifts and scalar couplings
@@ -58,7 +86,6 @@ $\symbf{l}_{+,i}^{\vphantom{\dagger}}$ is the corresponding vector for the
 $\hat{L}_+$ operator.
 
 \input{text/generated/shifts_and_couplings}
-\input{text/generated/spinach_parameters}
 \note{Table of spinach experiment parameters}
 \note{Description of 2DJ and Invrec simulations (i.e. relaxation model used, approximations to basis used etc.}
 
@@ -136,6 +163,7 @@ Spin  & Coupling partners & Apparent multiplet structure \\
 
 
 \subsection{Datasets related to \ac{CUPID}}
+\label{subsec:cupid-experimental}
 
 The 2D J-Resolved datasets presented were acquired on various Bruker NMR
 spectrometers. In each case \texttt{jresqf} from Bruker's pulse sequence
