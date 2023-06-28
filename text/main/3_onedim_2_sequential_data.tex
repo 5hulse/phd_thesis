@@ -364,7 +364,8 @@ are provided in Table \ref{tab:seq-equations}.
             $T_2$ &
             $\exp\left(-\frac{2 \tau n}{T_2}\right)$ &
             $\frac{2 \tau n}{T_2^2}\exp\left(-\frac{2 \tau n}{T_2}\right)$ &
-            $\frac{4 \tau^2 n^2}{T_2^3}\exp\left(-\frac{2 \tau n}{T_2}\right)$ \\
+            $\frac{2 \tau n}{T_2^3}\exp\left(-\frac{2 \tau n}{T_2}\right)
+            \left( \frac{2 \tau n}{T_2} - 2 \right)$ \\
             Diffusion &
             $g$ &
             $D$ &
@@ -382,7 +383,6 @@ are provided in Table \ref{tab:seq-equations}.
            different amplitude-attenuating NMR experiments considered, along
            with its first and second derivatives, which are required to extract
            estimates of $\psi$ using \ac{NLP}.
-           \note{Work out derivatives for CPMG. They are currently wrong!}
        }
        \label{tab:seq-equations}
     \end{center}
@@ -434,7 +434,7 @@ matrix of the fidelity.
             \symbf{r}_{\text{noise}} \in \mathbb{R}^2,
             M \in \mathbb{N}_0$
         }
-        \State $\bth_0, \symbf{\epsilon}_0 \gets \textsc{Estimate$1$D}\left(
+        \State $\bth_{0}, \symbf{\epsilon}_{0} \gets \textsc{Estimate$1$D}\left(
             \bY[0, :],
             \symbf{r}_{\text{interest}},
             \symbf{r}_{\text{noise}},
