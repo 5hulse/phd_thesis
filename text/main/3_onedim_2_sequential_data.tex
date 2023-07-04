@@ -27,6 +27,7 @@ quantities.
 \note{PS figure}
 
 \subsubsection{Measuring $T_1$: Inversion recovery}
+\label{subsec:invrec}
 The inversion recovery experiment involves the simple pulse sequence $\ang{180}
 \rightarrow \tau \rightarrow \ang{90} \rightarrow \tone$. The initial
 \ang{180} pulse inverts the magnetisation, so that it is along $-z$. During
@@ -39,16 +40,17 @@ maximal amplitude, but a phase of \ang{180} will result. At the other extreme of
 very long $\tau$, the spin system will have reverted
 back to equilibrium, such that a signal which also has maximal amplitude, but a
 phase of \ang{0} will be realised. By sequentially adjusting $\tau$ in a
-\ac{2D} experiment, a series of spectra will be obtained in which the integral
+\ac{2D} experiment, a series of spectra will be obtained in which the intensity
 of each peak will vary according to
 \begin{equation}
     a\left(\tau\right) = a_{\infty} \left( 1 - 2 \exp\left( -\frac{\tau}{T_1}\right) \right),
 \end{equation}
-where $a_{\infty}$ is the integral of the peak acquired when the spin system
+where $a_{\infty}$ is the intensity of the peak acquired when the spin system
 has returned to equilibrium.
 
 
 \subsubsection{Measuring $T_2$: \acs{CPMG}}
+\label{subsec:cpmg}
 In an analogous fashion to the inversion recovery experiment, by creating
 transverse magnetisation and leaving it to evolve for different amounts of
 time, it is possible to determine $T_2$. This might lead one to believe
@@ -280,6 +282,8 @@ exact form of $\Delta^{\prime}$ used in Equation
 \ref{eq:stejskal_tanner_generic} will be extremely important for accurate
 measurements of $D$.
 
+\note{Talk about means of determining $T_1$,  $D$ etc: peak pick and fit
+amplitudes across increments, DOSY, DECRA/SCORE etc}
 
 \subsection{Methodology}
 
@@ -669,6 +673,8 @@ particularly far from the true value tend to be associated with large errors,
 with examples denoted with an asterisk.
 
 \subsubsection{Andrographolide Diffusion}
+\note{TODO: Re-run figure generation, with sigma set to 1. Compare with dynamic
+center}
 \begin{sidewaysfigure}
     \centering
     \includegraphics{andrographolide_dosy/andrographolide_dosy.pdf}
@@ -717,6 +723,74 @@ aggregated diffusion constant. As $D_{\text{DMSO}} >
 D_{\text{andrographoilide}}$, the affected oscillators show larger apparent
 diffusion constants.
 
-\note{Include result using TopSpin? Get similar value if i set \texttt{sigma}
-to 1 (it is 0.9)}
 
+\subsubsection{Glucose/valine/threonine diffusion}
+\note{TODO: get result from dynamic center and compare}
+\begin{figure}
+    \centering
+    \includegraphics{glu_thre_val_diffusion/glu_thre_val_diffusion.pdf}
+    \caption[
+        Result of estimating a diffusion dataset for a mixture of L-threonine,
+        L-valine and D-(+)-glucose.
+    ]{
+        Result of estimating a diffusion dataset for a mixture of L-threonine,
+        L-valine and D-(+)-glucose in D\textsubscript{2}O.
+        \textbf{a.} \acs{1D} spectrum, taken from the first \acs{FID} of the
+        diffusion dataset.
+        \textbf{b.} Diffusion coefficient distribution.
+        \textbf{c.} \acs{DOSY}-style plot of chemical shifts vs diffusion
+        constant, generated using \eqref{eq:distribution}, with
+        $p_{\text{min}} = \qty{4.5e-10}{\meter\squared\per\second}$,
+        $p_{\text{max}} = \qty{7e-10}{\meter\squared\per\second}$,
+        $R=256$, and $c=1.5$.
+    }
+    \label{fig:gluc_val_thre}
+\end{figure}
+Another example is provided by Figure \ref{fig:gluc_val_thre}, where the
+estimation routine was applied to a diffusion dataset derived from a sample
+comprising the molecules
+L-valine ($M_r = \qty{117.148}{\gram\per\mole}$),
+L-threonine ($M_r = \qty{119.120}{\gram\per\mole}$),
+and D-(+)-glucose ($M_r = \qty{180.156}{\gram\per\mole})$ dissolved in
+D\textsubscript{2}O at \qty{298}{\kelvin}. Not included in the figure is the
+result for the water
+signal, from which a diffusion constant of
+\qty{1.88e-9}{\meter\squared\per\second} was determined. The routine was able
+to achieve separation of the three species in the sample. Predicted diffusion
+coefficients for valine and threonine were
+\qty{6.20e-10}{\meter\squared\per\second} and
+\qty{6.39e-10}{\meter\squared\per\second}. For glucose, the situation is
+complicated by the presence of two major forms, \textalpha-D-glucopyroanose and
+\textbeta-D-glucopyroanose\footnote{
+    The equilibrium mixture in water comprises 38\% of the \textalpha\ isomer
+    and 62\% of the \textbeta\ isomer. A tiny amount of the open-chain form will
+    also be present, though in a negligible quantity. This is evidenced by the
+    spectrum in Figure \ref{fig:gluc_val_thre}.a, where the relative integrals of
+    the doublets at \qty{5.15}{\partspermillion} and
+    \qty{4.56}{\partspermillion} agree with this ratio.
+}, due to anomerisation\cite[Chapter 3]{Davis2002}.
+There is some evidence of separation of these anomers, principally due
+to the downfield doublets at \qty{5.15}{\partspermillion} (\textalpha) and
+\qty{4.56}{\partspermillion} (\textbeta), which have estimated diffusion
+coefficients of \qty{5.47e-10}{\meter\squared\per\second}
+and \qty{5.34e-10}{\meter\squared\per\second}, respectively. Beyond these
+however, the other estimated oscillators corresponding to glucose have
+associated errors which are too large for clear resolution of the two anomers.
+
+As is to be expected, signals which are of greater intensity, and which are
+more clearly resolved enable the determination of diffusion coefficients with
+lower errors. A clear example of this behaviour can be recognised when
+considering the valine result (see the area shaded blue in panel c). The
+oscillators which lead to diffusion constants with the lowest errors correspond to
+the high intensity doublet of doublets around \qty{0.95}{\partspermillion},
+resulting from six equivalent protons from two methyl groups. Far
+greater uncertainty is observed for the predictions associated with proton (B),
+which has a doublet of septets structure, featuring many low-intensity signals.
+
+Application of multivariate methods on the dataset was unsuccessful at
+extracting diffusion information for the separate components. Applying
+\ac{DECRA} and \ac{SCORE} with 2 components led to the separation of the water
+signal from the rest of the dataset with the two components being associated
+diffusion coefficients of \qty{6.31e-10}{\meter\squared\per\second}
+and \qty{1.88e-9}{\meter\squared\per\second}. Using more than two
+components produced results with spurious components \note{Ask about this}.

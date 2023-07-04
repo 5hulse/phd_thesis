@@ -169,13 +169,128 @@ Spin  & Coupling partners & Apparent multiplet structure \\
 \label{tab:andro-multiplets}
 \end{table}
 
+\subsection{Diffusion datasets}
+The andrographolide diffusion dataset (Figure \ref{fig:andrographolide-dosy})
+was acquired using the one-shot \ac{DOSY} pulse sequence\cite{Pelta2002}
+(version 1.0c, published on \formatdate{27}{03}{2012}), accessible via the webpage
+\url{https://www.nmr.chemistry.manchester.ac.uk/?q=node/264}. The pulse
+sequence is displayed in Figure \ref{fig:oneshot-dosy}.
 
-\subsection{Datasets related to \ac{CUPID}}
+\begin{figure}
+    \centering
+    \includegraphics{oneshot_dosy_pulse_sequence/oneshot_dosy_pulse_sequence.pdf}
+    \caption[
+        Oneshot \acs{DOSY} pulse sequence used for the acquisition of
+        andrographolide data.
+    ]{
+        Oneshot \ac{DOSY} pulse sequence used for the acquisition of
+        andrographolide data (Figure \ref{fig:andrographolide-dosy}). All
+        delays are included, though they are not to scale.
+        Delays:
+        $d_1$ (relaxation delay): \qty{1.5}{\second},
+        $d_{16}$ (gradient recovery delay): \qty{200}{\micro\second},
+        $d_{20}$ (diffusion time, equivalent to $\Delta$): \qty{0.1}{\second}.
+        Hard pulses had a power of \qty{24}{\watt},
+        with the duration of the $\nicefrac{\pi}{2}$ pulse being
+        \qty{12}{\micro\second}.
+        Diffusion encoding gradients had a smoothed square profile
+        (\texttt{SMSQ10.100}), a duration of \qty{1}{\milli\second}, and had
+        strengths related to the values $g_1$ and $\alpha = 0.2$.
+        $g_1$ was varied across increments, with the values used
+        being (\unit{\gauss \per \centi \meter}):
+        6.270,
+        12.470,
+        16.483,
+        19.695,
+        22.451,
+        24.905,
+        27.137,
+        29.200,
+        31.126,
+        32.939,
+        34.658,
+        36.296,
+        37.862,
+        39.367,
+        40.816,
+        42.215,
+        43.570,
+        44.883,
+        46.159,
+        47.401.
+        Spoiler gradients had the same \texttt{SMSQ10.100} profile, had a
+        duration of \qty{600}{\micro\second}, and a strength which was 75\% of
+        $g_1$.
+        The phase cycling scheme used was:
+        $\Phi_1: 2 \times (\ang{0}, \ang{180})$;
+        $\Phi_2: 4 \times \ang{0}$;
+        $\Phi_3: 4 \times \ang{0}$;
+        $\Phi_4: 2 \times \ang{0}, 2 \times \ang{180}$;
+        $\Phi_5: 4 \times \ang{0}$;
+        $\Phi_{\text{rx}}: \ang{0}, \ang{180}, \ang{180}, \ang{0}$.
+    }
+    \label{fig:oneshot-dosy}
+\end{figure}
+
+The glucose/valine/threonine diffusion dataset (Figure \ref{fig:gluc_val_thre})
+was acquired using Bruker's \texttt{ledbpgp2s} pulse sequence (version 1.9, published on
+\formatdate{19}{02}{2011}). This is a stimulated echo pulse sequence, featuring
+bipolar gradients and a \ac{LED} component\cite{Wu1995}. The pulse sequence is
+displayed in Figure \ref{fig:ledbpgp2s}.
+\begin{figure}
+    \centering
+    \includegraphics{ledbpgp_pulse_sequence/ledbpgp_pulse_sequence.pdf}
+    \caption[
+        Pulse sequence used for the acquisition of glucose/threonine/valine
+        diffusion data.
+    ]{
+        Pulse sequence used for the acquisition of glucose/threonine/valine
+        diffusion data (Figure \ref{fig:gluc_val_thre}). All
+        delays are included, though they are not to scale.
+        Delays:
+        $d_1$ (relaxation delay): \qty{6}{\second},
+        $d_{16}$ (gradient recovery delay): \qty{200}{\micro\second},
+        $d_{20}$ (diffusion time, equivalent to $\Delta$): \qty{0.1}{\second},
+        $d_{21}$ (eddy-current delay): \qty{5}{\milli\second}.
+        Hard pulses had a power of \qty{18.204}{\watt},
+        with the duration of the $\nicefrac{\pi}{2}$ pulse being
+        \qty{10}{\micro\second}.
+        All gradients had a smoothed square profile
+        (\texttt{SMSQ10.100}).
+        Gradients for diffusion encoding had a duration of
+        \qty{1}{\milli\second}, with strength $g_6$ varied across increments,
+        with the values used being (\unit{\gauss \per \centi \meter}):
+        4.500,
+        12.728,
+        17.428,
+        21.107,
+        24.233,
+        27.000,
+        29.508,
+        31.820,
+        33.974,
+        36.000.
+        Spoiler gradients had a duration of \qty{600}{\micro\second}. The
+        gradients had the relative strengths $g_7=-0.1713g_6$ and
+        $g_8=-0.1317g_6$.
+        The phase cycling scheme used was:
+        $\Phi_1: 32 \times \ang{0}$;
+        $\Phi_2: 8 \times (2 \times \ang{0}, 2 \times \ang{180})$;
+        $\Phi_3: 2 \times (4 \times \ang{0}, 4 \times \ang{180}, 4 \times \ang{90}, 4 \times \ang{270})$;
+        $\Phi_4: 2 \times (2 \times (\ang{0}, \ang{180}), 2 \times (\ang{180}, \ang{0}), 2 \times (\ang{90}, \ang{270}), 2 \times (\ang{270}, \ang{90})$;
+        $\Phi_5: 2 \times (4 \times \ang{0}, 4 \times \ang{180}, 4 \times \ang{90}, 4 \times \ang{270})$;
+        $\Phi_{\text{rx}}: 2 \times (\ang{0}, \ang{180}, \ang{180}, \ang{0}, \ang{180}, \ang{0} \ang{0}, \ang{180},
+        \ang{270}, \ang{90}, \ang{90}, \ang{270}, \ang{90}, \ang{270}, \ang{270}, \ang{90})$.
+    }
+    \label{fig:ledbpgp2s}
+\end{figure}
+
+\subsection{\acs{2DJ} datasets}
 \label{subsec:cupid-experimental}
 
-The 2D J-Resolved datasets presented were acquired on various Bruker NMR
-spectrometers. In each case \texttt{jresqf} from Bruker's pulse sequence
-library was used which comprises:
+The 2D J-Resolved datasets presented were acquired using Bruker's
+\texttt{jresqf} pulse sequence (version 1.7, released
+\formatdate{31}{01}{2012}). This pulse sequence comprises
  $\nicefrac{\pi}{2}(\Phi_1) \rightarrow \nicefrac{\tone}{2} \rightarrow
 \pi(\Phi_{2}) \rightarrow \nicefrac{\tone}{2} \rightarrow \ttwo(\Phi_{\text{rx}})$, with
 the EXORCYCLE phase-cycling scheme\cite[Section 11.6]{Keeler2010}:
@@ -187,18 +302,21 @@ the EXORCYCLE phase-cycling scheme\cite[Section 11.6]{Keeler2010}:
     \end{array}
 \end{equation*}
 Key experiment parameters are provided in Table \ref{tab:jres_params}.
+\input{text/generated/jres_params}
 
+\subsection{\acs{PSYCHE} datasets}
 The pulse sequence used for the acquisition of the estradiol \ac{PSYCHE}
-spectrum (Figure \note{TODO}) is presented in Figure \ref{fig:psyche}, where
+spectrum (Figure \ref{fig:estradiol-cupid}) is presented in Figure
+\ref{fig:psyche}, where
 pulses, gradients, and delays are described in detail. Equivalent parameters
 were used for the basic setup as the estradiol 2DJ experiment, given in Table
 \ref{tab:jres_params}.
 
-The dexamethasone \ac{PSYCHE} spectrum (Figure \ref{fig:dexamethasone-cupid}.a)
-was generated using the \ac{TSE-PSYCHE} experiment, which is presented in
-Figure \ref{fig:tse_psyche}.
-
-\input{text/generated/jres_params}
+The pure shift spectrum of dexamethasone (Figure
+\ref{fig:dexamethasone-cupid}.a) was acquired using a \ac{TSE-PSYCHE}
+experiment (Figure \ref{fig:tse_psyche}). The pulse sequence file
+\texttt{UoM\_1d\_if\_tsepsyche\_ts4x} can be obtained via the link
+\url{https://research.manchester.ac.uk/en/datasets/manchester-pure-shift-nmr-workshop-bruker-software}.
 
 \begin{figure}
     \centering
@@ -209,7 +327,7 @@ Figure \ref{fig:tse_psyche}.
         \acs{PSYCHE} pulse sequence used for the acquisition of estradiol data. All
         delays are included, though they are not to scale.
         Delays:
-        $d_0$ (relaxation delay): \qty{1}{\second},
+        $d_1$ (relaxation delay): \qty{1}{\second},
         $d_{16}$: (gradient recovery delay): \qty{200}{\micro\second},
         $d_{18}$: \qty{200}{\micro\second},
         $d_{19}$: \qty{1}{\milli\second},

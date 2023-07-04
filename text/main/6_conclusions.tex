@@ -1,2 +1,22 @@
 \chapter{Conclusions and Future Work}
+
+\section{Future Work}
+\begin{itemize}
+    \item Re-write more intensive parts (matrix pencil/NLP) in a low-level
+        compiled language like Rust/C++
+    \item NMR-EsPy provides a nice API in order to be used as a general
+        platform to run and assess various estimation routines: implement other
+        estimation routines into the package.
+    \item Allow constraints to be incorporated into the NLP routine (Constrain
+        amplitudes/frequency separations for oscillators known to be associated
+        with multiplet structures).
+    \item 2D amp-modulated and phase-modulated datasets? Filtering procedure
+        currently used requires spectra devoid of sinc wiggles, hence need to
+        be damped sufficiently. Indirect-dimension FIDs often truncated, so
+        extreme exp damping commonly required. This leads to poor resolution
+        and broader peaks also require wider regions for filtering to be
+        effective. Possibly necessary to use some other form of apodisation
+        (resolution enhancement like sine-bell, Gaussian), and adjust the model
+        for estimation to accommodate this.
+\end{itemize}
 \label{chap:conclusions}

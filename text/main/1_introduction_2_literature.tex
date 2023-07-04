@@ -365,9 +365,8 @@ Levinson-Durbin algorithm providing an efficient means of solving the
 equations\cite{Levinson1946,Durbin1960}.
 
 \note{Stuff below here has been copy-pasted from old document. Will need editing!}
-\subsection{Signal-Noise Subspace Separation Techniques}
+\subsubsection{Signal-Noise Subspace Separation Techniques}
 
-\subsubsection{LPSVD}
 The Linear Prediction with Singular-Value Decomposition was proposed by Kumaresan and Tufts\cite{Kumaresan1982}. The core assumption of the method is that a given data point $y_n$ may be expressed as a linear combination of $L$ previous, or preceeding points:
 \begin{equation}
   \begin{split}
@@ -444,17 +443,13 @@ The optimal vector of prediction coeffiecients is determined by:
 \begin{equation}
   \hat{\symbf{b}} = - \tilde{\symbf{A}}^+ \symbf{h} = - \sum_{l=1}^J \sigma_l^{-1 \vphantom{\dagger}} \symbf{v}_l^{\vphantom{\dagger}} \left[ \symbf{u}_l^{\dagger} \symbf{h} \right]
 \end{equation}
+Application: \cite{Barkhuijsen1985}
 
-\subsubsection{HSVD}
+\note{HSVD, MPM, only gloss over MPM as it is described in detail in Chapter 2}
 
-\subsubsection{Matrix Pencil Method}
+\subsubsection{Iterative Methods}
 
-\subsection{Bayesian Methods}
-
-\subsection{Iterative Schemes}
-
-\subsubsection{VARPRO}
-The VARiable PROjection (VARPRO) method is an iterative approach to parameter estimation, developed by Golub and Pereyra\cite{Golub1973}, and applied to NMR signal analysis by van der Veen et al.\cite{VanDerVeen1988}. It relies on minimising the following quantity:
+The \ac{VARPRO} method is an iterative approach to parameter estimation, developed by Golub and Pereyra\cite{Golub1973}, and applied to NMR signal analysis by van der Veen et al.\cite{VanDerVeen1988}. It relies on minimising the following quantity:
 \begin{equation}
   \label{VARPRO_min}
   \hat{\symbf{\theta}} = \argmin_{\symbf{\theta}} \left \lVert \symbf{y} - \symbf{x}(\symbf{\theta}) \right \rVert^2
@@ -492,5 +487,13 @@ $\symbf{Z}^+$ is the Moore-Penrose pseudoinverse of matrix $\symbf{Z}$\cite{Penr
 \end{equation}
 which is achieved using the Levenberg–Marquardt algorithm\cite{Levenberg1944, Marquardt1963}. The amplitudes and phases are subsequently determined using Eq. \ref{VARPRO_alpha}. This means that the amplitudes and phases do not need initial guesses assocaited with them. Further specifications can be applied to the algorithm, reflecting the spectroscopist's knowledge of the signal under inspection. For example, if it is known that a certain set of resonances constitute a multiplet, the relative frequency differences and amplitudes will be known.
 
-\subsubsection{AMARES}
-Advanced Method for Accurate, Robust, and Efficient Spectral fitting
+\ac{AMARES}\cite{Vanhamme1997}
+
+
+\subsubsection{Bayesian Methods}
+\ac{CRAFT}\cite{Krishnamurthy2013}
+2D\cite{Krishnamurthy2017}
+perspective\cite{Krishnamurthy2021}
+
+\subsubsection{Machine Learning Methods}
+\cite{Schmid2023}
