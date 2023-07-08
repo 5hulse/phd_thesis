@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Wed 31 May 2023 17:17:15 BST
+# Last Edited: Fri 07 Jul 2023 17:55:18 BST
 
 import numpy as np
 import matplotlib as mpl
@@ -25,7 +25,7 @@ fig, axs = plt.subplots(
     nrows=2,
     ncols=4,
     gridspec_kw={
-        "left": 0.08,
+        "left": 0.09,
         "right": 0.995,
         "bottom": 0.07,
         "top": 0.99,
@@ -103,7 +103,7 @@ for i, (ax, z) in enumerate(zip(
 
     if i == 0:
         ax.set_yticklabels([
-            "$f_{\\text{off}}^{(1)} - f_{\\vphantom{\\text{off}}}^{(1)}$",
+            "$2f_{\\text{off}}^{(1)} - f_{\\vphantom{\\text{off}}}^{(1)}$",
             "$f_{\\text{off}}^{(1)}$",
             "$f_{\\vphantom{\\text{off}}}^{(1)}$",
         ])

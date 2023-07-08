@@ -23,20 +23,21 @@ in this way. For example:
 \subsection{Conventional NMR Analysis}
 \label{subsec:nmr-analysis}
 The conventional route to interpret \ac{NMR} experiments is to
-transform the raw output (the \ac{FID}) into the frequency domain, producing an
-\ac{NMR} spectrum. This is achieved through application of the \acf{FT}:
+transform the \ac{FID} into the frequency domain, producing an
+\ac{NMR} spectrum. This is achieved through application of the \acfi{FT}:
 \begin{subequations}
-    \begin{flalign}
-        &\text{Continuous case:} &&\FT\left( x\left(\tone\right) \right)\left(\Fone\right) =  \int_{0}^{\infty} x\left(\tone\right) \exp \left(
-            -2 \pi \iu \tone \Fone \right) \mathrm{d} t
+    \begin{align}
+        &\text{Continuous case:} &&\FT(x(t))(F) =  \int_{0}^{\infty} x(t) \exp(
+            -2 \pi \iu t F
+            ) \mathrm{d} t
             \quad \forall t \in \mathbb{R},\\
-        &\text{Discrete case:} &&\FT( \symbf{x} )[n] =  \sum_{k=0}^{N-1} \symbf{x}[k] \exp \left(
+        &\text{Discrete case:} &&\FT( \symbf{x} )_n =  \sum_{k=0}^{N-1} x_k \exp \left(
             -\frac{2 \pi \iu k n}{N} \right)
             \quad \forall n \in \lbrace 0, \cdots, N-1 \rbrace.
-    \end{flalign}
+    \end{align}
 \end{subequations}
-The \ac{FT} of a single exponentially-damped complex sinusoid takes the form of
-a Lorentzian\footnote{
+The \ac{FT} of a continuous exponentially-damped complex sinusoid
+takes the form of a \emph{Lorentzian}\footnote{
     An upshot of only possessing data for $t \geq 0$ is
     that the \ac{FT} of an \ac{FID} features a vertical offset,
     such that the baseline does not sit at 0\cite{Tang1994}. This is corrected
@@ -44,22 +45,23 @@ a Lorentzian\footnote{
 }:
 \begin{subequations}
     \begin{gather}
-        s\left(\Fone\right) = \FT\left(
-            a \exp(\iu \phi) \exp\left(\left(\iu \Updelta f^{(1)} - \etaone\right) t\right) \right) \left(\Fone\right),\\
-        s\left(\Fone\right) = \frac{a \exp(\iu \phi) }
-            {\etaone + \iu \Updelta f^{(1)}},\\
-        \Updelta f^{(1)} = 2 \pi \left(\fone - \Fone \right).
+        s(F) = \FT\left(
+            a \exp(\iu \phi) \exp((2 \pi \iu f - \eta)t)
+            \right)(F),\\
+        s(F) = \frac{a \exp(\iu \phi) }
+            {\eta + 2 \pi \iu (f - F)}.
     \end{gather}
 \end{subequations}
 When $a = \phi = 0$, this function is equivalent to the (unnormalised) \ac{pdf}
 of the Cauchy distribution. The \ac{FT} is a linear function, such that the
 \ac{FT} of a summation of signals is equivalent to the summation of the
 \acp{FT} of each signal. A corollary is that an \ac{NMR} spectrum comprises a
-series of Lorentzian ``peaks'', located at the resonance frequencies in the \ac{FID}:
+series of Lorentzian ``peaks'', located at the frequencies of all the signals
+in the \ac{FID}:
 \begin{equation}
-    s\left(\Fone\right) = \sum_{m=0}^{M-1}
-    \frac{\bdam \exp(\iu \bdphim)}
-    {\bdetaonem + \iu \Updelta f^{(1)}_m}.
+    s\left(F\right) = \sum_{m=1}^{M}
+    \frac{\amexpphim}
+    {\eta_m + 2 \pi \iu (f_m - F)}.
     \label{eq:ft-summation}
 \end{equation}
 The \ac{FT} is a very attractive means of processing \ac{NMR} data, as it
@@ -106,8 +108,6 @@ baseline correction are applied to the spectrum (after \ac{FT}).
     \label{fig:amp-phase-freq-damp}
 \end{figure}
 
-
-
 \subsubsection{Apodisation}
 Apodisation refers to the process of mutating a signal by multiplying it with a
 specified function, often called a \emph{window function}, in order to enhance
@@ -116,16 +116,17 @@ or the resolution of the final spectrum, albeit at the cost of worsening the
 other feature. There is no such thing as a free lunch after all.
 
 \paragraph{Sensitivity Enhancement} As \iac{FID} progresses with time, the
-contributions from the desirable signal and experimental noise becomes more
+contributions from the desirable signal ($\bx$) and experimental noise ($\bw$)
+becomes more
 weighted towards the noise, as spin relaxation phenomena dampen the signal. As
 such, multiplying the \ac{FID} with a function which is initially large and
 gets progressively smaller with time can be used to enhance the \ac{SNR} of the
 \ac{FID}. The most common function to achieve this is the negative exponential
-such that a given point is multiplied by $\exp(-\nicefrac{k \none}{\None - 1})\
-\forall \none \in \lbrace 0, \cdots, \None - 1\rbrace$, with $k$ often
-referred to as the line broadening factor, as the increased dampening applied
-to the signal causes the linewidth of the spectral peaks to increase (see panel
-d of Figure \ref{fig:amp-phase-freq-damp}).
+such that a given point is multiplied by $\exp(-\nicefrac{k n}{N - 1})$.
+$k$ is referred to as the line broadening factor, since the increased dampening
+applied to the signal causes the linewidth of the spectral peaks to increase
+(see panel d of Figure \ref{fig:amp-phase-freq-damp}). As such, peaks become
+more poorly resolved.
 
 \paragraph{Resolution Enhancement} By contrast, resolution enhancement can be
 achieved by applying a window function that artificially reduces the rate of
@@ -136,14 +137,14 @@ sine-bell, which is commonly used in multidimensional experiments. Since the
 initial points in the \ac{FID} are attenuated these window functions reduce the
 sensitivity of the resulting spectra.
 
-By being defined to decay to $0$ at the end of the \ac{FID}, window functions
-are also able to suppress \emph{truncation artefacts}, which appear when the
-\ac{FID} still possesses appreciable signal amplitude at the end of the
-acquisition period. Truncated \acp{FID} produce spectra with peaks of a form
-that is akin to the convolution of the \ac{FT} of the untruncated \ac{FID},
-with the \ac{FT} of a box-function, which takes the form of a sinc function
-($\nicefrac{sin(x)}{x}$). The resulting artefacts in spectra are often referred
-to as \emph{sinc wiggles} for this reason.
+By being defined to decay to a sufficiently small value, or $0$, at the end of
+the \ac{FID}, window functions are also able to suppress \emph{truncation
+artefacts}, which appear when the \ac{FID} still possesses appreciable signal
+amplitude at the end of the acquisition period. Truncated \acp{FID} produce
+spectra with peaks of a form that is akin to the convolution of the \ac{FT} of
+the untruncated \ac{FID}, with the \ac{FT} of a box-function, which takes the
+form of a sinc function ($\nicefrac{\sin(x)}{x}$). The resulting artefacts in
+spectra are often referred to as \emph{sinc wiggles} for this reason.
 
 \subsubsection{Zero filling}
 \note{TODO}
@@ -152,18 +153,18 @@ to as \emph{sinc wiggles} for this reason.
 The real and imaginary components of \eqref{eq:ft-summation} are as follows:
 \begin{subequations}
     \begin{gather}
-        \Re(s\left(\Fone\right)) = \sum_m
-        \bdam \left(\cos(\bdphim) \mathcal{A}_m\left(\Fone\right) + \sin(\bdphim) \mathcal{D}_m\left(\Fone\right)\right),\\
-        \Im(s\left(\Fone\right)) = \sum_m
-        \bdam \left(\sin(\bdphim) \mathcal{A}_m\left(\Fone\right) - \cos(\bdphim) \mathcal{D}_m\left(\Fone\right)\right),
+        \Re(s(F)) = \sum_m
+        a_m (\cos(\phi_m) \mathcal{A}_m(F) + \sin(\phi_m) \mathcal{D}_m(F)),\\
+        \Im(s(F)) = \sum_m
+        a_m (\sin(\phi_m) \mathcal{A}_m(F) - \cos(\phi_m) \mathcal{D}_m(F)),
     \end{gather}
 \end{subequations}
 where $\mathcal{A}_m$ and  $\mathcal{D}_m$ denote \emph{absorption} and
 \emph{dispersion} Lorentzians, respectively:
 \begin{subequations}
     \begin{gather}
-        \mathcal{A}_m\left(\Fone\right) = \frac{\bdetaonem}{\left(\bdetaonem\right)^2 + \left( \Updelta f^{(1)}_m \right)^2},\\
-        \mathcal{D}_m\left(\Fone\right) = \frac{\Updelta f^{(1)}_m}{\left(\bdetaonem\right)^2 + \left( \Updelta f^{(1)}_m \right)^2}.
+        \mathcal{A}_m(F) = \frac{\eta_m}{\eta_m^2 + 4 \pi^2 (f_m - F)^2},\\
+        \mathcal{D}_m(F) = \frac{2 \pi (f_m - F)}{\eta_m^2 + 4 \pi^2 (f_m - F)^2}.
     \end{gather}
 \end{subequations}
 As illustrated most clearly in panel c2 of Figure
@@ -171,34 +172,32 @@ As illustrated most clearly in panel c2 of Figure
 desirable than one with a dispersion lineshape for two key
 reasons: (a) its maximum corresponds to the oscillator frequency, while a
 dispersion Lorentzian has a magnitude of $0$ at the oscillator frequency (b)
-they decay more rapidly towards $0$. Generating a spectrum where all peaks
-possess absorption Lorentzians is therefore desired, which is possible if all
-oscillators have a phase of \ang{0}, such that:
+they decay more rapidly towards $0$ and are therefore more resolved. Generating
+a spectrum where all peaks possess absorption Lorentzians is therefore desired,
+which is possible if all signal have a phase of \ang{0}, which leads to
 \begin{subequations}
     \begin{gather}
-        \Re\left(s\left(\Fone\right)\right) = \sum_m \bdam \mathcal{A}_m\left(\Fone\right),\label{eq:absorption}\\
-        \Im\left(s\left(\Fone\right)\right) = -\sum_m \bdam \mathcal{D}_m\left(\Fone\right).\label{eq:dispersion}
+        \Re(s(F)) = \sum_m a_m \mathcal{A}_m(F),\label{eq:absorption}\\
+        \Im(s(F)) = -\sum_m a_m \mathcal{D}_m(F).\label{eq:dispersion}
     \end{gather}
 \end{subequations}
  Fortunately, for the majority of \ac{NMR} experiments\footnote{
-    An example of an exception to this rule is the use of a frequency-swept, or
-    ``chirped'' pulse, which generate datasets with quadratic phase behaviour.
-    \note{refer to
-    BBQCHILI section when written up}.
-}, the phases of the contributing resonances possess a phase which depends
-linearly (to first-order) on their frequency, i.e.
+     An example of an exception to this rule is when \acl{FS} pulses are applied,
+     which generate datasets with quadratic phase behaviour. This is discussed
+     in more detail in Section \ref{sec:bbqchili}.
+}, the contributing signals possess phases which depend linearly on their
+frequencies, i.e.
 \begin{equation}
-    \bdphim = \phi_0 + \phi_1 \bdfonem,
+    \phi_m = \Phi_0 + \Phi_1 f_m,
 \end{equation}
-where $\phi_0, \in (-\pi, \pi]$ and $\phi_1 \in \mathbb{R}$ are zero- and
+where $\Phi_0, \in (-\pi, \pi]$ and $\Phi_1 \in \mathbb{R}$ are zero- and
 first-order phase terms. A feature of all \ac{NMR} processing platforms is the
-ability to perform phase-correction, in which the user effectively determines
-$\phi_0$ and $\phi_1$ by inspecting the appearance of the spectrum for
-different values of $p_0$ and  $p_1$, according to
+ability to perform phase-correction, in which the user determines
+$\Phi_0$ and $\Phi_1$ by inspecting the appearance of the spectrum
+$\symbf{s}_{\phi}$ for different values of $p_0$ and  $p_1$, according to
 \begin{equation}
-    \symbf{s}_{\phi} \left[\none\right] =
-    \symbf{s} \left[\none\right]
-    \exp\left(\iu \left(p_0 + \frac{p_1 \none}{\None - 1}\right)\right),
+    s_{\phi,n} = s_n
+    \exp\left(\iu \left(p_0 + \frac{p_1 n}{N - 1}\right)\right),
 \end{equation}
 in an attempt to give all peaks in the spectrum absorption-mode lineshapes.
 
@@ -210,9 +209,9 @@ than exhibiting a flat profile with a moving average of zero, has a distorted
 shape instead. There a number of potential causes of baseline distortion,
 including acquisition starting at a time $\neq 0$, ``clipping'' of the initial
 points due to excessive receiver gain, and ``baseline roll'' due to the
-transient response of audio filters\parencites[Section~3.3]{Cavanagh2007}{Tang1994}. Whatever
-the cause(s), a corruption of
-the initial points in the \ac{FID} typically leads to baseline distortion.
+transient response of audio filters\parencites[Section~3.3]{Cavanagh2007}{Tang1994}.
+Whatever the cause(s), it is typically the corruption of the initial points in the
+\ac{FID} that causes baseline distortion.
 It is common to apply baseline correction algorithm after phase correction has
 been undertaken to negate any distortion. This involves multiplying
 the spectrum with a high-order polynomial function, whose coefficients are
@@ -222,7 +221,7 @@ part of the baseline (b) fitting the baseline regions to a
 polynomial\cite{Dietrich1991,Cobas2006}.
 
 \subsection{Conventional analysis for multidimensional datasets}
-
+\label{subsec:mulitdim}
 As for \ac{1D} datasets, it is desirable that multidimensional \ac{NMR} spectra
 feature peaks which are (a) frequency discriminated, and (b) comprise pure
 absorption-mode lineshapes, in each dimension. Frequency discrimination describes
@@ -235,7 +234,7 @@ damping factors $\etaone$ and  $\etatwo$.
 
 \subsubsection{Amplitude-modulated signals}
 It is clear that a cosine modulated signal, given by \eqref{eq:general-fid}
-with $D=2$ and $\zeta^{(1)} = \cos(\cdot)$. cannot achieve frequency
+with $D=2$ and $\zeta^{(1)} = \cos(\cdot)$ cannot achieve frequency
 discrimination, on account of the relation
 \begin{equation}
     \cos\left(2 \pi \fone \tone\right) =
@@ -245,19 +244,19 @@ discrimination, on account of the relation
 \ac{FT} of a cosine-modulated \ac{FID} in both dimensions leads to a spectrum
 whose real component comprises two peaks, one at the true resonance frequency
 $\left(\fone, \ftwo\right)$, and the other at the mirror-image frequency in the
-indirect dimension, $\left(\foffone - \fone, \ftwo\right)$. On top of this, the
+indirect dimension, $(2\foffone - \fone, \ftwo)$. On top of this, the
 peaks possess a mixture of absorption and dispersion character, with the
 resultant peak shape often referred to as \emph{phase twist}\cite{Keeler1985}.
 A spectrum of this form is presented in panel a of Figure \ref{fig:2d-lineshapes}.
 It is possible to generate pure absorption peaks by applying \ac{FT} in the
-direct dimension, setting the imaginary component of the result to zero
-prior to \ac{FT} in the indirect dimension, and finally retaining the real
-component (panel b), leading to a \emph{double absorption} spectrum.
+direct dimension, setting the imaginary component to zero, and finally
+applying \ac{FT} in the indirect dimension. The real component of the result
+(panel b) is referred to as a \emph{double absorption} spectrum.
 
 To achieve frequency discrimination, it is necessary to also possess the
-analogous sine-modulated signal, for which $\zeta = \sin(\cdot)$, as this
-effectively achieves quadrature detection in the indirect dimension. For
-numerous multidimensional experiments, this can be achieved by repeating a
+analogous sine-modulated signal, for which $\zeta^{(1)} = \sin(\cdot)$, as this
+in effect achieves quadrature detection in the indirect dimension. For
+numerous multidimensional experiments, this can be achieved by repeating the
 pulse sequence, with careful adjustments to the phases of particular pulses, in
 a process referred to as \emph{phase cycling}\cite[Chapter 11]{Keeler2010}.
 Applying the same processing as that which achieved the double absorption
@@ -278,7 +277,7 @@ cosine spectrum (panel d).
         negative values.
         \textbf{a.} The \ac{FT} of a cosine-modulated \ac{FID}, featuring peaks
         both at the true resonance frequency ($\fone$) and the mirrored
-        frequency ($\foffone - \fone_{\vphantom{off}}$), and with phase-twist lineshapes.
+        frequency ($2\foffone - \fone_{\vphantom{off}}$), and with phase-twist lineshapes.
         \textbf{b.} Double-absorption spectrum generated by applying \ac{FT}
         in the direct dimension, setting the imaginary component to zero,
         applying \ac{FT} in the indirect dimension, and retaining the real
@@ -308,14 +307,14 @@ its quadrature nature. However, direct \ac{FT} of such a signal in both
 dimensions leads to a peaks with a phase-twist lineshape, with no means of
 separating the absorption and dispersion contributions (panel e). Certain pulse
 sequences, including \ac{2DJ} spectroscopy\cite{Aue1976,Morris2009} (see
-Section \ref{sec:pure-shift}) and
+Chapter \ref{chap:cupid}) and
 \ac{COSY}\cite{Jeener1971,Jeener2016,Aue1976a} produce hypercomplex datasets,
 and the conventional means of processing is simply to display the absolute
 value of the spectrum, which while removing the phase twist shapes, produces
 peaks with broad wings, due to the influence of the dispersive components. In
 scenarios where it is possible, it is desirable to acquire the equivalent
 ``negative'' signal ($\zeta^{(1)} = \exp(-\iu \cdot)$), whose \ac{FT} leads to
-a peak with the same phase twist form, but centered at $\foffone - \fone$
+a peak with the same phase twist form, but centered at $2\foffone - \fone$
 (panel f). Inverting this spectrum in $\Fone$ (panel g), and summing with the
 positive spectrum nullifies the dispersive contributions, generating a spectrum
 with absorption lineshapes\cite{Davis1992} (panel h).

@@ -42,8 +42,16 @@ constraint was applied to the frequencies,
 such that no two oscillators were permitted to have frequencies that differed
 by less than $\nicefrac{4 \fswone}{\None} \approx \qty{0.49}{\hertz}$. Each
 noiseless \ac{FID} was then corrupted with \ac{AWGN}, with a target \ac{SNR} of
-\qty{25}{\deci\bel}\note{Reference that this is the lowest
-SNR that the MPM considered to be effective}. The spectra of the simulated
+\qty{25}{\deci\bel}, with the noise variance for each signal determined using
+the equation
+\begin{equation}
+    \sigma^2 = \frac{1}{ 20^{\nicefrac{5}{2}}\None}
+        \sum_{\none=0}^{\None-1}
+        \left \lvert \bx \left[\none\right] \right \rvert^2.
+\end{equation}
+\note{Reference that this is the lowest
+SNR that the MPM considered to be effective}.
+The spectra of the simulated
 \acp{FID} are presented in panel a of Figure \ref{fig:mpm_vs_nlp}, with the set
 of true oscillator peaks in panel b.
 

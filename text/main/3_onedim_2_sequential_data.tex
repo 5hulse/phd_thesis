@@ -423,9 +423,14 @@ such that only first derivatives need to be computed to derive an exact Hessian
 matrix of the fidelity.
 
 \begin{algorithm}
-    \caption{
-        Routine for estimating a sequence of \ac{1D} \acp{FID} which exhibit
-        variation in amplitudes across increments. \textsc{NLPAmp} denotes a
+    \caption[
+        Routine for estimating a sequence of \ac{1D} \acsp{FID} which exhibit
+        variation in amplitudes across increments.
+    ]
+    {
+        Routine for estimating a sequence of \ac{1D} \acsp{FID} which exhibit
+        variation in amplitudes across increments.
+        \textsc{NLPAmp} denotes a
         routine which is akin to \textsc{NLP} (Algorithm \ref{alg:nlp}), except
         only amplitudes are allowed to be altered, whilst phases, frequencies
         and damping factors are fixed.
