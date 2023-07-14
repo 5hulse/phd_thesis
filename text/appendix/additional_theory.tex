@@ -7,6 +7,7 @@ this thesis are provided here. More detail can be found in numerous relevant
 texts\cite{Strang2018,Pawitan2001}.
 
 \subsection{Linear algebra}
+\label{subsec:linear-algebra}
 
 \note{TODO: rank, range}
 
@@ -38,9 +39,130 @@ theorem highlights, the \ac{SVD} is valuable in constructing low-rank
 approximations of matrices, with applications in various fields such as signal
 processing, (see Section \ref{subsec:mpm}) and data compression.
 
+\subsubsection{Special matrices}
+A \emph{Hankel matrix} is a matrix in which each ascending diagonal from left to right
+possesses identical elements. While Hankel matrices are often defined to be square, in
+this work such a restriction is not applied. Given a matrix $\symbf{X} \in
+\mathbb{F}^{M \times N}$, the matrix is Hankel if
+\begin{equation}
+    x_{m,n} = x_{m+1,n-1}
+\end{equation}
+$\forall m \in \lbrace 1, \cdots, M-1 \rbrace
+\ \forall n \in \lbrace 2, \cdots, N \rbrace$.
+Similarly, a \emph{Toeplitz matrix} is a matrix in which every descending
+diagonal from left to right possesses identical elements, i.e.
+\begin{equation}
+    x_{m,n} = x_{m+1,n+1}
+\end{equation}
+$\forall m \in \lbrace 1, \cdots, M-1 \rbrace\ \forall n
+\in \lbrace 1, \cdots N-1, \rbrace$.
+
 \subsection{Statistics and probability}
 
-\note{TODO: Likelihood function, PDF, MLE}
+\note{TODO: Likelihood function, MLE}
+
+\subsubsection{\Acl{pdf}}
+The \ac{pdf} $p(x) : \mathbb{R} \rightarrow \mathbb{R}$ is a function over a
+continuous sample space which provides relative likelihoods between potential
+values of $x$.  The probability that a random sample obeying a known
+distribution lies withing the range $[x_a, x_b]$ is given by the integral
+\begin{equation}
+    P(x_a \leq x \leq x_b) = \int_{x_a}^{x_b} p(x) \mathrm{d}x.
+\end{equation}
+The integral of $p(x)$ over the entire sample space is defined to be
+unity. Also, the \ac{pdf} of a specific value is always $0$, since the width of
+the region of integration is $0$.
+
+\subsubsection{Likelihood function}
+
+\section{Multidimensional \aclp{VE}}
+\label{sec:multidim-ve}
+The \ac{VE} concept (Section \ref{subsec:ve}) can be generalised to any number
+of dimensions, assuming that a pair of amplitude-modulated signals exist for
+each indirect-dimension. Thus a set of $2^{D-1}$ signals is required for a
+$D$-dimensional \ac{FID}.
+For the \ac{2D} case, this corresponds to the pair of signals $\lbrace
+\bY^{\cos}, \bY^{\sin} \rbrace$, given by \eqref{eq:general-fid} with $D=2$ and
+$\zeta = \lbrace \cos(\cdot), \sin(\cdot) \rbrace$, taking the forms (with
+noise neglected)
+\begin{subequations}
+    \begin{gather}
+        y^{\cos}_{\none,\ntwo} =
+            \xi^{\vphantom{(1)}}_{\none,\ntwo}
+            c^{(1)}_{\none,\ntwo}
+            \left(c^{(2)}_{\none,\ntwo} + \iu s^{(2)}_{\none,\ntwo}\right),\\
+        y^{\sin}_{\none,\ntwo} =
+            \xi^{\vphantom{(1)}}_{\none,\ntwo}
+            s^{(1)}_{\none,\ntwo}
+            \left(c^{(2)}_{\none,\ntwo} + \iu s^{(2)}_{\none,\ntwo}\right),\\
+        \xi^{\vphantom{(1)}}_{\none,\ntwo} =
+            \sum_m a_m \exp\left(-\etaonem \none \Dtone -\etatwom \ntwo \Dttwo\right),\\
+        (c/s)^{(1/2)}_{\none,\ntwo} =
+            \sum_m \cos / \sin \left(2 \pi f^{(1/2)} n^{(1/2)} \Updelta^{(1/2)}\right).
+    \end{gather}
+\end{subequations}
+Four matrices $\symbf{\psi}_{\pm\pm}$ are then constructed of the form
+\begin{equation}
+    \begin{gathered}
+        \psi_{\pm\pm, \none, \ntwo} =
+            \xi_{\none,\ntwo}^{\vphantom{(1)}}
+            \left(c^{(1)}_{\none,\ntwo} \pm^{(1)} \iu s^{(1)}_{\none,\ntwo}\right)
+            \left(c^{(2)}_{\none,\ntwo} \pm^{(2)} \iu s^{(2)}_{\none,\ntwo}\right)\\
+         \equiv
+             \Re\left( y^{\cos}_{\none,\ntwo} \right)
+             \pm^{(1)} \pm^{(2)} -
+             \Im\left( y^{\sin}_{\none,\ntwo} \right)
+             + \iu \left(
+             \pm^{(1)}
+             \Re\left( y^{\sin}_{\none,\ntwo} \right)
+             \pm^{(2)}
+             \Im\left( y^{\cos}_{\none,\ntwo} \right)
+             \right),
+    \end{gathered}
+\end{equation}
+from which the matrices $\symbf{T}_{1 \rightarrow 4} \in \mathbb{C}^{2 \None
+\times 2 \Ntwo}$ are generated:
+\begin{subequations}
+    \begin{gather}
+        \symbf{T}_1 =
+        \begin{bmatrix}
+            \symbf{\Psi}_{++} & \symbf{0} \\
+            \symbf{0} & \symbf{0}
+        \end{bmatrix}, \\
+        \symbf{T}_2 =
+        \begin{bmatrix}
+            \symbf{0} & \symbf{0} \\
+            \symbf{\Psi}_{-+}^{\leftrightsquigarrow (1)} & \symbf{0}
+        \end{bmatrix}^{\circlearrowright (1)}, \\
+        \symbf{T}_3 =
+        \begin{bmatrix}
+            \symbf{0} & \symbf{\Psi}_{+-}^{\leftrightsquigarrow (2)} \\
+            \symbf{0} & \symbf{0}
+        \end{bmatrix}^{\circlearrowright (2)}, \\
+        \symbf{T}_4 =
+        \begin{bmatrix}
+            \symbf{0} & \symbf{0} \\
+            \symbf{0} & \symbf{\Psi}_{--}^{\leftrightsquigarrow (1,2)}
+        \end{bmatrix}^{\circlearrowright (1,2)}.
+    \end{gather}
+\end{subequations}
+The virtual echo is then given by $\symbf{Y}_{\text{ve}} = \sum_{i=1}^4
+\symbf{T}_i$, with the first row and column divided by two. For a full outline
+of the 2D filtering procedure, see Algorithm \ref{alg:filter-2d}.
+
+It is possible to construct a virtual echo using an appropriate set of
+phase-modulated signals too, which for the \ac{2D} case would be $\lbrace
+\symbf{Y}^{\text{pos}}, \symbf{Y}^{\text{neg}}\rbrace$, given by
+\eqref{eq:general-fid} with $D=2$ and  $\zeta = \lbrace \exp(\iu \cdot),
+\exp(-\iu\cdot)\rbrace$. These can be used to generate an amplitude modulated pair via
+\begin{subequations}
+    \begin{gather}
+        \symbf{Y}^{\text{cos}} = \frac{\symbf{Y}^{\text{pos}} + \symbf{Y}^{\text{neg}}}{2},\\
+        \symbf{Y}^{\text{sin}} = \frac{\symbf{Y}^{\text{pos}} - \symbf{Y}^{\text{neg}}}{2\iu}.
+    \end{gather}
+\end{subequations}
+
+
 
 \section{Additional algorithms}
 

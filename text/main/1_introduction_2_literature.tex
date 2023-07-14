@@ -224,13 +224,10 @@ polynomial\cite{Dietrich1991,Cobas2006}.
 \label{subsec:mulitdim}
 As for \ac{1D} datasets, it is desirable that multidimensional \ac{NMR} spectra
 feature peaks which are (a) frequency discriminated, and (b) comprise pure
-absorption-mode lineshapes, in each dimension. Frequency discrimination describes
+absorption-mode lineshapes in each dimension. Frequency discrimination describes
 the ability to determine whether a particular resonance is at a frequency which
 higher or lower than the frequency of the transmitter, which is in the middle
-of the spectral window. As an illustration of how this can be achieved, \ac{2D}
-signals comprising a single oscillator will be considered, with
-amplitude $a = 1$,  phase $\phi = \ang{0}$, frequencies $\fone$ and $\ftwo$, and
-damping factors $\etaone$ and  $\etatwo$.
+of the spectral window.
 
 \subsubsection{Amplitude-modulated signals}
 It is clear that a cosine modulated signal, given by \eqref{eq:general-fid}
@@ -241,7 +238,7 @@ discrimination, on account of the relation
     \tfrac{1}{2} \left(\exp\left(2 \pi \iu \fone \tone \right) + \exp\left(-2 \pi \iu
     \fone \tone \right)\right)
 \end{equation}
-\ac{FT} of a cosine-modulated \ac{FID} in both dimensions leads to a spectrum
+Performing \ac{FT} on such a signal in both dimensions leads to a spectrum
 whose real component comprises two peaks, one at the true resonance frequency
 $\left(\fone, \ftwo\right)$, and the other at the mirror-image frequency in the
 indirect dimension, $(2\foffone - \fone, \ftwo)$. On top of this, the
@@ -261,10 +258,9 @@ pulse sequence, with careful adjustments to the phases of particular pulses, in
 a process referred to as \emph{phase cycling}\cite[Chapter 11]{Keeler2010}.
 Applying the same processing as that which achieved the double absorption
 spectrum for the cosine-modulated case generates a spectrum whose imaginary
-component features two peaks, but with opposite signs (panel c) which is borne
-out of the sine function being odd. It then becomes possible to generate a
-frequency discriminated spectrum by subtracting the sine spectrum from the
-cosine spectrum (panel d).
+component features two peaks, but with opposite signs (panel c).
+It then becomes possible to generate a frequency discriminated spectrum by
+subtracting the sine spectrum from the cosine spectrum (panel d).
 
 \begin{figure}
     \centering
@@ -304,7 +300,7 @@ cosine spectrum (panel d).
 A ``positive'' phase-modulated signal with the form $\zeta^{(1)} = \exp(\iu \cdot)$
 (commonly referred to as \emph{hypercomplex}) is frequency-discriminated due to
 its quadrature nature. However, direct \ac{FT} of such a signal in both
-dimensions leads to a peaks with a phase-twist lineshape, with no means of
+dimensions leads to a peak with a phase-twist lineshape, with no means of
 separating the absorption and dispersion contributions (panel e). Certain pulse
 sequences, including \ac{2DJ} spectroscopy\cite{Aue1976,Morris2009} (see
 Chapter \ref{chap:cupid}) and
@@ -316,8 +312,8 @@ scenarios where it is possible, it is desirable to acquire the equivalent
 ``negative'' signal ($\zeta^{(1)} = \exp(-\iu \cdot)$), whose \ac{FT} leads to
 a peak with the same phase twist form, but centered at $2\foffone - \fone$
 (panel f). Inverting this spectrum in $\Fone$ (panel g), and summing with the
-positive spectrum nullifies the dispersive contributions, generating a spectrum
-with absorption lineshapes\cite{Davis1992} (panel h).
+positive spectrum nullifies the dispersive contribution, generating a spectrum
+with an absorption lineshape\cite{Davis1992} (panel h).
 
 \subsection{Estimation Techniques for NMR Analysis}
 
@@ -330,26 +326,26 @@ artefacts and (b) correct the commonly corrupted initial points of the
 \ac{FID}, as a means of improving the spectral baseline. The concept of \ac{LP}
 stems from the idea that a deterministic signal, such as a \ac{1D} \ac{FID} can
 be described as an \ac{AR} process, such that a given sample from the dataset
-can be described by a linear combination of a certain number of previous
-samples:
+can be described by a linear combination of an appropriate number $L$ of
+previous samples:
 \begin{equation}
-    \by \left[\none\right] = \sum_{l=0}^{L-1}
-    \symbf{c}[l] \hspace{2pt} \by \left[ \none - l - 1\right] + \symbf{e} [l]
+    y_n = \sum_{l=1}^{L}
+    c_l y_{n-l} + e_l
     \label{eq:forward-lp}
 \end{equation}
-$\forall \none \in \lbrace L, L + 1, \cdots, \None - 1 \rbrace$, where $L \in
+$\forall n \in \lbrace L, L + 1, \cdots, N - 1 \rbrace$, where $L \in
 \mathbb{Z}$ defines the order of the linear estimator, and $\symbf{c} \in
 \mathbb{R}^{L}$ is a set of \emph{forward} \ac{LP} coefficients. $\symbf{e} \in
-\mathbb{R}^L$ is a set of parameters, sometimes called the innovations, which
-account of error in the \ac{LP} model. A datapoint can also be described by a
-linear combination of a certain number of subsequent points, using the set of
-\emph{backward} \ac{LP} coefficients $\symbf{b} \in \mathbb{R}^L$:
+\mathbb{R}^L$ is a set of parameters, often called the \emph{innovations},
+which account of error in the \ac{LP} model. A datapoint can also be described
+by a linear combination of a certain number of subsequent points, using the set
+of \emph{backward} \ac{LP} coefficients $\symbf{b} \in \mathbb{R}^L$:
 \begin{equation}
-    \by \left[\none\right] = \sum_{l=0}^{L-1}
-    \symbf{b}[l] \hspace{2pt} \by \left[ \none + l + 1\right] + \symbf{e} [l]
+    y_n = \sum_{l=1}^{L}
+    b_l y_{n+l} + e_l
     \label{eq:backward-lp}
 \end{equation}
-$\forall \none \in \lbrace 0, 1, \cdots, \None - L - 1 \rbrace$. Determining
+$\forall n \in \lbrace 0, 1, \cdots, N - L - 1 \rbrace$. Determining
 the \ac{LP} coefficients enables the estimation of \ac{FID} values beyond the
 data actually acquired ($\none < 0$ and $\none > \None - 1$). It should be noted that
 \eqref{eq:forward-lp} and \eqref{eq:backward-lp} are only valid for

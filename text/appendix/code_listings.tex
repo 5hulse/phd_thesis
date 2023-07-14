@@ -1,0 +1,136 @@
+\chapter{Code Listings}
+
+\note{NEED TO ADD TEXT TO DESCRIBE THINGS}
+The following is all the required imports:
+\mylisting{python3}{code_listings/imports.py}{%
+Required imports for the subsequent \Python listings.
+}{
+    Required imports for the subsequent listings in this chapter.
+    The \mintinline{python3}{product} function, is employed in the \acs{MMEMPM}
+    routine (Listing \ref{lst:mmempm}).
+    The imports from the \mintinline{python3}{typing} module are used to
+    annotate what the expected types are for each argument, and what the return
+    type is.
+    The \mintinline{python3}{numpy} and \mintinline{python3}{scipy} modules are
+    ubiquitous in the following listings, providing access to efficient
+    routines for numerical computations.
+}{lst:imports}
+
+\section{\Aclp{MPM}}
+
+\subsection{\acs{MDL}}
+\mylisting{python3}{code_listings/mdl.py}{%
+\Python implementation of the \acs{MDL} for estimation of the model order
+of a \acs{1D} \acs{FID}.
+}{%
+The \acs{MDL} for estimation of the model order of a \acs{1D} \acs{FID}.
+The first relative minimum in \mintinline{python}{mdl_vec} is determined to be
+the estimate of $M$, rather than the global minimum (line \ref{ln:argmin}),
+since the presence of very small singular values when \mintinline{python3}{k}
+is large can lead to errors involving floating-point arithmetic.
+}{lst:mdl}
+
+\subsection{\acs{MPM}}
+\mylisting{python3}{code_listings/mpm.py}{
+    \Python implementation of the \acs{MPM} for estimation of a \acs{1D} \acs{FID}.
+}{
+    The \acs{MPM} for estimation of a \acs{1D} \acs{FID}, with the option of
+    estimating the model order using the \acs{MDL}.
+}{lst:mpm}
+
+\subsection{\acs{MMEMPM}}
+\mylisting{python3}{code_listings/mmempm.py}{
+\Python implementation of the \acs{MMEMPM} for estimation of a \acs{2D}
+hypercomplex \acs{FID}.
+}{
+The \acs{MMEMPM} for estimation of a \acs{2D} hypercomplex \acs{FID}. Due
+to the very large size of the Hankel matrix $\symbf{E}_{\bY}$, a truncated
+\acs{SVD} routine is employed, which determines only the first $M$
+components of the decomposition. This is only available to arrays stored in
+sparse form in \textsc{SciPy} (lines \ref{ln:sparse1}--\ref{ln:sparse2}).
+}{lst:mmempm}
+
+\section{\ac{NLP}}
+
+\subsection{Trust Region Algorithm}
+
+\mylisting{python3}{code_listings/trust_region.py}{
+\Python implementation of the Steihaug-Toint trust region algorithm.
+}{
+Steihaug-Toint trust region algorithm. Included is a check for oscillators with
+negative amplitudes, which causes the routine to terminate, in order for said
+oscillators to be purged (lines \ref{ln:negamp1}--\ref{ln:negamp2}).
+}{lst:tr}
+
+\subsection{Computing
+    \texorpdfstring{$\mathcal{F}_{\phi}$}{F},
+    \texorpdfstring{$\nabla \mathcal{F}_{\phi}$}{grad}, and
+    \texorpdfstring{$\nabla^2 \mathcal{F}_{\phi}$}{hess}
+}
+
+\mylisting{python3}{code_listings/obj_grad_hess.py}{
+\Python implementation for the generation of the fidelity for \ac{NLP}
+applied to \ac{1D} estimation, as well as the gradient and (approximated)
+Hessian
+}{
+Code for the generation of the fidelity for \ac{NLP}
+applied to \ac{1D} estimation, as well as the gradient and (approximated)
+Hessian. The \mintinline{python3}{FunctionFactory} object accepts a parameter
+set (\mintinline{python3}{theta}) and function (\mintinline{python3}{fun}),
+which computes the objective, gradient and Hessian. The first time a quantity
+is requested from the factory, the function is run, and the objective and its
+derivatives are cached (memoised), such that the next time a quantity is
+requested, the cached result is used, rather than the expensive function being
+re-computed.
+\mintinline{python3}{FunctionFactoryGaussNewton1D} (lines
+\ref{ln:ff1}--\ref{ln:ff2}) inherits from the base class, for specific use in
+\ac{1D} estimation, with an approximated Hessian.}{lst:obj-grad-hess}
+
+\subsection{The main routine}
+
+\mylisting{python3}{code_listings/nlp_routine.py}{Hello}{Hello}{lst:nlp}
+
+\section{\acs{CUPID}}
+
+\subsection{Assigning multiplet structures}
+
+\mylisting{python3}{code_listings/mp_assign.py}{Hello}{Hello}{lst:mpm-assign}
+
+% A bunch of Python code listings illustrating how certain things described in
+% the main text are implemented.
+
+% \subsection{Computing the gradient and Hessian for non-linear programming}
+
+% In this section, a description of how the fidelity, its gradient, and its
+% Hessian (Equation \ref{eq:fidelity-grad-hess}) are computed is provided.
+
+% \pylisting{code_listings/obj_grad_hess/definition.py}
+
+% We will start by constructing the model array $\bx$. It is necessary to know
+% the form of each oscillator in $\bx$ to compute its derivatives.
+% \begin{subequations}
+%     \begin{gather}
+%         \bx = \exp\left(\symbf{Z}\right) \symbf{\alpha},\\
+%         \symbf{Z} = \symbf{\tau} \otimes \symbf{z},\\
+%         \symbf{\tau}\left[n\right] = (n-1)\Dt\ \forall n \in \lbrace0, \cdots, N - 1\rbrace\\
+%         \symbf{z}\left[m\right] = 2 \pi \iu f_m- \eta_m\ \forall m \in \lbrace 1, \cdots, M \rbrace\\
+%         \symbf{\alpha}\left[m\right] = a_m \exp\left(\iu \phi_m\right)
+%     \end{gather}
+% \end{subequations}
+% Therefore a $\mathbb{C}^{N \times M}$ array $\bX_m$ is created, such that
+% \begin{equation}
+%     \bX_m = \exp\left(\symbf{Z}\right) * \alpha
+% \end{equation}
+% \nomenclature[M]{$*$}{Broadcasting notation, as is commonly performed in
+% numerical computations. See
+% \href{https://numpy.org/doc/stable/user/basics.broadcasting.html}{this page of
+% the NumPy documentation} for details}
+
+
+% \pylisting{code_listings/obj_grad_hess/x_per_osc.py}
+
+
+% \subsection{Multiplet prediction}
+% \label{sec:multiplet prediction}
+
+% \pylisting{code_listings/multiplet_prediction.py}

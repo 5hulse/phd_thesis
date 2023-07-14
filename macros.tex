@@ -13,6 +13,9 @@
 \newcommand{\by}{\symbf{y}}
 \newcommand{\bY}{\symbf{Y}}
 \newcommand{\YnonenD}{Y_{\nonedotsnD}}
+\newcommand{\ynonenD}{y_{\nonedotsnD}}
+\newcommand{\xnonenD}{x_{\nonedotsnD}}
+\newcommand{\wnonenD}{w_{\nonedotsnD}}
 
 \newcommand{\nonedotsnD}{\none, \cdots, \nD}
 
@@ -106,8 +109,8 @@
 \newcommand{\EYtilde}{\widetilde{\symbf{E}}_{\bY}}
 
 %% Pencil parameters
-\newcommand{\Lone}{L^{(1)}}
-\newcommand{\Ltwo}{L^{(2)}}
+\newcommand{\Lone}{L^{(1)}_{\vphantom{t}}}
+\newcommand{\Ltwo}{L^{(2)}_{\vphantom{t}}}
 
 %% Time-points
 \newcommand{\tone}{t^{(1)}}
@@ -135,6 +138,7 @@
 \newcommand{\Dtone}{\Updelta_t^{(1)}}
 \newcommand{\Dttwo}{\Updelta_t^{(2)}}
 \newcommand{\Dtd}{\Updelta_t^{(d)}}
+\newcommand{\Dtdp}{\Updelta_t^{(d^{\prime})}}
 
 %% Sums and products
 \newcommand{\sumM}{\sum_{m=1}^M}
@@ -184,6 +188,7 @@
 \newcommand{\fonem}{f_m^{(1)}}
 \newcommand{\ftwom}{f_m^{(2)}}
 \newcommand{\fdm}{f_m^{(d)}}
+\newcommand{\fdmp}{f_m^{(d^{\prime})}}
 \newcommand{\bdfone}{\symbf{f}^{(1)}}
 \newcommand{\bdftwo}{\symbf{f}^{(2)}}
 \newcommand{\bdfd}{\symbf{f}^{(d)}}
@@ -204,6 +209,7 @@
 \newcommand{\etaonem}{\eta_m^{(1)}}
 \newcommand{\etatwom}{\eta_m^{(2)}}
 \newcommand{\etadm}{\eta_m^{(d)}}
+\newcommand{\etadmp}{\eta_m^{(d^{\prime})}}
 \newcommand{\etaDone}{\eta_1^{(D)}}
 \newcommand{\etaDM}{\eta_M^{(D)}}
 \newcommand{\etaoscone}{\eta_1}
@@ -224,14 +230,15 @@
 \newcommand{\none}{n^{(1)}_{\vphantom{t}}}
 \newcommand{\ntwo}{n^{(2)}_{\vphantom{t}}}
 \newcommand{\nd}{n^{(d)}_{\vphantom{t}}}
+\newcommand{\ndp}{n^{(d^{\prime})}_{\vphantom{t}}}
 \newcommand{\nD}{n^{(D)}_{\vphantom{t}}}
 
 %% Number of datapoints
-\newcommand{\None}{N^{(1)}}
-\newcommand{\Ntwo}{N^{(2)}}
-\newcommand{\Nthree}{N^{(3)}}
-\newcommand{\Nd}{N^{(d)}}
-\newcommand{\ND}{N^{(D)}}
+\newcommand{\None}{{N^{(1)}_{\vphantom{t}}}}
+\newcommand{\Ntwo}{{N^{(2)}_{\vphantom{t}}}}
+\newcommand{\Nthree}{N^{(3)}_{\vphantom{t}}}
+\newcommand{\Nd}{{N^{(d)}_{\vphantom{t}}}}
+\newcommand{\ND}{{N^{(D)}_{\vphantom{t}}}}
 
 %% Operators
 \newcommand{\FT}{\operatorname{FT}}
@@ -256,3 +263,5 @@
 \newcommand{\trmax}{\Updelta_{\text{max}}}
 
 \newcommand{\bCth}{\symbf{C}\left( \bth \right)}
+
+\newcommand{\Python}{\textsc{Python} }

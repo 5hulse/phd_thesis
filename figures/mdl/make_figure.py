@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Wed 14 Jun 2023 21:19:11 BST
+# Last Edited: Mon 10 Jul 2023 19:46:34 BST
 
 import pickle
 import nmrespy as ne
@@ -97,8 +97,8 @@ for snr in snrs:
             fid = pickle.load(fh)
 
     svs, pdf, penalty, mdl = [x [:max_order] for x in get_info(fid)]
-    color = axs[1].plot(ns, svs, zorder=0, **plot_kwargs)[0].get_color()
-    axs[1].scatter(ns, svs, color=color, **scatter_kwargs)
+    color = axs[1].plot(ns + 1, svs, zorder=0, **plot_kwargs)[0].get_color()
+    axs[1].scatter(ns + 1, svs, color=color, **scatter_kwargs)
     axs[2].plot(ns, -pdf, zorder=0, color=color, **plot_kwargs, ls=(0, (1, 0.5)))
     axs[2].scatter(ns, -pdf, color=color, **scatter_kwargs, marker="s")
     axs[2].plot(ns, mdl, zorder=0, color=color, **plot_kwargs)
@@ -135,13 +135,13 @@ for i, x in enumerate(params[:, 2], start=1):
         shift = 0
     axs[0].text(x + shift, y, f"({i})", color=color, ha="center", fontsize=6)
 
-axs[1].text(0.4, 2.73, "(6)", color=color, fontsize=6)
-curlyBrace(fig, axs[1], (1.3, 2.14), (2.3, 1.91), color=color, solid_capstyle="round")
-axs[1].text(2.3, 2.05, "(2), (3)", color=color, fontsize=6)
-curlyBrace(fig, axs[1], (3.3, 1.435), (4.3, 1.27), color=color, solid_capstyle="round")
-axs[1].text(4.25, 1.4, "(5), (7)", color=color, fontsize=6)
-curlyBrace(fig, axs[1], (5.7, 0.54), (4.7, 0.67), color=color, solid_capstyle="round")
-axs[1].text(3., 0.5, "(1), (4)", color=color, fontsize=6)
+axs[1].text(1.4, 2.73, "(6)", color=color, fontsize=6)
+curlyBrace(fig, axs[1], (2.3, 2.14), (3.3, 1.91), color=color, solid_capstyle="round")
+axs[1].text(3.3, 2.05, "(2), (3)", color=color, fontsize=6)
+curlyBrace(fig, axs[1], (4.3, 1.435), (5.3, 1.27), color=color, solid_capstyle="round")
+axs[1].text(5.25, 1.4, "(5), (7)", color=color, fontsize=6)
+curlyBrace(fig, axs[1], (6.7, 0.54), (5.7, 0.67), color=color, solid_capstyle="round")
+axs[1].text(4., 0.5, "(1), (4)", color=color, fontsize=6)
 
 
 axs[2].plot(ns, penalty, zorder=0, color="#808080", **plot_kwargs)
@@ -157,18 +157,21 @@ axs[0].set_xlabel("Hz", labelpad=1)
 
 for label, ax in zip(("$r$", "$k$"), (axs[1], axs[2])):
     ax.set_xlabel(label, labelpad=-1, va="bottom")
-    ax.set_xlim(left=-1.5)
     ax.xaxis.set_minor_locator(mpl.ticker.MultipleLocator(1))
     ax.xaxis.set_major_locator(mpl.ticker.MultipleLocator(5))
-    ax.xaxis.get_minor_ticks()[1].draw = lambda *args:None
+
+axs[1].set_xlim(left=-0.5)
+axs[1].xaxis.get_major_ticks()[1].draw = lambda *args:None
+axs[2].set_xlim(left=-1.5)
+axs[2].xaxis.get_minor_ticks()[1].draw = lambda *args:None
 
 xlim1 = axs[1].get_xlim()
-axs[1].axvspan(xlim1[0] , 6.5, facecolor=colors[4], ls=":", alpha=0.2, zorder=-1)
-axs[1].axvspan(6.5, xlim1[1], facecolor=colors[5], ls=":", alpha=0.2, zorder=-1)
+axs[1].axvspan(xlim1[0] , 7.5, facecolor=colors[4], ls=":", alpha=0.2, zorder=-1)
+axs[1].axvspan(7.5, xlim1[1], facecolor=colors[5], ls=":", alpha=0.2, zorder=-1)
 axs[1].set_xlim(xlim1)
 axs[1].text(0.1, 0.1, "signal", color=colors[4], fontsize=8, transform=axs[1].transAxes)
 axs[1].text(0.9, 0.9, "noise", color=colors[5], fontsize=8, transform=axs[1].transAxes, ha="right", va="top")
-axs[1].set_ylabel("$\\symbf{\\sigma}[r]$", labelpad=2)
+axs[1].set_ylabel("$\\sigma_r$", labelpad=2)
 axs[1].set_yticks([0.] + list(axs[1].get_yticks())[:-1])
 
 axs[2].ticklabel_format(axis="y", style="sci", scilimits=(0, 0), useMathText=True)

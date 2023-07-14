@@ -1,6 +1,5 @@
 \section{Amplitude-attenuated Datasets}
 \label{sec:seq}
-
 There are a number of \ac{2D} \ac{NMR} experiments in which the
 variation of a parameter in the pulse sequence leads to the generation of
 \acp{FID} of the same form except for an attenuation in their amplitudes across
@@ -12,17 +11,22 @@ described, facilitating the determination of these properties.
 \subsection{Relaxation experiments}
 \label{subsec:relaxation_experiments}
 Any spin system which has been perturbed from its equilibrium position will
-eventually return to equilibrium by a process called
-\emph{relaxation}\parencites[Chapter 5]{Cavanagh2007}{Goldman2001}{Kuprov2007}.
-In many applications, two fundamental quantities are of great value: the
-longitudinal relaxation rate and the transverse relaxation rate, quantified by
-the times $T_1$ and  $T_2$ respectively. From a vector model perspective, $T_1$
-indicates how rapidly the longitudinal component of the magnetisation vector
-recovers towards equilibrium, while $T_2$ indicates the rate at which
-transverse magnetisation decays to zero. Numerous factors affect these
-quantities, including the rate at which the spin tumbles in space, and its
-electronic environment. Well-known experiments exist to quantify both of these
-quantities.
+eventually return to equilibrium by relaxation. As introduced in Chapter
+\ref{chap:intro}, the simplest model of relaxation centers around two
+quantities: the longitudinal relaxation rate and the transverse relaxation
+rate, quantified by the times $T_1$ and  $T_2$ respectively. Though a rigorous
+picture of relaxation in \ac{NMR} requires the use quantum mechanics
+\parencites[Chapter 5]{Cavanagh2007}{Goldman2001}{Kuprov2007}, $T_1$ and $T_2$
+are still valuable concepts which provide insight into the chemical system
+being studied\footnote{
+    Loosely, the $T_1$ of a spin can be thought of as the inverse of the
+    self-relaxation rate of the spin's $\hat{I}_z$ operator, while $T_2$ is the
+    corresponding quantity for its $\hat{I}_+$ operator, equivalent to
+    $\hat{I}_x + \iu \hat{I}_y$.
+}.
+Numerous factors affect these quantities, including the rate at which the spin
+tumbles in space, and its electronic environment. Well-known experiments exist
+to quantify both of these quantities.
 
 \note{PS figure}
 
@@ -32,11 +36,20 @@ The inversion recovery experiment involves the simple pulse sequence $\ang{180}
 \rightarrow \tau \rightarrow \ang{90} \rightarrow \tone$. The initial
 \ang{180} pulse inverts the magnetisation, so that it is along $-z$. During
 $\tau$, the spin system undergoes longitudinal
-relaxation. Finally, the \ang{90} pulse rotates the magnetisation into the
+relaxation, with the spin state populations at equilibrium gradually being
+restored. The \ang{90} pulse rotates the magnetisation into the
 transverse plane, enabling detection. The resultant phase and magnitude of the
 signal is directly related to the amount of time that longitudinal relaxation
 is allowed to occur. With $\tau = \qty{0}{\second}$, a signal with
-maximal amplitude, but a phase of \ang{180} will result. At the other extreme of
+maximal amplitude, but a phase of \ang{180} will result\footnote{
+    In a $T_1$ experiment, it is customary to perform phase correction across
+    the series of spectra such that the initial spectrum has absorption-mode
+    peaks with negative integrals (i.e. a phase of \ang{180}). It should be
+    noted that a spectrum with \ang{180} phase is not the expected direct
+    output from the spectrometer, since the relative phase of the \ac{FID} and
+    the receiver cannot be easily calibrated.\note{There is probably a better
+    way of explaining this...}
+}. At the other extreme of
 very long $\tau$, the spin system will have reverted
 back to equilibrium, such that a signal which also has maximal amplitude, but a
 phase of \ang{0} will be realised. By sequentially adjusting $\tau$ in a
@@ -46,8 +59,11 @@ of each peak will vary according to
     a\left(\tau\right) = a_{\infty} \left( 1 - 2 \exp\left( -\frac{\tau}{T_1}\right) \right),
 \end{equation}
 where $a_{\infty}$ is the intensity of the peak acquired when the spin system
-has returned to equilibrium.
-
+has returned to equilibrium. Note that $a(0) = -a_{\infty}$, as the spin system
+has been completely inverted, and no time has been allowed for longitudinal
+relaxation to take place. An example of a series of spectra acquired using an
+inversion recovery experiment is given by panel d in Figure
+\ref{fig:five-multiplets-invrec}.
 
 \subsubsection{Measuring $T_2$: \acs{CPMG}}
 \label{subsec:cpmg}
@@ -56,7 +72,10 @@ transverse magnetisation and leaving it to evolve for different amounts of
 time, it is possible to determine $T_2$. This might lead one to believe
 that the pulse sequence $\ang{90} \rightarrow \tau \rightarrow \tone$ would be
 effective for  $T_2$ determination. However the presence of J-modulation would
-generate undesirable spectra with phase-modulated peaks. As well as this the presence of field inhomogeneities will cause relaxation at a faster rate than anticipated, which is incorporated in the quantity $T_2^*$. The effects of
+generate undesirable spectra with phase-modulated peaks. As well as this the
+presence of field inhomogeneities will cause relaxation at a faster rate than
+anticipated. The effect of field inhomogeneities is incorporated into the
+``observed'' transverse relaxation time, $T_2^*$. The effects of
 J-modulation and field inhomogeneity can be nullified if rapid refocussing is
 applied, by subjecting the spin system to a train of spin echoes. The classic
 route to $T_2$ measurement is the \ac{CPMG}
@@ -68,10 +87,11 @@ the intensity of the resulting signal according to
 \begin{equation}
     a(n) = a_0 \exp\left(-\frac{2 \tau n}{T_2}\right),
 \end{equation}
-where $a_0$ is the intensity where no spin echo cycles were employed.
+where $a_0$ is the intensity where no spin echo cycles were employed, such that
+the pulse sequence reduces to a standard pulse-acquire experiment.
 
 \subsection{Diffusion experiments}
-\label{sec:diffusion_experiments}
+\label{subsec:diffusion_experiments}
 \ac{NMR} is well established as a means of determining the rates of diffusion of chemical species\cite{Johnson1999,Morris2009b}.
 The first showcase for determining translational diffusion coefficients came
 from Stejskal and Tanner, in which they described the \ac{PGSE} pulse
@@ -117,7 +137,9 @@ to encode the change in position of the spin after a known amount of time.
 Extending this idea to a system of many identical spins, which will translate
 by different extents between the \acp{PFG}, individual spin contributions to
 the bulk magnetisation will become dephased, leading to an attenuation of the
-amplitude of the resulting FID.
+amplitude of the resulting \ac{FID}. For species which diffuse at a faster
+rate, this effect is more severe, such that a more rapid attenuation is
+anticipated.
 
 \begin{figure}
    \includegraphics{diffusion_sequences/diffusion_sequences.pdf}
@@ -139,9 +161,8 @@ amplitude of the resulting FID.
 
 Through consideration of the Bloch-Torrey equations\cite{Torrey1956}, which
 extend the classic Bloch equations to account for the effects of diffusion on
-magnetisation, Stejskal and Tanner were able to derive the following equation
-for the variation of the amplitude of a resonance as a function of gradient
-strength, known widely as the Stejskal-Tanner equation:
+magnetisation, the following equation, known as the \emph{Stejskal-Tanner
+equation}, may be derived:
 \begin{equation}
     a(g) = a_0 \exp \left(- \gamma^2 \delta^2 g^2 D \left(\Delta -
     \frac{\delta}{3}\right)\right),
@@ -150,7 +171,7 @@ strength, known widely as the Stejskal-Tanner equation:
 where
 $a_0 = \lim_{g \rightarrow 0} a$,
 $\gamma$ is the gyromagnetic ratio of the target nucleus
-(\unit{\radian \mega\hertz\per\tesla}), \note{Should check if radians are needed}
+(\unit{\radian \mega\hertz\per\tesla}),
 $g$ is the gradient strength (\unit{\tesla\per\meter})\footnote{
     Gradient strengths are often expressed in units of
     \unit{\gauss\per\centi\meter}, which is equivalent to
@@ -159,12 +180,11 @@ $g$ is the gradient strength (\unit{\tesla\per\meter})\footnote{
 $\delta$ is the duration of each \ac{PFG} (\unit{\second}),
 $\Delta$ is the delay between the \acp{PFG}, often known as the diffusion time
 (\unit{\second}),
-and $D$ is the translation diffusion constant of the species giving rise to the
-resonance (\unit{\meter\squared\per\second}).
-While Equation \ref{eq:stejskal_tanner} is widely stated in the literature, it is only strictly applicable when the \ac{PGSE} sequence
-is used (or any other \emph{monopolar} sequence, \emph{vide infra}), and
-rectangular \acp{PFG} are applied
-\footnote{
+and $D$ is the translational diffusion constant of the species giving rise to
+the signal (\unit{\meter\squared\per\second}).
+While \eqref{eq:stejskal_tanner} is widely stated in the literature, it is only
+strictly applicable when the \ac{PGSE} sequence is used, and \acp{PFG} with
+rectangular amplitude profiles are applied\footnote{
     Rectangular \acp{PFG} (i.e. those in which there is an infinitesimal time
     to rise to full strength, and to fall back to zero) are in fact
     impossible to achieve as they would require gradient coils with zero
@@ -189,35 +209,36 @@ single direction. Experiments also exist which employ
 \emph{bipolar} gradient elements\cite{Cotts1989,Wu1995}, which consist of a
 \ac{PFG}, followed by a \ang{180} pulse, and then a second \ac{PFG} with the
 opposite polarity to the first. A well-known example is the \ac{PGSTEBP}
-experiment (Figure \ref{fig:diffusion_sequences}.c). Bipolar gradient are
+experiment (Figure \ref{fig:diffusion_sequences}.c). Bipolar gradients are
 useful in circumstances where it is important to purge the effects of static
 gradients in the sample, caused by field inhomogeneities. Morris and coworkers
-have also developed the One-shot DOSY experiment\cite{Pelta2002} (Figure
+have developed the \emph{one-shot} experiment\cite{Pelta2002} (Figure
 \ref{fig:diffusion_sequences}.d), which requires a single transient per
 gradient strength (i.e. there is no requirement for a phase-cycling scheme).
 This is achieved through the use of bipolar gradients which comprise
 asymmetrical \acp{PFG} with relative powers $1 + \alpha : 1 - \alpha$ for some
 $ 0 > \alpha > 1$ (a common value is $0.2$).
 
-It is virtually always the case that the amplitudes of each resonance in the
+The most common means of performing a diffusion experiment is to run an
+appropriate pulse sequence, and vary $g$ across increments.
+It is virtually always the case that the amplitudes of each signal in an
 \ac{FID} abide by the following general form of the Stejskal-Tanner equation:
 \begin{equation}
     a(g) = a_0 \exp\left(- c g^2 D\right)
 \end{equation}
 for some constant $c$ (\unit{\tesla\per\second\squared}).
-It is important to note that functional form of $c$ is highly variable
-dependent on the type of experiment used, and its value if affected by the
-shape of the diffusion-encoding \acp{PFG}. A consideration of the Bloch-Torrey
-equation for a given experiment is necessary, with an extensive overview
-provided by Sinnaeve for most diffusion NMR experiments\cite{Sinnaeve2012}. In
-general, $c$ is as follows:
+The functional form of $c$ depends on the type of experiment used, as well as
+the amplitude profile of the \acp{PFG}.
+A consideration of the Bloch-Torrey equations for a given experiment is
+necessary, with an extensive overview provided by Sinnaeve for most diffusion
+NMR experiments\cite{Sinnaeve2012}. In general, $c$ is as follows:
 \begin{equation}
     c = \gamma^2 \delta^2 \sigma^2 \Delta^{\prime}.
     \label{eq:stejskal_tanner_generic}
 \end{equation}
-$\sigma$ is the \emph{shape factor} of the \acp{PFG} (\emph{vide infra}), and
-$\Delta^{\prime}$ is the effective time that diffusion is allowed to occur.
-Examples of the value of $\Delta^{\prime}$ include:
+$\sigma$ is the \emph{shape factor} of the \acp{PFG}, which is related to the
+shape factor. $\Delta^{\prime}$ is the effective time that diffusion is allowed
+to occur. Examples of the value of $\Delta^{\prime}$ include:
 \begin{subequations}
     \begin{alignat}{2}
         & \text{Monopolar gradients (\ac{PGSE}, \ac{PGSTE})} \quad && \Delta + 2 \left(\kappa - \lambda\right) \delta,
@@ -242,15 +263,14 @@ distribution of the shape function is given by:
     S(\epsilon) = \int_0^{\epsilon} s\left(\epsilon^{\prime}\right)
             \mathrm{d} \epsilon^{\prime} \quad \forall \epsilon \in [0, 1].
 \end{equation}
-The corresponding definition of $S$ for the case of a gradient made of discrete
-steps with shape function $\symbf{s} \in \mathbb{R}^{N_g}$ is
+The corresponding definition of $S$ for the case of a gradient made of $N_g$
+discrete steps with shape $\symbf{s} \in \mathbb{R}^{N_g}$ is
 \begin{equation}
-    S\left[n\right] =
-        \frac{1}{n} \sum_{i = 0}^{n} s\left[i\right] \quad
-        \forall n \in \left\lbrace 0, \cdots, N_g - 1\right\rbrace,
+    S_n =
+        \frac{1}{n} \sum_{i = 1}^{n} s_i \quad
+        \forall n \in \left\lbrace 1, \cdots, N_g\right\rbrace,
 \end{equation}
-where $N_g$ is the number of points the gradient comprises. The three factors
-are given by
+The three factors are given by
 \begin{subequations}
     \begin{gather}
         \sigma = S(1),\\
@@ -261,26 +281,26 @@ are given by
 with their discrete counterparts being
 \begin{subequations}
     \begin{gather}
-        \sigma = S\left[N_g - 1\right] \\
-        \lambda = \frac{1}{\sigma N_g} \sum_{n = 0}^{N_g - 1} S\left[n\right]
-            = \frac{1}{\sigma N_g} \sum_{n = 0}^{N_g - 1}
-            \frac{1}{n} \sum_{i=0}^{n} s\left[i\right]\\
-        \kappa = \frac{1}{\sigma^2 N_g} \sum_{n = 0}^{N_g - 1} S^2\left[n\right]
-            = \frac{1}{\sigma^2 N_g} \sum_{n = 0}^{N_g - 1}
-            \frac{1}{n^2} \left(\sum_{i=0}^{n} s\left[i\right]\right)^2
+        \sigma = S_{N_g} \\
+        \lambda = \frac{1}{\sigma N_g} \sum_{n = 1}^{N_g} S_n
+            = \frac{1}{\sigma N_g} \sum_{n=1}^{N_g}
+            \left(\frac{1}{n} \sum_{i=1}^{n} s_i\right) \\
+        \kappa = \frac{1}{\sigma^2 N_g} \sum_{n = 1}^{N_g} S^2_n
+            = \frac{1}{\sigma^2 N_g} \sum_{n = 1}^{N_g}
+            \left(\frac{1}{n} \sum_{i=1}^{n} s_i\right)^2
     \end{gather}
 \end{subequations}
 For \acp{PFG} with a symmetrical shape, $\lambda = \nicefrac{1}{2}$. $\kappa$
 is typically equal to or close to $\nicefrac{1}{3}$. It can now be seen that
-Equation \ref{eq:stejskal_tanner} comes from plugging Equation
-\ref{eq:monopolar} into Equation \ref{eq:stejskal_tanner_generic}, with $\sigma
-= 1$,  $\lambda = \nicefrac{1}{2}$, and  $\kappa = \frac{1}{3}$. In many
-situations,  $\Delta$ dominates in the expression of $\Delta^{\prime}$, and so
-ensuring the correct form of $c$ could be seen as excessive. However,
-especially when  $\Delta$ is not orders of magnitude greater than $\delta$, the
-exact form of $\Delta^{\prime}$ used in Equation
-\ref{eq:stejskal_tanner_generic} will be extremely important for accurate
-measurements of $D$.
+the original Stejskal-Tanner equation \eqref{eq:stejskal_tanner} comes from
+plugging \eqref{eq:monopolar} into \eqref{eq:stejskal_tanner_generic}, with
+parameters for rectangular \acp{PFG}: $\sigma = 1$,  $\lambda =
+\nicefrac{1}{2}$, and  $\kappa = \frac{1}{3}$. In many situations,  $\Delta$
+dominates in the expression of $\Delta^{\prime}$, and so ensuring the correct
+form of $c$ could be seen as excessive. However, especially when  $\Delta$ is
+not orders of magnitude greater than $\delta$, the exact form of
+$\Delta^{\prime}$ used in Equation \ref{eq:stejskal_tanner_generic} will be
+extremely important for accurate measurements of $D$.
 
 \note{Talk about means of determining $T_1$,  $D$ etc: peak pick and fit
 amplitudes across increments, DOSY, DECRA/SCORE etc}
@@ -290,46 +310,50 @@ amplitudes across increments, DOSY, DECRA/SCORE etc}
 \note{Give algorithm for fit of each oscillator. Include how initial guess is
 generated for invrec and diffusion, and initial trust radius.}
 
-\subsubsection{Outline of the problem}
 The datasets arising from the experiments described above can be considered in
 a general fashion.
 Suppose the experiment of interest is run with $K \in \mathbb{N}$ increments,
 such that there is a vector  $\symbf{p} \in \mathbb{R}^K$ which gives the
 pulse sequence variable for each increment.
 The complete dataset that results from the experiment is expected to take the
-form $\symbf{Y} \in \mathbb{C}^{K \times \None}$ in which the value of the
+form $\symbf{Y} \in \mathbb{C}^{K \times N}$ in which the value of the
 experimental parameter attenuates the amplitudes of the contributing
 resonances:
 \begin{equation}
-    \bY\left[k, \none\right] = \sum_{m=0}^{M-1} \symbf{A}\left[k, m\right]  \exp\left(\iu \bdphim \right)
-    \exp\left(\left(2 \pi \iu \left(\bdfone_{\vphantom{\text{off}}} [m] -
-    \foffone\right) - \bdetaone_{\vphantom{\text{off}}} [m] \right) \none
-\Dtone\right).
+    y_{k,n} = \sum_{m=1}^{M} a_{k,m} \exp(\iu \phi_m)
+    \exp((2 \pi \iu (f_m - \foff) - \eta_m) n \Dt).
 \end{equation}
+$\forall k \in \lbrace 1, \cdots, K \rbrace$ and $\forall n \in \lbrace 0,
+\cdots, N-1 \rbrace$.
 $\symbf{A} \in \mathbb{R}^{K \times M}$ is a matrix of the oscillator amplitudes
-across the increments. A complete parameter vector for this
-signal is given by $\bth \in \mathbb{R}^{(K + 3)M}$:
+across the increments:
+\begin{equation}
+    \symbf{A} =
+    \begin{bmatrix}
+        a_{1,1} & a_{1,2} & \cdots & a_{1,M}\\
+        a_{2,1} & a_{2,2} & \cdots & a_{2,M}\\
+        \vdots & \vdots & \ddots & \vdots\\
+        a_{K,1} & a_{K,2} & \cdots & a_{K,M}
+    \end{bmatrix}
+\end{equation}
+A complete parameter vector for the dataset is given by $\bth \in
+\mathbb{R}^{(K + 3)M}$:
 \begin{equation}
     \bth =
     \begin{bmatrix}
-        \symbf{A}\left[0, :\right]\T \cdots & \symbf{A}\left[K-1, :\right]\T &
-        \bdphi\T & \left[\bdfone\right]\T & \left[\bdetaone\right]\T
-    \end{bmatrix}\T.
+        \symbf{a}_1 & \cdots & \symbf{a}_K & \bdphi\T & \bdf\T & \bdeta\T
+    \end{bmatrix}\T,
 \end{equation}
+where $\symbf{a}_k$ denotes the relevant row in $\symbf{A}$.
 The amplitudes are a function of the experiment parameter with the following
 form:
 \begin{equation}
-    \symbf{A}\left[k, m\right] =
-        \symbf{a}_0 \left[m\right]
-        \mathcal{A} \left(
-            \symbf{\psi}\left[m\right] \hspace*{2pt} | \hspace*{2pt}
-            \symbf{p}\left[k\right]
-        \right),
+    a_{k,m} = a_{0,m} \mathcal{A} (\psi_m \hspace*{2pt} | \hspace*{2pt} p_k),
 \end{equation}
 where $\symbf{a}_0 \in \mathbb{R}^{M}$ is a vector of the ``maximal''
 amplitudes for the oscillators, and $\symbf{\psi} \in \mathbb{R}^M$ is a vector
 of the parameter of interest (diffusion coefficient, relaxation time etc.) for
-each oscillator . $\symbf{a}_0 [m]$ can be thought of as the largest
+each oscillator . $a_{0,m}$ can be thought of as the largest
 possible amplitude that could be obtained for oscillator $m$ with the given
 experiment:
 \begin{itemize}
@@ -345,8 +369,9 @@ experiment:
 \end{itemize}
 The function $\mathcal{A}$ describes how the amplitudes of resonances are
 attenuated by the experimental variable, and has a form which is intimately
-linked to the type of experiment. For the experiments described, these forms
-are provided in Table \ref{tab:seq-equations}.
+linked to the type of experiment. For the experiments described in Sections
+\ref{subsec:relaxation_experiments} and \ref{subsec:diffusion_experiments},
+these forms are provided in Table \ref{tab:seq-equations}.
 \begin{table}
     \begin{center}
         \begin{tabular}{ccccccc}
@@ -394,13 +419,14 @@ are provided in Table \ref{tab:seq-equations}.
 
 \subsubsection{Estimating amplitude-attenuated datasets}
 The close relationship between signals across increments means that completely
-estimating each signal in turn is not necessary. Instead, after the first
-increment is estimated from scratch, yielding $\bth_{k=0} \in \mathbb{R}^{4M}$,
-the phases, frequencies and damping factors are fixed, and subsequent
-increments are determined by taking the parameter estimate of the previous
-iteration, and subjecting it to \ac{NLP} where only the amplitudes
-are allowed to be varied. Thus, determining parameter estimates for each
-iteration $k \in \lbrace1, \cdots, K-1\rbrace$ is reduced to the problem\footnote{
+estimating each signal in turn is typically not necessary. Instead, after the
+first increment is estimated from scratch, yielding $\bth_{k=1} \in
+\mathbb{R}^{4M}$, the phases, frequencies and damping factors are fixed, and
+subsequent increments are determined by taking the parameter estimate of the
+previous iteration, and subjecting it to a \ac{NLP} routine in which only the
+amplitudes are allowed to be varied. Thus, determining parameter estimates for
+each iteration $k \in \lbrace2, \cdots, K\rbrace$ is reduced to the
+problem\footnote{
     $\mathcal{F}$ in \eqref{eq:fidelity-amp} reads as ``the fidelity
     with respect to the amplitudes $\bda$, given phases $\bdphi$,
     frequencies $\bdfone$, damping factors  $\bdetaone$, and \ac{FID}
@@ -410,12 +436,12 @@ iteration $k \in \lbrace1, \cdots, K-1\rbrace$ is reduced to the problem\footnot
     parameters.
 }
 \begin{equation}
-    \symbf{A}[k,:] = \argmin_{\bda \in \mathbb{R}^M}
-        \mathcal{F}\left(\bda \hspace*{2pt} | \hspace*{2pt}
-        \bdphi_{k=0}, \bdfone_{k=0}, \bdetaone_{k=0}, \bY[k,:]\right).
+    \symbf{a}_k = \argmin_{\bda \in \mathbb{R}^M}
+        \mathcal{F}(\bda \hspace*{2pt} | \hspace*{2pt}
+        \bdphi_{k=1}, \bdf_{k=1}, \bdeta_{k=1}, \by_k).
         \label{eq:fidelity-amp}
 \end{equation}
-A \ac{NLP} routine can solve this very efficiently, typically in few
+An \ac{NLP} routine can solve this very efficiently, typically in few
 iterations, on account of the linear dependence of the model with respect to
 the oscillator amplitudes. The linear dependence also means that second
 derivatives of the model are all zero (see \eqref{eq:amp-second-deriv}),
@@ -438,34 +464,33 @@ matrix of the fidelity.
     \label{alg:estimate-seq}
     \begin{algorithmic}[1]
         \Procedure{EstimateAmpAttenuated}{
-            $\bY \in \mathbb{C}^{K \times \None},
+            $\bY \in \mathbb{C}^{K \times N},
             \symbf{r}_{\text{interest}} \in \mathbb{R}^2,
             \symbf{r}_{\text{noise}} \in \mathbb{R}^2,
             M \in \mathbb{N}_0$
         }
-        \State $\bth_{0}, \symbf{\epsilon}_{0} \gets \textsc{Estimate$1$D}\left(
-            \bY[0, :],
-            \symbf{r}_{\text{interest}},
-            \symbf{r}_{\text{noise}},
-            M
+        \State $\bth_{1}, \symbf{\epsilon}_{1} \gets \textsc{Estimate$1$D}\left(
+            \by_1, \symbf{r}_{\text{interest}}, \symbf{r}_{\text{noise}}, M
             \right)
         $;
-        \State $M \gets \nicefrac{\text{len}\left(\bth_0\right)}{4}$;
+        \Comment{Estimate first increment}
+        \State $M \gets \nicefrac{\text{len}(\bth_{1})}{4}$;
         \State $\bth, \symbf{\epsilon} \gets  \symbf{0} \in \mathbb{R}^{(K + 3)M}, \symbf{0} \in \mathbb{R}^{(K + 3)M}$;
         \Comment{Initialise complete parameter vector.}
-        \State $\bth[:M], \symbf{\epsilon}[:M] \gets \bth_0[:M], \symbf{\epsilon}_0[:M]$;
+        \State $\bth[:M], \symbf{\epsilon}[:M] \gets \bth_1[:M], \symbf{\epsilon}_1[:M]$;
         \Comment{Amplitudes for first increment.}
-        \State $\bth[KM:], \symbf{\epsilon}[KM:] \gets \bth_0[M:], \symbf{\epsilon}_0[M:]$;
+        \State $\bth[KM:], \symbf{\epsilon}[KM:] \gets \bth_1[M:], \symbf{\epsilon}_1[M:]$;
         \Comment{Phases, frequencies and damping factors, which are held constant across increments.}
-        \For{$k=1, \cdots, K-1$}
+        \For{$k=2, \cdots, K$}
             \State $\widetilde{\by} \gets \textsc{Filter$1$D}\left(
-                \symbf{Y}[k,:],
+                \by_k,
                 \symbf{r}_{\text{interest}},
                 \symbf{r}_{\text{noise}}
                 \right);
                 $
             \Comment{Algorithm \ref{alg:filter-1d}.}
-            \State $\bth_{k}, \symbf{\epsilon}_k \gets \textsc{NLPAmp}\left(\widetilde{\by}, \bth_{k-1}\right)$;
+            \State $\bth_{k}, \symbf{\epsilon}_{k} \gets
+            \textsc{NLPAmp}\left(\widetilde{\by}, \bth_{k}\right)$;
             \State $\bth[kM : (k+1)M], \symbf{\epsilon}[kM : (k+1)M] \gets \bth_k[:M], \symbf{\epsilon}_k[:M]$;
             \Comment{Extract amplitudes.}
         \EndFor
@@ -474,24 +499,21 @@ matrix of the fidelity.
     \end{algorithmic}
 \end{algorithm}
 
-\begin{remark}
-    Due to the linear dependence on amplitudes, an alternative means of
-    deriving amplitudes for each increment is to determine the following
-    $\forall k \in \lbrace 1, \cdots, K-1\rbrace$:
-    \begin{subequations}
-        \begin{gather}
-            \symbf{A}[k,:] = \symbf{\Lambda}^+ \bY[k,:], \\
-            \symbf{\Lambda} =
-            \begin{bmatrix}
-                \exp\left(\iu \bdphi [0]\right) & \cdots & \exp\left(\iu \bdphi[M-1]\right) \\
-                \exp\left(\iu \bdphi [0]\right) \symbf{z}[0] & \cdots & \exp\left(\iu \bdphi[M-1]\right) \symbf{z}[M-1]\\
-                \vdots & \ddots & \vdots \\
-                \exp\left(\iu \bdphi [0]\right) \symbf{z}[0]^{\None-1} & \cdots & \exp\left(\iu \bdphi[M-1]\right) \symbf{z}[M-1]^{\None-1}
-            \end{bmatrix},\\
-            \symbf{z}[m] = \exp\left(\left(2\pi \iu \left(\bdfone[m] - \foffone\right) - \bdetaone[m]\right)\Dtone \right).
-        \end{gather}
-    \end{subequations}
-\end{remark}
+Due to the linear dependence on amplitudes, an alternative means of
+deriving amplitudes for each increment is to determine the following:
+\begin{subequations}
+    \begin{gather}
+        \symbf{a}_k = \symbf{Z}^+ \symbf{y}_k, \\
+        \symbf{Z} =
+        \begin{bmatrix}
+            \exp(\iu \phi_1) & \cdots & \exp(\iu \phi_M) \\
+            \exp(\iu \phi_1) z_1 & \cdots & \exp(\iu \phi_M) z_M\\
+            \vdots & \ddots & \vdots \\
+            \exp(\iu \phi_1) z_1^{N-1} & \cdots & \exp(\iu \phi_M) z_M^{N-1}
+        \end{bmatrix},\\
+        z_m = \exp((2\pi \iu (f_m - \foff) - \eta_m)\Dt).
+    \end{gather}
+\end{subequations}
 
 
 \subsubsection{Determining the parameter of interest}
@@ -499,40 +521,43 @@ Having generated a complete parameter estimate for the \ac{FID}, focus
 subsequently moves to determining the parameters of interest $\symbf{\psi}$.
 For each oscillator, the maximal amplitude and parameter of
 interest are determined by solving the following problem $\forall m \in \lbrace
-0, \cdots, M-1 \rbrace$:
+1, \cdots, M \rbrace$:
 \begin{equation}
     \begin{bmatrix}
-        \bda_0^{(*)}[m] \\
-        \symbf{\psi}^{(*)}[m]
+        a_{0,m}^{(*)} \\
+        \psi_{0,m}^{(*)}
     \end{bmatrix} =
     \argmin_{
         [a_0 \hspace*{5pt} \psi]\T \in \mathbb{R}^2
     }
     \left\lVert
-        \symbf{A}[:, m] - a_0 \mathcal{A} \left(\psi \hspace*{2pt} | \hspace*{2pt} \symbf{p}\right)
+        \symbf{a}_m - a_0 \mathcal{A} \left(\psi \hspace*{2pt} | \hspace*{2pt} \symbf{p}\right)
     \right\rVert^2,
 \end{equation}
-which can also be solved using \iac{NLP} routine. The gradient vector and Hessian
+where $\symbf{a}_m$ corresponds to the $m$\textsuperscript{th} column of
+$\symbf{A}$.
+This is another example of a residual sum-of-squares problem, and can also be
+solved using \iac{NLP} routine. The gradient vector and Hessian
 matrix of the fidelity take very similar functional forms to those for \ac{FID}
-estimation (see \eqref{eq:grad} and \eqref{eq:hess}), as both problems
-involve solving residual sum-of-squares problems.
-They are as follows $\forall i, j \in \lbrace 0, 1 \rbrace$:
+estimation (see \eqref{eq:grad} and \eqref{eq:hess}), and are as follows
+$\forall i, j \in \lbrace 0, 1 \rbrace$:
 \begin{subequations}
     \begin{gather}
-        \symbf{g}[i] =
+        g_i =
             -2 \left \langle
-                \symbf{A}[:, m] - a_0 \mathcal{A}(\psi | \symbf{p}),
+                \symbf{a}_m - a_0 \mathcal{A}(\psi | \symbf{p}),
                 \frac{\partial a_0 \mathcal{A} (\psi | \symbf{p})}
-                {\partial \symbf{\vartheta}[i]}
+                {\partial \vartheta_i}
             \right \rangle\\
-        \symbf{H}[i,j] =
+        h_{i,j} =
             2 \left( \left \langle
-                \frac{\partial a_0 \mathcal{A} (\psi | \symbf{p})}{\partial \symbf{\vartheta}[i]},
-                \frac{\partial a_0 \mathcal{A} (\psi | \symbf{p})}{\partial \symbf{\vartheta}[j]}
+                \frac{\partial a_0 \mathcal{A} (\psi | \symbf{p})}{\partial \vartheta_i},
+                \frac{\partial a_0 \mathcal{A} (\psi | \symbf{p})}{\partial \vartheta_j}
             \right \rangle -
             \left \langle
-                \symbf{A}[:, m] - a_0 \mathcal{A}(\psi | \symbf{p}),
-                \frac{\partial^2 a_0 \mathcal{A} (\psi | \symbf{p})}{\partial \symbf{\vartheta}[i]\partial \symbf{\vartheta}[j]}
+                \symbf{a}_m - a_0 \mathcal{A}(\psi | \symbf{p}),
+                \frac{\partial^2 a_0 \mathcal{A} (\psi | \symbf{p})}{\partial
+                \vartheta_i\partial \vartheta_j}
             \right \rangle \right), \\
             \mathbb{R}^2 \ni \symbf{\vartheta} = [a_0 \hspace*{10pt} \psi]\T,
     \end{gather}
@@ -564,25 +589,24 @@ result, a \ac{2D} array is generated, corresponding to the outer product of the
 predicted value of $\psi$ ($\symbf{d}_m$).
 \begin{subequations}
     \begin{gather}
-        \mathbb{R}^{R \times \None} \ni \symbf{S} = \sum_{m=0}^{M-1}
+        \mathbb{R}^{R \times N} \ni \symbf{S} = \sum_{m=1}^{M}
         \symbf{d}_m \otimes
         \symbf{s}_m ,\label{eq:dosy-spectrum}\\
         \symbf{s}_m = \Re\left(\FT\left(\bx_m\right)\right),\\
-        \bx_m\left[\none\right] = \bda_0[m] \exp\left(\iu \bdphim\right)
-        \exp\left(\left(2 \pi \iu \left(\bdfonem - \foffone\right) - \bdetaonem \right) \none \Dtone\right),
+        x_{m,n} = a_{0,m} \exp(\iu \phi_m)
+        \exp((2 \pi \iu (f_m - \foff) - \eta_m ) n \Dt),
     \end{gather}
     \label{eq:dosy-cross-product}
 \end{subequations}
 where $R \in \mathbb{N}$ is the number of samples to generate the distribution from.
 The exact form that the distribution should take is not set in stone, though it
 should indicate two key pieces of information:
-(i) its maximum should coincide with the predicted value of $\psi$ and (ii) its
+(i) its maximum should coincide with the predicted value of $\psi_m$ and (ii) its
 width should indicate the level of uncertainty associated with the prediction.
 In this work, the
-distribution used is a Gaussian distribution with mean $\symbf{\psi}[m]$ and standard
-deviation $c \symbf{\epsilon}[m]$, where $\symbf{\epsilon}[m]$ is the
-estimation error associated with oscillator $m$'s parameter of
-interest,\footnote{
+distribution used is a Gaussian distribution with mean $\psi_m$ and standard
+deviation $c \epsilon_m$, where $\epsilon_m$ is the estimation error associated
+with oscillator $m$'s parameter of interest,\footnote{
     The errors can be extracted from the Hessian matrix once the \ac{NLP}
     routine has reached convergence. See section \ref{subsec:errors} for more
     information.
@@ -599,10 +623,10 @@ to ensure clear visibility of the peaks.\footnote{
 }
 \begin{subequations}
     \begin{gather}
-        \symbf{d}_m\left[ r \right] = -\frac{1}{\sqrt{2 \pi (c \symbf{\epsilon}[m])^2}}
+        d_{m,r} = -\frac{1}{\sqrt{2 \pi (c \epsilon_m)^2}}
         \exp\left(
-            - \frac{\left(p_r - \symbf{\psi}[m]\right)^2}{2 (c \symbf{\epsilon}[m])^2}
-        \right)\quad \forall r \in \lbrace 0, \cdots, R-1 \rbrace,\\
+            - \frac{(p_r - \psi_m)^2}{2 (c \epsilon_m)^2}
+        \right)\quad \forall r \in \lbrace 1, \cdots, R \rbrace,\\
         p_r = p_{\text{min}} + \frac{r (p_{\text{max}} - p_{\text{min}})}{R-1}.
     \end{gather}
     \label{eq:distribution}

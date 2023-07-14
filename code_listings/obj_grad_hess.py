@@ -38,9 +38,9 @@ class FunctionFactory:
         return self.hess
 
 
-class FunctionFactoryGaussNewton1D(FunctionFactory):
+class FunctionFactoryGaussNewton1D(FunctionFactory):  !\label{ln:ff1}!
     def __init__(self, theta: np.ndarray, *args) -> None:
-        super().__init__(theta, obj_grad_gauss_newton_hess_1d, *args)
+        super().__init__(theta, obj_grad_gauss_newton_hess_1d, *args)  !\label{ln:ff2}!
 
 
 def obj_grad_gauss_newton_hess_1d(

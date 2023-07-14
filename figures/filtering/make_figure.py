@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Wed 26 Apr 2023 13:18:41 BST
+# Last Edited: Tue 11 Jul 2023 23:52:02 BST
 
 #!/usr/bin/python3
 
@@ -164,10 +164,10 @@ for xpos in (left, right, center):
     axs[2].plot([xpos, xpos], [bottom, 1.1], ls=":", color="k")
 axs[2].set_ylim(bottom=bottom)
 
-axs[2].text(left - 2, 0.7, "$l_{\\text{idx}}^{(1)}$", ha="right", fontsize=8)
-axs[2].text(right + 2, 0.7, "$r_{\\text{idx}}^{(1)}$", ha="left", fontsize=8)
-axs[2].text(center + 2, 0.7, "$c_{\\vphantom{\\text{idx}}}^{(1)}$", ha="left", fontsize=8)
-axs[2].text(center, 1.13, "$b_{\\vphantom{\\text{idx}}}^{(1)}$", ha="center", fontsize=8)
+axs[2].text(left - 2, 0.7, "$l_{\\text{idx}}$", ha="right", fontsize=8)
+axs[2].text(right + 2, 0.7, "$r_{\\text{idx}}$", ha="left", fontsize=8)
+axs[2].text(center + 2, 0.7, "$c$", ha="left", fontsize=8)
+axs[2].text(center, 1.13, "$b$", ha="center", fontsize=8)
 arrow = FancyArrowPatch(posA=(left, 1.1), posB=(right, 1.1), arrowstyle="<->", shrinkA=0, shrinkB=0, mutation_scale=10, lw=1)
 axs[2].add_patch(arrow)
 axs[2].set_ylim(top=1.29)

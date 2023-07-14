@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Sun 11 Jun 2023 17:30:40 BST
+# Last Edited: Wed 12 Jul 2023 14:58:28 BST
 
 import copy
 from utils import transfer
@@ -17,6 +17,9 @@ colors = mpl.rcParams["axes.prop_cycle"].by_key()["color"]
 
 path = Path("~/Documents/DPhil/results/onedim/andrographolide/estimator_new_new").expanduser()
 estimator = ne.Estimator1D.from_pickle(path)
+print(estimator.sfo)
+exit()
+
 estimator._results[0].region = estimator.convert(((6.665, 6.59),), "ppm->hz")
 estimator._results[1].region = estimator.convert(((5.75, 5.665),), "ppm->hz")
 estimator._results[2].region = estimator.convert(((4.85, 4.795),), "ppm->hz")

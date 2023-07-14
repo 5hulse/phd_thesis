@@ -61,10 +61,9 @@ def mmempm(
                     r * row_size : (r + 1) * row_size,
                     c * col_size : (c + 1) * col_size
                 ] = HYn1
-    # Make $\symbf{E}_{\symbf{Y}}$ sparse: SciPy only supports truncated SVD for sparse
-    # matrices
-    EY = sp.sparse.csr_matrix(EY)
-    UM, *_ = sp.sparse.linalg.svds(EY, k=M)  # $\symbf{U}_M$
+
+    EY = sp.sparse.csr_matrix(EY)  # Make $\symbf{E}_{\symbf{Y}}$ sparse $\label{ln:sparse1}$
+    UM, *_ = sp.sparse.linalg.svds(EY, k=M)  # $\symbf{U}_M$ $\label{ln:sparse2}$
 
     # === Construct permutation matrix $\symbf{P}$ ===
     P = np.zeros((L1 * L2, L1 * L2))
@@ -109,7 +108,7 @@ def mmempm(
     for indices in groupings.values():
         n = len(indices)
         if n != 1:
-            A_slice = tuple(zip(*itertools.product(indices, repeat=2)))
+            A_slice = tuple(zip(*product(indices, repeat=2)))
             A = Z2[A_slice].reshape(n, n)
             new_group_z2, _ = np.linalg.eig(A)
             z2[indices] = new_group_z2

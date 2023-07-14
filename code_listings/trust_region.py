@@ -104,17 +104,19 @@ def trust_steihaug_toint(
             k += 1
 
         # === Check for termination criteria ===
-        if (k % check_neg_amps_every == 0):
+        if (k % check_neg_amps_every == 0):  !\label{ln:negamp1}!
             neg_amps = np.where(theta[amp_slice] <= 0)[0]
             print(neg_amps)
             if neg_amps.size > 0:
                 # Negative amps found: this run in order to purge
                 negative_amps = True
-                break
+                break  !\label{ln:negamp2}!
+
         if factory.gradient_norm < epsilon:
             # Convergence
             negative_amps = False
             break
+
         if k == max_iterations:
             # Maximum allowed iterations reached
             negative_amps = False

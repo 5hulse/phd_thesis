@@ -30,24 +30,23 @@ In order to assess the estimation routine proposed in Chapter \ref{chap:theory}
 -- specifically the effectiveness of applying \ac{NLP} using an initial guess
 generated using the \ac{MPM} -- a series of synthetic \acp{FID} were constructed
 using \eqref{eq:hypercomplex-fid} with $D=1$. For each \ac{FID}, a model order
-of $M=20$ was used, the number of points sampled was $\None = 1024$, the sweep
-width was $\fswone=\qty{125}{\hertz}$, and the transmitter offset was $\foffone
+of $M=20$ was used, the number of points sampled was $N = 1024$, the sweep
+width was $\fsw=\qty{125}{\hertz}$, and the transmitter offset was $\foff
 = \qty{0}{\hertz}$.  Each oscillator was assigned a phase of \ang{0}, while the
 amplitudes, frequencies and damping factors were drawn at random from the
 following distributions:
-$\bdam \sim \mathcal{U}(1, 5)$, $\bdfonem \sim \mathcal{U}(\qty{-55}{\hertz},
-\qty{55}{\hertz})$, $\bdetaonem \sim \mathcal{U}(\qty{2}{\per\second},
+$a_m \sim \mathcal{U}(1, 5)$, $f_m \sim \mathcal{U}(\qty{-55}{\hertz},
+\qty{55}{\hertz})$, $\eta_m \sim \mathcal{U}(\qty{2}{\per\second},
 \qty{8}{\per\second})\ \forall m \in \lbrace 0, \cdots, 19\rbrace$. An extra
 constraint was applied to the frequencies,
 such that no two oscillators were permitted to have frequencies that differed
 by less than $\nicefrac{4 \fswone}{\None} \approx \qty{0.49}{\hertz}$. Each
-noiseless \ac{FID} was then corrupted with \ac{AWGN}, with a target \ac{SNR} of
-\qty{25}{\deci\bel}, with the noise variance for each signal determined using
-the equation
+noiseless \ac{FID} $\bx$ was then corrupted with \ac{AWGN}, with a target
+\ac{SNR} of \qty{25}{\deci\bel}, with the noise variance for each signal
+determined using the equation
 \begin{equation}
-    \sigma^2 = \frac{1}{ 20^{\nicefrac{5}{2}}\None}
-        \sum_{\none=0}^{\None-1}
-        \left \lvert \bx \left[\none\right] \right \rvert^2.
+    \sigma^2 = \frac{1}{20^{2.5} N}
+        \sum_{n=0}^{N-1} \lvert x_n \rvert^2.
 \end{equation}
 \note{Reference that this is the lowest
 SNR that the MPM considered to be effective}.
@@ -57,19 +56,16 @@ of true oscillator peaks in panel b.
 
 For each \ac{FID}, the \ac{MPM} was performed, assuming that the model order is
 30, constituting a considerable over-fit. The \ac{MDL} tended to produce
-considerable under-estimates of $M$ are these \acp{FID}, so a hard-coded value
-was used instead. Simulated signals featuring \ac{AWGN} typically show a
-clean division between signal and noise components\note{better way of
-describing this?}, with noise components
-commonly being characterised by small amplitudes and/or very small damping
-factors. For this reason, prior to subjecting the \ac{MPM} result to \ac{NLP},
-oscillators which satisfied either $\bdam < 0.1$ or  $\bdetaonem <
+considerable under-estimates of $M$ when applied to these \acp{FID}, so the
+hard-coded value was used instead. Simulated signals featuring \ac{AWGN}
+typically show a clean division between signal and noise components, with noise
+components commonly being characterised by small amplitudes and/or very small
+damping factors. For this reason, prior to subjecting the \ac{MPM} result to
+\ac{NLP}, oscillators which satisfied either $a_m < 0.1$ or  $\eta_m <
 \qty{0.7}{\per\second}$ were removed from the parameter set. The individual
-oscillators which make up the \ac{MPM} result after purging noise components
+oscillators which make up the \ac{MPM} result after purging spurious components
 are displayed in panel c of Figure \ref{fig:mpm_vs_nlp}, along with the
-residual between the data and the summation of all the oscillator peaks (the
-model).
-
+residual between the data and the summation of all the oscillator peaks.
 
 The \ac{MPM} invariably generates a model with good agreement with the data, as
 evidenced by the residual.
@@ -105,21 +101,21 @@ either green or yellow. Green oscillators are those which the \ac{NLP} routine
 was able to adjust in order to achieve agreement with the true result. As such,
 they indicate improvements to the estimation result as opposed to the \ac{MPM}
 being used by itself. Conversely, yellow oscillators denote cases where, though
-sufficient oscillators exists in the frequency neighbourhood in the initial
+sufficient oscillators exist in the frequency neighbourhood in the initial
 guess, the \ac{NLP} routine evolves such that at least one of the oscillators
 is driven by the phase variance constraint to acquire a negative amplitude,
-such that it is purged from the parameter set. This typically occurs when an
+leading to it being purged from the parameter set. This typically occurs when an
 oscillator has an initial phase which is considerably greater than \ang{90}.
 Yellow oscillators therefore indicate cases where the final result has
 under-fit the dataset. There are a few instances, denoted by red oscillators,
 where the \ac{MPM} assigned too few oscillators to a particular frequency
-region, and as such the \ac{NLP} would not have been able to yield any
+neighbourhood, and as such the \ac{NLP} would not have been able to yield any
 improvement.
 The final two oscillator groupings, denoted by purple and orange, denote cases
 where the \ac{MPM} generated more oscillators than are present in a given
 frequency neighbourhood (i.e. the data was over-fit in this region). Orange
 oscillators we purged by the \ac{NLP} routine due to their acquiring negative
-amplitudes. This enabled a parsimonious fit of th frequency neighbourhood by
+amplitudes. This enabled a parsimonious fit of the frequency neighbourhood by
 the oscillators which remained. Finally, the purple oscillators denote the one
 occasion where an over-fit occurred, and the model order was not successfully
 reduced by the \ac{NLP} routine.
@@ -156,20 +152,57 @@ with spurious complex amplitudes ($a$ and  $\phi$). \note{More discussion here..
 Figure \ref{fig:andro-onedim} illustrates the outcome of applying the
 estimation routine to selected regions of a \textsuperscript{1}H dataset of
 andrographolide (Figure \ref{fig:structures}.e) in \acs{DMSOd6} acquired with
-a \qty{500}{\mega\hertz}\note{Check BF} spectrometer. The \ac{NLP}
+a \qty{600}{\mega\hertz} spectrometer. The \ac{NLP}
 routine is effective at resolving the spurious phase-behaviour often generated
 by the \ac{MPM} (cf. panels b and c).
 It's ability to estimate parameters from resonances with high
-dynamic range is also evidenced by the fact that it was able to assign an
-intense broad singlet, corresponding to water which has entered the sample
-over time, alongside a nearby quartet corresponding to the methylene of some
-residual ethanol in the sample.
+dynamic range and high variation of damping factors is also evidenced by the
+fact that it was able to assign an intense broad singlet, corresponding to
+water which has entered the sample over time, alongside a nearby quartet
+corresponding to the methylene of some residual ethanol in the sample.
 
 The routine generally does well at generating oscillators which describe the
 apparent multiplet structures associated with each spin. Table
 \ref{tab:andro-multiplets} provides an overview of the most significant
 couplings associated with the spins giving rise to the multiplet structures
 considered.
+\begin{table}[h!]
+\centering
+\begin{tabular}{c c c}
+\hline
+Spin  & Coupling partners & Apparent multiplet structure \\
+\hline
+(A) & (D)\textsuperscript{long}, (M)\textsuperscript{vic}, (N)\textsuperscript{vic} & dt \\
+(B) & (D)\textsuperscript{ex} & d \\
+(E) & (F)\textsuperscript{vinyl}\note{, ...} & d\note{...} \\
+(F) & (E)\textsuperscript{vinyl}\note{, ...} & d\note{...} \\
+(K) & (J)\textsuperscript{gem}, (H)\textsuperscript{ex} & d \\
+(L) & (C)\textsuperscript{ex}, (T)\textsuperscript{180}, (U)\textsuperscript{60} & dd \\
+(O) & (P)\textsuperscript{gem}, (R)\textsuperscript{60}, (V)\textsuperscript{60} & ddd \\
+(P) & (O)\textsuperscript{gem}, (R)\textsuperscript{60}, (V)\textsuperscript{180} & dt \\
+(Q) & (M)\textsuperscript{vic}, (N)\textsuperscript{v} & dd \\
+(V) & (O)\textsuperscript{60}, (P)\textsuperscript{180}, (R)\textsuperscript{g}, (W)\textsuperscript{180} & dq \\
+\hline
+\end{tabular}
+\caption[
+    Major coupling partners associated with spins in andrographolide whose
+    signals are considered in Figure \ref{fig:andro-onedim}.
+]{
+    Major coupling partners associated with spins in andrographolide whose
+    signals are considered in Figure \ref{fig:andro-onedim}, along with the
+    aparent multiplet structures that arise.
+    Coupling partners are labelled as follows:
+    \textsuperscript{vinyl} geminal coupling between two vinylic protons,
+    \textsuperscript{ex} geminal coupling between two protons, in which one
+    if bonded to an oxygen, leading to exchange decoupling,
+    \textsuperscript{gem} geminal coupling,
+    \textsuperscript{long} long-range coupling,
+    \textsuperscript{vic} vicinal coupling,
+    \textsuperscript{60} geminal coupling, with a fixed dihedral angle of \ang{60},
+    \textsuperscript{180} geminal coupling, with a fixed dihedral angle of \ang{180}.
+}
+\label{tab:andro-multiplets}
+\end{table}
 One of the most challenging aspects of estimating \ac{NMR} signals is
 the fact that data frequently contains individual resonances with incredibly
 similar frequencies due to the effect of scalar couplings. Molecules
@@ -186,7 +219,7 @@ associated with (Q). If these were the only couplings, a doublet of doublets
 the estimation routine (see panel c in the region of
 \SIrange{1.85}{1.88}{\partspermillion}). However, a comparison of the data and
 the model indicates that there is a clear discrepancy between the two,
-evidenced by systematic ``wiggles'' in the residual, hinting at an
+evidenced by systematic ``wiggles'' in the residual. This feature hints at an
 under-fit of the multiplet structure.
 The \ac{MPM} generated oscillators with phases deviating far from \ang{0} in
 order to achieve a good agreement with the data in a residual sense, though of
@@ -211,9 +244,14 @@ acquire the \ac{FID}, it is unlikely that an accurate resolution of all 16
 oscillators by estimation is feasible.
 
 The fit to spin (O)'s multiplet structure has a very flat residual, indicating
-that under-fitting is unlikely to have occurred. With three major couplings of
-different magnitude, a ``ddd'' multiplet structure in which all 8 resonances
-are clearly resolved exits. Spin (L) also has 3 major couplings, though only a
+that under-fitting is unlikely. With three major couplings of
+different magnitude, a ``ddd'' multiplet structure in which all 8 signals
+are discernible exits. The \ac{NLP} routine has performed effectively in
+taking the initial guess from the \ac{MPM}, featuring the correct number of
+oscillators albeit though with spurious phases, and generating a well-phased
+set of oscillators defining the ddd structure.
+
+Spin (L) also has 3 major couplings, though only a
 dd structure is apparent, which is what has been assigned by the estimation
 routine. The small residual  also implies that an under-fit has not occurred,
 even though a ddd structure would be anticipated at first glance. However, one
@@ -224,5 +262,11 @@ exchange with other protons on the sample\footnote{
     andrographolide molecules.
 }. Chemical exchange at a sufficiently
 high rate leads to a ``decoupling'' of the spins, such that the two resonances
-associated with a doublet coalesce into a singlet\cite[Section
+associated with a doublet coalesce into a broad singlet\cite[Section
 2.6.1.5]{Claridge2016}.
+
+\note{Discussion of more challenging regions? Probably beyond the scope of the
+routine without further user input/maybe just too difficult full stop?}
+
+\subsection{Cyclosporin}
+\note{TODO: result from Newton Meets Ockham paper}

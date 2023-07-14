@@ -1,18 +1,17 @@
 \section{Profiling the \acs{MPM} and \acs{NLP}}
-Producing $\bthstar$ via generation of the initial guess using the \ac{MPM},
-and subjecting this to numerical optimisation involves operations which can be
-computationally demanding, both in terms of the amount of work done by the
-\ac{CPU}, and space requirements (i.e. the amount of \ac{RAM} required to store
-all the required information as the routine runs). For the \ac{MPM}, the most
-demanding aspect is \ac{SVD} calculations, which for numerical optimisation, it
-is generation of the Hessian matrix. Detailed accounts of the computational
-complexity of the \ac{MPM} and \ac{MMEMPM} has been described previously.
-However, it is useful to consider what the actual running times of these
-routines are. This is particularly useful, as a lot of the accounts on running
-the \ac{MPM} are from decades before this work, and so the speed at which the
-estimation routine can be expected to take will have decreased a lot thanks to
-improvements in processing power. As an example, the account by Pines a
-coworkers from 1997 states that a signal with $\None = 1024$ would take about
+The routine described for \ac{FID} estimation involves operations which can be
+computationally demanding. This is the case both in terms of the amount of work
+done by the \ac{CPU}, and the amount of \ac{RAM} needed to store all the
+required information as the routine runs. For the \ac{MPM}, the most
+demanding aspect is \ac{SVD} calculations while for numerical optimisation, it
+is generation of the Hessian matrix at each iteration. Detailed accounts of the
+computational complexity of the \ac{MPM} and \ac{MMEMPM} have been
+presented\cite{Hua1992,Chen2007}.  However, it is useful to consider what the
+actual running times of these routines are on a modern computer. A lot of the
+accounts on running the \ac{MPM} are from decades before this work, and so the
+time required for the routine to run will have decreased a lot thanks to
+improvements in processing power. For example, the account by Pines a coworkers
+from 1997 states that a signal comprising $1024$ time-points would take about
 \qty{4.5}{\minute} to be processed by the \ac{MDL} and \ac{MPM}, using a
 \qty{100}{\mega\hertz} \ac{CPU}\cite{Lin1997}. On the system used for all
 results generated for this work (see Remark \ref{rem:workstation}), an
@@ -24,25 +23,39 @@ equivalent computation takes about \qty{100}{\milli\second}.
     \qty{3.7}{\giga\hertz}, and \qty{32}{\gibi\byte} of RAM.
 \end{remark}
 
-To gain a more concrete understanding
-of\note{...}
-
+\note{Appendix: mention use of \texttt{timeprof} and \texttt{memory\_profiler}}
+\subsection{\acs{1D} \acs{MPM}}
 \begin{figure}
     \includegraphics{timings/timings.pdf}
     \caption{TODO}
     \label{fig:profiling}
 \end{figure}
 
-\note{
-\begin{itemize}
-    \item 1D MPM: created signal with 10 oscs, varied $\None$ from  $512 \rightarrow 8192$ in steps of 512. $\Lone = \None / 3$
-    \item Total time very closely agreed with tiem to compute SVD of  $\HY$, especially for larger  $\None$: cubic dependence found.
-    \item Panel a in plot:  $\None$ vs wall clock time, with cube root scale.
-    \item Linear fit to circular points is shown (for square points (small
-        $\None$), other parts of the algorithm (notably EVD of VM1+VM2) had an
-        appreciable impact on time.
-    \item Peak memory requirement showed perfect quadratic relationship. Why?
-    \item Extrapolated linear fit shows that unless very big signals
-        considered, modern PCs should be able to cope.
-\end{itemize}
-}
+An series of \acp{FID} were constructed with a variable number of time-points
+$N \in \lbrace 512k \hspace*{2pt} \vert \hspace*{2pt} k \in \lbrace 1, 2,
+\cdots, 16 \rbrace \rbrace$. For each \ac{FID}, the \ac{MPM} was performed 5
+times, with a pencil parameter $L = \lfloor \nicefrac{N}{3} \rfloor$.
+A \textsc{Python} implementation of the \ac{MPM} was timed using a line-by-line
+profiler. The mean complete time to run the \ac{MPM} is plotted as a function
+of $N$ in panel a of Figure \ref{fig:profiling}, where it can be seen that for
+sufficiently large $N$ the \ac{MPM} is computed in approximately
+$\mathcal{O}({N}^3)$ time. This is due to the most time-consuming aspect of the
+\ac{MPM} being the computation of the \ac{SVD} of $\HY$, whose size is
+approximately $\tfrac{2N}{3} \times \tfrac{N}{3}$\footnote{
+    The time complexity for the \ac{SVD} of generic a $M \times N$ matrix is
+    $\mathcal{O}(\operatorname{min}(M, N)^2 \cdot \operatorname{max}(M, N))$
+}. For small values of $N$ (i.e. the square points in the plot), a deviation
+away from a cubic relationship is observed. This is since the computation of
+the complex amplitudes in accordance with \eqref{eq:comp-amps} has a comparatively significant run time\footnote{
+    For a $512$ point signal, the \ac{SVD} of $\HY$ took up roughly 80\% of the
+    complete run time, while the computation of the complex amplitudes took up
+    roughly 20\%. For a 8192 point signal, these percentages had changed to
+    $>\!99\%$ and $<\!1\%$, respectively.
+}. The figure shows the fit of a cubic, of the form $aN^3 + b$, to the
+circular points, corresponding to values of $N$ for which all steps other than
+the \ac{SVD} of $\HY$ are negligible in comparison. This function has been
+extrapolated to 16k points, to give an idea of the required run-time over a
+wide range of $N$ (of course, the run time will vary depending on the hardware
+used).
+
+

@@ -27,7 +27,6 @@ Fay Probert}
 \maketitle
 \pagestyle{plain}
 \input{text/front/TODO}
-\input{text/front/dedication}
 \input{text/front/acknowledgements}
 \input{text/front/abstract}
 \input{text/front/acrons}
@@ -36,6 +35,7 @@ Fay Probert}
 \listoffigures
 \listoftables
 \listofalgorithms
+\tcblistof[\chapter*]{mylist}{List of Code Listings}
 \cleardoublepage
 \pagenumbering{arabic}
 \pagestyle{fancy}
@@ -47,15 +47,8 @@ Fay Probert}
 \input{text/main/6_conclusions}
 \printbibliography
 \appendix
-\renewcommand{\thealgorithm}{A\arabic{algorithm}}
-\renewcommand{\thefigure}{A\arabic{figure}}
-\renewcommand{\thetable}{A\arabic{table}}
-\setcounter{algorithm}{0}
-\setcounter{figure}{0}
-\setcounter{table}{0}
 \input{text/appendix/additional_theory}
-\input{text/appendix/implementation_details}
+\input{text/appendix/code_listings.tex}
 \input{text/appendix/datasets}
-\input{text/appendix/general_interest}
 \input{text/appendix/nmrespy_docs}
 \end{document}

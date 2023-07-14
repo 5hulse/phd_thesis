@@ -85,15 +85,25 @@
 \renewcommand{\theFancyVerbLine}{\ttfamily\small
     \textcolor{gruvbox_fg}{\arabic{FancyVerbLine}}}
 
-\newtcbinputlisting{\pylisting}[1]{%
+% Use this when adding code to appendix
+\newtcbinputlisting[
+    list inside=mylist,
+    auto counter,
+    number within=chapter,
+]{\mylisting}[5]{%
     listing only,
-    minted language=python3,
-    minted style=default,
-    listing file={#1},
+    minted language={#1},
+    listing file={#2},
+    list entry={\protect\numberline{\thetcbcounter} #3},
+    title={{\small\textbf{\textsc{Code Listing \thetcbcounter:}} #4}},
+    label={#5},
+    minted style=friendly,
     boxrule=1pt,
     code={\setlength{\parskip}{0.05in}\singlespacing},
     colframe=black,
     colback=white,
+    colbacktitle=white,
+    coltitle=black,
     enhanced,
     breakable,
     top=0pt,
@@ -105,34 +115,7 @@
         breaklines,
         autogobble=false,
         mathescape,
-        numbersep=2.2mm,
-        xleftmargin=3mm
-    },
-    overlay = {
-    \begin{tcbclipinterior}
-        \fill[white] (frame.south west) rectangle ([xshift=5mm]frame.north west);
-    \end{tcbclipinterior}
-    }
-}\newtcbinputlisting{\matlablisting}[1]{%
-    listing only,
-    minted language=matlab,
-    minted style=default,
-    listing file={#1},
-    boxrule=1pt,
-    code={\setlength{\parskip}{0.05in}\singlespacing},
-    colframe=black,
-    colback=white,
-    enhanced,
-    breakable,
-    top=0pt,
-    bottom=0pt,
-    width=\textwidth,
-    minted options = {
-        linenos,
-        tabsize=0,
-        breaklines,
-        autogobble=false,
-        mathescape,
+        escapeinside=!!,
         numbersep=2.2mm,
         xleftmargin=3mm
     },
@@ -143,18 +126,21 @@
     }
 }
 
-
-
 \usepackage{pdfpages}
 
 \usepackage{algorithm, algpseudocode}
+\numberwithin{algorithm}{chapter}
 \makeatletter
 \algrenewcommand\ALG@beginalgorithmic{\footnotesize}
 \makeatother
+\captionsetup[algorithm]{%
+    font=singlespacing,%
+    labelfont={small,bf,sc},%
+    textfont=small,%
+}
 
 \usepackage{booktabs}
 \usepackage{longtable}
 
 \usepackage{chemformula}
 \usepackage{textgreek}
-

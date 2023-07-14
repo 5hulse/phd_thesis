@@ -24,7 +24,7 @@ key parameters supplied to the simulation provided by Table
 A \ac{2DJ} pulse sequence simulation does not ship with \textsc{Spinach}.
 Therefore, an in-house one was written, which is as follows:
 
-\matlablisting{code_listings/jres.m}
+\mylisting{matlab}{code_listings/jres.m}{Hello}{Hello}{lst:jres-spinach}
 
 The chemical shifts and couplings for sucrose were extracted from a
 \textsc{Gaussian}\cite{Gaussian03} logfile which ships with \textsc{Spinach} at
@@ -131,43 +131,6 @@ $\hat{L}_+$ operator.
     \label{fig:structures}
 \end{figure}
 
-\begin{table}[h!]
-\centering
-\begin{tabular}{c c c}
-\hline
-Spin  & Coupling partners & Apparent multiplet structure \\
-\hline
-(A) & (D)\textsuperscript{long}, (M)\textsuperscript{vic}, (N)\textsuperscript{vic} & dt \\
-(B) & (D)\textsuperscript{ex} & d \\
-(E) & (F)\textsuperscript{vinyl}\note{, ...} & d\note{...} \\
-(F) & (E)\textsuperscript{vinyl}\note{, ...} & d\note{...} \\
-(K) & (J)\textsuperscript{gem}, (H)\textsuperscript{ex} & d \\
-(L) & (C)\textsuperscript{ex}, (T)\textsuperscript{180}, (U)\textsuperscript{60} & dd \\
-(O) & (P)\textsuperscript{gem}, (R)\textsuperscript{60}, (V)\textsuperscript{60} & ddd \\
-(P) & (O)\textsuperscript{gem}, (R)\textsuperscript{60}, (V)\textsuperscript{180} & dt \\
-(Q) & (M)\textsuperscript{vic}, (N)\textsuperscript{v} & dd \\
-(V) & (O)\textsuperscript{60}, (P)\textsuperscript{180}, (R)\textsuperscript{g}, (W)\textsuperscript{180} & dq \\
-\hline
-\end{tabular}
-\caption[
-    Major coupling partners associated with spins in andrographolide whose
-    signals are considered in Figure \ref{fig:andro-onedim}.
-]{
-    Major coupling partners associated with spins in andrographolide whose
-    signals are considered in Figure \ref{fig:andro-onedim}, along with the
-    aparent multiplet structures that arise.
-    Coupling partners are labelled as follows:
-    \textsuperscript{vinyl} geminal coupling between two vinylic protons,
-    \textsuperscript{ex} geminal coupling between two protons, in which one
-    if bonded to an oxygen, leading to exchange decoupling,
-    \textsuperscript{gem} geminal coupling,
-    \textsuperscript{long} long-range coupling,
-    \textsuperscript{vic} vicinal coupling,
-    \textsuperscript{60} geminal coupling, with a fixed dihedral angle of \ang{60},
-    \textsuperscript{180} geminal coupling, with a fixed dihedral angle of \ang{180}.
-}
-\label{tab:andro-multiplets}
-\end{table}
 
 \subsection{Diffusion datasets}
 The andrographolide diffusion dataset (Figure \ref{fig:andrographolide-dosy})
