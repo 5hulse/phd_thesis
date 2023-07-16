@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Thu 15 Jun 2023 13:50:00 BST
+# Last Edited: Fri 14 Jul 2023 20:57:37 BST
 
 import nmrespy as ne
 import matplotlib as mpl
@@ -119,13 +119,13 @@ for i, (freq, start) in enumerate(zip(freqs, starts)):
     ax.text(
         midpoint,
         arrow_y,
-        f"$t_0\\left(f^{{(1)}}_{{\\text{{{color_txt}}}}}\\right)$",
+        f"$\\tau_0(\\hspace*{{1pt}}f_{{\\text{{{color_txt}}}}})$",
         bbox=bbox,
         ha="center",
         va="center",
         color=color,
         transform=fig.transFigure,
-        fontsize=7,
+        fontsize=8,
     )
 
 ax.set_xlim(0, 1)

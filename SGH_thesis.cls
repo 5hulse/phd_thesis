@@ -281,11 +281,18 @@
 {\begin{frontmattersection}{Acronyms}}
 {\end{frontmattersection}}
 
-
-
 \RequirePackage{enumitem}
-\setlist[itemize,1]{label=\includegraphics{theme_figures/bullet.pdf}, itemsep=0pt}
-\setlist[enumerate,1]{label=\textcolor{headingcolor}{(\roman*)},itemsep=0pt}
+\setlist[itemize,1]{%
+    label={\raisebox{.45ex}{\scriptsize$\blacksquare$}},%
+    labelwidth=0pt,%
+    leftmargin=1em,%
+    itemsep=0pt,%
+}
+\setlist[enumerate,1]{
+    label={(\roman*)},%
+    leftmargin=0pt,%
+    itemsep=0pt,%
+}
 
 \RequirePackage[symbol]{footmisc}
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}

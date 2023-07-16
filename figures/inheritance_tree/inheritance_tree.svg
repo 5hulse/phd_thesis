@@ -1,0 +1,513 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<!-- Created with Inkscape (http://www.inkscape.org/) -->
+
+<svg
+   width="141.60001mm"
+   height="68.285431mm"
+   viewBox="0 0 141.60001 68.285431"
+   version="1.1"
+   id="svg5"
+   inkscape:version="1.2 (1:1.2.1+202207142221+cd75a1ee6d)"
+   sodipodi:docname="inheritance_tree.svg"
+   xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
+   xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
+   xmlns="http://www.w3.org/2000/svg"
+   xmlns:svg="http://www.w3.org/2000/svg">
+  <sodipodi:namedview
+     id="namedview7"
+     pagecolor="#ffffff"
+     bordercolor="#666666"
+     borderopacity="1.0"
+     inkscape:showpageshadow="2"
+     inkscape:pageopacity="0.0"
+     inkscape:pagecheckerboard="0"
+     inkscape:deskcolor="#d1d1d1"
+     inkscape:document-units="mm"
+     showgrid="false"
+     inkscape:zoom="1.4142136"
+     inkscape:cx="118.79394"
+     inkscape:cy="246.78027"
+     inkscape:window-width="1912"
+     inkscape:window-height="2099"
+     inkscape:window-x="0"
+     inkscape:window-y="26"
+     inkscape:window-maximized="1"
+     inkscape:current-layer="layer1" />
+  <defs
+     id="defs2">
+    <inkscape:path-effect
+       effect="powerstroke"
+       id="path-effect4519"
+       is_visible="true"
+       lpeversion="1"
+       offset_points="1,0.87"
+       not_jump="false"
+       sort_points="true"
+       interpolator_type="CubicBezierJohan"
+       interpolator_beta="0.2"
+       start_linecap_type="zerowidth"
+       linejoin_type="extrp_arc"
+       miter_limit="4"
+       scale_width="1"
+       end_linecap_type="zerowidth" />
+    <inkscape:path-effect
+       effect="powerstroke"
+       id="path-effect3426"
+       is_visible="true"
+       lpeversion="1"
+       offset_points="1,0.87"
+       not_jump="false"
+       sort_points="true"
+       interpolator_type="CubicBezierJohan"
+       interpolator_beta="0.2"
+       start_linecap_type="zerowidth"
+       linejoin_type="extrp_arc"
+       miter_limit="4"
+       scale_width="1"
+       end_linecap_type="zerowidth" />
+  </defs>
+  <g
+     inkscape:label="Layer 1"
+     inkscape:groupmode="layer"
+     id="layer1"
+     transform="translate(-46.31843,-35.439531)">
+    <g
+       id="g3130"
+       transform="matrix(1.0071862,0,0,1.0071991,-0.87273843,0.9932779)"
+       style="stroke-width:0.992859" />
+    <g
+       id="g59708"
+       transform="translate(21.600002)">
+      <path
+         style="fill:none;stroke:#b0b0b0;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:0.9, 0.3;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 119.63951,58.089428 108.692,54.818264"
+         id="path42122-9-3-2-4-9-2" />
+      <g
+         id="g44943-4-6-7-4-3-0"
+         transform="matrix(-0.29595897,0.96273367,0.90129259,0.27707821,61.935555,15.097385)"
+         style="stroke:#b0b0b0;stroke-width:1.02614;stroke-dasharray:3.07842, 1.02614;stroke-dashoffset:0;stroke-opacity:1">
+        <path
+           style="fill:none;stroke:#b0b0b0;stroke-width:0.307841;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:3.07842, 1.02614;stroke-dashoffset:0;stroke-opacity:1"
+           d="m 24.012183,65.528109 -0.695337,1.204357"
+           id="path42922-5-56-4-7-1-6" />
+        <path
+           style="fill:none;stroke:#b0b0b0;stroke-width:0.307841;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:3.07842, 1.02614;stroke-dashoffset:0;stroke-opacity:1"
+           d="m 24.012183,65.528109 0.695337,1.204357"
+           id="path42922-1-0-9-5-4-4-8" />
+      </g>
+      <g
+         id="g54444"
+         transform="matrix(1.0071862,0,0,1.0071991,-0.333917,-0.47946016)"
+         style="stroke-width:0.992859">
+        <path
+           style="fill:none;stroke:#b0b0b0;stroke-width:0.297858;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:0.893573, 0.297858;stroke-dashoffset:0;stroke-opacity:1"
+           d="m 119.11743,49.411778 -10.8694,3.247783"
+           id="path42122-9-3-2-4-9-2-9" />
+        <g
+           id="g44943-4-6-7-4-3-0-2"
+           transform="matrix(-0.29384734,-0.95585235,0.89486197,-0.27509774,61.825186,92.09653)"
+           style="stroke:#b0b0b0;stroke-width:1.02614;stroke-dasharray:3.07842, 1.02614;stroke-dashoffset:0;stroke-opacity:1">
+          <path
+             style="fill:none;stroke:#b0b0b0;stroke-width:0.307841;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:3.07842, 1.02614;stroke-dashoffset:0;stroke-opacity:1"
+             d="m 24.012183,65.528109 -0.695337,1.204357"
+             id="path42922-5-56-4-7-1-6-6" />
+          <path
+             style="fill:none;stroke:#b0b0b0;stroke-width:0.307841;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:3.07842, 1.02614;stroke-dashoffset:0;stroke-opacity:1"
+             d="m 24.012183,65.528109 0.695337,1.204357"
+             id="path42922-1-0-9-5-4-4-8-6" />
+        </g>
+      </g>
+      <path
+         style="fill:none;stroke:#b0b0b0;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:0.9, 0.3;stroke-dashoffset:0;stroke-opacity:1"
+         d="M 134.29118,88.446531 122.39654,85.175367"
+         id="path42122-9-3-2-4-9" />
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.55813px;line-height:1.25;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;stroke-width:0.220794"
+         x="88.16124"
+         y="38.161114"
+         id="text288"
+         transform="matrix(1.0071862,0,0,1.0071991,-0.872738,0.99327867)"><tspan
+           sodipodi:role="line"
+           id="tspan286"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.55813px;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.220794"
+           x="88.16124"
+           y="38.161114">ExpInfo</tspan></text>
+      <rect
+         style="fill:none;stroke:#000000;stroke-width:0.294394;stroke-dasharray:none;paint-order:stroke fill markers;stop-color:#000000"
+         id="rect1213"
+         width="19.056921"
+         height="5.7170324"
+         x="86.197334"
+         y="34.34724"
+         transform="matrix(1.0071862,0,0,1.0071991,-0.872738,0.99327867)" />
+      <g
+         id="g3175"
+         transform="matrix(0.84654307,0,0,0.84655398,12.370156,-0.92135348)"
+         style="stroke-width:0.992859">
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;stroke-width:0.262694"
+           x="42.940987"
+           y="102.86933"
+           id="text288-0-0"><tspan
+             sodipodi:role="line"
+             id="tspan286-8-9"
+             style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:4.23333px;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.262694"
+             x="42.940987"
+             y="102.86933">EstimatorChirp</tspan></text>
+        <rect
+           style="fill:none;stroke:#000000;stroke-width:0.35026;stroke-dasharray:none;paint-order:stroke fill markers;stop-color:#000000"
+           id="rect1213-1"
+           width="41.107254"
+           height="6.8019171"
+           x="40.27737"
+           y="98.259758" />
+      </g>
+      <g
+         id="g3167"
+         transform="matrix(0.84654307,0,0,0.84655398,-47.672016,35.231245)"
+         style="stroke-width:0.992859">
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;stroke-width:0.262694"
+           x="130.28775"
+           y="78.971077"
+           id="text288-0-0-61"><tspan
+             sodipodi:role="line"
+             id="tspan286-8-9-1"
+             style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:4.23333px;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.262694"
+             x="130.28775"
+             y="78.971077">EstimatorInvRec</tspan></text>
+        <rect
+           style="fill:none;stroke:#000000;stroke-width:0.350259;stroke-dasharray:none;paint-order:stroke fill markers;stop-color:#000000"
+           id="rect1213-1-0"
+           width="43.02306"
+           height="6.8019171"
+           x="127.9066"
+           y="73.931816" />
+      </g>
+      <g
+         id="g3180"
+         transform="matrix(0.84654307,0,0,0.84655398,75.027326,-0.15787766)"
+         style="stroke-width:0.992859">
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;stroke-width:0.262694"
+           x="13.275231"
+           y="101.96747"
+           id="text288-0-0-8"><tspan
+             sodipodi:role="line"
+             id="tspan286-8-9-5"
+             style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:4.23333px;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.262694"
+             x="13.275231"
+             y="101.96747">_EstimatorSeqAmp</tspan></text>
+        <rect
+           style="fill:none;stroke:#000000;stroke-width:0.350259;stroke-dasharray:none;paint-order:stroke fill markers;stop-color:#000000"
+           id="rect1213-0"
+           width="44.7887"
+           height="6.8019171"
+           x="11.177531"
+           y="97.357895" />
+      </g>
+      <g
+         id="g3225"
+         transform="matrix(0.84654307,0,0,0.84655398,105.22893,12.216146)"
+         style="stroke-width:0.992859">
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;stroke-width:0.262694"
+           x="-0.47836626"
+           y="106.15788"
+           id="text288-0-0-61-5"><tspan
+             sodipodi:role="line"
+             id="tspan286-8-9-1-9"
+             style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:4.23333px;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.262694"
+             x="-0.47836626"
+             y="106.15788">EstimatorDiffusion</tspan></text>
+        <rect
+           style="fill:none;stroke:#000000;stroke-width:0.350259;stroke-dasharray:none;paint-order:stroke fill markers;stop-color:#000000"
+           id="rect1213-0-4"
+           width="50.361137"
+           height="6.8019171"
+           x="-2.7460916"
+           y="101.11862" />
+      </g>
+      <g
+         id="g3140"
+         transform="matrix(0.84654307,0,0,0.84655398,58.851346,6.6793622)"
+         style="stroke-width:0.992859">
+        <g
+           id="g18142"
+           transform="translate(-3.6774528)"
+           style="stroke-width:0.992859">
+          <text
+             xml:space="preserve"
+             style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;stroke-width:0.262694"
+             x="52.90234"
+             y="75.94294"
+             id="text288-0-0-6"><tspan
+               sodipodi:role="line"
+               id="tspan286-8-9-3"
+               style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:4.23333px;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.262694"
+               x="52.90234"
+               y="75.94294">Estimator2DJ</tspan></text>
+          <rect
+             style="fill:none;stroke:#000000;stroke-width:0.350259;stroke-dasharray:none;paint-order:stroke fill markers;stop-color:#000000"
+             id="rect1213-3"
+             width="35.347145"
+             height="6.8019171"
+             x="50.513168"
+             y="70.903679" />
+        </g>
+      </g>
+      <g
+         id="g3135"
+         transform="matrix(0.84654307,0,0,0.84655398,-49.814086,34.432723)"
+         style="stroke-width:0.992859">
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;stroke-width:0.262694"
+           x="137.82191"
+           y="43.159012"
+           id="text288-0"><tspan
+             sodipodi:role="line"
+             id="tspan286-8"
+             style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:4.23333px;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.262694"
+             x="137.82191"
+             y="43.159012">Estimator1D</tspan></text>
+        <rect
+           style="fill:none;stroke:#000000;stroke-width:0.350259;stroke-dasharray:none;paint-order:stroke fill markers;stop-color:#000000"
+           id="rect1213-4"
+           width="32.958927"
+           height="6.8019171"
+           x="135.46904"
+           y="38.119755" />
+      </g>
+      <g
+         id="g17237"
+         transform="matrix(1.0071862,0,0,1.0071991,1.7216128,4.2331663)"
+         style="stroke-width:0.992859">
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.55813px;line-height:1.25;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;fill:#b0b0b0;fill-opacity:1;stroke-width:0.220795"
+           x="118.98479"
+           y="55.80706"
+           id="text288-0-6"><tspan
+             sodipodi:role="line"
+             id="tspan286-8-7"
+             style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.55813px;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#b0b0b0;fill-opacity:1;stroke-width:0.220795"
+             x="118.98479"
+             y="55.80706">Estimator2D</tspan></text>
+        <rect
+           style="fill:none;stroke:#b0b0b0;stroke-width:0.294879;stroke-dasharray:1.17952, 0.589758;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers;stop-color:#000000"
+           id="rect1213-4-5"
+           width="27.70208"
+           height="5.7170324"
+           x="117.00719"
+           y="51.571552" />
+      </g>
+      <text
+         xml:space="preserve"
+         style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.58372px;line-height:1.25;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;fill:#b0b0b0;fill-opacity:1;stroke-width:0.222383"
+         x="121.56225"
+         y="51.332375"
+         id="text288-0-6-9"><tspan
+           sodipodi:role="line"
+           id="tspan286-8-7-1"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.58372px;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#b0b0b0;fill-opacity:1;stroke-width:0.222383"
+           x="121.56225"
+           y="51.332375">Estimator3D</tspan></text>
+      <rect
+         style="fill:none;stroke:#b0b0b0;stroke-width:0.297;stroke-dasharray:1.188, 0.594;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers;stop-color:#000000"
+         id="rect1213-4-5-2"
+         width="27.901152"
+         height="5.7581902"
+         x="119.56966"
+         y="47.066704" />
+      <g
+         id="g26039"
+         transform="matrix(1.0071862,0,0,1.0071991,0.65638977,6.8334739)"
+         style="stroke-width:0.992859">
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.55813px;line-height:1.25;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;fill:#b0b0b0;fill-opacity:1;stroke-width:0.220795"
+           x="134.64899"
+           y="83.453316"
+           id="text288-0-6-9-6"><tspan
+             sodipodi:role="line"
+             id="tspan286-8-7-1-2"
+             style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:3.55813px;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;fill:#b0b0b0;fill-opacity:1;stroke-width:0.220795"
+             x="134.64899"
+             y="83.453316">EstimatorCPMG</tspan></text>
+        <rect
+           style="fill:none;stroke:#b0b0b0;stroke-width:0.314601;stroke-dasharray:1.25841, 0.629201;stroke-dashoffset:0;stroke-opacity:1;paint-order:stroke fill markers;stop-color:#000000"
+           id="rect1213-4-5-2-6"
+           width="31.641438"
+           height="5.6971684"
+           x="132.68132"
+           y="79.227745" />
+      </g>
+      <g
+         id="g3077"
+         transform="matrix(0.84654307,0,0,0.84655398,18.829227,7.6097059)"
+         style="stroke-width:0.992859">
+        <text
+           xml:space="preserve"
+           style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:4.23333px;line-height:1.25;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;letter-spacing:0px;word-spacing:0px;stroke-width:0.262694"
+           x="77.932495"
+           y="56.106464"
+           id="text288-8"><tspan
+             sodipodi:role="line"
+             id="tspan286-5"
+             style="font-style:normal;font-variant:normal;font-weight:500;font-stretch:normal;font-size:4.23333px;font-family:'Fira Mono';-inkscape-font-specification:'Fira Mono, Medium';font-variant-ligatures:normal;font-variant-caps:normal;font-variant-numeric:normal;font-variant-east-asian:normal;stroke-width:0.262694"
+             x="77.932495"
+             y="56.106464">_Estimator</tspan></text>
+        <rect
+           style="fill:none;stroke:#000000;stroke-width:0.350259;stroke-dasharray:none;paint-order:stroke fill markers;stop-color:#000000"
+           id="rect1213-4-8"
+           width="31.069977"
+           height="6.8019171"
+           x="75.082649"
+           y="51.42704" />
+      </g>
+      <g
+         id="g44949"
+         transform="matrix(1.0071862,0,0,0.94293245,64.548151,-16.281933)"
+         style="stroke-width:1.02614">
+        <path
+           style="fill:none;stroke:#000000;stroke-width:0.307841;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+           d="M 30.771679,71.508202 V 61.113731"
+           id="path42122" />
+        <g
+           id="g44943"
+           transform="translate(6.759496,0.18067877)"
+           style="stroke-width:1.02614">
+          <path
+             style="fill:none;stroke:#000000;stroke-width:0.307841;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+             d="m 24.012183,65.528109 -0.695337,1.204357"
+             id="path42922" />
+          <path
+             style="fill:none;stroke:#000000;stroke-width:0.307841;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+             d="m 24.012183,65.528109 0.695337,1.204357"
+             id="path42922-1" />
+        </g>
+      </g>
+      <g
+         id="g44943-4"
+         transform="matrix(0.58596281,0.81920012,-0.76691925,0.54858116,123.3973,6.1851381)"
+         style="stroke-width:1.02614">
+        <path
+           style="fill:none;stroke:#000000;stroke-width:0.307841;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+           d="m 24.012183,65.528109 -0.695337,1.204357"
+           id="path42922-5" />
+        <path
+           style="fill:none;stroke:#000000;stroke-width:0.307841;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+           d="m 24.012183,65.528109 0.695337,1.204357"
+           id="path42922-1-0" />
+      </g>
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+         d="M 80.835071,66.70315 93.59049,56.903659"
+         id="path42122-9" />
+      <g
+         id="g44943-4-6"
+         transform="matrix(0.58596281,0.81920012,-0.76691925,0.54858116,104.46612,21.742819)"
+         style="stroke-width:1.02614">
+        <path
+           style="fill:none;stroke:#000000;stroke-width:0.307841;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+           d="m 24.012183,65.528109 -0.695337,1.204357"
+           id="path42922-5-56" />
+        <path
+           style="fill:none;stroke:#000000;stroke-width:0.307841;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+           d="m 24.012183,65.528109 0.695337,1.204357"
+           id="path42922-1-0-9" />
+      </g>
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+         d="M 61.903883,82.260831 74.659302,72.46134"
+         id="path42122-9-3" />
+      <g
+         id="g44943-4-6-3"
+         transform="matrix(0.58596281,0.81920012,-0.76691925,0.54858116,127.7459,37.326489)"
+         style="stroke-width:1.02614">
+        <path
+           style="fill:none;stroke:#000000;stroke-width:0.307841;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+           d="m 24.012183,65.528109 -0.695337,1.204357"
+           id="path42922-5-56-0" />
+        <path
+           style="fill:none;stroke:#000000;stroke-width:0.307841;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+           d="m 24.012183,65.528109 0.695337,1.204357"
+           id="path42922-1-0-9-7" />
+      </g>
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+         d="M 85.183661,97.844499 97.93908,88.045009"
+         id="path42122-9-3-8" />
+      <g
+         id="g44943-4-6-7"
+         transform="matrix(-0.58596281,0.81920012,0.76691925,0.54858116,53.492501,21.742819)"
+         style="stroke-width:1.02614">
+        <path
+           style="fill:none;stroke:#000000;stroke-width:0.307841;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+           d="m 24.012183,65.528109 -0.695337,1.204357"
+           id="path42922-5-56-4" />
+        <path
+           style="fill:none;stroke:#000000;stroke-width:0.307841;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+           d="m 24.012183,65.528109 0.695337,1.204357"
+           id="path42922-1-0-9-5" />
+      </g>
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+         d="M 96.054737,82.260831 83.299318,72.46134"
+         id="path42122-9-3-2" />
+      <g
+         id="g44943-4-6-7-4"
+         transform="matrix(-0.58596281,0.81920012,0.76691925,0.54858116,76.631846,37.326489)"
+         style="stroke-width:1.02614">
+        <path
+           style="fill:none;stroke:#000000;stroke-width:0.307841;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+           d="m 24.012183,65.528109 -0.695337,1.204357"
+           id="path42922-5-56-4-7" />
+        <path
+           style="fill:none;stroke:#000000;stroke-width:0.307841;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+           d="m 24.012183,65.528109 0.695337,1.204357"
+           id="path42922-1-0-9-5-4" />
+      </g>
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+         d="m 119.19409,97.844499 -12.75542,-9.79949"
+         id="path42122-9-3-2-4" />
+      <g
+         id="g44943-4-6-7-4-3"
+         transform="matrix(-0.26947848,0.97047904,0.90854366,0.25228704,75.426387,47.009368)"
+         style="stroke:#b0b0b0;stroke-width:1.02614;stroke-dasharray:3.07842, 1.02614;stroke-dashoffset:0;stroke-opacity:1">
+        <path
+           style="fill:none;stroke:#b0b0b0;stroke-width:0.307841;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:3.07842, 1.02614;stroke-dashoffset:0;stroke-opacity:1"
+           d="m 24.012183,65.528109 -0.695337,1.204357"
+           id="path42922-5-56-4-7-1" />
+        <path
+           style="fill:none;stroke:#b0b0b0;stroke-width:0.307841;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:3.07842, 1.02614;stroke-dashoffset:0;stroke-opacity:1"
+           d="m 24.012183,65.528109 0.695337,1.204357"
+           id="path42922-1-0-9-5-4-4" />
+      </g>
+      <g
+         id="g44943-4-5"
+         transform="matrix(-0.58596281,0.81920012,0.76691925,0.54858116,67.376119,6.1851384)"
+         style="stroke-width:1.02614">
+        <path
+           style="fill:none;stroke:#000000;stroke-width:0.307841;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+           d="m 24.012183,65.528109 -0.695337,1.204357"
+           id="path42922-5-5" />
+        <path
+           style="fill:none;stroke:#000000;stroke-width:0.307841;stroke-linecap:round;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+           d="m 24.012183,65.528109 0.695337,1.204357"
+           id="path42922-1-0-4" />
+      </g>
+      <path
+         style="fill:none;stroke:#000000;stroke-width:0.3;stroke-linecap:butt;stroke-linejoin:miter;stroke-dasharray:none;stroke-opacity:1"
+         d="M 109.93836,66.70315 97.182935,56.903659"
+         id="path42122-9-7" />
+    </g>
+  </g>
+</svg>

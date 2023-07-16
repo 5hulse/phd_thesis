@@ -69,7 +69,10 @@
 
 \usepackage{MnSymbol}% For conditional independence symbol
 
+% For sidewaysfigure environment
 \usepackage{rotating}
+% For GUI figure: spans 2 pages
+\usepackage{subfig}
 \usepackage{graphicx}
 \graphicspath{{figures/}}
 \newcommand\scalemath[2]{\scalebox{#1}{\mbox{\ensuremath{\displaystyle #2}}}}
@@ -79,11 +82,9 @@
 
 \usepackage{minted,tcolorbox,listings}
 \tcbuselibrary{listings,minted,breakable,skins}
-% \usemintedstyle{gruvboxlight}
-\definecolor{gruvbox_bg}{HTML}{fbf1c7}
-\definecolor{gruvbox_fg}{HTML}{3c3836}
+\definecolor{code_bg}{HTML}{f8f8f8}
 \renewcommand{\theFancyVerbLine}{\ttfamily\small
-    \textcolor{gruvbox_fg}{\arabic{FancyVerbLine}}}
+    \textcolor{black}{\arabic{FancyVerbLine}}}
 
 % Use this when adding code to appendix
 \newtcbinputlisting[
@@ -101,9 +102,12 @@
     boxrule=1pt,
     code={\setlength{\parskip}{0.05in}\singlespacing},
     colframe=black,
-    colback=white,
-    colbacktitle=white,
+    colback=code_bg,
     coltitle=black,
+    colbacktitle=white,
+    titlerule=0mm,
+    arc=0pt,
+    outer arc=0pt,
     enhanced,
     breakable,
     top=0pt,
@@ -121,7 +125,7 @@
     },
     overlay = {
     \begin{tcbclipinterior}
-        \fill[white] (frame.south west) rectangle ([xshift=5mm]frame.north west);
+        \fill[code_bg] (frame.south west) rectangle ([xshift=5mm]frame.north west);
     \end{tcbclipinterior}
     }
 }

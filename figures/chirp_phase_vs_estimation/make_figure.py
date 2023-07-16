@@ -1,16 +1,13 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Tue 04 Jul 2023 13:47:06 BST
+# Last Edited: Fri 14 Jul 2023 20:30:03 BST
 
 import nmrespy as ne
 import matplotlib as mpl
 from matplotlib.markers import MarkerStyle
 import matplotlib.pyplot as plt
 import numpy as np
-
-# mpl.use("tkAgg")
-# mpl.rcParams["text.usetex"] = False
 
 
 sw = 400.e3
@@ -34,8 +31,7 @@ estimator = ne.BBQChili.new_from_parameters(
     snr=25.,
 )
 estimator.estimate(mpm_trim=2048, nlp_trim=4096)
-# estimator.prescan_delay = None
-
+lines = []
 
 shifts, = estimator.get_shifts()
 spectra = []
@@ -84,12 +80,16 @@ for i, (ax, spectrum, ylim) in enumerate(zip(axs, spectra, ylims)):
 
     ax.text(199e3, ylim[1] - 80., f"\\textbf{{{chr(97 + i)}.}}")
 
+for osc in estimator.get_params():
+    fid = estimator.make_fid(np.expand_dims(osc, axis=0))
+    fid[0] *= 0.5
+    line = ne.sig.ft(fid).real / 1.1
+    axs[0].plot(shifts - 3000, line, lw=0.8, zorder=-1)
 
 xticks = list(range(200, -250, -50))
 axs[2].set_xticks([x * 1000 for x in xticks])
-axs[2].set_xticklabels([str(i) for i in xticks])
+axs[2].set_xticklabels([f"${str(i)}$" for i in xticks])
 axs[2].set_xlabel("\\unit{\\kilo\\hertz}")
-
 
 # Plot phases
 params = estimator.get_params()
@@ -150,8 +150,8 @@ phi2, phi1, phi0 = np.polyfit(freq, phi_quad, 2)
 xs = np.linspace(-sw / 2, sw / 2, 100)
 axs[-1].plot(xs, phi2 * xs ** 2 + phi1 * xs + phi0, color="k", zorder=-1)
 axs[-1].set_xticks([-2e5, 0, 2e5])
-axs[-1].set_xticklabels(["-200", "0", "200"])
-axs[-1].set_xlabel("$f^{(1)}$ (\\unit{\\kilo\\hertz})", labelpad=-1.5)
+axs[-1].set_xticklabels(["$-200$", "$0$", "$200$"])
+axs[-1].set_xlabel("$f$ (\\unit{\\kilo\\hertz})", labelpad=-1.5)
 axs[-1].set_yticks([-np.pi, 0, np.pi])
 axs[-1].set_yticklabels(["$-\\pi$", "$0$", "$\\pi$"], va="center")
 axs[-1].set_ylabel("$\\phi$ (\\unit{\\radian})", labelpad=-10)
@@ -161,5 +161,25 @@ axs[-1].text(
 )
 axs[-1].set_xlim(reversed(axs[-1].get_xlim()))
 axs[-1].set_ylim(top=3 * np.pi)
+
+text_x = 0.18
+text_y = 0.15
+axs[-1].text(text_x, text_y, f"$\\phi=$", va="top", fontsize=6, transform=axs[-1].transAxes)
+axs[-1].text(
+    text_x + 0.1, text_y + 0.01,
+    f"$\\num{{{phi2:.2e}}}f^2$\n$\\num{{{phi1:.2e}}}f$\n$\\num{{{phi0:.2f}}}$",
+    va="top", fontsize=6, transform=axs[-1].transAxes,
+)
+
+rectangle = mpl.patches.Rectangle(
+    (text_x - 0.015, text_y - 0.11),
+    0.53,
+    0.13,
+    transform=axs[-1].transAxes,
+    edgecolor="k",
+    lw=0.6,
+    facecolor="w",
+)
+axs[-1].add_patch(rectangle)
 
 fig.savefig("figures/chirp_phase_vs_estimation/chirp_phase_vs_estimation.pdf")
