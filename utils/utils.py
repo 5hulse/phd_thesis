@@ -1,7 +1,7 @@
 # utils.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Tue 23 May 2023 16:41:15 BST
+# Last Edited: Tue 18 Jul 2023 21:40:53 BST
 
 from pathlib import Path
 from typing import Iterable
@@ -66,9 +66,9 @@ def fix_linewidths(axs, lw):
                 line.set_linewidth(lw)
 
 
-def panel_labels(fig, x, ys, start=97):
+def panel_labels(fig, x, ys, start=97, **kwargs):
     for i, y in enumerate(ys):
-        fig.text(x, y, f"\\textbf{{{chr(start + i)}.}}")
+        fig.text(x, y, f"\\textbf{{{chr(start + i)}.}}", **kwargs)
 
 
 def raise_axes(axs, scale):

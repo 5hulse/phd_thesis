@@ -166,32 +166,46 @@ apparent multiplet structures associated with each spin. Table
 \ref{tab:andro-multiplets} provides an overview of the most significant
 couplings associated with the spins giving rise to the multiplet structures
 considered.
-\begin{table}[h!]
+\begin{table}
 \centering
 \begin{tabular}{c c c}
 \hline
-Spin  & Coupling partners & Apparent multiplet structure \\
+Spin  & Coupling partners & Multiplet structure \\
 \hline
-(A) & (D)\textsuperscript{long}, (M)\textsuperscript{vic}, (N)\textsuperscript{vic} & dt \\
+\multicolumn{3}{c}{\textbf{Andrographolide}}\\
+\hline
+(A) & (D)\textsuperscript{long}, (M)\textsuperscript{vic}, (N)\textsuperscript{vic} & ddd (\emph{dt}) \\
 (B) & (D)\textsuperscript{ex} & d \\
-(E) & (F)\textsuperscript{vinyl}\note{, ...} & d\note{...} \\
-(F) & (E)\textsuperscript{vinyl}\note{, ...} & d\note{...} \\
+(E) & (F)\textsuperscript{vinyl}, \dots & d\dots \\
+(F) & (E)\textsuperscript{vinyl}, \dots & d\dots \\
 (K) & (J)\textsuperscript{gem}, (H)\textsuperscript{ex} & d \\
 (L) & (C)\textsuperscript{ex}, (T)\textsuperscript{180}, (U)\textsuperscript{60} & dd \\
 (O) & (P)\textsuperscript{gem}, (R)\textsuperscript{60}, (V)\textsuperscript{60} & ddd \\
-(P) & (O)\textsuperscript{gem}, (R)\textsuperscript{60}, (V)\textsuperscript{180} & dt \\
-(Q) & (M)\textsuperscript{vic}, (N)\textsuperscript{v} & dd \\
-(V) & (O)\textsuperscript{60}, (P)\textsuperscript{180}, (R)\textsuperscript{g}, (W)\textsuperscript{180} & dq \\
+(P) & (O)\textsuperscript{gem}, (R)\textsuperscript{60}, (V)\textsuperscript{180} & ddd (\emph{dt}) \\
+(Q) & (M)\textsuperscript{vic}, (N)\textsuperscript{v}, \dots & dd\dots \\
+(V) & (O)\textsuperscript{60}, (P)\textsuperscript{180}, (R)\textsuperscript{g}, (W)\textsuperscript{180} & dddd (\emph{dq}) \\
+\hline
+\multicolumn{3}{c}{\textbf{Cyclosporin A}}\\
+\hline
+(A) & diastereotopic pair on \textsuperscript{\textbeta}C & dd \\
+(B) & ---''--- & dd \\
+(C) & ---''--- \& amide proton & ddd (\emph{dt}) \\
+(D) & proton on \textsuperscript{\textbeta}C \& amide proton & dd \\
+(E) & methyl protons on \textsuperscript{\textbeta}C \& amide proton & dq \\
+(F) & ---''--- & dq (\emph{quintet}) \\
 \hline
 \end{tabular}
 \caption[
     Major coupling partners associated with spins in andrographolide whose
     signals are considered in Figure \ref{fig:andro-onedim}.
 ]{
-    Major coupling partners associated with spins in andrographolide whose
-    signals are considered in Figure \ref{fig:andro-onedim}, along with the
-    aparent multiplet structures that arise.
-    Coupling partners are labelled as follows:
+    Major coupling partners associated with spins in andrographolide and
+    cyclosporin A whose
+    signals are considered in Figures \ref{fig:andro-onedim} \&
+    \ref{fig:andro-onedim}, respectively, along with the
+    apparent multiplet structures that arise.
+    For andrographolide,
+    coupling partners are labelled as follows:
     \textsuperscript{vinyl} geminal coupling between two vinylic protons,
     \textsuperscript{ex} geminal coupling between two protons, in which one
     if bonded to an oxygen, leading to exchange decoupling,
@@ -200,6 +214,9 @@ Spin  & Coupling partners & Apparent multiplet structure \\
     \textsuperscript{vic} vicinal coupling,
     \textsuperscript{60} geminal coupling, with a fixed dihedral angle of \ang{60},
     \textsuperscript{180} geminal coupling, with a fixed dihedral angle of \ang{180}.
+    All cyclosporin couplings of significance are geminal couplings.
+    In cases where the observed multiplet structure is different to the true
+    structure, the observed structure is is in brackets.
 }
 \label{tab:andro-multiplets}
 \end{table}
@@ -268,5 +285,30 @@ associated with a doublet coalesce into a broad singlet\cite[Section
 \note{Discussion of more challenging regions? Probably beyond the scope of the
 routine without further user input/maybe just too difficult full stop?}
 
-\subsection{Cyclosporin}
-\note{TODO: result from Newton Meets Ockham paper}
+\subsection{Cyclosporin A}
+\begin{figure}
+    \includegraphics{cyclosporin/cyclosporin.pdf}
+    \caption[
+        Result of applying the estimation routine to selected regions of a
+        pulse-acquire dataset of cyclosporin A.
+    ]{
+        Result of applying the estimation routine to selected regions of a
+        pulse-acquire dataset of cyclosporin A in benzene-d\textsubscript{6}.
+        The figure is of a similar layout to Figure \ref{fig:andro-onedim}.
+        Coloured peaks correspond to oscillators which have been assigned
+        to multiplet structures of known spins. Grey oscillators correspond to
+        those with an unknown association to a particular spin.
+    }
+    \label{fig:cyclosporin}
+\end{figure}
+The estimation routine was applied to regions of a \proton\ pulse-acquire
+experiment of cyclosporin A \note{Structure in appendix}\,---\, a cyclic
+peptide comprising 11 amino acids\,---\,in benzene-d\textsubscript{6}. The
+regions considered all contain signals caused by protons bound to
+C\textsuperscript{\textalpha} atoms in the peptide backbone\cite{Verma2018}.
+Particular challenges in estimating this dataset are (a) the presence of
+heavily overlapping signals, and (b) the presence of low intensity ``nuisance''
+peaks, likely from impurities in the sample. Nevertheless, the routine has performed
+effectively in generating a parameter estimate which agrees with the multiplet
+structures present.
+

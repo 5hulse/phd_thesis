@@ -165,8 +165,8 @@ phase-modulated signals too, which for the \ac{2D} case would be $\lbrace
 
 
 \section{Additional algorithms}
-
-\begin{algorithm}
+\null\vfill
+\begin{algorithm}[h!]
     \caption{The \acs{MMEMPM}.}
     \label{alg:mmempm}
     \begin{algorithmic}[1]
@@ -311,6 +311,7 @@ phase-modulated signals too, which for the \ac{2D} case would be $\lbrace
     \EndProcedure
     \end{algorithmic}
 \end{algorithm}
+\vfill\null
 
 
 
@@ -631,31 +632,3 @@ phase-modulated signals too, which for the \ac{2D} case would be $\lbrace
         \EndProcedure
     \end{algorithmic}
 \end{algorithm}
-
-\begin{algorithm}
-    \caption{An algorithm for multiplet assignment of a \ac{2DJ} estimation result.}
-    \label{alg:mp-assign}
-    \begin{algorithmic}[1]
-        \Procedure {MultipletAssign}{$\bth \in \mathbb{R}^{6M}, \epsilon \in \mathbb{R}_{>0}$}
-        \State $\bdfone, \bdftwo \gets \bth\left[2M : 3M\right], \bth\left[3M : 4M\right]$;
-        \State $\textsc{Map} \gets \textsc{HashMap}\left[\mathbb{R}, \textsc{Vector}\left[\mathbb{N}_0\right]\right]$;
-        \For {$m = \lbrace 0, \cdots, M-1 \rbrace$}
-            \State $f_{\text{c}} = \bdftwom - \bdfonem$;
-            \State $\textsc{Assigned} \gets \textsc{False}$;
-            \For {$f_{\text{mp}}, \symbf{i}$ \textbf{in} \textsc{Map}}
-                \If{$\left \lvert f_{\text{c}} - f_{\text{mp}} \right \rvert < \epsilon$}
-                    \State $\symbf{i} \gets \left[ \symbf{i}\T \hspace{5pt} m \right]\T$;
-                    \State $\textsc{Assigned} \gets \textsc{True}$;
-                    \State \textbf{break};
-                \EndIf
-            \EndFor
-            \If{$\textsc{Assigned} = \textsc{False}$}
-                \State \textsc{Map}.insert $\left(f_{\text{c}}, \left[m\right]\right)$;
-            \EndIf
-        \EndFor
-        \State \textbf{return} \textsc{Map};
-        \EndProcedure
-    \end{algorithmic}
-\end{algorithm}
-
-\clearpage

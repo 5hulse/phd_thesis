@@ -1,7 +1,7 @@
 # jres_params.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Fri 19 May 2023 01:11:58 BST
+# Last Edited: Mon 17 Jul 2023 18:02:27 BST
 
 import nmrespy as ne
 from utils import RESULT_DIR

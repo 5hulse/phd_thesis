@@ -1,8 +1,10 @@
-\chapter{Information on Datasets}
+\chapter{Information on Datasets and Results}
 \label{chap:datasets}
 
 \section{Simulated datasets}
 \label{sec:simulated-datasets}
+
+\subsection{\textsc{\textsc{Spinach}} Simulations}
 Many of the simulated datasets presented in this work were generated using the
 \textsc{Spinach} \textsc{Matlab}\textregistered\ package\cite{Hogben2011}.
 In each case, the dataset was generated via a call to the \texttt{new\_spinach}
@@ -11,6 +13,45 @@ method associated with the relevant \texttt{Estimator} object in \ac{EsPy}.
 engine} from \textsc{Python}, which then runs a \textsc{\textsc{Spinach}} simulation of the relevant
 experiment with the specifications provided. The \ac{FID} generated is then
 stored within in a new \texttt{Estimator} object.
+
+\subsubsection{Spin Systems}
+Table \ref{tab:shifts_and_couplings} provides a specification of the chemical
+shifts and scalar couplings that made up the spin systems used to construct
+simulated data with \textsc{Spinach}. Tables \ref{tab:spinach-jres-params} and
+\ref{tab:spinach-invrec-params} specify key parameters used in each
+\ac{2DJ} and inversion recovery simulation, respectively.
+% \paragraph{Sucrose}
+% The chemical shifts and couplings for sucrose were extracted from a
+% \textsc{Gaussian}\cite{Gaussian03} logfile which ships with \textsc{Spinach} at
+% the path \path{SPINACHROOT/examples/standard_systems/sucrose.log}.
+% Isotropic chemical shifts were determined for each spin $i$ via
+% \begin{equation}
+%     \delta_i = \frac{\Tr \left( \symbf{\sigma}_i \right)}{3},
+% \end{equation}
+% where $\symbf{\sigma}_i \in \mathbb{R}^{3 \times 3}$ is the computed chemical
+% shift tensor of spin $i$.
+\paragraph{``Five Multiplets''}
+\note{TODO}
+
+\paragraph{``Four Multiplets''}
+\note{TODO}
+
+\paragraph{Strychnine}
+The strychnine spin system was derived from
+the \textsc{Spinach} function \path{<SPINACHROOT>/etc/strychnine.m}, which returns a
+spin system specification using chemical shifts and scalar couplings
+from\cite[Appendix 5]{Berger2004}, and atomic coordinates
+from\cite[Supplementary Material]{Butts2011}.
+Redfield theory was employed to describe relaxation phenomena, with the spin
+system assumed to be undergoing spherical isotropic rotation with rotational
+correlation time $\tau_{\text{c}} = \qty{200}{\pico\second}$, and only terms
+corresponding to the ``Refield kite'' in the relaxation superoperator being
+considered\cite[Chapter 5]{Cavanagh2007}.
+
+
+\input{text/generated/shifts_and_couplings}
+\note{Table of spinach experiment parameters}
+\note{Description of 2DJ and Invrec simulations (i.e. relaxation model used, approximations to basis used etc.}
 
 \subsection{\acs{2DJ}}
 The simulated datasets for the ``Four multiplets'' and Sucrose results in
@@ -24,7 +65,11 @@ key parameters supplied to the simulation provided by Table
 A \ac{2DJ} pulse sequence simulation does not ship with \textsc{Spinach}.
 Therefore, an in-house one was written, which is as follows:
 
-\mylisting{matlab}{code_listings/jres.m}{Hello}{Hello}{lst:jres-spinach}
+\mylisting{matlab}{code_listings/jres.m}{
+    Function for simulating \ac{2DJ} experiments using \textsc{Spinach}.
+}{
+    Function for simulating \ac{2DJ} experiments using \textsc{Spinach}.
+}{lst:jres-spinach}
 
 The chemical shifts and couplings for sucrose were extracted from a
 \textsc{Gaussian}\cite{Gaussian03} logfile which ships with \textsc{Spinach} at
@@ -46,62 +91,13 @@ are assigned the rate $\nicefrac{1}{T_2}$. Multi-spin states are assigned
 rates which are the summation of each spin's relevant rate.
 
 
-\subsection{\textsc{\textsc{Spinach}} Simulations}
-Table \ref{tab:shifts_and_couplings} provides a specification of the chemical
-shifts and scalar couplings that made up the spin systems used to construct
-simulated data with \textsc{Spinach}. Tables \ref{tab:spinach-jres-params} and
-\ref{tab:spinach-invrec-params} specify key parameters used in each
-\ac{2DJ} and inversion recovery simulation, respectively.
-
-\subsubsection{Spin Systems}
-\paragraph{Sucrose}
-The chemical shifts and couplings for sucrose were extracted from a
-\textsc{Gaussian}\cite{Gaussian03} logfile which ships with \textsc{Spinach} at
-the path \path{SPINACHROOT/examples/standard_systems/sucrose.log}.
-Isotropic chemical shifts were determined for each spin $i$ via
-\begin{equation}
-    \delta_i = \frac{\Tr \left( \symbf{\sigma}_i \right)}{3},
-\end{equation}
-where $\symbf{\sigma}_i \in \mathbb{R}^{3 \times 3}$ is the computed chemical
-shift tensor of spin $i$.
-
-\paragraph{Strychnine}
-The strychnine spin system was derived from
-the \textsc{Spinach} function \texttt{<SPINACHROOT>/etc/strychnine.m}, which returns a
-spin system specification using chemical shifts and scalar couplings
-from\cite[Appendix 5]{Berger2004}, and atomic coordinates
-from\cite[Supplementary Material]{Butts2011}. To determine $T_1$ and  $T_2$
-values for each spin, the relaxation superoperator $\symbf{R}$ was
-constructed according to Redfield theory, under the assumption
-that the molecule was undergoing spherical isotropic rotation with a rotational
-correlation time of \qty{200}{\pico\second}, in a magnetic field of
-\qty{700}{\mega\hertz}. Individual $T_1$s and $T_2$s were then extracted using
-\begin{subequations}
-    \begin{gather}
-        T_{(1/2),i} = \frac{1}{R_{(1/2),i}}, \\
-        R_{1,i} = - \Re \left(
-            \symbf{l}_{z,i}^{\dagger} \symbf{R} \symbf{l}_{z,i}^{\vphantom{\dagger}}
-            \right),\\
-        R_{2,i} = - \Re \left(
-            \symbf{l}_{+,i}^{\dagger} \symbf{R} \symbf{l}_{+,i}^{\vphantom{\dagger}}
-            \right),
-    \end{gather}
-\end{subequations}
-where $\symbf{l}_{z,i}^{\vphantom{\dagger}}$ is the state vector of the
-Hilbert-space operator $\hat{L}_z$ for spin $i$, and
-$\symbf{l}_{+,i}^{\vphantom{\dagger}}$ is the corresponding vector for the
-$\hat{L}_+$ operator.
-
-\input{text/generated/shifts_and_couplings}
-\note{Table of spinach experiment parameters}
-\note{Description of 2DJ and Invrec simulations (i.e. relaxation model used, approximations to basis used etc.}
 
 
 \section{Experimental datasets}
 
 \subsection{Structures}
 
-\begin{figure}[h!]
+\begin{figure}[H]
     \centering
     \includegraphics{structures/structures_final.pdf}
     \caption[
@@ -131,6 +127,15 @@ $\hat{L}_+$ operator.
     \label{fig:structures}
 \end{figure}
 
+\subsection{\acs{1D} datasets}
+Both the andrographolide and cyclosporin A pulse-acquire experiments were
+acquired \textsc{Bruker}'s \texttt{zg30} pulse sequence, which involves
+applying a pulse with a target flip angle of \ang{30}, followed by acquisition.
+The cyclosporin A pulse-acquire dataset was taken from \textsc{Bruker}'s
+\textsc{Topspin} software (v 4.0.8), located at
+\path{<TOPSPINROOT>/topspin4.0.8/examdata/exam1d_1H/1}.
+
+\input{text/generated/onedim_params}
 
 \subsection{Diffusion datasets}
 The andrographolide diffusion dataset (Figure \ref{fig:andrographolide-dosy})
@@ -139,7 +144,15 @@ was acquired using the one-shot \ac{DOSY} pulse sequence\cite{Pelta2002}
 \url{https://www.nmr.chemistry.manchester.ac.uk/?q=node/264}. The pulse
 sequence is displayed in Figure \ref{fig:oneshot-dosy}.
 
-\begin{figure}
+\input{text/generated/diff_params}
+
+The glucose/valine/threonine diffusion dataset (Figure \ref{fig:gluc_val_thre})
+was acquired using Bruker's \texttt{ledbpgp2s} pulse sequence (version 1.9, published on
+\formatdate{19}{02}{2011}). This is a stimulated echo pulse sequence, featuring
+bipolar gradients and a \ac{LED} component\cite{Wu1995}. The pulse sequence is
+displayed in Figure \ref{fig:ledbpgp2s}.
+
+\begin{figure}[H]
     \centering
     \includegraphics{oneshot_dosy_pulse_sequence/oneshot_dosy_pulse_sequence.pdf}
     \caption[
@@ -195,12 +208,7 @@ sequence is displayed in Figure \ref{fig:oneshot-dosy}.
     \label{fig:oneshot-dosy}
 \end{figure}
 
-The glucose/valine/threonine diffusion dataset (Figure \ref{fig:gluc_val_thre})
-was acquired using Bruker's \texttt{ledbpgp2s} pulse sequence (version 1.9, published on
-\formatdate{19}{02}{2011}). This is a stimulated echo pulse sequence, featuring
-bipolar gradients and a \ac{LED} component\cite{Wu1995}. The pulse sequence is
-displayed in Figure \ref{fig:ledbpgp2s}.
-\begin{figure}
+\begin{figure}[H]
     \centering
     \includegraphics{ledbpgp_pulse_sequence/ledbpgp_pulse_sequence.pdf}
     \caption[
@@ -281,7 +289,7 @@ experiment (Figure \ref{fig:tse_psyche}). The pulse sequence file
 \texttt{UoM\_1d\_if\_tsepsyche\_ts4x} can be obtained via the link
 \url{https://research.manchester.ac.uk/en/datasets/manchester-pure-shift-nmr-workshop-bruker-software}.
 
-\begin{figure}
+\begin{figure}[H]
     \centering
     \includegraphics{psyche_pulse_sequence/psyche_pulse_sequence.pdf}
     \caption[
@@ -322,7 +330,7 @@ experiment (Figure \ref{fig:tse_psyche}). The pulse sequence file
     \label{fig:psyche}
 \end{figure}
 
-\begin{figure}
+\begin{figure}[H]
     \centering
     \includegraphics{tse_psyche_pulse_sequence/tse_psyche_pulse_sequence.pdf}
     \caption[
@@ -363,3 +371,457 @@ experiment (Figure \ref{fig:tse_psyche}). The pulse sequence file
     }
     \label{fig:tse_psyche}
 \end{figure}
+
+\section{\acs{CUPID} result metrics}
+\note{Needs updating: replace sucrose with strychnine, re-order according to the order in the thesis}.
+\begin{landscape}
+    \begin{longtable}{cccccccc}
+        \caption[
+            Metrics for all the results generated using \acs{CUPID}.
+        ]
+        {
+            Metrics for all the results generated using \acs{CUPID} (Section
+            \ref{subsec:cupid-results}) The \emph{Initial} $M$ specifies
+            the number of oscillators given to the MMEMP. Values with a *
+            indicate that they were
+            determined by applying the MDL on the first direct-dimension slice
+            of the data. Values with a \textsuperscript{\textdagger} indicate
+            that they were manually provided. The \emph{M after MMEMP} column
+            indicates how many oscillators were present in the initial guess
+            $\symbf{\theta}^{(0)}$. This can differ from \emph{Initial M}, as
+            any oscillators possessing negative damping factors in the MMEMP
+            result were purged. The \emph{M after NLP} column indicates
+            how many oscillators were present in $\symbf{\theta}^{(*)}$, the
+            result of non-linear programming. When this value
+            is smaller than \emph{M after MMEMP}, negative-amplitude
+            oscillators were found and purged during the optimisation.
+        }
+        \label{tab:cupid-metrics}\\
+        \hline
+        Region (\unit{\partspermillion}) &
+        Initial $M$ &
+        MMEMP time  (\unit{\second}) &
+        $M$ after MMEMP &
+        NLP time (\unit{\second}) &
+        NLP iterations &
+        $M$ after NLP &
+        Edits\\
+        \hline
+        \endfirsthead
+        \hline
+        Region (\unit{\partspermillion}) &
+        Initial $M$ &
+        MMEMP time  (\unit{\second}) &
+        $M$ after MMEMP &
+        NLP time (\unit{\second}) &
+        NLP iterations &
+        $M$ after NLP &
+        Edits\\
+        \hline
+        \endhead
+        \hline
+        \endlastfoot
+        \hline
+        \multicolumn{8}{r}{Continues on next page...}\\
+        \hline
+        \endfoot
+        \multicolumn{8}{c}{\textbf{Quinine}}\\
+        \hline
+        5.8 -- 5.55 &
+        18* &
+        11.2 &
+        18 &
+        61.4 &
+        124 &
+        10 &
+        None\\
+        5 -- 4.85 &
+        17\textsuperscript{\textdagger} &
+        3.5 &
+        17 &
+        32.1 &
+        47 &
+        17 &
+        None\\
+        3.75 -- 3.63 &
+        15* &
+        2.4 &
+        15 &
+        34.7 &
+        69 &
+        13 &
+        None\\
+        3.17 -- 3.06 &
+        15* &
+        1.9 &
+        15 &
+        67.9 &
+        150 &
+        10 &
+        None\\
+        2.8 -- 2.6 &
+        25\textsuperscript{\textdagger} &
+        7.5 &
+        25 &
+        112.9 &
+        125 &
+        22 &
+        None\\
+        2 -- 1.7 &
+        40\textsuperscript{\textdagger} &
+        19.8 &
+        40 &
+        233.3 &
+        150 &
+        37 &
+        Remove 1 oscillator\\
+        1.64 -- 1.52 &
+        20* &
+        2.8 &
+        20 &
+        38.4 &
+        55 &
+        18 &
+        None\\
+        1.52 -- 1.4 &
+        14* &
+        2.6 &
+        13 &
+        26.6 &
+        58 &
+        12 &
+        None\\
+        \hline
+        \multicolumn{8}{c}{\textbf{Estradiol}}\\
+        \hline
+        2.29 -- 2.17 &
+        20\textsuperscript{\textdagger} &
+        11.5 &
+        17 &
+        31.7 &
+        150 &
+        11 &
+        Remove 2 oscillators\\
+        2.12 -- 2 &
+        15\textsuperscript{\textdagger} &
+        11.4 &
+        15 &
+        27.9 &
+        150 &
+        10 &
+        Remove 4 oscillators\\
+        1.95 -- 1.72 &
+        40\textsuperscript{\textdagger} &
+        42.7 &
+        40 &
+        93.2 &
+        125 &
+        34 &
+        Remove 4 oscillators\\
+        1.65 -- 1.52 &
+        20\textsuperscript{\textdagger} &
+        12.2 &
+        19 &
+        47.9 &
+        150 &
+        15 &
+        Remove 2 oscillators\\
+        1.45 -- 1.02 &
+        90\textsuperscript{\textdagger} &
+        65.6 &
+        86 &
+        271.3 &
+        150 &
+        80 &
+        Remove 13 oscillators\\
+\hline
+\multicolumn{8}{c}{\textbf{Sucrose}}\\
+\hline
+6.08 -- 5.91 &
+2* &
+0.7 &
+2 &
+0.3 &
+10 &
+2 &
+None\\
+4.72 -- 4.46 &
+16\textsuperscript{\textdagger} &
+2.2 &
+16 &
+3.5 &
+21 &
+16 &
+None\\
+4.46 -- 4.22 &
+16\textsuperscript{\textdagger} &
+2.1 &
+16 &
+4.5 &
+32 &
+16 &
+None\\
+4.22 -- 4.1 &
+4\textsuperscript{\textdagger} &
+0.5 &
+4 &
+3.2 &
+95 &
+4 &
+None\\
+4.09 -- 3.98 &
+6* &
+0.3 &
+6 &
+0.9 &
+12 &
+6 &
+None\\
+3.98 -- 3.83 &
+10\textsuperscript{\textdagger} &
+0.6 &
+10 &
+2.9 &
+31 &
+10 &
+None\\
+3.58 -- 3.28 &
+12* &
+2.5 &
+12 &
+3.0 &
+26 &
+12 &
+None\\
+2.08 -- 1.16 &
+3* &
+3.9 &
+3 &
+0.4 &
+9 &
+3 &
+None\\
+1.05 -- 0.0 &
+8* &
+4.0 &
+8 &
+1.1 &
+10 &
+8 &
+None\\
+\hline
+\multicolumn{8}{c}{\textbf{Four Multiplets (Run 1)}}\\
+\hline
+0.06 -- -0.06 &
+34\textsuperscript{\textdagger} &
+3.2 &
+34 &
+45.7 &
+65 &
+33 &
+Remove 1 oscillator\\
+\hline
+\multicolumn{8}{c}{\textbf{Four Multiplets (Run 2)}}\\
+\hline
+0.06 -- -0.06 &
+38\textsuperscript{\textdagger} &
+4.2 &
+38 &
+76.9 &
+105 &
+32 &
+None\\
+\hline
+\multicolumn{8}{c}{\textbf{Four Multiplets (Run 3)}}\\
+\hline
+0.06 -- -0.06 &
+39\textsuperscript{\textdagger} &
+4.3 &
+38 &
+27.6 &
+35 &
+32 &
+None\\
+\hline
+\multicolumn{8}{c}{\textbf{Four Multiplets (Run 4)}}\\
+\hline
+0.06 -- -0.06 &
+40\textsuperscript{\textdagger} &
+4.2 &
+40 &
+45.6 &
+61 &
+32 &
+None\\
+\hline
+\multicolumn{8}{c}{\textbf{Four Multiplets (Run 5)}}\\
+\hline
+0.06 -- -0.06 &
+37\textsuperscript{\textdagger} &
+3.5 &
+37 &
+74.8 &
+100 &
+33 &
+Remove 1 oscillator\\
+
+        \hline
+        \multicolumn{8}{c}{\textbf{Camphor}}\\
+        \hline
+        2.55 -- 2.475 &
+        9* &
+        2.0 &
+        8 &
+        40.6 &
+        150 &
+        6 &
+        Remove 1 oscillator\\
+        2.35 -- 2.23 &
+        18* &
+        5.7 &
+        18 &
+        68.3 &
+        100 &
+        18 &
+        None\\
+        2.09 -- 2.025 &
+        8* &
+        1.3 &
+        18 &
+        18.3 &
+        96 &
+        3 &
+        None\\
+        1.95 -- 1.75 &
+        35* &
+        19.9 &
+        32 &
+        260.2 &
+        225 &
+        30 &
+        None\\
+        1.7 -- 1.61 &
+        21* &
+        3.9 &
+        21 &
+        72.3 &
+        84 &
+        21 &
+        Remove 1 oscillator\\
+        1.375 -- 1.215 &
+        29* &
+        10.6 &
+        29 &
+        117.2 &
+        123 &
+        22 &
+        None\\
+        \hline
+        \multicolumn{8}{c}{\textbf{Dexamethasone}}\\
+        \hline
+        7.45 -- 7.15 &
+        2\textsuperscript{\dagger} &
+        0.8 &
+        2 &
+        0.5 &
+        13 &
+        2 &
+        None\\
+        6.4 -- 5.9 &
+        15* &
+        4.4 &
+        7 &
+        14.2 &
+        66 &
+        7 &
+        None\\
+        5.5 -- 4.8 &
+        3\textsuperscript{\dagger} &
+        4.0 &
+        3 &
+        1.1 &
+        17 &
+        3 &
+        None\\
+        4.8 -- 4.3 &
+        11* &
+        3.2 &
+        11 &
+        12.7 &
+        58 &
+        9 &
+        Remove 2 oscillators\\
+        4.25 -- 3.97 &
+        12* &
+        11.1 &
+        12 &
+        20.8 &
+        111 &
+        7 &
+        Remove 1 oscillator\\
+        3 -- 2.87 &
+        13* &
+        0.3 &
+        11 &
+        48.8 &
+        219 &
+        10 &
+        None \\
+        2.68 -- 2.43 &
+        23* &
+        1.2 &
+        18 &
+        68.2 &
+        250 &
+        14 &
+        None \\
+        2.413 -- 2.26 &
+        18* &
+        0.395 &
+        17 &
+        61.7 &
+        197 &
+        15 &
+        None \\
+        2.195 -- 2.034 &
+        17* &
+        0.4 &
+        17 &
+        61.7 &
+        200 &
+        17 &
+        None \\
+        1.85 -- 1.7 &
+        12* &
+        0.4 &
+        10 &
+        15.0 &
+        79 &
+        9 &
+        None\\
+        1.7 -- 1.25 &
+        30* &
+        3.2 &
+        30 &
+        127.2 &
+        250 &
+        27 &
+        Remove 8 oscillators\\
+        1.14 -- 1 &
+        12* &
+        0.4 &
+        10 &
+        36.9 &
+        183 &
+        10 &
+        Remove 3 oscillators\\
+        1 -- 0.65 &
+        3\textsuperscript{\textdagger} &
+        2.0 &
+        3 &
+        0.9 &
+        17 &
+        3 &
+        None\\
+    \end{longtable}
+\end{landscape}

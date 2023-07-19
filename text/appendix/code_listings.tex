@@ -6,14 +6,14 @@ The following is all the required imports:
 Required imports for the subsequent \Python listings.
 }{
     Required imports for the subsequent listings in this chapter.
-    The \mintinline{python3}{product} function, is employed in the \acs{MMEMPM}
+    The \mintinline{python3}{product} function is employed in the \acs{MMEMPM}
     routine (Listing \ref{lst:mmempm}).
     The imports from the \mintinline{python3}{typing} module are used to
     annotate what the expected types are for each argument, and what the return
     type is.
     The \mintinline{python3}{numpy} and \mintinline{python3}{scipy} modules are
-    ubiquitous in the following listings, providing access to efficient
-    routines for numerical computations.
+    ubiquitous in the listings, providing access to efficient routines for
+    numerical computations.
 }{lst:imports}
 
 \section{\Aclp{MPM}}
@@ -88,49 +88,24 @@ re-computed.
 
 \subsection{The main routine}
 
-\mylisting{python3}{code_listings/nlp_routine.py}{Hello}{Hello}{lst:nlp}
+\mylisting{python3}{code_listings/nlp_routine.py}{
+    \Python implementation for running the \acs{NLP} routine for \acs{FID}
+    estimation.
+}{
+    Code for running the \acs{NLP} routine for \acs{FID} estimation. The
+    routine consists of running the \ac{ST} algorithm (Listing \ref{lst:tr})
+    until it returns a parameter array without negative amplitudes. If negative
+    amplitudes are present, the corresponding oscillators are removed, and the
+    \ac{ST} algorithm is re-run.
+}{lst:nlp}
 
 \section{\acs{CUPID}}
 
 \subsection{Assigning multiplet structures}
 
-\mylisting{python3}{code_listings/mp_assign.py}{Hello}{Hello}{lst:mpm-assign}
-
-% A bunch of Python code listings illustrating how certain things described in
-% the main text are implemented.
-
-% \subsection{Computing the gradient and Hessian for non-linear programming}
-
-% In this section, a description of how the fidelity, its gradient, and its
-% Hessian (Equation \ref{eq:fidelity-grad-hess}) are computed is provided.
-
-% \pylisting{code_listings/obj_grad_hess/definition.py}
-
-% We will start by constructing the model array $\bx$. It is necessary to know
-% the form of each oscillator in $\bx$ to compute its derivatives.
-% \begin{subequations}
-%     \begin{gather}
-%         \bx = \exp\left(\symbf{Z}\right) \symbf{\alpha},\\
-%         \symbf{Z} = \symbf{\tau} \otimes \symbf{z},\\
-%         \symbf{\tau}\left[n\right] = (n-1)\Dt\ \forall n \in \lbrace0, \cdots, N - 1\rbrace\\
-%         \symbf{z}\left[m\right] = 2 \pi \iu f_m- \eta_m\ \forall m \in \lbrace 1, \cdots, M \rbrace\\
-%         \symbf{\alpha}\left[m\right] = a_m \exp\left(\iu \phi_m\right)
-%     \end{gather}
-% \end{subequations}
-% Therefore a $\mathbb{C}^{N \times M}$ array $\bX_m$ is created, such that
-% \begin{equation}
-%     \bX_m = \exp\left(\symbf{Z}\right) * \alpha
-% \end{equation}
-% \nomenclature[M]{$*$}{Broadcasting notation, as is commonly performed in
-% numerical computations. See
-% \href{https://numpy.org/doc/stable/user/basics.broadcasting.html}{this page of
-% the NumPy documentation} for details}
-
-
-% \pylisting{code_listings/obj_grad_hess/x_per_osc.py}
-
-
-% \subsection{Multiplet prediction}
-% \label{sec:multiplet prediction}
-
-% \pylisting{code_listings/multiplet_prediction.py}
+\mylisting{python3}{code_listings/mp_assign.py}{
+    \Python implementation for performing multiplet assignment as part of
+    \acs{CUPID}.
+}{
+    Code for performing multiplet assignment as part of \acs{CUPID}.
+}{lst:mp-assign}

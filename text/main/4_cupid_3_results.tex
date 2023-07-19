@@ -6,7 +6,9 @@ Initially, a few results are presented on datasets simulated using
 a couple of these, comparison of the result acquired using \ac{CUPID} is
 made with a spectrum acquired using \ac{PSYCHE}. For details relating to
 generation of the datasets, see Sections \ref{sec:simulated-datasets} and
-\ref{subsec:cupid-experimental} in the Appendix.
+\ref{subsec:cupid-experimental}. Useful metrics, such a run
+times and the number of oscillators present at different stages of the routine
+are provided in Table \ref{tab:cupid-metrics}.
 
 \subsection{``Four Multiplets''}
 \label{subsec:four-mp}
@@ -37,39 +39,43 @@ generation of the datasets, see Sections \ref{sec:simulated-datasets} and
     }
     \label{fig:four-multiplets}
 \end{figure}
-A series of simulated \proton\ \ac{2DJ} datasets were generated such that
-within a known region of the spectrum (\SIrange{-30}{30}{\hertz}), four ddd
-multiplet structures with significant overlap exist. To achieve this, a
-spin-system with 7 spins was formed, with the spins divided into 2 subsets:
+A series of simulated \proton\ \ac{2DJ} datasets were generated using
+\textsc{Spinach} such that within a known region of the spectrum
+(\SIrange{-30}{30}{\hertz}), four ddd multiplet structures with significant
+overlap exist. This was achieved in a similar fashion to the inversion recovery
+example in Section \ref{subsec:seq-results}, with a spin system comprising
+four ``estimated'' and three ``coupling'' spins.
 \begin{itemize}
-    \item Four of the spins (the ``estimated spins'') were assigned random
-        resonance frequencies sampled from $\mathcal{U}(\qty{-20}{\hertz},
-        \qty{20}{\hertz})$.
-    \item The remaining three spins (the ``coupling spins''), were coupled to each
-        of the estimated spins, with the values of the couplings randomly
-        sampled from $\mathcal{U}(\qty{-10}{\hertz}, \qty{10}{\hertz})$.  The
-        coupling spins were given chemical shifts such that they lay far from
-        the estimated spins in the spectrum (i.e. their frequencies were $\gg
-        \qty{20}{\hertz}$).
+    \item The estimated spins were assigned random resonance frequencies
+        sampled from $\mathcal{U}(\qty{-20}{\hertz}, \qty{20}{\hertz})$\footnote{
+            The spins were assigned appropriate chemical shifts by taking the
+            sampled resonance frequency $f_{\unit{\hertz}} \in [-20, 20]$, and
+            dividing it by the spectrometer frequency used in the simulation
+            (\qty{500}{\mega\hertz}).
+        }.
+    \item The coupling spins were assigned resonance frequencies $\gg
+        \qty{30}{\hertz}$, and were coupled to each of the estimated spins,
+        with the values of the couplings randomly sampled from
+        $\mathcal{U}(\qty{-10}{\hertz}, \qty{10}{\hertz})$.
 \end{itemize}
 \ac{AWGN} noise was added to the \ac{FID}, with a target \ac{SNR} of \qty{30}{\deci\bel}.
 A filtered sub-\ac{FID} containing only the signals from the estimated spins
 was then generated using the filtering procedure described above, with
-$l^{(2)}_{\unit{\hertz}} = \qty{30}{\hertz}$,
-$r^{(2)}_{\unit{\hertz}} = \qty{-30}{\hertz}$.
+$l_{\unit{\hertz}} = \qty{30}{\hertz}$,
+$r_{\unit{\hertz}} = \qty{-30}{\hertz}$.
 The resulting sub-\ac{FID} was expected to comprise 32 ($4 \times
-2^3$) oscillators. To assess the estimation procedure's ability, a random
-integer from the range $[33, 40]$ was selected as the initial number of
-oscillators. Hence, the initial guess from the \ac{MMEMPM} would comprise a
-excessive number of oscillators. Due to the severe overlap of the multiplets,
-application of the \ac{MDL} on the first direct-dimension signal would be
-ineffective and return an under-estimate of the model order. Each \ac{FID} was
-subjected to estimation, yielding the result vector $\bthstar$. Spurious
-oscillators were checked for, using the criteria outlined above, with the
-threshold for multiplet assignment set to the spectral resolution in the direct
-dimension: $\epsilon = \nicefrac{f_{\text{sw}}^{(2)}}{\Ntwo}$. If spurious
-oscillators were found, these were removed, and \ac{NLP} was run on the updated
-set of parameters.
+2^3$) individual signals. As can be seen in panel b of Figure
+\ref{fig:four-multiplets}, the direct dimension \acp{FID} of these datasets are
+too crowded for reasonable predictions of model order to be made, so a value
+was manually provided. For each run, a random integer from the range $[33, 40]$
+was selected as the initial number of oscillators. Hence, the initial guess
+from the \ac{MMEMPM} would comprise a slightly excessive number of oscillators.
+Each \ac{FID} was subjected to estimation, yielding the result vector
+$\bthstar$. Spurious oscillators were checked for, using the criteria outlined
+above, with the threshold for multiplet assignment set to the spectral
+resolution in the direct dimension: $\epsilon =
+\nicefrac{f_{\text{sw}}^{(2)}}{\Ntwo}$. If spurious oscillators were found,
+these were removed, and \ac{NLP} was run on the updated set of parameters.
 
 Figure \ref{fig:four-multiplets} illustrates the result achieved for 5 separate
 runs of this procedure.
@@ -89,62 +95,84 @@ As seen in panel a of Figure \ref{fig:four-multiplets}, the spectra produced
 using \ac{CUPID} agree well with these. Panel c indicates that \ac{CUPID}
 effectively resolved the multiplet structures associated with the dataset.
 
-\subsection{Sucrose simulated}
-\label{subsec:sucrose-cupid}
-\note{Maybe not so impressive? Perhaps try strychnine?}
+% \subsection{Sucrose simulated}
+% \label{subsec:sucrose-cupid}
+% \note{Maybe not so impressive? Perhaps try strychnine?}
+% \begin{figure}
+%     \centering
+%     \includegraphics{sucrose_cupid/sucrose_cupid.pdf}
+%     \caption[
+%         Application of \acs{CUPID} on a simulated sucrose \acs{2DJ} dataset.
+%     ]
+%     {
+%         Application of \ac{CUPID} on a simulated sucrose \ac{2DJ} dataset.
+%         \textbf{a.} Black: the spectrum generated from \ac{FT} of the \ang{-45}
+%         signal. Grey: the spectrum of a simulated dataset with the same
+%         chemical shifts, with all scalar couplings set to \qty{0}{\hertz}.
+%         \textbf{b.} Conventional \ac{1D} spectrum.
+%         \textbf{c.} Multiplet structures assigned ($\epsilon \approx
+%         \qty{0.27}{\hertz}$).
+%         \textbf{d.} Contour plot of the absolute value mode \ac{2DJ} spectrum,
+%         with the locations of assigned oscillators given as coloured points.
+%     }
+%     \label{fig:sucrose-cupid}
+% \end{figure}
+% As a second example of applying \ac{CUPID} on simulated data, the chemical
+% shifts and isotropic scalar couplings associated with a
+% Gaussian\cite{Gaussian03} \ac{DFT} calculation of sucrose in a vacuum
+% \footnote{
+% It is well known that isotropic chemical shift calculations using \ac{DFT} are
+% typically very inaccurate. The resulting spectrum is not typical of sucrose in
+% the liquid state, though this doesn't really matter for assessing the
+% performance of \ac{CUPID}.
+% }
+% were used to construct a 2DJ dataset. \ac{AWGN} was added with a target
+% \ac{SNR} of \qty{20}{\deci\bel}. The CUPID procedure was applied to filtered
+% sub-FIDs such that the signals arising from all 22 spins were considered, though
+% only the regions of the dataset with the most interesting multiplet structures
+% are presented in Figure \ref{fig:sucrose-cupid}.
+
+% The estimation technique successfully assigned multiplet structures for all 22
+% multiplets in the dataset, including structures derived from two spins (F \& N)
+% with a \qty{0.6}{\hertz} difference in resonance frequency, approaching the
+% spectral resolution in the direct dimension (\qty{0.537}{\hertz}). The
+% pure-shift spectrum generated via the \ang{-45} signal again showed close
+% agreement with a 1D spectrum simulated using the same chemical shifts, with
+% scalar couplings set to \qty{0}{\hertz}. There are particular multiplets where
+% the number of oscillators fit using the estimation routine was less than the
+% true number. Examples of this phenomenon are exhibited in the estimates of the
+% multiplets for spins B \& O, which are both ddd structures. The scalar
+% couplings involved meant that certain oscillators were
+% of such similar frequencies that they were separated by significantly less than
+% the spectral resolution, and thus resolving these was unrealistic. For
+% example, there are two pairs of peaks in the spin-B multiplet which lie only
+% \qty{0.085}{\hertz} apart. Under-fitting in this case had a negligible impact
+% on the final pure shift spectrum. However there are circumstances which will be
+% seen in the experimental examples below where more blatant cases of under-fitting
+% lead to the generation of peaks in the pure shift spectrum which are noticeably
+% broadened.
+
+\subsection{Strychnine simulated}
+\label{subsec:strychnine-cupid}
 \begin{figure}
     \centering
-    \includegraphics{sucrose_cupid/sucrose_cupid.pdf}
+    \includegraphics{strychnine_cupid/strychnine_cupid.pdf}
     \caption[
-        Application of \acs{CUPID} on a simulated sucrose \acs{2DJ} dataset.
+        Application of \acs{CUPID} on a simulated strychnine \acs{2DJ} dataset.
     ]
     {
-        Application of \ac{CUPID} on a simulated sucrose \ac{2DJ} dataset.
+        Application of \ac{CUPID} on a simulated strychnine \ac{2DJ} dataset.
         \textbf{a.} Black: the spectrum generated from \ac{FT} of the \ang{-45}
         signal. Grey: the spectrum of a simulated dataset with the same
         chemical shifts, with all scalar couplings set to \qty{0}{\hertz}.
         \textbf{b.} Conventional \ac{1D} spectrum.
-        \textbf{c.} Multiplet structures assigned ($\epsilon \approx
-        \qty{0.27}{\hertz}$).
+        \textbf{c.} Multiplet structures assigned ($\epsilon =
+        \nicefrac{\fswone}{\None} \approx \qty{0.39}{\hertz}$).
         \textbf{d.} Contour plot of the absolute value mode \ac{2DJ} spectrum,
         with the locations of assigned oscillators given as coloured points.
     }
-    \label{fig:sucrose-cupid}
+    \label{fig:strychnine-cupid}
 \end{figure}
-As a second example of applying \ac{CUPID} on simulated data, the chemical
-shifts and isotropic scalar couplings associated with a
-Gaussian\cite{Gaussian03} \ac{DFT} calculation of sucrose in a vacuum
-\footnote{
-It is well known that isotropic chemical shift calculations using \ac{DFT} are
-typically very inaccurate. The resulting spectrum is not typical of sucrose in
-the liquid state, though this doesn't really matter for assessing the
-performance of \ac{CUPID}.
-}
-were used to construct a 2DJ dataset. \ac{AWGN} was added with a target
-\ac{SNR} of \qty{20}{\deci\bel}. The CUPID procedure was applied to filtered
-sub-FIDs such that the signals arising from all 22 spins were considered, though
-only the regions of the dataset with the most interesting multiplet structures
-are presented in Figure \ref{fig:sucrose-cupid}.
-
-The estimation technique successfully assigned multiplet structures for all 22
-multiplets in the dataset, including structures derived from two spins (F \& N)
-with a \qty{0.6}{\hertz} difference in resonance frequency, approaching the
-spectral resolution in the direct dimension (\qty{0.537}{\hertz}). The
-pure-shift spectrum generated via the \ang{-45} signal again showed close
-agreement with a 1D spectrum simulated using the same chemical shifts, with
-scalar couplings set to \qty{0}{\hertz}. There are particular multiplets where
-the number of oscillators fit using the estimation routine was less than the
-true number. Examples of this phenomenon are exhibited in the estimates of the
-multiplets for spins B \& O, which are both ddd structures. The scalar
-couplings involved meant that certain oscillators were
-of such similar frequencies that they were separated by significantly less than
-the spectral resolution, and thus resolving these was unrealistic. For
-example, there are two pairs of peaks in the spin-B multiplet which lie only
-\qty{0.085}{\hertz} apart. Under-fitting in this case had a negligible impact
-on the final pure shift spectrum. However there are circumstances which will be
-seen in the experimental examples below where more blatant cases of under-fitting
-lead to the generation of peaks in the pure shift spectrum which are noticeably
-broadened.
 
 \subsection{Quinine}
 \begin{figure}
