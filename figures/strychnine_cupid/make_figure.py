@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Tue 18 Jul 2023 22:10:53 BST
+# Last Edited: Fri 21 Jul 2023 13:05:09 BST
 
 from pathlib import Path
 import pickle
@@ -29,20 +29,11 @@ estimator_dec_path = result_dir / "estimator_dec"
 save_path = "figures/strychnine_cupid/strychnine_cupid.pdf"
 
 estimator = ne.Estimator2DJ.from_pickle(estimator_path)
+estimator.predict_multiplets(rm_spurious=True, max_iterations=1, check_neg_amps_every=1)
 reg0 = estimator._results[0].region
 estimator._results[0].region = (None, (reg0[1][0] + 15., reg0[1][1]))
-# reg5 = estimator._results[5].region
-# reg6 = estimator._results[6].region
-# estimator._results[5].region = (None, (reg5[1][0], reg6[1][0]))
 
 colors = mpl.rcParams["axes.prop_cycle"].by_key()["color"]
-colors.append("#808080")
-mp_cols = [
-    colors[i] for i in [
-        0, 1, 2, 3, 4, 5, 0, 1, 2, 3, -1, 4, 5, 0, 1, 2, 3, 4, 5, -1, 0, -1, 1, 2,
-    ]
-]
-
 sws = estimator.sw()
 pts = estimator.default_pts
 print([sw / pt for sw, pt in zip(sws, pts)])
@@ -60,7 +51,7 @@ fig, axs = estimator.plot_result(
     contour_factor=1.5,
     contour_color="k",
     contour_lw=0.1,
-    multiplet_colors=mp_cols,
+    multiplet_colors=colors,
     marker_size=2.,
     figsize=(6., 3.),
     region_unit="ppm",

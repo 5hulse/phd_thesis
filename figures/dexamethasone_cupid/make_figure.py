@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Thu 04 May 2023 20:28:14 BST
+# Last Edited: Fri 21 Jul 2023 13:00:37 BST
 
 from pathlib import Path
 
@@ -16,19 +16,27 @@ from utils import (
     panel_labels,
 )
 
-# mpl.rcParams["lines.linewidth"] = 0.5
+mpl.rcParams["lines.linewidth"] = 0.5
 
 DATA_DIR = Path("~/Documents/DPhil/data").expanduser()
 RESULT_DIR = Path("~/Documents/DPhil/results/cupid").expanduser()
 psyche_dir = DATA_DIR / "dexamethasone/1004/pdata/1"
-estimator_path = RESULT_DIR / "dexamethasone/estimator_postedit"
+estimator_path = RESULT_DIR / "dexamethasone/est"
 
 estimator = ne.Estimator2DJ.from_pickle(estimator_path)
-estimator._results[6].region = (None, (estimator._results[6].region[1][0], 1540.))
 
+estimator._results[6].region = (None, (estimator._results[6].region[1][0], 1540.))
 thold = (estimator.sw()[1] / estimator.default_pts[1])
-print(thold)
+estimator.predict_multiplets(thold=thold, rm_spurious=True, max_iterations=1, check_neg_amps_every=1)
+
 colors = mpl.rcParams["axes.prop_cycle"].by_key()["color"]
+colors.append("#808080")
+mp_cols = [
+    colors[i] for i in [
+        0, 1, 2, 3, 4, 5, 0, 1, 2, -1, 3, 4, 5, -1, -1, 0, 1, 2, 3, 4, -1, 5,
+        0, -1, -1, 1, 2, -1, 3, 4, 5, 0,
+    ]
+]
 fig, axs = estimator.plot_result(
     multiplet_thold=thold,
     region_unit="ppm",
@@ -37,32 +45,36 @@ fig, axs = estimator.plot_result(
     contour_factor=1.8,
     contour_color="k",
     contour_lw=0.1,
-    multiplet_colors=colors,
+    multiplet_colors=mp_cols,
     marker_size=3.,
     multiplet_show_45=False,
     multiplet_show_center_freq=True,
-    axes_bottom=0.062,
-    axes_left=0.035,
+    axes_bottom=0.067,
+    axes_left=0.033,
     axes_right=0.995,
     axes_top=0.985,
     xaxis_label_height=0.01,
     jres_sinebell=True,
-    ratio_1d_2d=(3., 1.),
+    ratio_1d_2d=(3.5, 1.),
     xaxis_ticks=[
-        (1, (6.3, 6.1)),
-        (2, (5.4, 5.2, 5.0, 4.8, 4.6, 4.4)),
-        (3, (4.1,)),
+        (0, (7.4, 7.3, 7.2)),
+        (1, (6.3, 6.2, 6.1, 6.0)),
+        (2, (5.4, 5.3, 5.2, 5.1, 5.0, 4.9, 4.8, 4.7, 4.6, 4.5, 4.4)),
+        (3, (4.2, 4.1, 4.0)),
         (4, (2.95,)),
         (5, (2.65,)),
         (6, (2.35,)),
         (7, (2.1,)),
-        (8, (1.8, 1.6, 1.4)),
-        (9, (1, 0.8)),
+        (8, (1.8,)),
+        (9, (1.6, 1.5, 1.4, 1.3)),
+        (10, (1.1, 1.0, 0.9, 0.8, 0.7)),
     ],
-    figsize=(9, 4.5),
+    figsize=(9., 4.),
 )
 fig.texts[0].set_fontsize(8)
 
+for ax in axs[1]:
+    ax.set_ylim(20, -20)
 fix_linewidths(axs, mpl.rcParams["lines.linewidth"])
 
 naxes = len(axs[0])
@@ -74,9 +86,10 @@ for i, ax in enumerate(axs[0]):
     else:
         idx = -3
 
-    cupid_line = ax.lines.pop(idx)
+    lines = list(ax.lines)
+    cupid_line = lines.pop(idx)
     cupid_data.append((cupid_line.get_xdata(), cupid_line.get_ydata()))
-    zero_t1_line = ax.lines.pop(idx)
+    zero_t1_line = lines.pop(idx)
     zero_t1_data.append((zero_t1_line.get_xdata(), zero_t1_line.get_ydata()))
 
 psyche_factor = 160
@@ -139,20 +152,20 @@ for i, ax in enumerate(axs[0]):
     ax.spines["top"].set_zorder(100)
 
 fig.text(
-    0.052,
-    0.7,
+    0.972,
+    0.68,
     f"\\times {psyche_factor}",
     transform=fig.transFigure,
     fontsize=6,
     zorder=100,
 )
 
-panel_labels(fig, 0.04, (0.96, 0.635, 0.47, 0.38, 0.29))
+panel_labels(fig, 0.036, (0.96, 0.635, 0.45, 0.355, 0.28))
 
 axs[1][0].set_yticks([20, 10, 0, -10, -20])
 
 xs, ys, ss = get_pure_shift_labels(estimator, thold=25000)
-xs[7] = (xs[7] + xs.pop(7)) / 2
+xs[7] = (xs[8] + xs.pop(7)) / 2
 xs.pop(11)
 # xs[12] -= 0.01
 xs[13] += 0.02
@@ -187,7 +200,7 @@ y_tweaks = [
 ]
 ys = [y + y_tweak for y, y_tweak in zip(ys, y_tweaks)]
 ss.pop()
-add_pure_shift_labels(axs[0], xs, ys, ss, fs=6)
+add_pure_shift_labels(axs[0], xs, ys, ss, fs=7)
 
 breaks = {
     "ax": [],
@@ -202,7 +215,7 @@ for ax_idx, ax_col in enumerate(axs.T):
         x = line.get_xdata()[0]
         color = line.get_color()
 
-        if idx in [4, 22, 26, 27]:
+        if idx in [4, 25, 30, 31]:
             breaks["ax"].append(ax_idx)
             breaks["x"].append(x)
             breaks["color"].append(color)
@@ -284,5 +297,6 @@ for i, (ax_idx, x, color) in enumerate(zip(breaks["ax"], breaks["x"], breaks["co
         color="k",
         zorder=1000,
     )
+
 
 fig.savefig("figures/dexamethasone_cupid/dexamethasone_cupid.pdf")

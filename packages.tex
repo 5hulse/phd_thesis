@@ -1,4 +1,3 @@
-\usepackage{lipsum}% Remove this once there is no dummy text
 \usepackage{amsmath}
 \allowdisplaybreaks[1]
 \DeclareMathOperator{\diag}{diag}
@@ -9,19 +8,35 @@
 \DeclareMathOperator{\SNR}{SNR}
 \DeclareMathOperator{\SVD}{SVD}
 \DeclareMathOperator{\EIGENVALUES}{EIGENVALUES}
+
 \usepackage{amsthm}
 \newtheorem{remark}{Remark}
+\newtheorem{definition}{Definition}
+\newtheorem{theorem}{Theorem}
 
 \usepackage{datetime}
 \dmyyyydate
-\usepackage{currfile}
 
-\usepackage{mathtools}
 \usepackage{nicefrac}
+\usepackage{upgreek} % For upright capital delta
+\usepackage{textgreek} % For Greek symbols in text mode
+\usepackage{MnSymbol} % For conditional independence symbol
+\usepackage{chemformula}
+\usepackage{pdfpages} % to insert NMR-EsPy walkthrough
+\usepackage{lscape} % for CUPID metrics table
+\usepackage{rotating} % for sidewaysfigure environment
+\usepackage{subfig} % for GUI figure: spans 2 pages
+\usepackage{booktabs,longtable}  % for tables
+\usepackage{graphicx}
+\graphicspath{{figures/}}
 
-\newtheorem{definition}{Definition} %
-\newtheorem{theorem}{Theorem} %
+%%% Nomenclature: see text/front/nomenclature.tex
+\usepackage{nomencl}
+\renewcommand{\nompreamble}{\pagestyle{plain}}
+\makenomenclature
+\usepackage{ifthen}
 
+%%% Unit configuration
 \usepackage[
      print-unity-mantissa=false,%
 ]{siunitx}
@@ -30,13 +45,14 @@
 \DeclareSIUnit \partspermillion {ppm}
 \sisetup{detect-all}
 
-\usepackage{etoolbox}
-\usepackage[printonlyused]{acronym}
+\usepackage[printonlyused]{acronym}  % See text/front/acrons.tex
 
+%%% Circled numbers
 \usepackage{tikz}
 \newcommand*\circled[1]{{\scriptsize\tikz[baseline=(char.base)]{
             \node[shape=circle,draw,inner sep=1pt] (char) {#1};}}}
 
+%%% Hyperlink configuration
 \usepackage{hyperref}
 \definecolor{linkblue}{HTML}{0000ee}
 \hypersetup{
@@ -46,14 +62,8 @@
     citecolor=black,
 }
 \def\UrlBreaks{\do\/\do-\do.}
-\usepackage{cleveref}
 
-\usepackage{nomencl}
-\renewcommand{\nompreamble}{\pagestyle{plain}}
-\makenomenclature
-\usepackage{ifthen}
-
-\usepackage{upgreek}% For upright capital delta
+%%% Bibliography configuration
 \usepackage[
     doi=false,
     isbn=false,
@@ -67,26 +77,12 @@
 \DeclareDelimFormat{postnotedelim}{\addcolon\space}
 \DeclareFieldFormat{postnote}{\mknormrange{#1}}
 
-\usepackage{MnSymbol}% For conditional independence symbol
-
-% For sidewaysfigure environment
-\usepackage{rotating}
-% For GUI figure: spans 2 pages
-\usepackage{subfig}
-\usepackage{graphicx}
-\graphicspath{{figures/}}
-\newcommand\scalemath[2]{\scalebox{#1}{\mbox{\ensuremath{\displaystyle #2}}}}
-
-\usepackage{booktabs}
-\usepackage{colortbl}
-
+%%% Code listing configuration
 \usepackage{minted,tcolorbox,listings}
 \tcbuselibrary{listings,minted,breakable,skins}
 \definecolor{code_bg}{HTML}{f8f8f8}
 \renewcommand{\theFancyVerbLine}{\ttfamily\small
     \textcolor{black}{\arabic{FancyVerbLine}}}
-
-% Use this when adding code to appendix
 \newtcbinputlisting[
     list inside=mylist,
     auto counter,
@@ -130,8 +126,7 @@
     }
 }
 
-\usepackage{pdfpages}
-
+%%% Algorithm configuration
 \usepackage{algorithm, algpseudocode}
 \numberwithin{algorithm}{chapter}
 \makeatletter
@@ -142,12 +137,3 @@
     labelfont={small,bf,sc},%
     textfont=small,%
 }
-
-\usepackage{booktabs}
-\usepackage{longtable}
-
-\usepackage{chemformula}
-\usepackage{textgreek}
-
-% For CUPID metrics table
-\usepackage{lscape}

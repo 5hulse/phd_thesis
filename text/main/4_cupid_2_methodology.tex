@@ -230,6 +230,21 @@ increased beyond this for reasonable multiplet assignments to be achieved.
 Listing \ref{lst:mp-assign} provides a \Python routine that can be used for multiplet
 prediction.
 
+There are certain circumstances where it is possible to safely assume that a
+particular oscillator in the estimation result is not associated with a
+first-order signal in the dataset:
+\begin{enumerate}
+    \item The oscillator is not grouped with any other oscillator as part of
+        the multiplet assignment.
+    \item The magnitude of the indirect dimension frequency of the oscillator
+        is appreciably greater than \qty{0}{\hertz}.
+\end{enumerate}
+No first-order signal will abide by both of these; if the signal is the only
+member of a multiplet grouping, it must be a singlet, and as such it will have
+an indirect-dimension frequency of \qty{0}{\hertz}. Oscillators which do agree
+with the two points above can be assumed to be related to either strong
+coupling artefacts or noise, and can be discarded.
+
 % Spurious oscillators:
 % \begin{itemize}
 %     \item Very broad, with $\fone \approx \qty{0}{\hertz}$. Caused in cases where very intense signal i.e. from solvent/residual water has a tail which ``breaks into'' the region of interest.
