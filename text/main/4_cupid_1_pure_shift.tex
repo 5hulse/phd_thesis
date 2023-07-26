@@ -1,4 +1,4 @@
-\section{Pure Shift NMR}
+\section{Pure Shift NMRoscillators}
 
 In this section, a survey of some of the most prominent procedures for
 producing pure shift spectra are presented.
@@ -197,13 +197,22 @@ selective pulse would be required to ensure it is of a sufficiently small
 bandwidth. The \ac{BIRD} method is particularly attractive in scenarios where
 the sensitivity penalty due to the involvement of a low-abundance nucleus has
 already been paid, for example in sequences where an \ac{INEPT} element is
-present\cite{Paudel2013}.
+present\cite{Paudel2013}. One of \ac{BIRD}'s primary drawbacks is the fact that
+geminal protons (i.e. protons bound to the same heteroatom) cannot be decoupled
+from each other, since such protons are always in the same subset of either
+active or inactive nuclei. Doublets rather than singlets will arise in such
+cases.
 
 \subsection{\acs{PSYCHE}}
 \label{subsec:psyche}
 The most recent major development in pure shift spectroscopy is the \ac{PSYCHE}
 experiment\cite{Foroozandeh2014,Foroozandeh2018}.
 \note{Description... Element, How it works (very simple), Effectiveness}
+
+With \ac{PSYCHE}, the proportion of active and passive spins is
+dependent on the flip angle of the chirp pulses; for a
+\ac{PSYCHE} element featuring chirp pulses with flip angles $\beta$, the
+proportions of are $\cos^2 \beta$ and $\sin^2 \beta$, respectively.
 
 The \ac{PSYCHE} element has also been employed in conjunction with the \ac{2DJ}
 experiment in order to produce spectra which already feature orthogonal

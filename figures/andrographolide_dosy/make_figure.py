@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Tue 23 May 2023 20:59:37 BST
+# Last Edited: Mon 24 Jul 2023 15:28:29 BST
 
 import matplotlib as mpl
 import nmrespy as ne
@@ -29,8 +29,10 @@ for i, region in ud_regions.items():
     for est in estimator._estimators:
         est._results[i].region = estimator.convert(region, "ppm->hz")
 
+estimator.sigma = 1.
+
 fig, axs = estimator.plot_dosy(
-    y_range=(2.e-10, 5.e-10),
+    y_range=(1.5e-10, 4.5e-10),
     y_pts=128,
     xaxis_unit="ppm",
     contour_base=8.e8,
@@ -64,8 +66,6 @@ fig, axs = estimator.plot_dosy(
 import numpy as np
 x = axs[1].lines[0].get_xdata()
 y = axs[1].lines[0].get_ydata()
-print(y[np.argmin(x)])
-exit()
 
 axs = list(axs)
 ax1_box = axs[1].get_position()
@@ -114,7 +114,7 @@ axs[1].text(0.9, 0.41, "(B)", fontsize=6, transform=axs[1].transAxes, ha="right"
 ybot, ytop = axs[0].get_ylim()
 axs[0].set_ylim(0.3 * ybot, 0.223 * ytop)
 axs[1].set_ylabel("$D (10^{10} \\unit{\\meter\\squared\\per\\second})$", labelpad=2)
-yticks = [2e-10 + i * 5e-11 for i in range(7)]
+yticks = [1.5e-10 + i * 5e-11 for i in range(7)]
 axs[1].set_yticks(yticks)
 axs[1].set_yticklabels([f"{yt * 1e10:.1f}" for yt in yticks])
 axs[3].set_xlabel(axs[3].get_xlabel(), labelpad=-1)
@@ -237,7 +237,7 @@ for est in estimator._estimators:
 
 
 _, new_axs = estimator.plot_dosy(
-    y_range=(2.e-10, 3.e-10),
+    y_range=(1.5e-10, 2.5e-10),
     y_pts=128,
     indices=[8, 9],
     xaxis_unit="ppm",
@@ -266,7 +266,7 @@ for i in (0, 2):
 
 transfer(new_axs[0], axs[4], fig)
 transfer(new_axs[2], axs[5], fig)
-axs[5].set_yticks([2e-10 + i * 2e-11 for i in range(6)])
+axs[5].set_yticks([1.5e-10 + i * 2e-11 for i in range(6)])
 axs[5].set_yticklabels([f"{2 + i * 0.2:.1f}" for i in range(6)])
 axs[5].set_xlabel(axs[5].get_xlabel(), labelpad=-1)
 

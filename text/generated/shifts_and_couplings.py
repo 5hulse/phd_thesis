@@ -1,7 +1,7 @@
 # shifts_and_couplings.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Tue 18 Jul 2023 16:20:05 BST
+# Last Edited: Mon 24 Jul 2023 15:11:37 BST
 
 from pathlib import Path
 import pickle
@@ -121,7 +121,7 @@ strychinine_tabular += make_tabular(
 table = table.replace("<STRYCHININE>", strychinine_tabular)
 
 
-def get_info_from_file(file, title):
+def get_info_from_file(file, title, shift=0.):
     with open(file, "r") as fh:
         txt = fh.readlines()
     tabular = ""
@@ -149,7 +149,7 @@ def get_info_from_file(file, title):
         rows = []
         for s in range(nspins):
             shift_line = txt[s]
-            shift_ppm = float(re.search(shift_t1_t2_regex, shift_line).group(1))
+            shift_ppm = float(re.search(shift_t1_t2_regex, shift_line).group(1)) - shift
             shift_hz = float(shift_ppm) * 500.
             coupling_line = txt[s + nspins]
             couplings = ", ".join(
@@ -192,8 +192,10 @@ table = table.replace("<FOUR-MP>", four_mp_tabular)
 five_mp_tabular = get_info_from_file(
     RESULT_DIR / "invrec/five_multiplets/shifts_and_couplings.txt",
     "Five Multiplets",
+    shift=1.4,
 )
 table = table.replace("<FIVE-MP>", five_mp_tabular)
+print(five_mp_tabular)
 
 with open("text/generated/shifts_and_couplings.tex", "w") as fh:
     fh.write(table)

@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Fri 21 Jul 2023 13:07:45 BST
+# Last Edited: Tue 25 Jul 2023 11:39:07 BST
 
 from pathlib import Path
 
@@ -31,7 +31,7 @@ ax_top = onedim_shift + 3e6
 # =====================
 estimator = ne.Estimator2DJ.from_pickle(estimator_path)
 thold = 2. * (estimator.sw()[1] / estimator.default_pts[1])
-estimator.predict_multiplets(thold=thold, rm_spurious=True, max_iterations=1, check_neg_amps_every=1)
+estimator.predict_multiplets(indices=[1, 2, 3, 4, 5], thold=thold, rm_spurious=True, max_iterations=1, check_neg_amps_every=1)
 colors = mpl.rcParams["axes.prop_cycle"].by_key()["color"]
 colors.append("#808080")
 mp_colors = [
@@ -131,7 +131,22 @@ tilt_shifts, = tilt_dataset.get_samples()
 scale = 10
 yshift = 2.25e6
 for ax in axs[0]:
-    ax.plot(tilt_shifts, (scale * tilt_spectrum) + yshift, color="k")
+    ax.plot(tilt_shifts + 0.25 * (estimator.sw(unit="ppm")[1] / estimator.default_pts[1]), (scale * tilt_spectrum) + yshift, color="k")
 fig.text(0.96, 0.75, f"$\\times {scale}$", fontsize=7)
+
+axs[0, 1].text(2.253, 2.215e6, "*")
+axs[0, 1].text(2.27, 2.215e6, "*")
+axs[0, 1].text(2.353, 2.215e6, "*")
+axs[0, 3].text(1.915, 2.22e6, "*")
+axs[0, 3].text(1.903, 2.26e6, "*")
+axs[0, 3].text(1.873, 2.26e6, "*")
+axs[0, 3].text(1.855, 2.22e6, "*")
+axs[0, 3].text(1.755, 2.22e6, "*")
+axs[0, 4].text(1.675, 2.3e6, "*")
+axs[0, 4].text(1.69, 2.23e6, "*")
+axs[0, 4].text(1.645, 2.22e6, "*")
+axs[0, 5].text(1.3175, 2.4e6, "*")
+axs[0, 5].text(1.3017, 2.43e6, "*")
+axs[0, 5].text(1.286, 2.39e6, "*")
 
 fig.savefig("figures/camphor_cupid/camphor_cupid.pdf")

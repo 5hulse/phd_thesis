@@ -199,7 +199,7 @@
 []
 
 \titleformat{\paragraph}[runin]{\itshape}{}{0pt}{#1}[]
-\titlespacing{\paragraph}{0pt}{0pt}{10pt}[]
+\titlespacing{\paragraph}{0pt}{10pt}{10pt}[]
 
 %% Caption formatting
 \RequirePackage[%
@@ -285,7 +285,7 @@
 \setlist[itemize,1]{%
     label={\raisebox{.45ex}{\scriptsize$\blacksquare$}},%
     labelwidth=0pt,%
-    leftmargin=1em,%
+    leftmargin=2em,%
     itemsep=0pt,%
 }
 \setlist[enumerate,1]{

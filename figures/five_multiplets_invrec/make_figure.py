@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Tue 23 May 2023 12:55:28 BST
+# Last Edited: Mon 24 Jul 2023 15:20:42 BST
 
 from pathlib import Path
 import re
@@ -212,6 +212,8 @@ for i in range(11):
     t = 0.4 * i
     axs[9].plot([xlim[1] + 0.01, xlim[1]], [t, t], [0, 0], color="k")
     axs[9].text(xlim[1] + 0.02, t, 0, f"{t:.1f}", fontsize=7, ha="right", va="center")
+for i in (2, 5, 8, 9):
+    axs[i].set_xticklabels([f"${-0.15 + i * 0.05:.2f}$" for i in range(8)])
 for (x, lab) in zip(axs[9].get_xticks()[:-1], axs[9].get_xticklabels()[:-1]):
     axs[9].plot([x, x], [yax[0] - 0.03, yax[0]], [0, 0], color="k")
     axs[9].plot([x, x], [yax[0], yax[1]], [0, 0], color="k", ls=":", lw=0.9, zorder=-1)
@@ -244,8 +246,8 @@ axs[5].text(0.548, 3.15, "*")
 axs[5].text(0.545, 1.2, "*")
 axs[8].text(0.49, 5., "*", ha="center", va="center")
 
-print(axs)
 for i in (2, 5, 8):
     axs[i].set_xlabel("")
+
 
 fig.savefig("figures/five_multiplets_invrec/five_multiplets_invrec.pdf")
