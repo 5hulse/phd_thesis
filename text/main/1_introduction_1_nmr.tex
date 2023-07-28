@@ -1,4 +1,14 @@
 \section{Introducing \acs{NMR}}
+Since its conception almost 80 years ago, \ac{NMR} has become a ubiquitous
+technique in chemistry, biochemistry and numerous other disciplines, thanks to
+the unique insights into structure and dynamics it can provide. In this
+chapter, after a very brief historical overview of the subject, an outline of
+the basic theory behind the experiment\,---\,without delving into the necessary
+quantum mechanics for a truly formal account\,---\,is given. Details of
+the means by which the raw experimental data, the \ac*{FID} is produced, and its
+structure, are given. Following on from this, an account is given of techniques
+used to extract quantitative information from the \acs{FID}, which is the
+central motivation of this work.
 
 \subsection{A Brief History of NMR}
 The origins of \ac{NMR} can be traced back to 1945, when independent work by
@@ -431,15 +441,15 @@ the sample magnetisation is
 sent to a receiver, which comprises a series of components which convert it
 to the \ac{FID} which is stored in computer memory. One of the processes
 that the receiver is responsible for is \emph{quadrature
-detection}\cite[Section 13.6]{Keeler2010},
-which enables two orthogonal transverse components of the magnetisation to
-be detected, and is crucial to produce spectra which are frequency
-discriminated (see Section \ref{subsec:mulitdim}).
+detection}\cite[Section 13.6]{Keeler2010}. Quadrature detection ensures
+\acp{FID} are frequency discriminated, i.e. it is possible to determine whether
+a given signal in \ac{FID} has a frequency that is above or below the
+transmitter frequency, which is in the middle of the spectral window.
 This is achieved by splitting the signal into two channels. Both
 signals, which are of very high frequency (\unit{\mega\hertz}) are mixed with
 a reference signal of frequency $\omega_{\text{RF}}$, such that a low-frequency
 signal (\unit{\kilo\hertz}) is generated, along with a very high frequency
-signal. One of the reference signals possess a phase which is shifted by
+signal. One of the reference signals possesses a phase which is shifted by
 \ang{90} relative to the other one, such that the two channels constitute a
 quadrature pair. The signals are then sent through a low-pass filter to remove
 the high frequency component produced through mixing. Finally, an analogue to
@@ -469,7 +479,16 @@ Nyquist theorem\cite{Shannon1949}.
 \acp{FID} adopt the form of a summation of $M \in \mathbb{N}$ complex
 exponentials (signals). Each signal will be subjected to damping due to
 transverse relaxation, which is typically exponential in nature. An \ac{FID}
-acquired with $N$ samples $\by \in \mathbb{C}^{N}$ therefore takes the form
+acquired with $N$ samples $\by \in \mathbb{C}^{N}$ therefore takes the
+form\footnote{
+    This provides an idealised model of the form of an \ac{FID}, based on the
+    underlying theory of the experiment. In reality, there is the possibility
+    of significant deviations from this model being realised. One potential
+    cause of this is the influence of magnetic field inhomogeneities, which
+    will cause spectral peaks to deviate from an idealised Lorentzian lineshape
+    (\textit{vide infra}). In cases where distortions to the data have
+occurred, techniques such as \emph{reference deconvolution}\cite{Morris1997}
+can be used as a corrective measure.}
 \begin{subequations}
     \begin{gather}
         y_n = x_n(\bth) + w_n \quad
@@ -487,7 +506,7 @@ acquired with $N$ samples $\by \in \mathbb{C}^{N}$ therefore takes the form
 (deterministic) evolution of the spin magnetisation $\bx$ and experimental
 noise $\bw$ (\emph{vide infra}). Each signal which contributes to $\bx$ is
 defined by four parameters:
-\begin{itemize}[label={}]
+\begin{itemize}
     \item Amplitude $a \in \mathbb{R}_{>0}$ ,
     \item Phase $\phi \in (-\pi, \pi]$ (\unit{\radian}),
     \item Frequency $f \in \left[\hspace*{2pt}\foff - \nicefrac{1}{2} \hspace*{2pt}
@@ -507,6 +526,19 @@ a1--d1 in Figure \ref{fig:amp-phase-freq-damp}.
 where $\bda \in \mathbb{R}^M = [a_1 \hspace{2pt} a_2 \hspace{2pt} \cdots
 \hspace{2pt} a_M]^{\mathrm{T}}$ is a vector of all amplitudes, $\bdphi \in
 \mathbb{R}^M$ is a vector of all phases, etc.
+An alternative, more concise, notation for \eqref{eq:x}
+involves the \emph{complex amplitudes} and \emph{signal poles} associated with
+the \ac{FID}:
+\begin{subequations}
+    \begin{gather}
+        x_n(\bth) = \sumM \alpha_m^{\vphantom{n}} z_m^n,\\
+        \alpha_m = \amexpphim,\\
+        z_m = \exp\left(
+            \left(2 \pi \iu \left(f_m - \foff\right) - \eta_m\right) \Dt
+        \right).\label{eq:signal-pole}
+    \end{gather}
+    \label{eq:x-alpha-z}
+\end{subequations}
 
 Multidimensional experiments involve incrementing one or more delay within the
 pulse sequence, in order to obtain an array of \ac{1D} \acp{FID}. In a
@@ -543,8 +575,8 @@ infra}). In general, a $D$-dimensional \ac{FID} $\bY \in \mathbb{C}^{\None
 \times \cdots \times \ND}$ can be expressed as
 \begin{subequations}
     \begin{gather}
-        \YnonenD = X_{\nonedotsnD}(\bth) + W_{\nonedotsnD},\\
-        X_{\nonedotsnD}
+        \ynonenD = \xnonenD(\bth) + \wnonenD,\\
+        \xnonenD
             = \sumM \amexpphim \prodD
             \zeta^{(d)}\left(2 \pi \left(f^{(d)}_m  - \foffd\right) \nd \Dtd\right)
             \exp\left(-\eta^{(d)}_m \nd \Dtd\right),\\
@@ -556,26 +588,29 @@ infra}). In general, a $D$-dimensional \ac{FID} $\bY \in \mathbb{C}^{\None
     \end{gather}
     \label{eq:general-fid}%
 \end{subequations}%
+
 It is typical to assume that $\symbf{W}$ is an array of \ac{AWGN}, i.e.
 the noise instances are described by a complex normal distribution with mean 0,
 and pairs of noise instances are statistically independent, regardless of their
 time separation:
-\begin{equation}
-    \begin{gathered}
-        W_{\nonedotsnD} \coloneq w \sim
+\begin{subequations}
+    \begin{gather}
+        \wnonenD \sim
         \mathcal{N_C}\left(0, 2\sigma^2\right) \\
-        \implies \Re\left(w\right) \upmodels \Im\left(w\right),
-             \Re\left(w\right) \sim \mathcal{N}\left(0, \sigma^2\right),
-             \Im\left(w\right) \sim \mathcal{N}\left(0, \sigma^2\right). \\
-    \end{gathered}
-\end{equation}
+        \begin{gathered}
+            \implies \Re\left(\wnonenD\right) \upmodels \Im\left(\wnonenD\right),\\
+             \Re\left(\wnonenD\right) \sim \mathcal{N}\left(0, \sigma^2\right),\\
+             \Im\left(\wnonenD\right) \sim \mathcal{N}\left(0, \sigma^2\right). \\
+        \end{gathered}
+    \end{gather}
+\end{subequations}
 The extent by which a signal is corrupted by noise is given by the \ac{SNR},
 the ratio of signal power and noise power:
 \begin{equation}
     \SNR\left(\bY\right) \coloneq
         \frac{1}{2 \mathfrak{N} \sigma^2}
         \sum_{\none=0}^{\None-1} \cdots \sum_{\nd=0}^{\ND-1}
-        \left \lvert X_{\nonedotsnD} \right \rvert^2,
+        \left \lvert \xnonenD \right \rvert^2,
 \end{equation}
 where $\mathfrak{N} \coloneq \None \cdots \ND$ is the total number of points
 the signal comprises. Due to the large dynamic range of the \ac{SNR} across

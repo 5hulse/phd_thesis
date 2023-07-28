@@ -1,36 +1,21 @@
-\section{An Overview of NMR Data Analysis}
-To gain insights from \ac{NMR} experiments on the chemical system of interest,
-extraction of the defining parameters $\bth$ is necessary, though the majority
-of \ac{NMR} users are unlikely to think about the process of \ac{NMR} analysis
-in this way. For example:
-\begin{itemize}
-    \item An understanding of the chemical environments of atoms in a molecule
-        can be gained by considering the chemical shifts of the various peaks
-        in the spectra, which are a proxy for the \ac{FID} frequencies
-        $\symbf{f}$.
-    \item  The relative stoichiometries\note{does this make sense?} of a
-        molecule can be elucidated by inspecting the integrals of spectral
-        peaks, which are directly related to the \ac{FID} amplitudes $\bda$
-\end{itemize}
+\section{\acs{NMR} Data Processing and Analysis}
+To gain insights from \ac{NMR} experiments on a chemical system of interest,
+extraction of the defining parameters $\bth$ is necessary. In this section, the
+conventional approach to processing and analysing \ac{NMR} data is described.
+Following this, some of the more prevalent methods for parametrising \ac{NMR}
+\acp{FID} are presented.
 
-\note{
-    \begin{itemize}
-        \item Typical approach to analysing the data (FT, peak pick, integrate, baseline correction, window functions, zero-filling etc),
-        \item Estimation techniques: LP, SVD techniques, iterative techniques (AMARES, VARPRO), Bayesian techniques (CRAFT), ML techniques
-    \end{itemize}
-}
-
-\subsection{Conventional NMR Analysis}
+\subsection{Conventional NMR Processing}
 \label{subsec:nmr-analysis}
-The conventional route to interpret \ac{NMR} experiments is to
-transform the \ac{FID} into the frequency domain, producing an
+The typical means of processing \ac{NMR} experiments for analysis is to
+transform the time domain \ac{FID} into the frequency domain, producing an
 \ac{NMR} spectrum. This is achieved through application of the \acfi{FT}:
 \begin{subequations}
     \begin{align}
         &\text{Continuous case:} &&\FT(x(t))(F) =  \int_{0}^{\infty} x(t) \exp(
             -2 \pi \iu t F
             ) \mathrm{d} t
-            \quad \forall t \in \mathbb{R},\\
+            \quad \forall t \in \mathbb{R}_{\geq 0},\\
         &\text{Discrete case:} &&\FT( \symbf{x} )_n =  \sum_{k=0}^{N-1} x_k \exp \left(
             -\frac{2 \pi \iu k n}{N} \right)
             \quad \forall n \in \lbrace 0, \cdots, N-1 \rbrace.
@@ -38,10 +23,12 @@ transform the \ac{FID} into the frequency domain, producing an
 \end{subequations}
 The \ac{FT} of a continuous exponentially-damped complex sinusoid
 takes the form of a \emph{Lorentzian}\footnote{
-    An upshot of only possessing data for $t \geq 0$ is
-    that the \ac{FT} of an \ac{FID} features a vertical offset,
-    such that the baseline does not sit at 0\cite{Tang1994}. This is corrected
-    by halving the initial point of the \ac{FID} prior to \ac{FT}.
+    In practice, when dealing with discrete data, the \ac{FT} of an \ac{FID}
+    features a vertical offset, such that the baseline does not sit at
+    0\cite{Tang1994}. This results from only possessing data for positive
+    values of $t$, rather than having a ``full echo'', where negative values of
+    $t$ are accounted for too. Fortunately, this can be corrected easily by
+    halving the initial point of the \ac{FID} prior to \ac{FT}.
 }:
 \begin{subequations}
     \begin{gather}
@@ -67,25 +54,26 @@ in the \ac{FID}:
 The \ac{FT} is a very attractive means of processing \ac{NMR} data, as it
 presents the data in a format which is human-interpretable, with the basic
 rules describing how chemical structure is mapped to \ac{NMR} spectral
-properties being a fundamental skill that virtually all experimental chemists
+properties being a fundamental skill that experimentalists in many fields
 require\cite{Hore2015b}. Due to innate properties of the \ac{NMR} experiment,
-as well as features arising from analysing a discrete signal, the raw output
-from an \ac{NMR} experiment often leads to spectra with undesirable
-characteristics without any extra manipulation. Extra processing
+as well as issues arising from analysing discrete signals, the \ac{FT} of
+the raw output of an \ac{NMR} experiment has undesirable
+characteristics without extra manipulation. Extra processing
 steps that are frequently applied to \ac{NMR} data are now outlined, in the
 order that they are applied to the data. Note that apodisation and zero filling
-are applied to the \ac{FID} (prior to \ac{FT}), while phase correction and
-baseline correction are applied to the spectrum (after \ac{FT}).
+are applied to the prior to \ac{FT} (i.e. to the \ac{FID}), while phase
+correction and baseline correction are applied after \ac{FT} (i.e. to the
+resulting \ac{NMR} spectrum).
 
 \begin{figure}
     \centering
     \includegraphics{amp_phase_freq_damp/amp_phase_freq_damp.pdf}
     \caption[
         An illustration of the influence of the four parameters associated
-        with an oscillator in both the time-domain nels and Fourier-domain.
+        with a signal in both the time-domain nels and Fourier-domain.
     ]{
         An illustration of the influence of the four parameters associated
-        with an oscillator in both the time-domain (panels \textbf{a1.} --
+        with a signal in both the time-domain (panels \textbf{a1.} --
         \textbf{d1.}) and Fourier-domain (panels \textbf{a2.} -- \textbf{d2.}).
         The red signal is generated with the same parameters across all panels:
         $a = a_{\text{red}}$, $\phi = 0$, $f = f_{\text{red}}$,  $\eta =
@@ -111,22 +99,20 @@ baseline correction are applied to the spectrum (after \ac{FT}).
 \subsubsection{Apodisation}
 Apodisation refers to the process of mutating a signal by multiplying it with a
 specified function, often called a \emph{window function}, in order to enhance
-a certain property. Apodisation is employed to improve either the sensitivity
-or the resolution of the final spectrum, albeit at the cost of worsening the
-other feature. There is no such thing as a free lunch after all.
+either the sensitivity or the resolution of the final spectrum. This does come
+at the cost of worsening the other feature however.
 
 \paragraph{Sensitivity Enhancement} As \iac{FID} progresses with time, the
 contributions from the desirable signal ($\bx$) and experimental noise ($\bw$)
 becomes more
 weighted towards the noise, as spin relaxation phenomena dampen the signal. As
 such, multiplying the \ac{FID} with a function which is initially large and
-gets progressively smaller with time can be used to enhance the \ac{SNR} of the
-\ac{FID}. The most common function to achieve this is the negative exponential
-such that a given point is multiplied by $\exp(-\nicefrac{k n}{N - 1})$.
+gets progressively smaller can be used to enhance the \ac{SNR} of the
+\ac{FID}. The most common function to achieve this is the negative exponential,
+in which a given point is multiplied by $\exp(-\nicefrac{k n}{N - 1})$.
 $k$ is referred to as the line broadening factor, since the increased dampening
 applied to the signal causes the linewidth of the spectral peaks to increase
-(see panel d of Figure \ref{fig:amp-phase-freq-damp}). As such, peaks become
-more poorly resolved.
+(see panel d of Figure \ref{fig:amp-phase-freq-damp}).
 
 \paragraph{Resolution Enhancement} By contrast, resolution enhancement can be
 achieved by applying a window function that artificially reduces the rate of
@@ -134,10 +120,11 @@ oscillator decay, by suppressing points that are early in the \ac{FID}. Popular
 examples of window functions for resolution enhancement are the Lorentz-Gauss
 function, which bestow a sharper, Gaussian shape to the peaks, and the
 sine-bell, which is commonly used in multidimensional experiments. Since the
-initial points in the \ac{FID} are attenuated these window functions reduce the
+initial points in the \ac{FID} are attenuated, these window functions reduce the
 sensitivity of the resulting spectra.
 
-By being defined to decay to a sufficiently small value, or $0$, at the end of
+By being defined to decay to a sufficiently small value or $0$ itself at the
+end of
 the \ac{FID}, window functions are also able to suppress \emph{truncation
 artefacts}, which appear when the \ac{FID} still possesses appreciable signal
 amplitude at the end of the acquisition period. Truncated \acp{FID} produce
@@ -146,8 +133,20 @@ the untruncated \ac{FID}, with the \ac{FT} of a box-function, which takes the
 form of a sinc function ($\nicefrac{\sin(x)}{x}$). The resulting artefacts in
 spectra are often referred to as \emph{sinc wiggles} for this reason.
 
-\subsubsection{Zero filling}
-\note{TODO}
+\subsubsection{Zero-filling}
+Zero-filling refers to the process of appending zeros to the end of an
+\ac{FID}. One reason why this is often done is to ensure that the number of
+points in the \ac{FID} is a power of 2, making the \ac{FID} of an optimal size
+for processing by divide and conquer methods like the Cooley-Tukey
+algorithm\cite{Cooley1965}. Beyond this, it is actually
+possible to enhance the information content of the spectrum if an \ac{FID}
+comprising $2^{m-1} < N \leq 2^m$ points is zero-filled to $2^{m+1}$
+points\cite{Bartholdi1973}. By doing this, the real and imaginary components of
+the spectrum become causally linked; the real component can be derived from the
+imaginary component and vice versa according to the Kramers-Kronig relations.
+Zero-filling beyond a factor of 2 can bestow a
+cosmetic improvement to the spectrum, but it does not incorporate any new
+information into it.
 
 \subsubsection{Phase correction}
 The real and imaginary components of \eqref{eq:ft-summation} are as follows:
@@ -170,18 +169,26 @@ where $\mathcal{A}_m$ and  $\mathcal{D}_m$ denote \emph{absorption} and
 As illustrated most clearly in panel c2 of Figure
 \ref{fig:amp-phase-freq-damp}, a peak with an absorption lineshape is far more
 desirable than one with a dispersion lineshape for two key
-reasons: (a) its maximum corresponds to the oscillator frequency, while a
-dispersion Lorentzian has a magnitude of $0$ at the oscillator frequency (b)
-they decay more rapidly towards $0$ and are therefore more resolved. Generating
-a spectrum where all peaks possess absorption Lorentzians is therefore desired,
-which is possible if all signal have a phase of \ang{0}, which leads to
+reasons:
+\begin{enumerate}
+    \item Its maximum corresponds to the signal frequency, while a dispersion
+        Lorentzian has a magnitude of $0$ at the oscillator frequency.
+    \item It decays more rapidly\footnote{
+            At large frequency offsets, absorption Lorentzians decay at a rate
+            $\propto \nicefrac{1}{(f_m - F)}^2$, while dispersive Lorentzians
+            decay at a rate $\propto \nicefrac{1}{(f_m - F)}$.
+        } and therefore exhibits better resolution.
+\end{enumerate} (b)
+Generating a spectrum whose real component comprise peaks which all possess
+absorption Lorentzians is therefore desired, which is possible if all signal
+have a phase of \ang{0}:
 \begin{subequations}
     \begin{gather}
         \Re(s(F)) = \sum_m a_m \mathcal{A}_m(F),\label{eq:absorption}\\
         \Im(s(F)) = -\sum_m a_m \mathcal{D}_m(F).\label{eq:dispersion}
     \end{gather}
 \end{subequations}
- Fortunately, for the majority of \ac{NMR} experiments\footnote{
+For the majority of \ac{NMR} experiments\footnote{
      An example of an exception to this rule is when \acl{FS} pulses are applied,
      which generate datasets with quadratic phase behaviour. This is discussed
      in more detail in Section \ref{sec:bbqchili}.
@@ -191,43 +198,40 @@ frequencies, i.e.
     \phi_m = \Phi_0 + \Phi_1 f_m,
 \end{equation}
 where $\Phi_0, \in (-\pi, \pi]$ and $\Phi_1 \in \mathbb{R}$ are zero- and
-first-order phase terms. A feature of all \ac{NMR} processing platforms is the
-ability to perform phase-correction, in which the user determines
-$\Phi_0$ and $\Phi_1$ by inspecting the appearance of the spectrum
+first-order phase terms.
+Phase correction refers to the process in which $\Phi_0$ and $\Phi_1$ are
+determined by inspecting the appearance of the spectrum
 $\symbf{s}_{\phi}$ for different values of $p_0$ and  $p_1$, according to
 \begin{equation}
     s_{\phi,n} = s_n
-    \exp\left(\iu \left(p_0 + \frac{p_1 n}{N - 1}\right)\right),
+    \exp\left(-\iu \left(p_0 + \frac{p_1 n}{N - 1}\right)\right).
 \end{equation}
-in an attempt to give all peaks in the spectrum absorption-mode lineshapes.
+When $p_0 = \Phi_0$ and  $p_1 = \Phi_1$, the spectrum will be correctly phased.
 
 \subsubsection{Baseline correction}
 The \emph{baseline} of an \ac{NMR} spectrum is used to describe regions where
 no discernible peaks reside (i.e. only experimental noise exists).
-Baseline distortion is used to describe scenarios when the baseline, rather
-than exhibiting a flat profile with a moving average of zero, has a distorted
-shape instead. There a number of potential causes of baseline distortion,
-including acquisition starting at a time $\neq 0$, ``clipping'' of the initial
-points due to excessive receiver gain, and ``baseline roll'' due to the
-transient response of audio filters\parencites[Section~3.3]{Cavanagh2007}{Tang1994}.
-Whatever the cause(s), it is typically the corruption of the initial points in the
-\ac{FID} that causes baseline distortion.
-It is common to apply baseline correction algorithm after phase correction has
-been undertaken to negate any distortion. This involves multiplying
-the spectrum with a high-order polynomial function, whose coefficients are
-determined by an appropriate algorithm. A popular algorithm
-involves the two-step procedure of (a) determining spectral regions which are
-part of the baseline (b) fitting the baseline regions to a
+Baseline distortion describes scenarios in which the baseline, rather
+than exhibiting a flat profile with an average of zero, has some other form.
+There a number of potential causes of baseline distortion,
+``clipping'' of the initial points due to excessive receiver gain,
+and pulse breakthrough.
+Whatever the cause(s), it is typically a corruption of the initial points in
+the \ac{FID} that causes baseline distortion.
+It is common to apply a baseline correction algorithm to negate any distortion.
+This involves multiplying the spectrum with a high-order polynomial function,
+whose coefficients are determined by an appropriate algorithm. A popular
+algorithm involves the two-step procedure of (a) determining spectral regions
+which are part of the baseline (b) fitting the baseline regions to a
 polynomial\cite{Dietrich1991,Cobas2006}.
 
-\subsection{Conventional analysis for multidimensional datasets}
+\subsection{Conventional processing for multidimensional datasets}
 \label{subsec:mulitdim}
 As for \ac{1D} datasets, it is desirable that multidimensional \ac{NMR} spectra
 feature peaks which are (a) frequency discriminated, and (b) comprise pure
-absorption-mode lineshapes in each dimension. Frequency discrimination describes
-the ability to determine whether a particular resonance is at a frequency which
-higher or lower than the frequency of the transmitter, which is in the middle
-of the spectral window.
+absorption-mode lineshapes in each dimension.
+ A description of how this can be achieved with both
+amplitude- and phase-modulated datasets is now given.
 
 \subsubsection{Amplitude-modulated signals}
 It is clear that a cosine modulated signal, given by \eqref{eq:general-fid}
@@ -250,12 +254,12 @@ direct dimension, setting the imaginary component to zero, and finally
 applying \ac{FT} in the indirect dimension. The real component of the result
 (panel b) is referred to as a \emph{double absorption} spectrum.
 
-To achieve frequency discrimination, it is necessary to also possess the
-analogous sine-modulated signal, for which $\zeta^{(1)} = \sin(\cdot)$, as this
-in effect achieves quadrature detection in the indirect dimension. For
-numerous multidimensional experiments, this can be achieved by repeating the
-pulse sequence, with careful adjustments to the phases of particular pulses, in
-a process referred to as \emph{phase cycling}\cite[Chapter 11]{Keeler2010}.
+For frequency discrimination, it is necessary to also possess the
+analogous sine-modulated signal ($\zeta^{(1)} = \sin(\cdot)$) as this
+achieves quadrature detection in the indirect dimension. For
+numerous multidimensional experiments, repeating the
+pulse sequence, with careful adjustments to the phases of particular pulses
+(\emph{phase cycling}) enables this\cite[Chapter 11]{Keeler2010}.
 Applying the same processing as that which achieved the double absorption
 spectrum for the cosine-modulated case generates a spectrum whose imaginary
 component features two peaks, but with opposite signs (panel c).
@@ -298,56 +302,123 @@ subtracting the sine spectrum from the cosine spectrum (panel d).
 \subsubsection{Phase-modulated signals}
 
 A ``positive'' phase-modulated signal with the form $\zeta^{(1)} = \exp(\iu \cdot)$
-(commonly referred to as \emph{hypercomplex}) is frequency-discriminated due to
+(commonly referred to as \emph{hypercomplex}) is frequency discriminated due to
 its quadrature nature. However, direct \ac{FT} of such a signal in both
 dimensions leads to a peak with a phase-twist lineshape, with no means of
 separating the absorption and dispersion contributions (panel e). Certain pulse
 sequences, including \ac{2DJ} spectroscopy\cite{Aue1976,Morris2009} (see
 Chapter \ref{chap:cupid}) and
 \ac{COSY}\cite{Jeener1971,Jeener2016,Aue1976a} produce hypercomplex datasets,
-and the conventional means of processing is simply to display the absolute
-value of the spectrum, which while removing the phase twist shapes, produces
-peaks with broad wings, due to the influence of the dispersive components. In
-scenarios where it is possible, it is desirable to acquire the equivalent
-``negative'' signal ($\zeta^{(1)} = \exp(-\iu \cdot)$), whose \ac{FT} leads to
-a peak with the same phase twist form, but centered at $2\foffone - \fone$
-(panel f). Inverting this spectrum in $\Fone$ (panel g), and summing with the
-positive spectrum nullifies the dispersive contribution, generating a spectrum
-with an absorption lineshape\cite{Davis1992} (panel h).
+and the conventional means of processing is simply to display the
+spectrum in \emph{magnitude-mode}, where the absolute value of each complex
+point is plotted. While the phase twist shapes are removed by doing this, the
+resulting peaks have broad ``wings'', due to the influence of the
+dispersive components. In scenarios where it is possible, it is desirable to
+acquire the equivalent ``negative'' signal ($\zeta^{(1)} = \exp(-\iu \cdot)$),
+whose \ac{FT} leads to a peak with the same phase twist form, but centered at
+$2\foffone - \fone$ (panel f). Inverting this spectrum in $\Fone$ (panel g),
+and summing with the positive spectrum nullifies the dispersive contribution,
+generating a spectrum with an absorption lineshape\cite{Davis1992} (panel h).
+
+The concepts described here for \ac{2D} signals can be extended for the
+processing of \ac{NMR} datasets with any number of dimensions, provided that in
+each dimension, the requisite pair of amplitude- or phase-modulated signals
+exist. As such, a set of $2^{D-1}$ signals need to be acquired.
+
+\subsection{Conventional \acs{NMR} analysis}
+The amount of detail required from an \ac{NMR} dataset depends on the
+the user's requirements. In synthetic organic chemistry, \ac{NMR} is often used
+simply as a means of verifying that a particular step in a synthetic pathway
+was successful. A simple inspection of peak locations and splittings due to
+scalar couplings in the spectrum may be sufficient to verify that the desired
+molecule was created. In many situations however, a detailed quantitative
+description of the data is desired. Some examples include:
+\begin{itemize}
+    \item Deducing the relative concentrations of a mixture of different
+        molecules, with application in areas such as
+        metabolomics\cite{Emwas2019}.
+        In these circumstances, it is necessary to deduce the relative
+        amplitudes of the signals in the data.
+    \item Assessing the effects of ligand binding to a
+        protein\cite{Williamson2013}. Incorporating a ligand into a sample
+        containing a protein can induce changes in the resonance frequencies of
+        the protein nuclei.
+\end{itemize}
+
+Most \ac{NMR} users are principally interested in the integrals and positions
+of peaks in spectra\footnote{
+    There may be some situations where the linewidth of the peaks are of
+    interest too. An absorption Lorentzian produced from an
+    exponentially-damped complex sinusoid with a damping factor $\eta$ will
+    have a linewidth at half its maximum intensity of $\nicefrac{\eta}{\pi}$.
+    The linewidth of peaks give an insight into the rate of transverse
+    relaxation ($T_2$) associated with a given spin.
+}.
+Integrals are usually computed based on user-specified regions of the spectrum,
+while the most rudimentary form of ``peak picking''\,---\,beyond the user
+simply defining where peaks are by inspecting the spectrum\,---\,involves
+assessing where relative maxima exist, subject to
+tolerances which ensure that maxima that are likely due to the presence of
+noise do not lead to roughly $\nicefrac{1}{2}$ of all points in the spectrum
+being picked.
 
 \subsection{Estimation Techniques for NMR Analysis}
+While integration and peak picking works adequately for high \ac{SNR} spectra
+featuring very well-separated peaks, in most practical situations accurate
+quantification of individual resonances is impossible using this approach,
+principally due to the inherently large poor resolution associated with the
+\ac{FT}.
+For this reason, considerable interest has been given to the development of
+techniques which are better-able to estimate \ac{NMR} datasets\footnote{
+    The process of estimating the parameters describing a particular \ac{NMR}
+    dataset is often referred to as \emph{deconvolution}. The term is not used
+    here as it is a misnomer; deconvolution is simply the inverse operation of
+    convolution and has nothing to do with estimating the optimal set of
+    parameters which describe a signal.
+}.
+Here, a summary of some of the most prominent methods for quantifying \ac{NMR}
+data are given. Attention is primarily given to methods which consider
+time-domain data, as it is the focus of this work.
 
 \subsubsection{\Acl{LP}}
-
-\Ac{LP}\cite{Stephenson1988,Koehl1999} is a procedure which is now widely used
-in \ac{NMR} data analysis, often with the intention of (a) propagating the
+\Ac{LP}\cite{Stephenson1988,Koehl1999} is a procedure which is widely used
+in \ac{NMR} data analysis, for the purposes of (a) propagating the
 \ac{FID} further in time in order to reduce the presence of truncation
-artefacts and (b) correct the commonly corrupted initial points of the
-\ac{FID}, as a means of improving the spectral baseline. The concept of \ac{LP}
-stems from the idea that a deterministic signal, such as a \ac{1D} \ac{FID} can
-be described as an \ac{AR} process, such that a given sample from the dataset
-can be described by a linear combination of an appropriate number $L$ of
+artefacts, and/or (b) correcting the commonly corrupted initial points of the
+\ac{FID}, as a means of improving the spectral baseline. \ac{LP} is
+considerably different to the other methods presented here; while the other
+approaches aim to determine the parameters defining each contributing signal in
+the \ac{FID}, \ac{LP} is used to provide a holistic picture, describing how a
+datapoint in the \ac{FID} is related to datapoints which precede or succeed it.
+As such, \ac{LP} does not provide insights into individual signals in the
+\ac{FID}.
+
+The concept of \ac{LP} stems from the idea that a deterministic signal like a
+\ac{1D} \ac{FID} can be described as an \ac{AR} process, meaning that a given
+sample from the dataset is a linear combination of an appropriate number $L$ of
 previous samples:
 \begin{equation}
     y_n = \sum_{l=1}^{L}
-    c_l y_{n-l} + e_l
+    c_l y_{n-l} + e_l \quad
+    \forall n \in \lbrace L, L + 1, \cdots, N - 1 \rbrace,
     \label{eq:forward-lp}
 \end{equation}
-$\forall n \in \lbrace L, L + 1, \cdots, N - 1 \rbrace$, where $L \in
-\mathbb{Z}$ defines the order of the linear estimator, and $\symbf{c} \in
+where $L \in
+\mathbb{N}$ defines the order of the linear estimator, and $\symbf{c} \in
 \mathbb{R}^{L}$ is a set of \emph{forward} \ac{LP} coefficients. $\symbf{e} \in
-\mathbb{R}^L$ is a set of parameters, often called the \emph{innovations},
+\mathbb{R}^L$ is a set of parameters, often called the innovations,
 which account of error in the \ac{LP} model. A datapoint can also be described
 by a linear combination of a certain number of subsequent points, using the set
 of \emph{backward} \ac{LP} coefficients $\symbf{b} \in \mathbb{R}^L$:
 \begin{equation}
     y_n = \sum_{l=1}^{L}
-    b_l y_{n+l} + e_l
+    b_l y_{n+l} + e_l \quad
+    \forall n \in \lbrace 0, 1, \cdots, N - L - 1 \rbrace.
     \label{eq:backward-lp}
 \end{equation}
-$\forall n \in \lbrace 0, 1, \cdots, N - L - 1 \rbrace$. Determining
+Determining
 the \ac{LP} coefficients enables the estimation of \ac{FID} values beyond the
-data actually acquired ($\none < 0$ and $\none > \None - 1$). It should be noted that
+data actually acquired ($n < 0$ and $n > N - 1$). It should be noted that
 \eqref{eq:forward-lp} and \eqref{eq:backward-lp} are only valid for
 \acp{FID} without any corruption from experimental noise. Noisy datasets are
 instead an example of an \ac{ARMA} process. Despite this, due to the greater
@@ -359,131 +430,197 @@ and the \ac{LP} coefficients\cite[Section 3.3]{Koehl1999}, with the
 Levinson-Durbin algorithm providing an efficient means of solving the
 equations\cite{Levinson1946,Durbin1960}.
 
-\note{Stuff below here has been copy-pasted from old document. Will need editing!}
-\subsubsection{Signal-Noise Subspace Separation Techniques}
+\subsubsection{\acs{SVD}-based methods}
+Some of the most prevalent methods for \ac{NMR} estimation involve \acfi{SVD}
+as a key component (\S \ref{subsec:linear-algebra}). For each of these methods,
+a truncated \ac{SVD} is applied to a Hankel matrix containing the \ac{FID}.
+Above a certain \ac{SNR} threshold, it is found that the singular values in the data matrix associated with signal are
+larger than those related to noise, and as such forming a low-rank
+approximation of the data matrix nullifies contributions from noise in the
+parameter estimate.
+The degree of truncation is dependent on the suspected model order of the
+dataset, which must be supplied, or determined by some appropriate metric.
+All the \ac{SVD}-based techniques determining the nonlinear
+parameters in \eqref{eq:x} (frequencies and damping factors, incorporated in
+the signal poles).
+Subsequently, the amplitudes and phases can be computed by solving a
+linear least-squares problem:
+\begin{subequations}
+    \begin{gather}
+        \symbf{\alpha} = \symbf{Z}^+ \symbf{y},\\
+        \symbf{Z} = \begin{bmatrix}
+            1 & 1 & \cdots & 1 \\
+            z_1^1 & z_2^1 & \cdots & z_M^1\\
+            \vdots & \vdots & \ddots & \vdots\\
+            z_1^{N-1} & z_2^{N-1} & \cdots & z_M^{N-1}\\
+            \end{bmatrix}.
+    \end{gather}
+    \label{eq:complex-amplitudes}
+\end{subequations}
 
-The Linear Prediction with Singular-Value Decomposition was proposed by Kumaresan and Tufts\cite{Kumaresan1982}. The core assumption of the method is that a given data point $y_n$ may be expressed as a linear combination of $L$ previous, or preceeding points:
-\begin{equation}
-  \begin{split}
-    y_n &= b_1 y_{n+1} + b_2 y_{n+2} + \cdots + b_L y_{n+L}\\
-    &= b_{-1} y_{n-1} + b_{-2} y_{n-2} + \cdots + b_{-L} y_{n-L}
-  \end{split}
-\end{equation}
-where $b_l$($b_{-l}$), $\ l \in \{ 1, 2, \cdots, L \}$ are the backward(forward) prediction coeffiecients. For the backward prediction case, consider the follwing set of linear equations $\symbf{A} \symbf{b} = - \symbf{h}$:
-\begin{equation}
-  \label{lineqs}
-  \begin{bmatrix}
-    y_1^* & y_2^* & \cdots & y_L^*\\
-    y_2^* & y_3^* & \cdots & y_{L+1}^*\\
-    \vdots & \vdots & \ddots & \vdots\\
-    y_{N-L}^* & y_{N-L+1}^* & \cdots & y_{N-1}^*\\
-  \end{bmatrix}
-  \begin{bmatrix}
-    b_1\\
-    b_2\\
-    \vdots\\
-    b_L
-  \end{bmatrix}
-  = -
-  \begin{bmatrix}
-    y_0^*\\
-    y_1^*\\
-    \vdots\\
-    y_{N-L-1}^*
-  \end{bmatrix}
-\end{equation}
-This equation can be augmented into the form $\symbf{A}^{\prime} \symbf{b}^{\prime} = \symbf{0}$, with $\symbf{A}^{\prime} = \left[ \symbf{h} \vert \symbf{A} \right]$ and $\symbf{b}^{\prime} = \left[1, \symbf{b}^{\mathrm{T}} \right]^{\mathrm{T}}$. For the noiseless data case (i.e. $y_n = x_n$), any row of $\symbf{A}^{\prime}$ can be written as the linear combination of $J$ linearly independent vectors $\symbf{f}_j,\ j \in \{1, 2, \cdots, J\}$\cite{Kumaresan1983}:
-\begin{equation}
-  \symbf{f}_j = \left[ 1, z_j^*, \left(z_j^2\right)^*, \cdots, \left(z_j^L\right)^* \right],
-\end{equation}
-meaning that the rank of $\symbf{A}^{\prime}$ is $J$, provided it posseses at least $J$ rows ($J \leqslant N - L$). The fact that $\symbf{b}^{\prime}$ lies in the null space of $\symbf{A}^{\prime}$ implies that $\symbf{f}_j \symbf{b}^{\prime} = 0$, such that the following holds:
-\begin{equation}
-  \label{lincom}
-  1 + b_1 z_j^* + b_2 \left(z_j^2\right)^* + \cdots + b_L \left(z_j^L\right)^* = 0
-\end{equation}
-It should be noted that $L$ must satisfy $L \geqslant J$ to ensure the null space of $\symbf{A}^{\prime}$ has at least a dimension of 1.
-Eqn. \ref{lincom} leads to a means of deriving the signal poles $z_j$ via polynomial $B(\zeta)$:
-\begin{equation}
-  B(\zeta) = 1 + b_1 \zeta^{-1} + b_2 \zeta^{-2} + \cdots + b_L \zeta^{-L},
-\end{equation}
-the zeros of which will occur whenever $\zeta = \left(z_j^{-1}\right)^*,\ j \in \{1, 2, \cdots, J\}$.
+Both \ac{LPSVD}\cite{Kumaresan1982,Kumaresan1983} and
+\ac{HSVD}\cite{Kung1983} have be used extensively in the field of \ac{MRS}
+after introduction by Barkhuijsen and
+co-workers\cite{Barkhuijsen1985a,Barkhuijsen1985b,Barkhuijsen1987,Beer1988,Pijnappel1992}.
+With
+\ac{LPSVD}, the signal poles are determined by finding the roots of a
+polynomial which features backward \ac{LP} coefficients. \ac{HSVD} is
+based on the ``state-space'' principle, which generated interest in part
+because it meant that the computationally costly polynomial rooting step in
+\ac{LPSVD} was avoided.
+A further technique in this category, the
+\ac{MPM}\cite{Hua1990,Hua1990b,Hua1991} is based on solving a generalised
+eigenvalue problem.  Pines and coworkers introduced the \ac{ITMPM}\cite{Lin1997},
+for use in \ac{NMR}, which combines the \ac{MPM} with a method for estimating
+the model order, such that no \textit{a priori} information is required.
+Outlines of the \ac{MPM} and its \ac{2D} equivalent, the
+\ac{MMEMPM}\cite{Hua1992,Chen2007} are provided in detail in \S
+\ref{subsec:mpm}.
 
-Of course, the prediction coefficient vector $\symbf{b}$ still needs to be determined. Eqn. \ref{lineqs} implies that the optimal vector can be determined by simple linear lest squares:
-\begin{equation}
-  \hat{\symbf{b}} = - \mathbf{A}^+ \symbf{h}.
-\end{equation}
-However, noise components of the signal will be incorporated into the solution of $\symbf{b}$. To avoid this, $\symbf{A}$ is moved from the signal-noise subspace to the signal subspace via filtration using Singular-Valued Decomposition:
-\begin{equation}
-  \symbf{A} = \symbf{U}
-  \begin{bmatrix}
-    \symbf{\Sigma}\\
-    \symbf{0}
-  \end{bmatrix}
-  \symbf{V}^{\dagger} = \sum_{l=1}^R \sigma_l^{\vphantom{\dagger}} \symbf{u}_l^{\vphantom{\dagger}} \symbf{v}_l^{\dagger}
-\end{equation}
-where $R = \\mathrm{rank}(\symbf{A}) = \min(L, N)$. The matrix $\tilde{\symbf{A}}$ of rank $J$ with the closest relationship to $\symbf{A}$ is a Frobenius norm sense is given by\cite{Cadzow1988}:
-\begin{equation}
-  \tilde{\symbf{A}} = \sum_{l=1}^J \sigma_l^{\vphantom{\dagger}} \symbf{u}_l^{\vphantom{\dagger}} \symbf{v}_l^{\dagger}.
-\end{equation}
-Using the following relationship between a matrix's pseudoinverse and its SVD:
-\begin{equation}
-  \symbf{A}^+ = \symbf{V}
-  \begin{bmatrix}
-    \symbf{\Sigma}^+\\
-    \symbf{0}
-  \end{bmatrix}
-  \symbf{U}^{\dagger},
-\end{equation}
-The optimal vector of prediction coeffiecients is determined by:
-\begin{equation}
-  \hat{\symbf{b}} = - \tilde{\symbf{A}}^+ \symbf{h} = - \sum_{l=1}^J \sigma_l^{-1 \vphantom{\dagger}} \symbf{v}_l^{\vphantom{\dagger}} \left[ \symbf{u}_l^{\dagger} \symbf{h} \right]
-\end{equation}
-Application: \cite{Barkhuijsen1985}
+% separating contributions from deterministic
+% signal in the \ac{FID} from experimental noise.
 
-\note{HSVD, MPM, only gloss over MPM as it is described in detail in Chapter 2}
+% \paragraph{\acs{LPSVD}} \Ac{LPSVD} was proposed by Kumaresan
+% and Tufts\cite{Kumaresan1982}, and introduced to \ac{NMR} by Barkhuijsen and
+% coworkers\cite{Barkhuijsen1985a,Barkhuijsen1985b}. Given the backward \ac{LP}
+% assumption above, consider the set of linear equations for a \emph{noiseless}
+% \ac{FID} $\symbf{x} \in \mathbb{C}^{N}$:
+% \begin{equation}
+%   \label{eq:lineqs}
+%   \underbrace{
+%       \begin{bmatrix}
+%         x_1^* & x_2^* & \cdots & x_L^*\\
+%         x_2^* & x_3^* & \cdots & x_{L+1}^*\\
+%         \vdots & \vdots & \ddots & \vdots\\
+%         x_{N-L}^* & x_{N-L+1}^* & \cdots & x_{N-1}^*\\
+%       \end{bmatrix}
+%   }_{\symbf{A}}
+%   \underbrace{
+%       \begin{bmatrix}
+%         b_1\\
+%         b_2\\
+%         \vdots\\
+%         b_L
+%       \end{bmatrix}
+%   }_{\symbf{b}}
+%   = -
+%   \underbrace{
+%       \begin{bmatrix}
+%         x_0^*\\
+%         x_1^*\\
+%         \vdots\\
+%         x_{N-L-1}^*
+%       \end{bmatrix}
+%   }_{\symbf{h}},
+% \end{equation}
+% with $L \geq M$.
+% This equation can be augmented into the form $\symbf{A}^{\prime}
+% \symbf{b}^{\prime} = \symbf{0}$, with $\symbf{A}^{\prime} = \left[ \symbf{h}
+% \vert \symbf{A} \right]$ and $\symbf{b}^{\prime} = \left[1 \hspace*{4pt}
+% \symbf{b}^{\mathrm{T}}\right]^{\mathrm{T}}$.
+% Any row of $\symbf{A}^{\prime}$ can be written as the linear
+% combination of $M$ linearly independent vectors $\symbf{r}_m\ \forall m \in
+% \{1, \cdots, M\}$\cite{Kumaresan1983}:
+% \begin{equation}
+%   \symbf{r}_m =
+%   \begin{bmatrix}
+%       1 & z_m^* & (z_m^2)^* & \cdots & (z_m^L)^*
+%   \end{bmatrix},
+% \end{equation}
+% where $z_m$ is the signal pole of the $m$\textsuperscript{th} signal, given by
+% \eqref{eq:signal-pole}.
+% This means that the rank of $\symbf{A}^{\prime}$ is $M$, provided it possesses
+% at least $M$ rows ($M \leq N - L$). Because $\symbf{b}^{\prime}$ lies in the
+% null space of $\symbf{A}^{\prime}$, $\symbf{r}_m
+% \symbf{b}^{\prime} = 0$, such that the following holds:
+% \begin{equation}
+%   \label{eq:lincom}
+%   1 + b_1 z_m^* + b_2 (z_m^2)^* + \cdots + b_L (z_m^L)^* = 0
+% \end{equation}
+% Therefore, the signal poles can be determined by finding
+% the roots of the polynomial $B(\zeta)$:
+% \begin{equation}
+%   B(\zeta) = 1 + b_1 \zeta^{-1} + b_2 \zeta^{-2} + \cdots + b_L \zeta^{-L}.
+% \end{equation}
+% The roots of $B(\zeta)$ will occur whenever $\zeta = \left(z_m^{-1}\right)^*\
+% \forall m \in \{1, \cdots, M\}$.
+
+% The prediction coefficient vector $\symbf{b}$ still needs to be determined.
+% \eqref{eq:lineqs} implies that $\symbf{b}$ can be determined by employing
+% linear lest squares:
+% \begin{equation}
+%   \symbf{b} = - \mathbf{A}^+ \symbf{h}.
+% \end{equation}
+% However, in the case of real signals which are corrupted with noise $\symbf{y}
+% \in \mathbb{C}^N$, noise
+% would be incorporated into the solution of $\symbf{b}$. To mitigate this, a
+% low-rank approximation of $\symbf{A}$ is produced, in an attempt to purge
+% contributions from noise, and retain only contributions from the $M$ signals in
+% the data. More information on the \ac{SVD} and its usefulness in generating
+% low-rank approximations of matrices can found found in \S \ref{subsec:mpm} and
+% \S \ref{subsec:linear-algebra}.
+% The vector of prediction coefficients is determined by:
+% \begin{equation}
+%     \symbf{b} = - \sum_{m=1}^M \sigma_m^{-1 \vphantom{\dagger}} \left[
+%     \symbf{u}_m^{\dagger} \symbf{h} \right] \symbf{v}_m^{\vphantom{\dagger}},
+% \end{equation}
+% where $\sigma_m$ is the  $m$\textsuperscript{th} most significant singular
+% value of $\symbf{A}$, and $\symbf{u}_m$ and $\symbf{v}_m$ are the corresponding
+% right and left singular vectors, respectively. As will be illustrated in \S
+% \ref{subsec:mpm}, the complex amplitudes associated with the \ac{FID} can be
+% determined by solving a linear set of equations involving a Vandermonde matrix
+% of the signal poles:
+% \begin{subequations}
+%     \begin{gather}
+%         \symbf{\alpha} = \symbf{Z}^+ \symbf{y},\\
+%         \symbf{Z} = \begin{bmatrix}
+%             1 & 1 & \cdots & 1 \\
+%             z_1^1 & z_2^1 & \cdots & z_M^1\\
+%             \vdots & \vdots & \ddots & \vdots\\
+%             z_1^{N-1} & z_2^{N-1} & \cdots & z_M^{N-1}\\
+%             \end{bmatrix}
+%     \end{gather}.
+% \end{subequations}
+
+% \paragraph{\acl{MPM}}
+% The \ac{MPM}, developed by Hua and Sarkar, largely finds preference over
+% \ac{LPSVD} and \ac{HSVD} nowadays
 
 \subsubsection{Iterative Methods}
+For problems involving nonlinear function fitting, the most widespread approach
+are iterative techniques. The \ac{VARPRO} method\cite{Golub1973} is such an
+example, which has been applied extensively in the field of \ac{MRS}, following
+its introduction by van der Veen and
+co-workers\cite{VanDerVeen1988,Decannierec1994}. \ac{VARPRO}
+relies on minimising the following quantity:
+\begin{equation}
+    \hat{\symbf{\theta}} = \argmin_{\symbf{\theta} \in \mathbb{R}^{4M}}
+        \left \lVert \symbf{y} - \symbf{x}(\symbf{\theta}) \right \rVert^2 \equiv
+        \argmin_{\symbf{\theta} \in \mathbb{R}^{4M}} \left \lVert \symbf{y} - \symbf{Z}\symbf{\alpha} \right \rVert^2
+\end{equation}
+The linear parameters, residing in the vector of complex amplitudes, can be
+recast as $\symbf{Z}^+\symbf{y}$ (see \eqref{eq:complex-amplitudes}). By doing
+this, it becomes possible to recast the optimisation problem to only solve for
+the nonlinear terms:
+\begin{equation}
+    \hat{[\symbf{f}\T \hspace*{5pt} \symbf{\eta}\T]\T} =
+        \argmin_{[\symbf{f}\T \hspace*{5pt} \symbf{\eta}\T]\T \in \mathbb{R}^{2M}}
+        \lVert \symbf{y} - \symbf{Z}\symbf{Z}^+\symbf{y} \rVert^2.
+\end{equation}
+The Levenberg–Marquardt algorithm\cite{Levenberg1944, Marquardt1963} is
+typically employed to perform the optimisation routine, with amplitudes and
+phases determined with linear least squares afterwards.
 
-The \ac{VARPRO} method is an iterative approach to parameter estimation, developed by Golub and Pereyra\cite{Golub1973}, and applied to NMR signal analysis by van der Veen et al.\cite{VanDerVeen1988}. It relies on minimising the following quantity:
-\begin{equation}
-  \label{VARPRO_min}
-  \hat{\symbf{\theta}} = \argmin_{\symbf{\theta}} \left \lVert \symbf{y} - \symbf{x}(\symbf{\theta}) \right \rVert^2
-\end{equation}
-The vector $\symbf{x}$ can be expressed in the following format:
-\begin{equation}
-  \label{VARPRO_Za}
-  \symbf{x} =
-  \begin{bmatrix}
-    z_1^0 & z_2^0 & \cdots & z_J^0\\
-    z_1^1 & z_2^1 & \cdots & z_J^1\\
-    \vdots & \vdots & \ddots & \vdots\\
-    z_1^{N-1} & z_2^{N-1} & \cdots & z_J^{N-1}\\
-  \end{bmatrix}
-  \begin{bmatrix}
-    \alpha_1\\
-    \alpha_2\\
-    \vdots\\
-    \alpha_J
-  \end{bmatrix}
-  = \symbf{Z}\symbf{\alpha}
-\end{equation}
-Using Eq. \ref{VARPRO_Za}, Eq. \ref{VARPRO_min} can be re-written as follows:
-\begin{equation}
-    \hat{\symbf{\theta}} = \argmin_{\symbf{\theta}} \left \lVert \symbf{y} - \symbf{Z}\symbf{\alpha} \right \rVert^2
-\end{equation}
-The complex amplitudes can be determined analytically as follows:
-\begin{equation}
-  \label{VARPRO_alpha}
-  \hat{\symbf{\alpha}} \approx \left( \symbf{Z}^{\dagger} \symbf{Z} \right)^{-1} \symbf{Z}^{\dagger} \symbf{y} \equiv \symbf{Z}^+ \symbf{y}
-\end{equation}
-$\symbf{Z}^+$ is the Moore-Penrose pseudoinverse of matrix $\symbf{Z}$\cite{Penrose1955, Strang2018}. The VARPRO method determines the frequencies and damping factors via an iterative minimisation of:
-\begin{equation}
-  \hat{\left[\symbf{f}^{\mathrm{T}}, \symbf{\eta}^{\mathrm{T}}\right]}^{\mathrm{T}} = \argmin_{\left[\symbf{f}^{\mathrm{T}}, \symbf{\eta}^{\mathrm{T}}\right]} \left \lVert \symbf{y} - \symbf{Z}\symbf{Z}^+\symbf{y} \right \rVert^2
-\end{equation}
-which is achieved using the Levenberg–Marquardt algorithm\cite{Levenberg1944, Marquardt1963}. The amplitudes and phases are subsequently determined using Eq. \ref{VARPRO_alpha}. This means that the amplitudes and phases do not need initial guesses assocaited with them. Further specifications can be applied to the algorithm, reflecting the spectroscopist's knowledge of the signal under inspection. For example, if it is known that a certain set of resonances constitute a multiplet, the relative frequency differences and amplitudes will be known.
-
-\ac{AMARES}\cite{Vanhamme1997}
-
+For such a routine to perform, a large amount of \textit{a priori} information
+needs to be provided, in the form of a set of estimated frequencies and damping
+factors in the data. Further specifications can be applied to the algorithm,
+reflecting the spectroscopist's knowledge of the signal under
+inspection. For example, damping factors corresponding to signals that form a
+particular multiplet can be constrained to be equal.
+\Ac{AMARES} is an improvement of \ac{VARPRO}, which facilitates a wider variety
+of linear constraints to be imposed on the parameter set\cite{Vanhamme1997},
+and is now established as one of the most prominent means of quantifying
+\ac{MRS} signals.
 
 \subsubsection{Bayesian Methods}
 \ac{CRAFT}\cite{Krishnamurthy2013}
@@ -491,4 +628,7 @@ which is achieved using the Levenberg–Marquardt algorithm\cite{Levenberg1944, 
 perspective\cite{Krishnamurthy2021}
 
 \subsubsection{Machine Learning Methods}
-\cite{Schmid2023}
+In recent years, the application of deep learning approaches for estimation have been
+introduced, with the currently available methods focussing on spectral
+data\cite{Li2021,Schmid2023}
+\note{Mention deconvolution networks.}

@@ -146,6 +146,16 @@
   publisher = {OUP Oxford}
 }
 
+@book{Strang2018,
+    publisher = {Cengage Learning, Inc},
+    isbn = {9781111575243},
+    year = {2018},
+    title = {Linear Algebra and Its Applications},
+    edition = {5 ed.},
+    address = {Florence},
+    author = {Strang, Gilbert},
+}
+
 %%% Historical %%%
 @Article{Shannon1949,
   author={C. E. {Shannon}},
@@ -309,7 +319,6 @@
     doi = {https://doi.org/10.1016/0022-2836(85)90347-X},
     url = {https://www.sciencedirect.com/science/article/pii/002228368590347X},
     author = {Michael P. Williamson and Timothy F. Havel and Kurt Wüthrich},
-    abstract = {A determination of the solution conformation of the proteinase inhibitor IIA from bull seminal plasma (BUSI IIA) is described. Two-dimensional nuclear Overhauser enhancement spectroscopy (NOESY) was used to obtain a list of 202 distance constraints between individually assigned hydrogen atoms of the polypeptide chain, to identify the positions of the three disulfide bridges, and to locate the single cis peptide bond. Supplementary geometric constraints were derived from the vicinal spin-spin couplings and the locations of certain hydrogen bonds, as determined by nuclear magnetic resonance (n.m.r.). Using a new distance geometry program (DISGEO) which is capable of computing all-atom structures for proteins the size of BUSI IIA, five conformers were computed from the NOE distance constraints alone, and another five were computed with the supplementary constraints included. Comparison of the different structures computed from the n.m.r. data among themselves and with the crystal structures of two homologous proteins shows that the global features of the conformation of BUSI IIA (i.e. the overall dimensions of the molecule and the threading of the polypeptide chain) were well-defined by the available n.m.r. data. In the Appendix, we describe a preliminary energy refinement of the structure, which showed that the constraints derived from the n.m.r. data are compatible with a low energy spatial structure.}
 }
 
 @article{Marion1989,
@@ -402,6 +411,7 @@ author = {Fletcher, R},
 }
 
 %%% Literature Review %%%
+%%% Linear Prediction
 @article{Stephenson1988,
     title = {Linear prediction and maximum entropy methods in NMR spectroscopy},
     journal = {Progress in Nuclear Magnetic Resonance Spectroscopy},
@@ -482,6 +492,51 @@ author = {Walker, Gilbert Thomas},
     author = {Durbin, J.},
 }
 
+@article{Morris1997,
+    title = {Reference deconvolution methods},
+    journal = {Progress in Nuclear Magnetic Resonance Spectroscopy},
+    volume = {31},
+    number = {2},
+    pages = {197-257},
+    year = {1997},
+    issn = {0079-6565},
+    doi = {https://doi.org/10.1016/S0079-6565(97)00011-3},
+    url = {https://www.sciencedirect.com/science/article/pii/S0079656597000113},
+    author = {Gareth A. Morris and Hervé Barjat and Timothy J. Home},
+    keywords = {Reference deconvolution, In vivo NMR, High resolution NMR}
+}
+
+
+@article{Bartholdi1973,
+    title = {Fourier spectroscopy and the causality principle},
+    journal = {Journal of Magnetic Resonance (1969)},
+    volume = {11},
+    number = {1},
+    pages = {9-19},
+    year = {1973},
+    issn = {0022-2364},
+    doi = {https://doi.org/10.1016/0022-2364(73)90076-0},
+    url = {https://www.sciencedirect.com/science/article/pii/0022236473900760},
+    author = {E Bartholdi and R.R Ernst},
+}
+
+
+
+
+
+@article{Penrose1955,
+title={A generalized inverse for matrices},
+volume={51},
+DOI={10.1017/S0305004100030401},
+number={3},
+journal={Mathematical Proceedings of the Cambridge Philosophical Society},
+publisher={Cambridge University Press},
+author={Penrose, R.},
+year={1955},
+pages={406–413}}
+
+
+%%% LPSVD
 @article{Kumaresan1982,
   author    = {Kumaresan, Ramdas and Tufts, Donald},
   title     = {Estimating the parameters of exponentially damped sinusoids and pole-zero modeling in noise},
@@ -504,6 +559,98 @@ author = {Walker, Gilbert Thomas},
     pages={217-220}
 }
 
+@article{Kumaresan1983,
+    author={R. {Kumaresan}},
+    journal={IEEE Transactions on Acoustics, Speech, and Signal Processing},
+    title={On the zeros of the linear prediction-error filter for deterministic signals},
+    year={1983},
+    volume={31},
+    number={1},
+    pages={217-220}
+}
+@article{Barkhuijsen1985a,
+    title = {Retrieval of frequencies, amplitudes, damping factors, and phases from time-domain signals using a linear least-squares procedure},
+    journal = {Journal of Magnetic Resonance (1969)},
+    volume = {61},
+    number = {3},
+    pages = {465-481},
+    year = {1985},
+    issn = {0022-2364},
+    doi = {https://doi.org/10.1016/0022-2364(85)90187-8},
+    url = {https://www.sciencedirect.com/science/article/pii/0022236485901878},
+    author = {H Barkhuijsen and R {de Beer} and W.M.M.J Bovée and D {van Ormondt}},
+}
+
+@article{Barkhuijsen1985b,
+    author = {Barkhuijsen, H. and De Beer, R. and Bovee, W. M. M. J. and Creyghton, J. H. N. and Van Ormondt, D.},
+    title = {Application of linear prediction and singular value decomposition (LPSVD) to determine NMR frequencies and intensities from the FID},
+    journal = {Magnetic Resonance in Medicine},
+    volume = {2},
+    number = {1},
+    pages = {86-89},
+    doi = {https://doi.org/10.1002/mrm.1910020111},
+    url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/mrm.1910020111},
+    eprint = {https://onlinelibrary.wiley.com/doi/pdf/10.1002/mrm.1910020111},
+    abstract = {Abstract A parametric spectral analysis based on linear prediction and singular value decomposition has been applied to the 31P FID of a tumor implanted in a mouse. It is found that a number of complications that may arise in in vivo FFT NMR can be circumvented. The new method yields all parameters of the spectral components, i. e., the frequency, amplitude, damping constant, and phase.},
+    year = {1985}
+}
+
+%%% HSVD
+@article{Kung1983,
+    author = {S. Y. Kung and K. S. Arun and D. V. Bhaskar Rao},
+    journal = {J. Opt. Soc. Am.},
+    keywords = {Augmented reality; Optical sensing; Power spectra; Signal processing; Spectroscopy; Stochastic processes},
+    number = {12},
+    pages = {1799--1811},
+    publisher = {Optica Publishing Group},
+    title = {State-space and singular-value decomposition-based approximation methods for the harmonic retrieval problem},
+    volume = {73},
+    month = {Dec},
+    year = {1983},
+    url = {https://opg.optica.org/abstract.cfm?URI=josa-73-12-1799},
+    doi = {10.1364/JOSA.73.001799},
+}
+
+@article{Barkhuijsen1987,
+    title = {Improved algorithm for noniterative time-domain model fitting to exponentially damped magnetic resonance signals},
+    journal = {Journal of Magnetic Resonance (1969)},
+    volume = {73},
+    number = {3},
+    pages = {553-557},
+    year = {1987},
+    issn = {0022-2364},
+    doi = {https://doi.org/10.1016/0022-2364(87)90023-0},
+    url = {https://www.sciencedirect.com/science/article/pii/0022236487900230},
+    author = {H Barkhuijsen and R {de Beer} and D {van Ormondt}}
+}
+
+@article{Beer1988,
+    author = {De Beer, R. and van Ormondt, D. and Pijnappel, W.W.F. and van der Veen, J.W.C.},
+    title = {Quantitative Analysis of Magnetic Resonance Signals in the Time Domain},
+    journal = {Israel Journal of Chemistry},
+    volume = {28},
+    number = {4},
+    pages = {249-261},
+    doi = {https://doi.org/10.1002/ijch.198800037},
+    url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/ijch.198800037},
+    eprint = {https://onlinelibrary.wiley.com/doi/pdf/10.1002/ijch.198800037},
+    year = {1988}
+}
+
+@article{Pijnappel1992,
+    title = {SVD-based quantification of magnetic resonance signals},
+    journal = {Journal of Magnetic Resonance (1969)},
+    volume = {97},
+    number = {1},
+    pages = {122-134},
+    year = {1992},
+    issn = {0022-2364},
+    doi = {https://doi.org/10.1016/0022-2364(92)90241-X},
+    url = {https://www.sciencedirect.com/science/article/pii/002223649290241X},
+    author = {W.W.F Pijnappel and A {van den Boogaart} and R {de Beer} and D {van Ormondt}},
+}
+
+%%% VARPRO/AMARES
 @article{Golub1973,
   author = {Golub, G. H. and Pereyra, V.},
   title = {The Differentiation of Pseudo-Inverses and Nonlinear Least Squares Problems Whose Variables Separate},
@@ -524,26 +671,33 @@ author = {Walker, Gilbert Thomas},
   year = {1988}
 }
 
-@book{Strang2018,
-publisher = {Cengage Learning, Inc},
-isbn = {9781111575243},
-year = {2018},
-title = {Linear Algebra and Its Applications},
-edition = {5 ed.},
-address = {Florence},
-author = {Strang, Gilbert},
+@article{Decannierec1994,
+    issn = {1064-1866},
+    journal = {Journal of magnetic resonance. Series B},
+    pages = {31--37},
+    volume = {105},
+    publisher = {Elsevier},
+    number = {1},
+    year = {1994},
+    title = {EVALUATION OF SIGNAL-PROCESSING METHODS FOR THE QUANTIFICATION OF STRONGLY OVERLAPPING PEAKS IN P-31 NMR-SPECTRA},
+    language = {eng},
+    address = {SAN DIEGO},
+    author = {DECANNIERE, C and VANHECKE, P and VANSTAPEL, F and CHEN, H and VANHUFFEL, S and VANDERVOORT, C and VANTONGEREN, B and VANORMONDT, D},
 }
 
-@article{Penrose1955,
-title={A generalized inverse for matrices},
-volume={51},
-DOI={10.1017/S0305004100030401},
-number={3},
-journal={Mathematical Proceedings of the Cambridge Philosophical Society},
-publisher={Cambridge University Press},
-author={Penrose, R.},
-year={1955},
-pages={406–413}}
+@article{Vanhamme1997,
+    title = {Improved Method for Accurate and Efficient Quantification of MRS Data with Use of Prior Knowledge},
+    journal = {Journal of Magnetic Resonance},
+    volume = {129},
+    number = {1},
+    pages = {35-43},
+    year = {1997},
+    issn = {1090-7807},
+    doi = {https://doi.org/10.1006/jmre.1997.1244},
+    url = {https://www.sciencedirect.com/science/article/pii/S1090780797912441},
+    author = {Leentje Vanhamme and Aad {van den Boogaart} and Sabine {Van Huffel}},
+}
+
 
 @article{Marquardt1963,
   author = {Marquardt, Donald W.},
@@ -566,33 +720,20 @@ pages={406–413}}
   year = {1944},
 }
 
-
-@article{Barkhuijsen1985,
-author = {Barkhuijsen, H. and De Beer, R. and Bovee, W. M. M. J. and Creyghton, J. H. N. and Van Ormondt, D.},
-title = {Application of linear prediction and singular value decomposition (LPSVD) to determine NMR frequencies and intensities from the FID},
-journal = {Magnetic Resonance in Medicine},
-volume = {2},
-number = {1},
-pages = {86-89},
-doi = {https://doi.org/10.1002/mrm.1910020111},
-url = {https://onlinelibrary.wiley.com/doi/abs/10.1002/mrm.1910020111},
-eprint = {https://onlinelibrary.wiley.com/doi/pdf/10.1002/mrm.1910020111},
-abstract = {Abstract A parametric spectral analysis based on linear prediction and singular value decomposition has been applied to the 31P FID of a tumor implanted in a mouse. It is found that a number of complications that may arise in in vivo FFT NMR can be circumvented. The new method yields all parameters of the spectral components, i. e., the frequency, amplitude, damping constant, and phase.},
-year = {1985}
-}
-
-
-@article{Vanhamme1997,
-    title = {Improved Method for Accurate and Efficient Quantification of MRS Data with Use of Prior Knowledge},
-    journal = {Journal of Magnetic Resonance},
-    volume = {129},
+%%% MACHINE LEARNING
+@article{Li2021,
+    issn = {2041-1723},
+    journal = {Nature communications},
+    pages = {5229--5229},
+    volume = {12},
+    publisher = {NATURE PORTFOLIO},
     number = {1},
-    pages = {35-43},
-    year = {1997},
-    issn = {1090-7807},
-    doi = {https://doi.org/10.1006/jmre.1997.1244},
-    url = {https://www.sciencedirect.com/science/article/pii/S1090780797912441},
-    author = {Leentje Vanhamme and Aad {van den Boogaart} and Sabine {Van Huffel}},
+    year = {2021},
+    title = {DEEP picker is a deep neural network for accurate deconvolution of complex two-dimensional NMR spectra},
+    copyright = {Copyright 2021 Elsevier B.V., All rights reserved.},
+    language = {eng},
+    address = {BERLIN},
+    author = {Li, Da-Wei and Hansen, Alexandar L. and Yuan, Chunhua and Bruschweiler-Li, Lei and Brüschweiler, Rafael},
 }
 
 @article{Schmid2023,
@@ -608,6 +749,7 @@ year = {1985}
     keywords = {NMR Spectroscopy, Deconvolution, Machine learning, Deep learning},
 }
 
+%%% CRAFT
 @article{Krishnamurthy2013,
     author = {Krishnamurthy, Krish},
     title = {CRAFT (complete reduction to amplitude frequency table) – robust and time-efficient Bayesian approach for quantitative mixture analysis by NMR},
@@ -648,7 +790,6 @@ year = {1985}
     eprint = {https://analyticalsciencejournals.onlinelibrary.wiley.com/doi/pdf/10.1002/mrc.5135},
     year = {2021}
 }
-
 
 %%% Linear Algebra %%%
 @book{Golub2013,
@@ -1774,6 +1915,32 @@ author = {Harris, Charles R. and Millman, K. Jarrod and van der Walt, Stefan J. 
 }
 
 %%% MISC
+@article{Williamson2013,
+    title = {Using chemical shift perturbation to characterise ligand binding},
+    journal = {Progress in Nuclear Magnetic Resonance Spectroscopy},
+    volume = {73},
+    pages = {1-16},
+    year = {2013},
+    issn = {0079-6565},
+    doi = {https://doi.org/10.1016/j.pnmrs.2013.02.001},
+    url = {https://www.sciencedirect.com/science/article/pii/S0079656513000265},
+    author = {Mike P. Williamson},
+    keywords = {Chemical shift, Protein, Exchange rate, Dissociation constant, Docking},
+    }
+
+@Article{Emwas2019,
+    author = {Emwas, Abdul-Hamid and Roy, Raja and McKay, Ryan T. and Tenori, Leonardo and Saccenti, Edoardo and Gowda, G. A. Nagana and Raftery, Daniel and Alahmari, Fatimah and Jaremko, Lukasz and Jaremko, Mariusz and Wishart, David S.},
+    title = {nmr spectroscopy for metabolomics research},
+    journal = {Metabolites},
+    volume = {9},
+    year = {2019},
+    number = {7},
+    article-number = {123},
+    url = {https://www.mdpi.com/2218-1989/9/7/123},
+    issn = {2218-1989},
+    doi = {10.3390/metabo9070123}
+}
+
 @article{Butts2011,
     issn = {1359-7345},
     abstract = {A second conformer of strychnine, with a very low population (2.5\%), has been identified experimentally, and confirmed by computation, demonstrating the ability of NOE measurements to discriminate minute contributions to dynamic structure ensembles in solution.

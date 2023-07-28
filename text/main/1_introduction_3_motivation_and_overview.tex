@@ -17,29 +17,43 @@ number of applications involving \ac{FID} estimation were worked on, including
 the original \ac{2DJ} project.
 
 \subsection{Thesis Overview}
-This thesis is broken into three principal themes, which span the proceeding
-three chapters:
+This thesis is broken into four principal themes, which span the proceeding
+four chapters:
 \begin{itemize}
     \item Chapter \ref{chap:theory} discusses the theory behind routines which
         can be applied to determine parameter estimates which describe \ac{1D}
         and \ac{2D} \ac{NMR} datasets.
-    \item Chapter \ref{chap:results} provides illustrations of the effectiveness
-        of the estimation routine on numerous \ac{NMR} datasets. Furthermore,
+    \item Chapter \ref{chap:results} provides illustrations of the performance
+        of the estimation routine on \ac{1D} \ac{NMR} datasets. Furthermore,
         means in which the established estimation routine can be extended for
-        useful applications are explored, with these applications being:
+        two useful applications are explored:
         \begin{itemize}
-            \item The generation of pure shift spectra with featuring peaks
-                with desirable lineshapes from \ac{2DJ} datasets (Section
-                \ref{sec:pure-shift}).
             \item Analysis of amplitude-attenuated datasets, such as those
                 derived from diffusion and inversion recovery experiments
-                (Section \ref{sec:seq}).
+                (\S \ref{sec:seq}).
             \item Overcoming quadratic phase behaviour and baseline distortions
-                associated with excitation by a single \acl{FS} pulse (Section
+                associated with excitation by a single \acl{FS} pulse (\S
                 \ref{sec:bbqchili}).
         \end{itemize}
-    \item Chapter \ref{chap:nmrespy} describes the source code, called
-        \acs{EsPy}, which has been written to provide access to the described
-        routines presented.
+    \item Chapter \ref{chap:cupid} outlines a method for generating pure shift
+        spectra and deriving the associated multiplet structures from \ac{2DJ}
+        datasets. As described above, this was the central motivation for
+        embarking on this project.
+    \item Chapter \ref{chap:nmrespy} describes the source code developed as
+        part of this project, called \acs{EsPy}.
 \end{itemize}
 
+Further supporting information can be found in the Appendix, which comprises
+the following chapters:
+\begin{itemize}
+    \item Additional theory, including descriptions of mathematical concepts,
+        and outlines of relevant algorithms, is presented in Chapter
+        \ref{chap:additional-theory}.
+    \item Chapter \ref{chap:code-listings} provides code listings outlining how
+        the methods described in this work can be implemented in \Python.
+    \item Chapter \ref{chap:datasets} outlines how the simulated and
+        experimental datasets considered were generated.
+    \item Chapter \ref{chap:walkthrough} is an insert from the documentation of
+        \ac{EsPy}, comprising tutorials on getting familiarised with using the
+        package.
+\end{itemize}
