@@ -1,29 +1,32 @@
 \section{\acs{NMR} Data Processing and Analysis}
-To gain insights from \ac{NMR} experiments on a chemical system of interest,
-extraction of the defining parameters $\bth$ is necessary. In this section, the
-conventional approach to processing and analysing \ac{NMR} data is described.
-Following this, some of the more prevalent methods for parametrising \ac{NMR}
-\acp{FID} are presented.
+\note{TODO}
 
 \subsection{Conventional NMR Processing}
-\label{subsec:nmr-analysis}
-The typical means of processing \ac{NMR} experiments for analysis is to
-transform the time domain \ac{FID} into the frequency domain, producing an
-\ac{NMR} spectrum. This is achieved through application of the \acfi{FT}:
-\begin{subequations}
-    \begin{align}
-        &\text{Continuous case:} &&\FT(x(t))(F) =  \int_{0}^{\infty} x(t) \exp(
-            -2 \pi \iu t F
-            ) \mathrm{d} t
-            \quad \forall t \in \mathbb{R}_{\geq 0},\\
-        &\text{Discrete case:} &&\FT( \symbf{x} )_n =  \sum_{k=0}^{N-1} x_k \exp \left(
+\label{subsec:nmr-proc}
+The typical means of processing \ac{NMR} data is to
+transform the time (measured) domain \ac{FID} into the frequency domain,
+producing an \ac{NMR} spectrum. This is achieved through application of the
+\acfi{FT}. The \ac{FT} converts a continuous function over time $t$, $x(t)$, to
+one over frequency $F$, $s(F)$, as follows\footnote{
+    In general, the \ac{FT} is defined over the range $(-\infty, \infty)$.
+    Since \ac{NMR} data isn't defined for $t < 0$, the \ac{FT} has been defined
+    over the range  $[0, \infty)$.
+}:
+\begin{equation}
+    s(F) =  \int_{0}^{\infty} x(t) \exp(
+        -2 \pi \iu t F
+        ) \mathrm{d} t
+\end{equation}
+In practice, the discrete signal acquired by the spectrometer is processed
+using the \ac{DFT}:
+\begin{equation}
+    s_n = \sum_{k=0}^{N-1} x_k \exp \left(
             -\frac{2 \pi \iu k n}{N} \right)
             \quad \forall n \in \lbrace 0, \cdots, N-1 \rbrace.
-    \end{align}
-\end{subequations}
+\end{equation}
 The \ac{FT} of a continuous exponentially-damped complex sinusoid
 takes the form of a \emph{Lorentzian}\footnote{
-    In practice, when dealing with discrete data, the \ac{FT} of an \ac{FID}
+    When processing discrete data, the \ac{DFT} of an \ac{FID}
     features a vertical offset, such that the baseline does not sit at
     0\cite{Tang1994}. This results from only possessing data for positive
     values of $t$, rather than having a ``full echo'', where negative values of
@@ -32,14 +35,15 @@ takes the form of a \emph{Lorentzian}\footnote{
 }:
 \begin{subequations}
     \begin{gather}
-        s(F) = \FT\left(
+        s(F) = \int_0^{\infty}
             a \exp(\iu \phi) \exp((2 \pi \iu f - \eta)t)
-            \right)(F),\\
+            \exp(-2 \pi \iu t F)
+            \mathrm{d} t,\\
         s(F) = \frac{a \exp(\iu \phi) }
             {\eta + 2 \pi \iu (f - F)}.
     \end{gather}
 \end{subequations}
-When $a = \phi = 0$, this function is equivalent to the (unnormalised) \ac{pdf}
+When $\phi = 0$, this function is equivalent to the (unnormalised) \ac{pdf}
 of the Cauchy distribution. The \ac{FT} is a linear function, such that the
 \ac{FT} of a summation of signals is equivalent to the summation of the
 \acp{FT} of each signal. A corollary is that an \ac{NMR} spectrum comprises a
@@ -65,42 +69,12 @@ are applied to the prior to \ac{FT} (i.e. to the \ac{FID}), while phase
 correction and baseline correction are applied after \ac{FT} (i.e. to the
 resulting \ac{NMR} spectrum).
 
-\begin{figure}
-    \centering
-    \includegraphics{amp_phase_freq_damp/amp_phase_freq_damp.pdf}
-    \caption[
-        An illustration of the influence of the four parameters associated
-        with a signal in both the time-domain nels and Fourier-domain.
-    ]{
-        An illustration of the influence of the four parameters associated
-        with a signal in both the time-domain (panels \textbf{a1.} --
-        \textbf{d1.}) and Fourier-domain (panels \textbf{a2.} -- \textbf{d2.}).
-        The red signal is generated with the same parameters across all panels:
-        $a = a_{\text{red}}$, $\phi = 0$, $f = f_{\text{red}}$,  $\eta =
-        \eta_{\text{red}}$.  The blue and yellow signals were produced by
-        altering one parameter out of the four.
-        \textbf{a.} $a_{\text{yellow}} = \nicefrac{1}{2} a_{\text{blue}} =
-        \nicefrac{1}{4} a_{\text{red}}$.
-        \textbf{b.}
-        $\phi_{\text{blue}} = \nicefrac{\pi}{4}$,
-        $\phi_{\text{yellow}} = \pi$.
-        \textbf{c.}
-        $f_{\text{blue}} = \nicefrac{1}{2} f_{\text{red}}$,
-        $f_{\text{yellow}} = 0$.
-        \textbf{d.}
-        $\eta_{\text{blue}} = \nicefrac{1}{2}\eta_{\text{red}}$,
-        $\eta_{\text{yellow}} = \nicefrac{1}{4}\eta_{\text{red}}$.
-        The real and imaginary components of each signal are plotted, with the
-        imaginary component being paler than its real counterpart.
-    }
-    \label{fig:amp-phase-freq-damp}
-\end{figure}
-
 \subsubsection{Apodisation}
 Apodisation refers to the process of mutating a signal by multiplying it with a
-specified function, often called a \emph{window function}, in order to enhance
-either the sensitivity or the resolution of the final spectrum. This does come
-at the cost of worsening the other feature however.
+specified function, often called a \emph{window function}\cite[\S
+3.2.7]{Claridge2016}, in order to enhance
+either the sensitivity or the resolution of the final spectrum, albeit
+at the cost of worsening the other feature.
 
 \paragraph{Sensitivity Enhancement} As \iac{FID} progresses with time, the
 contributions from the desirable signal ($\bx$) and experimental noise ($\bw$)
@@ -116,14 +90,15 @@ applied to the signal causes the linewidth of the spectral peaks to increase
 
 \paragraph{Resolution Enhancement} By contrast, resolution enhancement can be
 achieved by applying a window function that artificially reduces the rate of
-oscillator decay, by suppressing points that are early in the \ac{FID}. Popular
+oscillator decay. This is achievable through the suppression of points that are
+early in the \ac{FID}. Popular
 examples of window functions for resolution enhancement are the Lorentz-Gauss
 function, which bestow a sharper, Gaussian shape to the peaks, and the
 sine-bell, which is commonly used in multidimensional experiments. Since the
 initial points in the \ac{FID} are attenuated, these window functions reduce the
 sensitivity of the resulting spectra.
 
-By being defined to decay to a sufficiently small value or $0$ itself at the
+By being defined to decay to a sufficiently small value (or $0$ itself) at the
 end of
 the \ac{FID}, window functions are also able to suppress \emph{truncation
 artefacts}, which appear when the \ac{FID} still possesses appreciable signal
@@ -143,10 +118,11 @@ possible to enhance the information content of the spectrum if an \ac{FID}
 comprising $2^{m-1} < N \leq 2^m$ points is zero-filled to $2^{m+1}$
 points\cite{Bartholdi1973}. By doing this, the real and imaginary components of
 the spectrum become causally linked; the real component can be derived from the
-imaginary component and vice versa according to the Kramers-Kronig relations.
+imaginary component and vice versa according to the Kramers-Kronig relations
+via the Hilbert transform.
 Zero-filling beyond a factor of 2 can bestow a
-cosmetic improvement to the spectrum, but it does not incorporate any new
-information into it.
+cosmetic improvement to the spectrum\,---\,the additional points are simply
+interpolations\,---\,but it does not incorporate any new information into it.
 
 \subsubsection{Phase correction}
 The real and imaginary components of \eqref{eq:ft-summation} are as follows:
@@ -178,9 +154,9 @@ reasons:
             $\propto \nicefrac{1}{(f_m - F)}^2$, while dispersive Lorentzians
             decay at a rate $\propto \nicefrac{1}{(f_m - F)}$.
         } and therefore exhibits better resolution.
-\end{enumerate} (b)
+\end{enumerate}
 Generating a spectrum whose real component comprise peaks which all possess
-absorption Lorentzians is therefore desired, which is possible if all signal
+absorption Lorentzians is therefore desired, which is possible if all signals
 have a phase of \ang{0}:
 \begin{subequations}
     \begin{gather}
@@ -213,28 +189,28 @@ The \emph{baseline} of an \ac{NMR} spectrum is used to describe regions where
 no discernible peaks reside (i.e. only experimental noise exists).
 Baseline distortion describes scenarios in which the baseline, rather
 than exhibiting a flat profile with an average of zero, has some other form.
-There a number of potential causes of baseline distortion,
+There a number of potential causes of baseline distortion, including
 ``clipping'' of the initial points due to excessive receiver gain,
 and pulse breakthrough.
 Whatever the cause(s), it is typically a corruption of the initial points in
 the \ac{FID} that causes baseline distortion.
-It is common to apply a baseline correction algorithm to negate any distortion.
-This involves multiplying the spectrum with a high-order polynomial function,
-whose coefficients are determined by an appropriate algorithm. A popular
-algorithm involves the two-step procedure of (a) determining spectral regions
-which are part of the baseline (b) fitting the baseline regions to a
-polynomial\cite{Dietrich1991,Cobas2006}.
+It is common to apply a baseline correction algorithm to negate any distortion,
+which involves multiplying the spectrum with a spline or high-order polynomial.
+One popular approach involves the two principal steps of (a) determining
+spectral regions which are part of the baseline, and (b) fitting the baseline
+regions to the chosen function\cite{Dietrich1991,Cobas2006}.
 
 \subsection{Conventional processing for multidimensional datasets}
 \label{subsec:mulitdim}
 As for \ac{1D} datasets, it is desirable that multidimensional \ac{NMR} spectra
-feature peaks which are (a) frequency discriminated, and (b) comprise pure
+feature peaks which are frequency discriminated, and comprise pure
 absorption-mode lineshapes in each dimension.
- A description of how this can be achieved with both
-amplitude- and phase-modulated datasets is now given.
+A description of how this can be achieved with both amplitude- and
+phase-modulated datasets is now given, through the consideration of \ac{2D}
+signals.
 
 \subsubsection{Amplitude-modulated signals}
-It is clear that a cosine modulated signal, given by \eqref{eq:general-fid}
+It is clear that a cosine-modulated signal, given by \eqref{eq:general-fid}
 with $D=2$ and $\zeta^{(1)} = \cos(\cdot)$ cannot achieve frequency
 discrimination, on account of the relation
 \begin{equation}
@@ -259,7 +235,7 @@ analogous sine-modulated signal ($\zeta^{(1)} = \sin(\cdot)$) as this
 achieves quadrature detection in the indirect dimension. For
 numerous multidimensional experiments, repeating the
 pulse sequence, with careful adjustments to the phases of particular pulses
-(\emph{phase cycling}) enables this\cite[Chapter 11]{Keeler2010}.
+(\emph{phase cycling}) enables this\cite[\S 11]{Keeler2010}.
 Applying the same processing as that which achieved the double absorption
 spectrum for the cosine-modulated case generates a spectrum whose imaginary
 component features two peaks, but with opposite signs (panel c).
@@ -322,10 +298,11 @@ generating a spectrum with an absorption lineshape\cite{Davis1992} (panel h).
 
 The concepts described here for \ac{2D} signals can be extended for the
 processing of \ac{NMR} datasets with any number of dimensions, provided that in
-each dimension, the requisite pair of amplitude- or phase-modulated signals
-exist. As such, a set of $2^{D-1}$ signals need to be acquired.
+each indirect dimension, the requisite pair of amplitude- or phase-modulated
+signals exist. As such, a set of $2^{D-1}$ signals need to be acquired.
 
 \subsection{Conventional \acs{NMR} analysis}
+\note{To improve and expand...}
 The amount of detail required from an \ac{NMR} dataset depends on the
 the user's requirements. In synthetic organic chemistry, \ac{NMR} is often used
 simply as a means of verifying that a particular step in a synthetic pathway
@@ -623,6 +600,7 @@ and is now established as one of the most prominent means of quantifying
 \ac{MRS} signals.
 
 \subsubsection{Bayesian Methods}
+\text{TODO}
 \ac{CRAFT}\cite{Krishnamurthy2013}
 2D\cite{Krishnamurthy2017}
 perspective\cite{Krishnamurthy2021}
