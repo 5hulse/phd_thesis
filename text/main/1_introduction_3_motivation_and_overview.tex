@@ -1,59 +1,64 @@
 \section{Overview of this work}
 
 \subsection{Conception and motivation}
-\note{Confirm whether this is accurate with Ali}
-The initial motivation for this thesis came from discussions within the NMR
+The initial motivation for this work emerged from discussions within the NMR
 Methodology group in Manchester involving my principal
-supervisor Dr. Mohammadali Foroozandeh and coworkers (notably Prof. Gareth
-Morris and Prof. Mathias Nilsson) when Dr. Foroozandeh was a Postdoctoral
+supervisor Dr. Mohammadali Foroozandeh and coworkers\,---\,notably Prof.
+Gareth Morris and Prof. Mathias Nilsson\,---\,while Dr. Foroozandeh was a
+Postdoctoral
 researcher there. There was an interest in generating pure shift \ac{NMR}
-spectra from \acs{2DJ} spectra using an appropriate estimation and
-reconstruction algorithm. While little progress was made while Dr. Foroozandeh
-was in Manchester, he wished to continue with it after moving to Oxford to take
-up a research fellowship. I took on a project with a broader scope
-when I joined his nascent research group, starting with developing a routine
-and accompanying software for estimating \ac{1D} \acp{FID}. Subsequently, a
-number of applications involving \ac{FID} estimation were worked on, including
-the original \ac{2DJ} project.
+spectra from \acs{2DJ} data using an appropriate estimation and
+reconstruction algorithm. While little progress was made when Dr. Foroozandeh
+was based in Manchester, he wished to continue with it after moving to Oxford
+to take up a research fellowship. I took on a project focussed on this,
+though with a broader scope, when I joined his nascent research group as a PhD
+student.
 
 \subsection{Thesis Overview}
 This thesis is broken into four principal themes, which span the proceeding
 four chapters:
 \begin{itemize}
-    \item Chapter \ref{chap:theory} discusses the theory behind routines which
-        can be applied to determine parameter estimates which describe \ac{1D}
-        and \ac{2D} \ac{NMR} datasets.
-    \item Chapter \ref{chap:results} provides illustrations of the performance
-        of the estimation routine on \ac{1D} \ac{NMR} datasets. Furthermore,
-        means in which the established estimation routine can be extended for
-        two useful applications are explored:
+    \item \textbf{\cref{chap:theory}} discusses the theory behind routines
+        which can be applied to determine parameter estimates which describe
+        \ac{1D} and \ac{2D} \ac{NMR} datasets.
+    \item \textbf{\cref{chap:results}} provides illustrations of the
+        performance of the estimation routine on \ac{1D} \ac{NMR} datasets.
+        Furthermore, means in which the established estimation routine can be
+        extended for two applications are explored:
         \begin{itemize}
             \item Analysis of amplitude-attenuated datasets, such as those
                 derived from diffusion and inversion recovery experiments
-                (\S \ref{sec:seq}).
+                (\cref{sec:seq}).
             \item Overcoming quadratic phase behaviour and baseline distortions
-                associated with excitation by a single \acl{FS} pulse (\S
-                \ref{sec:bbqchili}).
+                associated with ultra-broadband excitation by a single
+                \acl{FS} pulse (\cref{sec:bbqchili}).
         \end{itemize}
-    \item Chapter \ref{chap:cupid} outlines a method for generating pure shift
-        spectra and deriving the associated multiplet structures from \ac{2DJ}
-        datasets. As described above, this was the central motivation for
-        embarking on this project.
-    \item Chapter \ref{chap:nmrespy} describes the source code developed as
+    \item \textbf{\cref{chap:cupid}} outlines a method for generating pure
+        shift spectra and deriving the associated multiplet structures from
+        \ac{2DJ} datasets. As described above, this was the initial motivation
+        for embarking on this project.
+    \item \textbf{\cref{chap:nmrespy}} describes the source code developed as
         part of this project, called \acs{EsPy}.
+    \item Finally, conclusions and considerations for further potential
+        developments are discussed in \textbf{\cref{chap:conclusions}}.
 \end{itemize}
 
 Further supporting information can be found in the Appendix, which comprises
 the following chapters:
 \begin{itemize}
-    \item Additional theory, including descriptions of mathematical concepts,
-        and outlines of relevant algorithms, is presented in Chapter
-        \ref{chap:additional-theory}.
-    \item Chapter \ref{chap:code-listings} provides code listings outlining how
-        the methods described in this work can be implemented in \Python.
-    \item Chapter \ref{chap:datasets} outlines how the simulated and
-        experimental datasets considered were generated.
-    \item Chapter \ref{chap:walkthrough} is an insert from the documentation of
-        \ac{EsPy}, comprising tutorials on getting familiarised with using the
+    \item \textbf{\cref{chap:nmr-glossary}} provides a glossary of terms
+        related to \ac{NMR} which are not introduced in much detail in the main
+        text.
+    \item \textbf{\cref{chap:additional-theory}} provides additional
+        information on the theory related to this work, including descriptions
+        of mathematical concepts, and outlines of relevant algorithms.
+    \item \textbf{\cref{chap:code-listings}} provides code listings outlining
+        how the methods described in this work can be implemented in \Python.
+        These are effectively reduced versions of code found in the \ac{EsPy}
         package.
+    \item \textbf{\cref{chap:datasets}} outlines how the simulated and
+        experimental datasets considered in this work were generated.
+    \item \textbf{\cref{chap:walkthrough}} is an insert from the documentation
+        of \ac{EsPy}, comprising tutorials on getting familiarised with using
+        the package.
 \end{itemize}

@@ -4,17 +4,22 @@
 
 \subsection{1D Matrix Pencil Method}
 \label{subsec:mpm}
-The \ac{MPM}, developed by Hua and Sarkar\cite{Hua1990,Hua1990b,Hua1991}, provides a
+
+\begin{remark}
+    In contexts where \ac{1D} datasets are considered specifically, the
+    redundant dimension index $^{(1)}$ will be neglected for conciseness.
+\end{remark}
+The \acfi{MPM}, developed by Hua and Sarkar\cite{Hua1990,Hua1990b,Hua1991}, provides a
 route to extracting the signal poles of a \ac{1D} dataset, based on the
 assumption that the number or oscillators $M$ is known.
 To motivate how the \ac{MPM} works, first consider a dataset which is devoid of
-noise, given by \eqref{eq:x-alpha-z} with $D=1$:
+noise, given by \cref{eq:x-alpha-z} with $D=1$:
 \begin{equation}
     x_n(\bth) = \sumM \alpha_m^{\vphantom{n}} z_m^n,\\
 \end{equation}
-Consider the Hankel matrix $\HX \in \mathbb{C}^{(N-L) \times (L+1)}$:
+Consider the Hankel matrix $\Hx \in \mathbb{C}^{(N-L) \times (L+1)}$:
 \begin{equation}
-    \HX =
+    \Hx =
     \begin{bmatrix}
         x_0 & x_1 & \cdots & x_L\\
         x_1 & x_2 & \cdots & x_{L+1}\\
@@ -23,20 +28,20 @@ Consider the Hankel matrix $\HX \in \mathbb{C}^{(N-L) \times (L+1)}$:
     \end{bmatrix}.
 \end{equation}
 This matrix comprises windowed segments of the FID, with each row comprising
-the segment shifted to the right by one point relative to the row above. $L \in
-\mathbb{N}$ is the \emph{pencil parameter}, which dictates the size of each
-window. From $\HX$, two matrices are defined, $\HXone$ and $\HXtwo$, formed by
-the removal of the last or first column of $\HX$, respectively:
+the segment shifted to the right by one point relative to the row above.
+$L \in \mathbb{N}$ is the \emph{pencil parameter}, which dictates the size of
+each window. From $\Hx$, two matrices are defined, $\Hxone$ and $\Hxtwo$,
+formed by the removal of the last or first column of $\Hx$, respectively:
 \begin{subequations}
    \begin{gather}
-        \HXone =
+        \Hxone =
         \begin{bmatrix}
             x_0 & x_1 & \cdots & x_{L-1} \\
             x_{1} & x_{2} & \cdots & x_{L} \\
             \vdots & \vdots & \ddots & \vdots\\
             x_{N-L-1} & x_{N-L} & \cdots & x_{N-2}\
         \end{bmatrix}, \\
-        \HXtwo =
+        \Hxtwo =
         \begin{bmatrix}
             x_{1} & x_{2} & \cdots & x_{L} \\
             x_{2} & x_{3} & \cdots & x_{L+1} \\
@@ -49,8 +54,8 @@ These matrices can be deconstructed into the following forms involving matrices
 containing the $M$ signal poles and complex amplitudes that the data comprises:
 \begin{subequations}
    \begin{gather}
-       \HXone = \symbf{Z}_{\text{L}} \symbf{A} \symbf{Z}_{\text{R}},\\
-       \HXtwo = \symbf{Z}_{\text{L}} \symbf{A} \symbf{Z}_{\text{D}} \symbf{Z}_{\text{R}},\\
+       \Hxone = \symbf{Z}_{\text{L}} \symbf{A} \symbf{Z}_{\text{R}},\\
+       \Hxtwo = \symbf{Z}_{\text{L}} \symbf{A} \symbf{Z}_{\text{D}} \symbf{Z}_{\text{R}},\\
        \mathbb{C}^{\left(\None - \Lone\right) \times M} \ni
        \symbf{Z}_{\text{L}} =
        \begin{bmatrix}
@@ -80,11 +85,10 @@ containing the $M$ signal poles and complex amplitudes that the data comprises:
    \end{gather}
     \label{eq:HX-decomp}
 \end{subequations}
-
-The \emph{matrix pencil} $\HXtwo - \lambda\HXone$, with $\lambda \in
+The \emph{matrix pencil} $\Hxtwo - \lambda\Hxone$, with $\lambda \in
 \mathbb{C}$, can therefore be expressed as
 \begin{equation}
-    \HXtwo - \lambda \HXone = \symbf{Z}_{\text{L}} \symbf{A} \left(
+    \Hxtwo - \lambda \Hxone = \symbf{Z}_{\text{L}} \symbf{A} \left(
         \symbf{Z}_{\text{D}} - \lambda \symbf{I}_M
     \right) \symbf{Z}_{\text{R}},
 \end{equation}
@@ -93,7 +97,7 @@ Assuming that the following condition is met:
 \begin{equation}
     M \leq L \leq N - M,\label{eq:pencil_condition}
 \end{equation}
-the rank of the matrix pencil will be $M$. Equation \eqref{eq:pencil_condition}
+the rank of the matrix pencil will be $M$. \cref{eq:pencil_condition}
 must be obeyed to ensure that both the number of rows and columns of the matrix
 pencil are at least $M$. Now consider the case when the scalar $\lambda$ is
 equal to one of the signal poles i.e.  $\lambda = z_m\ \forall m \in
@@ -104,15 +108,15 @@ pencil are the solution of the so-called \emph{generalised eigenvalue problem},
 and are defined as\cite[Section 7.7]{Golub2013}
 \begin{equation}
     \symbf{z} = \left\lbrace
-        z \in \mathbb{C} : \det\left(\HXtwo - z \HXone\right) = 0
+        z \in \mathbb{C} : \det\left(\Hxtwo - z \Hxone\right) = 0
     \right\rbrace
 \end{equation}
 One means of finding the signal poles is by finding the eigenvalues of the
-matrix $\HXone^+ \HXtwo^{\vphantom{+}}$. Deriving the corresponding complex
+matrix $\Hxone^+ \Hxtwo^{\vphantom{+}}$. Deriving the corresponding complex
 amplitudes can then be achieved by solving the set of linear equations
 \begin{subequations}
     \begin{gather}
-        \symbf{\alpha} = \symbf{Z}^+ \symbf{X},\\
+        \symbf{\alpha} = \symbf{Z}^+ \symbf{x},\\
         \symbf{Z} =
         \begin{bmatrix}
             \symbf{1} &
@@ -136,16 +140,17 @@ signal poles and complex amplitudes can then take place:
 \end{subequations}
 
 \subsubsection{Noisy data}
-The presence of noise in the signal $\bY$ complicates the process of
-determining the $M$ signal poles, as $\HY$ ($\HX$'s equivalent with elements
-replaced by the noisy data) is likely to be  full-rank ($\min(N - L,
-L + 1)$). To cope with this, it is necessary to generate a rank-reduced
-matrix $\HYtilde$. By employing the \ac{EYM}
+The presence of noise in the signal complicates the process of
+determining the $M$ signal poles, as $\Hy$\,---\,$\Hx$'s equivalent with
+elements replaced by the noisy data $\symbf{y}$\,---\, is likely to be
+full-rank, given by $\min(N - L, L + 1)$. To minimise the influence of noise on
+the estimated signal poles, it is necessary to
+generate a rank-reduced matrix $\Hytilde$. By employing the \ac{EYM}
 theorem\cite[Section~2.2]{Golub2013}, an appropriate matrix is can be obtained
-through \ac{SVD} (see Section \ref{subsec:linear-algebra}):
+through \ac{SVD} (see \cref{subsec:linear-algebra}):
 \begin{subequations}
     \begin{gather}
-    \HYtilde =
+    \Hytilde =
         \symbf{U}_M^{\vphantom{\dagger}}
         \symbf{\Sigma}_M^{\vphantom{\dagger}}
         \symbf{V}_M^{\dagger},\\
@@ -170,18 +175,18 @@ through \ac{SVD} (see Section \ref{subsec:linear-algebra}):
         \diag \left( \sigma_1, \sigma_2, \cdots, \sigma_M \right).
     \end{gather}
 \end{subequations}
-$\sigma_m$ is the $m$ \textsuperscript{th} largest singular value of $\HY$,
-$\symbf{u}_m \in \mathbb{C}^{\None - \Lone}$ and $\symbf{v}_m \in
-\mathbb{C}^{\Lone + 1}$ are the corresponding left and right singular vectors,
-respectively. The \ac{EYM} proves that $\HYtilde$ is the closest matrix of rank
-$M$ to $\HY$ in a Frobenius norm sense, i.e.
+$\sigma_m$ is the $m$ \textsuperscript{th} largest singular value of $\Hy$;
+$\symbf{u}_m \in \mathbb{C}^{N - L}$ and $\symbf{v}_m \in
+\mathbb{C}^{L+1}$ are the corresponding left and right singular vectors,
+respectively. The \ac{EYM} proves that $\Hytilde$ is the closest matrix of rank
+$M$ to $\Hy$ in a Frobenius norm sense, i.e.
 \begin{equation}
-    \HYtilde = \argmin_{\symbf{A}:\ \rank(\symbf{A}) = M} \left \lVert \symbf{A} - \HY \right \rVert.
+    \Hytilde = \argmin_{\symbf{A}:\ \rank(\symbf{A}) = M} \left \lVert \symbf{A} - \Hy \right \rVert.
 \end{equation}
 With a rank-reduced matrix produced from the noisy matrix, the signal poles can
-then be derived from the eigenvalues of $\HYtildeone^+
-\HYtildetwo^{\vphantom{+}}$, where $\HYtildeone$ and $\HYtildetwo$ have the
-same relation to $\HYtilde$ as  $\HXone$ and  $\HXtwo$ do to  $\HX$. As a
+then be derived from the eigenvalues of $\Hytildeone^+
+\Hytildetwo^{\vphantom{+}}$, where $\Hytildeone$ and $\Hytildetwo$ have the
+same relation to $\Hytilde$ as  $\Hxone$ and  $\Hxtwo$ do to  $\Hx$. As a
 less expensive alternative, the same result can be achieved by
 computing the eigenvalues of $\symbf{V}_{M1}^+\symbf{V}_{M2}^{\vphantom{+}}$,
 with
@@ -197,9 +202,18 @@ with
         \end{bmatrix}.
     \end{gather}
 \end{subequations}
-Algorithm \ref{alg:mpm} provides a pseudo-code description of the \ac{MPM}.
-
-\note{Discuss complexity of MPM, talking about reducing $\None$ and $\Lone$ as a means of reducing the cost.}{
+\cref{alg:mpm} provides a pseudo-code description of the \ac{MPM}, while
+\cref{lst:mpm} outlines a \Python implementation of it. For optimal
+results, the pencil parameter should adhere to $\lfloor \nicefrac{N}{3} \rfloor
+\leq L \leq \lfloor\nicefrac{2N}{3}\rfloor$\cite{Hua1990}. In this work,
+$\lfloor\nicefrac{N}{3}\rfloor$ is always used, primarily since the computational
+complexity of the method is at a maximum when $L = \nicefrac{N}{2}$\footnote{
+    With $L = \lfloor\nicefrac{N}{2}\rfloor$, the matrix
+    $\symbf{H}_{\symbf{Y}}$ is at its most ``square'' i.e. the number of rows
+    and columns are at their most similar. Matrices which are more
+    square will increase the demands on computing the \ac{SVD}, with a
+    complexity $\mathcal{O}(\min(L+1,N-L+1)^2 \times \max(L+1,N-L+1))$.
+}
 
 \begin{algorithm}
     \caption[
@@ -291,7 +305,7 @@ Algorithm \ref{alg:mpm} provides a pseudo-code description of the \ac{MPM}.
 \subsection{2D Matrix Enhancement and Matrix Pencil Method}
 \label{subsec:mmempm}
 The \ac{MPM} was extended for the consideration of \ac{2D} data by Hua with the
-\ac{MEMPM}\cite{Hua1992}. The method centers around the enhanced matrix $\EY
+\acfi{MEMPM}\cite{Hua1992}. The method centers around the enhanced matrix $\EY
 \in \mathbb{C}^{\left(\Lone \Ltwo\right) \times \left(\None - \Lone +
 1\right)\left(\Ntwo - \Ltwo + 1\right)}$, a block Hankel matrix of the form
 \begin{subequations}
@@ -313,19 +327,20 @@ The \ac{MPM} was extended for the consideration of \ac{2D} data by Hua with the
         \end{bmatrix}.
     \end{gather}
 \end{subequations}
-In a similar fashion to Equation \ref{eq:HX-decomp},
-$\symbf{H}_{\symbf{Y},\none}$ can be expressed as
+In a similar fashion to \cref{eq:HX-decomp},
+$\symbf{H}_{\symbf{X},\none}$, the noiseless equivalent to
+$\symbf{H}_{\symbf{Y},\none}$, can be expressed as
 \begin{equation}
-    \symbf{H}_{\symbf{Y},\none} =
+    \symbf{H}_{\symbf{X},\none} =
         \symbf{Z}^{(2)}_{\text{L}}
         \symbf{A}
         {\symbf{Z}^{(1)}_{\text{D}}}^{\none}
         \symbf{Z}^{(2)}_{\text{R}}.
 \end{equation}
-This then leads to the enhanced matrix be expressed as
+This then enables the noiseless enhanced matrix to be expressed as
 \begin{subequations}
     \begin{gather}
-        \EY =
+        \symbf{E}_{\symbf{X}} =
         \symbf{E}_{\text{L}}
         \symbf{A}
         \symbf{E}_{\text{R}},\\
@@ -374,7 +389,7 @@ Now consider the following two matrices:
             \symbf{Z}^{(2)}_{\text{L}} \\
             \symbf{Z}^{(2)}_{\text{L}} \symbf{Z}^{(1)}_{\text{D}} \\
             \vdots \\
-            \symbf{Z}^{(2)}_{\text{L}} \left[\symbf{Z}^{(1)}_{\text{D}}\right]^{\Lone - 2}
+            \symbf{Z}^{(2)}_{\text{L}} {\symbf{Z}^{(1)}_{\text{D}}}^{\Lone - 2}
         \end{bmatrix}.
     \end{gather}
 \end{subequations}
@@ -395,25 +410,25 @@ matrix is defined:
     \mathbb{R}^{\Lone \Ltwo \times \Lone \Ltwo} \ni
     \symbf{P} =
     \begin{bmatrix}
-        \symbf{e}\left(0\right)\T \\
-        \symbf{e}\left(\Ltwo\right)\T \\
-        \vdots \\
-        \symbf{e}\left(\left(\Lone - 1\right)\Ltwo\right)\T \\
         \symbf{e}\left(1\right)\T \\
-        \symbf{e}\left(1 + \Ltwo\right)\T \\
+        \symbf{e}\left(\Ltwo + 1\right)\T \\
         \vdots \\
         \symbf{e}\left(1 + \left(\Lone - 1\right)\Ltwo\right)\T \\
+        \symbf{e}\left(2\right)\T \\
+        \symbf{e}\left(2 + \Ltwo\right)\T \\
+        \vdots \\
+        \symbf{e}\left(2 + \left(\Lone - 1\right)\Ltwo\right)\T \\
         \vdots \\
         \vdots \\
-        \symbf{e}\left(\Ltwo - 1\right)\T \\
-        \symbf{e}\left(2\Ltwo - 1\right)\T \\
+        \symbf{e}\left(\Ltwo\right)\T \\
+        \symbf{e}\left(2\Ltwo\right)\T \\
         \vdots \\
-        \symbf{e}\left(\Lone \Ltwo - 1\right)\T \\
+        \symbf{e}\left(\Lone \Ltwo\right)\T \\
     \end{bmatrix}.
 \end{equation}
 $\symbf{e}\left(i\right) \in \mathbb{R}^{\Lone \Ltwo}$ corresponds to a unit
-vector comprising zeros except for $e_i = 1\ \forall i \in \lbrace 0, \cdots,
-\Lone\Ltwo - 1 \rbrace$.
+vector comprising zeros except for $e_i = 1\ \forall i \in \lbrace 1, \cdots,
+\Lone\Ltwo \rbrace$.
 Multiplying $\symbf{E}_{\text{L}}$ by the permutation matrix leads to a matrix
 in which the roles of the two sets of signal poles are effectively swapped:
 \begin{equation}
@@ -425,7 +440,7 @@ in which the roles of the two sets of signal poles are effectively swapped:
         \symbf{Z}^{(1)}_{\text{L}} {\symbf{Z}^{(2)}_{\text{D}}}^{\Ltwo - 1} \\
     \end{bmatrix}.\label{eq:ELP}
 \end{equation}
-Note the similarity of Equation \ref{eq:ELP} with Equation \ref{eq:EL}, which
+Note the similarity of \cref{eq:ELP} with \cref{eq:EL}, which
 implies that with the same reasoning as given above, $\bdztwo$ can be derived
 by extracting the eigenvalues of $\symbf{U}_{M\text{P}1}^+
 \symbf{U}_{M\text{P}2}^{\vphantom{+}}$, where $\symbf{U}_{M\text{P}1}$ and
@@ -434,14 +449,14 @@ with the last and first $\Lone$ rows removed, respectively.
 
 In the original account on the \ac{MEMPM}, the final stage involved employing a
 pairing algorithm in order to assign the uncorrelated signal poles in $\bdzone$
-with $\bdztwo$\cite{Hua1992}. The \ac{MMEMPM} was developed in order to
-overcome two issues with the pairing algorithm: (a) it is computationally
-expensive (b) it is fallible to return incorrect pairings\cite{Chen2007}.
-As well as the eigenvalues of $\symbf{U}^{+}_{M1}\symbf{U}_{M2}^{\vphantom{+}}$,
-the \ac{MMEMPM} requires extraction of the eigenvectors too, which are
-contained in the matrix $\symbf{W}^{(1)}$. Assuming that there are no repeated
-poles in $\bdzone$, the correctly paired second set of poles is then generated
-via
+with $\bdztwo$\cite{Hua1992}. The \emph{modified} \ac{MEMPM} (\acs{MMEMPM}) was
+developed in order to overcome two issues with the pairing algorithm: (a) it is
+computationally expensive (b) it is prone to return incorrect
+pairings\cite{Chen2007}.  As well as the eigenvalues of
+$\symbf{U}^{+}_{M1}\symbf{U}_{M2}^{\vphantom{+}}$, the \ac{MMEMPM} requires
+extraction of the eigenvectors too, which are contained in the matrix
+$\symbf{W}^{(1)}$. Assuming that there are no repeated poles in $\bdzone$, the
+correctly paired second set of poles is then generated via
 \begin{equation}
     \bdztwo = \diag\left(
         \symbf{W}^{-1}
@@ -451,33 +466,34 @@ via
     \right)
 \end{equation}
 \note{Talk about case of paired eigenvalues.}
-\note{See Algorithm \ref{alg:mmempm}}
+
+See \cref{alg:mmempm} for a pseudo-code outline, and \cref{lst:mmempm} for a
+\Python implementation of the \ac{MMEMPM}.
 
 \subsection{Model Order Selection}
 \label{subsec:model-order}
-Up to this point, it has been assumed that the model order $M$ is known, or at
-least has been predicted. For a typical \ac{FID}, the $M$ is unknown. It is
-possible that a individual inspecting the corresponding spectrum could predict
-$M$ based on the number of peaks visible, however subjective means of predicting
-model order are typically viewed as disadvantageous as they have bias
+The \ac{MPM} and \ac{MMEMPM} operate under the assumption that the model order
+$M$ is known, or at least has been predicted.
+It is possible that an individual inspecting the \ac{FID}'s spectrum could
+predict $M$ based on the number of peaks visible, however subjective means of
+predicting model order are typically viewed as disadvantageous as they have bias
 associated with them.
-\note{Mention use of threshold and retaining SVs that are higher than this.}
 There are various non-subjective criteria which have been established for
 estimating the model order of a given signal, with probably the two most
 prominent being the \ac{AIC}\cite{Akaike1974} and
 \ac{MDL}\cite{Schwarz1978,Rissanen1978}. Both of these consider a family of
 potential models which describe a given set of observations, parametrised by
 the vector $\bth$. For the purpose of \ac{1D} \ac{FID} estimation, the family
-of potential models comprise \eqref{eq:x}, with variable $M$. Both the \ac{AIC}
+of potential models comprise \cref{eq:x}, with variable $M$. Both the \ac{AIC}
 and \ac{MDL} take the same general form:
 \begin{equation}
-    \mathcal{C}(k) = -c \ln \left(\mathcal{L} \left(\bthstar | \bY \right)
+    \mathcal{C}(k) = -c \ln \left(\mathcal{L} \left(\bthstar | \by \right)
     \right) + \mathcal{P}(k) \text{ with } \bthstar \in \mathbb{R}^{4k},
 \end{equation}
 $\forall k \in \lbrace 0, 1, \cdots \rbrace$. $\mathcal{L} \left(\bthstar |
-\bY \right)$ is the likelihood
-function of a given model, with model order $k$, at the \ac{MLE}
-$\bthstar$, $c \in \mathbb{R}$ is a scaling
+\by \right)$ is the likelihood
+function of a given model, with order $k$, at the \ac{MLE}
+$\bthstar$, $c \in \mathbb{R}_{>0}$ is a scaling
 constant, and $\mathcal{P}$ is a penalising function, which acts to correct
 for bias. As the model order increases, the likelihood function at the \ac{MLE}
 will increase in size, as a model with more parameters will be able to fit a
@@ -490,11 +506,11 @@ order which is parsimonious. Wax and Kailath derived an expression for
 the likelihood at the \ac{MLE} for models comprising a summation of
 complex sinusoids\cite{Wax1985}\footnote{
     The expression in original paper considers the eigenvalues of the
-    covariance matrix for the signal, rather than the singular values of $\HY$.
+    covariance matrix for the signal, rather than the singular values of $\Hy$.
     These are equivalent however.
 }:
 \begin{equation}
-    \mathcal{L}\left(\bthstar \in \mathbb{R}^{4k} | \bY\right) = \left(
+    \mathcal{L}\left(\bthstar \in \mathbb{R}^{4k} | \by\right) = \left(
         \frac{
             \prod_{r=k}^{L-1} \sigma_{r+1}^{\nicefrac{1}{L-k}}
         }{
@@ -503,13 +519,13 @@ complex sinusoids\cite{Wax1985}\footnote{
         \right)^{(L - k) N},
         \label{eq:wax-pdf}
 \end{equation}
-$\forall k \in \lbrace 0, 1, \cdots, \Lone - 1 \rbrace$. $\symbf{\sigma} \in
-\mathbb{R}^{\Lone}$ is the set of singular values of $\symbf{H}_{\symbf{Y}}$,
+$\forall k \in \lbrace 0, 1, \cdots, L - 1 \rbrace$. $\symbf{\sigma} \in
+\mathbb{R}^{\Lone}$ is the set of singular values of $\symbf{H}_{\symbf{y}}$,
 in decreasing order. The forms of the \ac{AIC} and \ac{MDL} are given by
 \begin{subequations}
     \begin{gather}
-        \operatorname{AIC}(k) = -2 \ln\left( \mathcal{L} \left(\hat{\bth} | \bY\right) \right) + 2k(2 L - k), \\
-        \operatorname{MDL}(k) = -\ln\left( \mathcal{L} \left(\hat{\bth} | \bY\right) \right) + \tfrac{1}{2} k(2 L - k) \ln N. \label{eq:mdl}
+        \operatorname{AIC}(k) = -2 \ln\left( \mathcal{L} \left(\hat{\bth} | \by\right) \right) + 2k(2 L - k), \\
+        \operatorname{MDL}(k) = -\ln\left( \mathcal{L} \left(\hat{\bth} | \by\right) \right) + \tfrac{1}{2} k(2 L - k) \ln N. \label{eq:mdl}
     \end{gather}
 \end{subequations}
 The \ac{AIC} has been shown to be inconsistent in that it tends to overestimate
@@ -531,20 +547,20 @@ utilises the \ac{MDL}:
         A visualisation of the behaviour of the \acs{MDL} for three different
         \acsp{FID} comprising the same deterministic component ($\bx$) but
         with different noise instances of differing variances. The model used
-        to construct the \acp{FID} feature 7
-        oscillators. The three \acsp{SNR} used were
+        to construct the \acp{FID} features 7
+        signals. The three \acsp{SNR} used were
         \qty{7}{\deci\bel} (red), \qty{12}{\deci\bel} (blue), and
         \qty{20}{\deci\bel} (yellow). The \acsp{FID} were generated with $N
         = 256$.
         \textbf{a.} Spectra of the three \acsp{FID}.
         \textbf{b.} The values of the 14 most significant singular values
-        associated with the Hankel matrix $\symbf{H}_{\symbf{Y}}$, with the
+        associated with the Hankel matrix $\Hy$, with the
         pencil parameter $L$ set to $\lfloor \nicefrac{N}{3} \rfloor =
         85$.
         \textbf{c.} Square points with dotted lines: The negative log-likeliood
-        at the \ac{MLE}, i.e. the first term of \eqref{eq:mdl}.
+        at the \ac{MLE}, i.e. the first term of \cref{eq:mdl}.
         Grey line: the penalty component of the \ac{MDL}, given by the second
-        term in \eqref{eq:mdl}.
+        term in \cref{eq:mdl}.
         Circular points with solid lines: the \ac{MDL}.
         Stars denote the minimum of the \ac{MDL} for a given \ac{FID}. The
         \qty{20}{\deci\bel}
@@ -554,9 +570,11 @@ utilises the \ac{MDL}:
     }
     \label{fig:mdl}
 \end{figure}
-Figure \ref{fig:mdl} illustrates the form of the \ac{MDL} for three signals
+Applying the \ac{MDL} for model order selection, and subsequently using the
+\ac{MPM} for parameter estimation is the basis of the \ac{ITMPM}\cite{Lin1997}.
+\Cref{fig:mdl} illustrates the form of the \ac{MDL} for three signals
 with equivalent underlying models, with $M=7$, and noise instances with
-different variances. The first 14 singular values of $\symbf{H}_{\symbf{Y}}$
+different variances. The first 14 singular values of $\Hy$
 are plotted in panel b, where it can be seen that beyond the first 7,
 which account for signal components, the subsequent singular values, decrease
 at a far slower rate. The noise subspace for \acp{FID} with higher \acp{SNR}

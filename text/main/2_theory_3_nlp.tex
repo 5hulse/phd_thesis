@@ -1,16 +1,18 @@
-\section{Non-linear programming for NMR estimation}
+\section{\Acl{NLP} for NMR estimation}
 \label{sec:nlp}
-Before discussing the details of the specific \ac{NLP} problem outlined above,
-an general overview is given.
+Attention now turns to the application of \acfi{NLP} in for \ac{FID}
+estimation, which in this work accepts an initial guess of parameters from
+the \ac{MPM}, $\symbf{\theta}^{(0)}$, and generates the final estimate,
+$\bthstar$.
 
-\subsection{An overview of non-linear programming}
+\subsection{An overview of \ac{NLP}}
 \label{subsec:nlp-overview}
 In an optimisation problem, the goal is to determine the minimum\footnote{
     In certain applications, the interest is actually in finding the maximum of
     a function. However, it is trivial to transform a maximisation problem into
     a minimisation problem by finding the minimum of negative of the function.
 }
-of a function $\Fth: \mathbb{R}^n \rightarrow \mathbb{R}, n \in \mathbb{N}$, of
+of a function $\Fth: \mathbb{R}^n \rightarrow \mathbb{R}, n \in \mathbb{N}$, often
 called the \emph{cost function} or \emph{fidelity}.
 This is typically with the goal of determining the argument $\bthstar$ at
 which the optimum is found:
@@ -64,7 +66,7 @@ For a given iteration $k \in \mathbb{N}_0$, the fidelity is approximated using
     \FQth =
         \Fthk +
         \symbf{h}\T \bdgthk +
-        \frac{1}{2} \symbf{h}^{\mathrm{T}} \bdHthk \symbf{h},
+        \tfrac{1}{2} \symbf{h}^{\mathrm{T}} \bdHthk \symbf{h},
     \label{eq:quad-approx}
 \end{equation}
 where $\symbf{h} = \bth - \bthk$.  An updated prediction of the parameter
@@ -73,8 +75,8 @@ vector is derived by finding the minimum of this quadratic approximation:
     \frac{\partial \Fth}{\partial \symbf{h}} =
         \bdgthk + \bdHthk \symbf{h} \notag\\
     \implies 0 = \bdgthk + \bdHthk \left(\bthkplusone - \bthk\right) \notag\\
-    \implies \bthkplusone =
-        \bthk - \left[\bdHthk\right]^{-1}
+    \therefore\ \bthkplusone =
+        \bthk - \bdHthk^{-1}
         \bdgthk.\label{eq:newton-update}
 \end{gather}
 This process is repeated, until the convergence criterion as been met:
@@ -83,24 +85,21 @@ This process is repeated, until the convergence criterion as been met:
 \end{equation}
 The threshold $\epsilon > 0$, can be tuned based on the desired accuracy of the
 result, and is usually several order of magnitude less than $1$.
-In practice, \eqref{eq:newton-update} tends not to be used as the
-update formula in real optimisation problems. One of the major downsides of the
-Newton update is the possibility that is not a minimising update if the Hessian
-is not positive definite. Two primary strategies have emerged which are
-typically used instead:
-\begin{itemize}[
-    label={},%
-    leftmargin=*,%
-]
+\Cref{eq:newton-update} tends not to be used as the update formula in real
+optimisation problems. One of the major downsides of the Newton update is the
+possibility that is not a minimising update if the Hessian is not positive
+definite. Two primary strategies have emerged which are typically used instead:
+\begin{itemize}
     \item \emph{Line search methods}\cite[Chapter 3]{Nocedal2006} determine an
         appropriate direction $\symbf{p}^{(k)}$ along which the updated
         parameter vector is sourced.  After this, an appropriate step length
-        $\alpha^{(k)}$ is determined (typically in an efficient, though not
-        optimal manner), leading to $\bthkplusone = \bthk -
-        \alpha^{(k)}\symbf{p}^{(k)}$
+        $\alpha^{(k)}$ is determined\,---\,typically in an efficient, though not
+        optimal manner; abiding by the \emph{Wolfe conditions} is a common
+        approach\,---\,leading to $\bthkplusone = \bthk -
+        \alpha^{(k)}\symbf{p}^{(k)}$.
     \item \emph{Trust region methods}\cite[Chapter 4]{Nocedal2006} define a
         radius $\Updelta^{(k)} > 0$, and determine the minimum of
-        \eqref{eq:quad-approx} subject to the constraint that
+        \cref{eq:quad-approx} subject to the constraint that
         $\left\lVert\symbf{h}\right\rVert \leq \Updelta^{(k)}$.
 \end{itemize}
 A trust region method is applied in this work, and as such further
@@ -125,7 +124,7 @@ consideration of it will now be made.
             \State $\trmax \gets 16 \trustradius{0}$;
             \For {$k = 0, 1, \cdots $}
             \State $\symbf{p}^{(k)} \gets \textsc{SteihaugToint}\left(\symbf{Y}, \symbf{\theta}^{(k)}, \trustradius{k}\right)$;
-                \Comment{See Algorithm \ref{alg:steihaug-toint}}
+                \Comment{See \cref{alg:steihaug-toint}}
                 \State $\rho^{(k)} \gets
                     \frac
                         {\Fphithk - \Fphithkpk}
@@ -174,33 +173,34 @@ consideration of it will now be made.
     \end{algorithmic}
 \end{algorithm}
 
-The structure of a typical trust region method is presented in Algorithm
-\ref{alg:nlp} (ignoring lines
-\ref{state:neg-amp-start}--\ref{state:neg-amp-end}, which is a custom addition,
-see Section \ref{subsec:phase-variance}). An initial trust radius for the region
-$\trustradius{0}$ is defined, along with a maximum permitted trust radius
+The structure of a typical trust region method is presented in
+\cref{alg:nlp} (ignoring \crefrange{state:neg-amp-start}{state:neg-amp-end}, which is a custom addition,
+see \cref{subsec:phase-variance}). An initial radius for the trust region
+$\trustradius{0}$ is defined, along with a maximum permitted radius
 $\trmax$, to ensure that excessively adventurous steps do not take place.
-For each iteration, a solution to the following sub-problem is sought:
+For each iteration $k$, a solution to the following sub-problem is sought:
 \begin{equation}
     \begin{split}
-        \bpk = \argmin_{\bp \in \mathbb{R}^{n}}
+        \bthkplusone = \argmin_{\bp \in \mathbb{R}^{n}}
             \Fthk +
-            \bp\T \bdgthk +
-            \tfrac{1}{2} \bp\T \bdHthk \bp \\
+            (\bthk + \bp)\T \bdgthk +
+            \tfrac{1}{2} (\bthk + \bp)\T \bdHthk (\bthk + \bp) \\
         \text{subject to } \left \lVert \bp \right \rVert \leq \trustradius{k}.
     \end{split}
 \end{equation}
 This sub-problem is not usually minimised exactly, but instead an efficient
-means of determining a sufficiently good value for $\bpk$ is used.
-Common approaches include computing the Cauchy point and the Dogleg
+means of determining a sufficiently update is used.
+Common approaches include computing the Cauchy point, the Dogleg
 method, and a truncated conjugate-gradient
-approach, also known as the \ac{ST} method\cite[Chapter 7]{Nocedal2006},
-which is employed in this work (Algorithm \ref{alg:steihaug-toint}). In the
-\ac{ST} approach, iterates of the conjugate-gradient method are used, until
-either they go beyond the trust region, or negative curvature is discovered.
+approach commonly called the \ac{ST} method\cite[Chapter 7]{Nocedal2006}.
+The latter is employed in this work (see \cref{alg:steihaug-toint} and
+\cref{lst:tr}). In the \ac{ST} approach, iterates of the conjugate-gradient
+method\cite[Chapter 5]{Nocedal2006} are used, until either they go beyond the
+trust region, or negative curvature is discovered.
 
-Once a step $\bpk$ is determined, a metric is considered which indicates how
-effectively the quadratic estimate at the proposed update $\bthkplusone = \bthk
+Once a provisional update $\bthkplusone \coloneq \bth + \bpk$ is determined, a
+metric is considered which indicates how effectively the quadratic estimate at
+the proposed update $\bthkplusone = \bthk
 + \bpk$ agrees with the true value of the fidelity at this point:
 \begin{equation}
     \rho^{(k)} = \frac
@@ -212,22 +212,22 @@ by taking the proposed step, and the predicted reduction based on the quadratic
 model. If $\rho^{(k)}$ is sufficiently close to $1$, the quadratic model being
 used to generate new iterates is deemed to be acting well enough to warrant
 accepting the proposed update
-(lines \ref{state:large-rho-start}-\ref{state:large-rho-end}).
+(\crefrange{state:large-rho-start}{state:large-rho-end}).
 Furthermore, if $\rho^{(k)}$ is particularly close to 1, and the proposed
 update is at the boundary of the trust radius, it is appropriate to enlarge the
 radius of the trust region for the next iteration in an attempt to increase the
 rate of convergence
-(lines \ref{state:increase-tr-start}-\ref{state:increase-tr-end}).
+(\crefrange{state:increase-tr-start}{state:increase-tr-end}).
 On the other hand, a small value of $\rho^{(k)}$ implies that the
 quadratic model reflects the true fidelity poorly, such that the proposed
 update should be rejected
-(lines \ref{state:small-rho-start}-\ref{state:small-rho-end}).
+(\crefrange{state:small-rho-start}{state:small-rho-end}).
 As well as this, the trust region's radius should be
 decreased such that the model is more likely to behave faithfully
-(lines \ref{state:decrease-tr-start}-\ref{state:decrease-tr-end}). The exact
+(\crefrange{state:decrease-tr-start}{state:decrease-tr-end}). The exact
 thresholds which dictate whether to accept an update, and whether to adjust the
 trust region radius are customisable. The hard-coded numerical values found in
-Algorithm \ref{alg:nlp} are the values used for the results acquired in this work.
+\cref{alg:nlp} are the values used for the results acquired in this work.
 
 \subsection{Non-linear programming applied to FID estimation}
 \begin{remark}
@@ -278,7 +278,7 @@ respect to the elements in $\bth$, respectively:
 \end{subequations}
 $\forall i,j \in \lbrace 1, \cdots, 2(1+D)M \rbrace$.
 The complete set of first and second derivatives of a particular element of the
-model $x \coloneq \xnonenD$, given by \eqref{eq:x}, is as follows
+model $x \coloneq \xnonenD$, given by \cref{eq:x}, is as follows
 $\forall m \in \lbrace 1, \cdots, M \rbrace$,
 $\forall d, d^{\prime} \in \lbrace 1, \cdots, D \rbrace$:
 \begin{subequations}
@@ -333,14 +333,14 @@ $\forall d, d^{\prime} \in \lbrace 1, \cdots, D \rbrace$:
         \label{eq:zero-second-deriv}
     \end{gather}
 \end{subequations}
-\eqref{eq:zero-second-deriv} indicates that any second derivative
+\Cref{eq:zero-second-deriv} indicates that any second derivative
 with respect to two parameters which do not belong to the same oscillator will
 always be $0$. This, along with the symmetrical nature of the second derivatives, see
-\eqref{eq:symmetric-second-derivs}, drastically reduces the required
+\cref{eq:symmetric-second-derivs}, drastically reduces the required
 number of second derivatives to compute, from $4 (1 + D)^2 M^2$ per data-point
-to  $(1+D)\left(3 + 2D\right)M$. Finally, \eqref{eq:amp-second-deriv}
+to  $(1+D)\left(3 + 2D\right)M$. Finally, \cref{eq:amp-second-deriv}
 indicates that another $M$ second derivatives do not need to be computed. See
-Table \ref{tab:number-of-derivatives} for the total number of derivatives that need
+\cref{tab:number-of-derivatives} for the total number of derivatives that need
 to be computed for signals with different numbers of dimensions.
 \begin{table}
     \begin{center}
@@ -388,7 +388,7 @@ iteration with the following expression:
         \right\rangle,
     \label{eq:hess-approx}
 \end{equation}
-i.e. term \circled{2} in Equation \ref{eq:hess} involving the second derivatives is
+i.e. term \circled{2} in \cref{eq:hess} involving the second derivatives is
 neglected. All that needs to be generated is the Jacobian
 $\symbf{J} = \nicefrac{\partial \bX}{\partial \bth}$. This often
 brings a very large reduction in the computational cost, as no extra
@@ -399,7 +399,7 @@ In situations where the residuals between the data and model are small, term
 often enjoy a convergence rate close to that of Newton's method when close to
 local minima. Despite this, by invoking this approximation, the rate of
 convergence, i.e. the number of iterations required to reach $\bthstar$, tends
-to be adversely affected. See Section \ref{subsec:optim-vis} for an example of
+to be adversely affected. See \cref{subsec:optim-vis} for an example of
 this phenomenon.
 
 \subsection{Estimation Errors}
@@ -418,7 +418,7 @@ derivatives of the log-likelihood with respect to $\bth$:
         {\partial^2 \ell \left( \bdthY \right)}
         {\partial \theta_i \partial \theta_j}.
 \end{equation}
-Recalling the form of the log-likelihood given by \eqref{eq:log-likeihood},
+Recalling the form of the log-likelihood given by \cref{eq:log-likeihood},
 the elements of $\symbf{I}\left(\bth\right)$ are
 \begin{equation}
     \symbf{I}\left(\bth\right)_{i, j} =
@@ -501,9 +501,9 @@ so that finally a useable expression for the standard errors is arrived at:
     }
     \label{fig:optim-vis}
 \end{figure}
-Figure \ref{fig:optim-vis} provides a visualisation of numerical optimisation
+\Cref{fig:optim-vis} provides a visualisation of numerical optimisation
 applied on a simulated \ac{FID} comprising a single resonance.
-The FID was constructed using \eqref{eq:general-fid} with $D=1$, $M=1$,
+The FID was constructed using \cref{eq:general-fid} with $D=1$, $M=1$,
 $\None = 64$, $\fswone = \qty{5.2}{\hertz}$ ($\Dtone \approx
 \qty{0.192}{\per\second}$), and $\foffone = \qty{0}{\hertz}$.
 The resonance was parameterised by $\bth \in \mathbb{R}^4$ comprising $a=1$,
@@ -516,9 +516,9 @@ values. The initial guess comprised a frequency of \qty{1.1}{\hertz}, and a
 damping factor of \qty{0.8}{\per\second}, with the solid grey lines in panels a
 \& b denoting the model generated using the initial guess in the time- and
 Fourier-domains, respectively. $\bthzero$ was subjected to \ac{NLP} twice. In
-the first instance, the exact Hessian matrix, given by \eqref{eq:hess} was used
+the first instance, the exact Hessian matrix, given by \cref{eq:hess} was used
 in order to compute each update step, while in the second the Hessian
-approximation given by \eqref{eq:hess-approx} was used. The initial
+approximation given by \cref{eq:hess-approx} was used. The initial
 radius of the trust region was set to $\nicefrac{1}{10}$ of the gradient norm
 ($\approx 0.3$), which has a precedent in the literature\cite{Gould2005}. The
 trajectories of the parameter vector are denoted as coloured lines in panel c.
@@ -564,10 +564,10 @@ where $\circvar$ is the \emph{circular variance} of the oscillator phases
 (\textit{vide infra}).
 \begin{remark}
     The inclusion of the phase variance into the fidelity is one of the
-    motivating reasons for normalising the data prior to estimation (see Remark
-    \ref{rem:norm-data}). $\circvar$ is constrained to the interval $[0, 1]$.
+    motivating reasons for normalising the data prior to estimation (see
+    \cref{rem:norm-data}). $\circvar$ is constrained to the interval $[0, 1]$.
     If the data were not normalised, it is likely that $\lVert \bY - \bX
-    \rVert^2$ would dominate $\circvar$ in Equation \ref{eq:fidelity-phasevar},
+    \rVert^2$ would dominate $\circvar$ in \cref{eq:fidelity-phasevar},
     such that the influence of the phase variance would be negligible.
 \end{remark}
 For the phase variance to act effectively, it is necessary to apply
@@ -586,7 +586,7 @@ which be thought of in the following way:
         extra oscillators exist with spurious phases on account of
         over-fitting.
     \item Unconstrained numerical optimisation is now run, with the fidelity
-        given by Equation \ref{eq:fidelity-phasevar}. The phase variance will
+        given by \cref{eq:fidelity-phasevar}. The phase variance will
         force oscillators with phases that are significantly different to the
         majority of oscillators to drastically alter their phases to match
         them. For some/all of these oscillators, it may be the case that the
@@ -625,7 +625,7 @@ where there are two oscillators with phases $\widetilde{\bdphi} = \left[ \pi +
 \delta\:\:\pi - \delta \right]\T$ for some small $\delta$.
 The phase variance is expected to be small as these two phases are similar.
 However, with the inclusion of wrapping through application of
-\eqref{eq:phase_wrap}, these phases would actually be set to $\bdphi = \left[
+\cref{eq:phase_wrap}, these phases would actually be set to $\bdphi = \left[
     -\pi
 + \delta\:\:\pi - \delta \right]\T$, and the conventional definition of phase
 variance would be large. It is therefore apparent that a definition of variance

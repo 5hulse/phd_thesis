@@ -25,14 +25,7 @@ using the \ac{DFT}:
             \quad \forall n \in \lbrace 0, \cdots, N-1 \rbrace.
 \end{equation}
 The \ac{FT} of a continuous exponentially-damped complex sinusoid
-takes the form of a \emph{Lorentzian}\footnote{
-    When processing discrete data, the \ac{DFT} of an \ac{FID}
-    features a vertical offset, such that the baseline does not sit at
-    0\cite{Tang1994}. This results from only possessing data for positive
-    values of $t$, rather than having a ``full echo'', where negative values of
-    $t$ are accounted for too. Fortunately, this can be corrected easily by
-    halving the initial point of the \ac{FID} prior to \ac{FT}.
-}:
+takes the form of a \emph{Lorentzian}:
 \begin{subequations}
     \begin{gather}
         s(F) = \int_0^{\infty}
@@ -43,6 +36,12 @@ takes the form of a \emph{Lorentzian}\footnote{
             {\eta + 2 \pi \iu (f - F)}.
     \end{gather}
 \end{subequations}
+When processing discrete data, the \ac{DFT} of an \ac{FID}
+features a vertical offset, such that the baseline does not sit at
+0\cite{Tang1994}. This results from only possessing data for positive
+values of $t$, rather than having a ``full echo'', where negative values of
+$t$ are accounted for too. Fortunately, this can be corrected easily by
+halving the initial point of the \ac{FID} prior to \ac{FT}.
 When $\phi = 0$, this function is equivalent to the (unnormalised) \ac{pdf}
 of the Cauchy distribution. The \ac{FT} is a linear function, such that the
 \ac{FT} of a summation of signals is equivalent to the summation of the
@@ -71,7 +70,7 @@ resulting \ac{NMR} spectrum).
 
 \subsubsection{Apodisation}
 Apodisation refers to the process of mutating a signal by multiplying it with a
-specified function, often called a \emph{window function}\cite[\S
+specified function, often called a \emph{window function}\cite[Section
 3.2.7]{Claridge2016}, in order to enhance
 either the sensitivity or the resolution of the final spectrum, albeit
 at the cost of worsening the other feature.
@@ -86,7 +85,7 @@ gets progressively smaller can be used to enhance the \ac{SNR} of the
 in which a given point is multiplied by $\exp(-\nicefrac{k n}{N - 1})$.
 $k$ is referred to as the line broadening factor, since the increased dampening
 applied to the signal causes the linewidth of the spectral peaks to increase
-(see panel d of Figure \ref{fig:amp-phase-freq-damp}).
+(see panel d of \cref{fig:amp-phase-freq-damp}).
 
 \paragraph{Resolution Enhancement} By contrast, resolution enhancement can be
 achieved by applying a window function that artificially reduces the rate of
@@ -125,7 +124,7 @@ cosmetic improvement to the spectrum\,---\,the additional points are simply
 interpolations\,---\,but it does not incorporate any new information into it.
 
 \subsubsection{Phase correction}
-The real and imaginary components of \eqref{eq:ft-summation} are as follows:
+The real and imaginary components of \cref{eq:ft-summation} are as follows:
 \begin{subequations}
     \begin{gather}
         \Re(s(F)) = \sum_m
@@ -142,8 +141,8 @@ where $\mathcal{A}_m$ and  $\mathcal{D}_m$ denote \emph{absorption} and
         \mathcal{D}_m(F) = \frac{2 \pi (f_m - F)}{\eta_m^2 + 4 \pi^2 (f_m - F)^2}.
     \end{gather}
 \end{subequations}
-As illustrated most clearly in panel c2 of Figure
-\ref{fig:amp-phase-freq-damp}, a peak with an absorption lineshape is far more
+As illustrated most clearly in panel c2 of
+\cref{fig:amp-phase-freq-damp}, a peak with an absorption lineshape is far more
 desirable than one with a dispersion lineshape for two key
 reasons:
 \begin{enumerate}
@@ -167,7 +166,7 @@ have a phase of \ang{0}:
 For the majority of \ac{NMR} experiments\footnote{
      An example of an exception to this rule is when \acl{FS} pulses are applied,
      which generate datasets with quadratic phase behaviour. This is discussed
-     in more detail in Section \ref{sec:bbqchili}.
+     in more detail in \cref{sec:bbqchili}.
 }, the contributing signals possess phases which depend linearly on their
 frequencies, i.e.
 \begin{equation}
@@ -210,7 +209,7 @@ phase-modulated datasets is now given, through the consideration of \ac{2D}
 signals.
 
 \subsubsection{Amplitude-modulated signals}
-It is clear that a cosine-modulated signal, given by \eqref{eq:general-fid}
+It is clear that a cosine-modulated signal, given by \cref{eq:general-fid}
 with $D=2$ and $\zeta^{(1)} = \cos(\cdot)$ cannot achieve frequency
 discrimination, on account of the relation
 \begin{equation}
@@ -224,7 +223,7 @@ $\left(\fone, \ftwo\right)$, and the other at the mirror-image frequency in the
 indirect dimension, $(2\foffone - \fone, \ftwo)$. On top of this, the
 peaks possess a mixture of absorption and dispersion character, with the
 resultant peak shape often referred to as \emph{phase twist}\cite{Keeler1985}.
-A spectrum of this form is presented in panel a of Figure \ref{fig:2d-lineshapes}.
+A spectrum of this form is presented in panel a of \cref{fig:2d-lineshapes}.
 It is possible to generate pure absorption peaks by applying \ac{FT} in the
 direct dimension, setting the imaginary component to zero, and finally
 applying \ac{FT} in the indirect dimension. The real component of the result
@@ -235,7 +234,7 @@ analogous sine-modulated signal ($\zeta^{(1)} = \sin(\cdot)$) as this
 achieves quadrature detection in the indirect dimension. For
 numerous multidimensional experiments, repeating the
 pulse sequence, with careful adjustments to the phases of particular pulses
-(\emph{phase cycling}) enables this\cite[\S 11]{Keeler2010}.
+(\emph{phase cycling}) enables this\cite[Chapter 11]{Keeler2010}.
 Applying the same processing as that which achieved the double absorption
 spectrum for the cosine-modulated case generates a spectrum whose imaginary
 component features two peaks, but with opposite signs (panel c).
@@ -283,7 +282,7 @@ its quadrature nature. However, direct \ac{FT} of such a signal in both
 dimensions leads to a peak with a phase-twist lineshape, with no means of
 separating the absorption and dispersion contributions (panel e). Certain pulse
 sequences, including \ac{2DJ} spectroscopy\cite{Aue1976,Morris2009} (see
-Chapter \ref{chap:cupid}) and
+\cref{chap:cupid}) and
 \ac{COSY}\cite{Jeener1971,Jeener2016,Aue1976a} produce hypercomplex datasets,
 and the conventional means of processing is simply to display the
 spectrum in \emph{magnitude-mode}, where the absolute value of each complex
@@ -340,6 +339,7 @@ noise do not lead to roughly $\nicefrac{1}{2}$ of all points in the spectrum
 being picked.
 
 \subsection{Estimation Techniques for NMR Analysis}
+\label{subsec:estimation-techniques}
 While integration and peak picking works adequately for high \ac{SNR} spectra
 featuring very well-separated peaks, in most practical situations accurate
 quantification of individual resonances is impossible using this approach,
@@ -396,7 +396,7 @@ of \emph{backward} \ac{LP} coefficients $\symbf{b} \in \mathbb{R}^L$:
 Determining
 the \ac{LP} coefficients enables the estimation of \ac{FID} values beyond the
 data actually acquired ($n < 0$ and $n > N - 1$). It should be noted that
-\eqref{eq:forward-lp} and \eqref{eq:backward-lp} are only valid for
+\cref{eq:forward-lp,eq:backward-lp} are only valid for
 \acp{FID} without any corruption from experimental noise. Noisy datasets are
 instead an example of an \ac{ARMA} process. Despite this, due to the greater
 simplicity of the \ac{AR} model, it is far more common to employ this. The most
@@ -408,8 +408,10 @@ Levinson-Durbin algorithm providing an efficient means of solving the
 equations\cite{Levinson1946,Durbin1960}.
 
 \subsubsection{\acs{SVD}-based methods}
+\note{LPSVD: also called SVD-Prony}
+\note{Include ESPRIT}
 Some of the most prevalent methods for \ac{NMR} estimation involve \acfi{SVD}
-as a key component (\S \ref{subsec:linear-algebra}). For each of these methods,
+as a key component (\cref{subsec:linear-algebra}). For each of these methods,
 a truncated \ac{SVD} is applied to a Hankel matrix containing the \ac{FID}.
 Above a certain \ac{SNR} threshold, it is found that the singular values in the data matrix associated with signal are
 larger than those related to noise, and as such forming a low-rank
@@ -418,7 +420,7 @@ parameter estimate.
 The degree of truncation is dependent on the suspected model order of the
 dataset, which must be supplied, or determined by some appropriate metric.
 All the \ac{SVD}-based techniques determining the nonlinear
-parameters in \eqref{eq:x} (frequencies and damping factors, incorporated in
+parameters in \cref{eq:x} (frequencies and damping factors, incorporated in
 the signal poles).
 Subsequently, the amplitudes and phases can be computed by solving a
 linear least-squares problem:
@@ -451,8 +453,8 @@ eigenvalue problem.  Pines and coworkers introduced the \ac{ITMPM}\cite{Lin1997}
 for use in \ac{NMR}, which combines the \ac{MPM} with a method for estimating
 the model order, such that no \textit{a priori} information is required.
 Outlines of the \ac{MPM} and its \ac{2D} equivalent, the
-\ac{MMEMPM}\cite{Hua1992,Chen2007} are provided in detail in \S
-\ref{subsec:mpm}.
+\ac{MMEMPM}\cite{Hua1992,Chen2007} are provided in detail in
+\cref{subsec:mpm}.
 
 % separating contributions from deterministic
 % signal in the \ac{FID} from experimental noise.
@@ -505,7 +507,7 @@ Outlines of the \ac{MPM} and its \ac{2D} equivalent, the
 %   \end{bmatrix},
 % \end{equation}
 % where $z_m$ is the signal pole of the $m$\textsuperscript{th} signal, given by
-% \eqref{eq:signal-pole}.
+% \cref{eq:signal-pole}.
 % This means that the rank of $\symbf{A}^{\prime}$ is $M$, provided it possesses
 % at least $M$ rows ($M \leq N - L$). Because $\symbf{b}^{\prime}$ lies in the
 % null space of $\symbf{A}^{\prime}$, $\symbf{r}_m
@@ -523,7 +525,7 @@ Outlines of the \ac{MPM} and its \ac{2D} equivalent, the
 % \forall m \in \{1, \cdots, M\}$.
 
 % The prediction coefficient vector $\symbf{b}$ still needs to be determined.
-% \eqref{eq:lineqs} implies that $\symbf{b}$ can be determined by employing
+% \cref{eq:lineqs} implies that $\symbf{b}$ can be determined by employing
 % linear lest squares:
 % \begin{equation}
 %   \symbf{b} = - \mathbf{A}^+ \symbf{h}.
@@ -534,8 +536,8 @@ Outlines of the \ac{MPM} and its \ac{2D} equivalent, the
 % low-rank approximation of $\symbf{A}$ is produced, in an attempt to purge
 % contributions from noise, and retain only contributions from the $M$ signals in
 % the data. More information on the \ac{SVD} and its usefulness in generating
-% low-rank approximations of matrices can found found in \S \ref{subsec:mpm} and
-% \S \ref{subsec:linear-algebra}.
+% low-rank approximations of matrices can found found in \cref{subsec:mpm} and
+% \cref{subsec:linear-algebra}.
 % The vector of prediction coefficients is determined by:
 % \begin{equation}
 %     \symbf{b} = - \sum_{m=1}^M \sigma_m^{-1 \vphantom{\dagger}} \left[
@@ -543,8 +545,8 @@ Outlines of the \ac{MPM} and its \ac{2D} equivalent, the
 % \end{equation}
 % where $\sigma_m$ is the  $m$\textsuperscript{th} most significant singular
 % value of $\symbf{A}$, and $\symbf{u}_m$ and $\symbf{v}_m$ are the corresponding
-% right and left singular vectors, respectively. As will be illustrated in \S
-% \ref{subsec:mpm}, the complex amplitudes associated with the \ac{FID} can be
+% right and left singular vectors, respectively. As will be illustrated in
+% \cref{subsec:mpm}, the complex amplitudes associated with the \ac{FID} can be
 % determined by solving a linear set of equations involving a Vandermonde matrix
 % of the signal poles:
 % \begin{subequations}
@@ -576,7 +578,7 @@ relies on minimising the following quantity:
         \argmin_{\symbf{\theta} \in \mathbb{R}^{4M}} \left \lVert \symbf{y} - \symbf{Z}\symbf{\alpha} \right \rVert^2
 \end{equation}
 The linear parameters, residing in the vector of complex amplitudes, can be
-recast as $\symbf{Z}^+\symbf{y}$ (see \eqref{eq:complex-amplitudes}). By doing
+recast as $\symbf{Z}^+\symbf{y}$ (see \cref{eq:complex-amplitudes}). By doing
 this, it becomes possible to recast the optimisation problem to only solve for
 the nonlinear terms:
 \begin{equation}
