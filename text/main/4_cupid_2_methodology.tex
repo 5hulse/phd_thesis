@@ -1,20 +1,20 @@
 \section{Methodology}
 \ac{CUPID} aims to generate pure shift spectra by utilising the result of
 parametric estimation of \ac{2DJ} data, assumed to take the functional form of
-\eqref{eq:jres-fid}. In this section, a description of the method is given.
+\cref{eq:jres-fid}. In this section, a description of the method is given.
 
 \subsection{The estimation routine}
 The primary steps involved in estimating a \ac{2DJ} dataset are
 \begin{enumerate}
-    \item Generation of a frequency-filtered sub-\ac{FID} (Section
-        \ref{subsec:jres-filtering}).
+    \item Generation of a frequency-filtered sub-\ac{FID}
+        (\cref{subsec:jres-filtering}).
     \item Prediction of the model order, either by applying the \ac{MDL} on the
-        first \ac{FID} in the direct dimension (Section
-        \ref{subsec:model-order}) or by manually specifying a
+        first \ac{FID} in the direct dimension (\cref{subsec:model-order}) or
+        by manually specifying a
         value.
-    \item Generation of an initial guess using the \ac{MMEMPM} (Section
-        \ref{subsec:mmempm}).
-    \item Subjection of the initial guess to \ac{NLP} (Section \ref{sec:nlp}).
+    \item Generation of an initial guess using the \ac{MMEMPM}
+        (\cref{subsec:mmempm}).
+    \item Subjection of the initial guess to \ac{NLP} (\cref{sec:nlp}).
 \end{enumerate}
 Instead of estimating successive \ac{1D} \acp{FID}, as proposed by
 Nuzillard and Mutzenhardt et al., \ac{2DJ} sub-\acp{FID} are estimated
@@ -36,8 +36,8 @@ resolution (assuming $\nicefrac{\fswone}{\None}$ and
 $\nicefrac{\fswtwo}{\Ntwo}$ are comparable).
 A further benefit comes with having access to the frequencies of each
 oscillator in \emph{both} dimensions, since this allows one to group together
-those which belong to the same multiplet (see Section
-\ref{subsec:mp-selection}). Similar information can be obtained
+those which belong to the same multiplet (see \cref{subsec:mp-selection}).
+Similar information can be obtained
 by extracting slices of a tilted magnitude-mode \ac{2DJ} spectrum at
 appropriate values of $F^{(2)}$, though the lineshapes of peaks suffer from the
 undesirable characteristics described above. The
@@ -47,7 +47,7 @@ to generate individual multiplet structures, though with long \ac{3D} pulse
 sequences, and with reduced sensitivity relative to a conventional \ac{2DJ}
 experiment.
 
-As was mentioned in Section \ref{subsec:model-order}, application of the
+As was mentioned in \cref{subsec:model-order}, application of the
 \ac{MDL} to a \ac{2D} \ac{FID} is not desirable, since a full \ac{SVD} would
 need to be computed on the Hankel matrix $\symbf{E}_{\symbf{Y}}$.
 Assuming that the spectral region being considered is not too
@@ -92,7 +92,7 @@ whereas the weaker strong coupling artefacts are not included.
         the diagonal of this signal, such that it forms a \ang{-45} angle to the
         $\ttwo$ axis, yields an \ac{FID} $\by_{\ang{-45}}$  which is
         homodecoupled. Note that there is a slight discrepancy
-        between \eqref{eq:neg-45} and this description, in that the
+        between \cref{eq:neg-45} and this description, in that the
         indirect-dimension damping factors $\bdetaone$ are neglected in the
         former case.
     }
@@ -114,7 +114,7 @@ the \emph{\ang{-45} signal} $\symbf{y}_{\ang{-45}} \in \mathbb{C}^{\Ntwo}$:
         \right),
     \label{eq:neg-45}
 \end{equation}
-with the reasoning behind the name provided by Figure \ref{fig:neg-45}.
+with the reasoning behind the name provided by \cref{fig:neg-45}.
 The \ang{-45} signal
 takes the form of a \ac{1D} \ac{FID} expected from a pulse-acquire experiment,
 except that the frequency of each oscillator, which would usually be $\ftwo_m$,
@@ -135,8 +135,8 @@ to be densely populated since all multiplet structures are centered at
 generation of frequency-filtered sub-\acp{FID} is limited to consideration of
 the direct dimension.
 The filtering procedure applied to \ac{2DJ} data is an extension of that
-for \ac{1D} data described in Section \ref{sec:filtering}, and is
-depicted in Figure \ref{fig:jres-filtering}:
+for \ac{1D} data described in \cref{sec:filtering}, and is
+depicted in \cref{fig:jres-filtering}:
 \begin{enumerate}
     \item The signal $\symbf{Y}_{\text{ve}} \in \mathbb{C}^{\None \times 2 \Ntwo}$ is
     constructed, such that a virtual echo is formed from each direct-dimension
@@ -157,7 +157,7 @@ depicted in Figure \ref{fig:jres-filtering}:
     \end{equation}
     \item $\symbf{Y}_{\text{ve}}$ is subjected to \ac{FT} along the direct
         dimension to produce the spectrum  $\symbf{S}_{\text{ve}}$ (panel a of
-        Figure \ref{fig:jres-filtering}). This has an imaginary component of
+        \cref{fig:jres-filtering}). This has an imaginary component of
         zero.
     \item A super-Gaussian $\symbf{G} \in \mathbb{R}^{\None \times 2 \Ntwo}$ is
         constructed (panel b):
@@ -166,7 +166,7 @@ depicted in Figure \ref{fig:jres-filtering}:
         \end{equation}
         where $\symbf{1} \in \mathbb{R}^{\None}$ is a vector of ones, and
         $\symbf{g}^{(2)} \in \mathbb{R}^{2\Ntwo}$ is a super-Gaussian vector
-        given by \eqref{eq:super-Gaussian-onedim}.
+        given by \cref{eq:super-Gaussian-onedim}.
     \item A matrix of additive noise is generated by extracting the variance
         $\sigma^2$ of a direct-dimension strip of $\symbf{S}_{\text{ve}}$ which
         is devoid of peaks, and generating an array $\symbf{W}_{\sigma^2} \in
@@ -198,7 +198,7 @@ depicted in Figure \ref{fig:jres-filtering}:
         \textbf{c.} Additive noise, attenuated by the super-Gaussian, $\symbf{W}_{\sigma^2} \odot (\symbf{1} - \symbf{G})$,
         \textbf{d.} Filtered spectrum $\widetilde{\symbf{S}}_{\text{ve}}$
         Panels \textbf{a.}--\textbf{d.} are analogous to panels \textbf{b.}--
-        \textbf{e.} in Figure \ref{fig:filtering} for the \ac{1D} case.
+        \textbf{e.} in \cref{fig:filtering} for the \ac{1D} case.
     }
     \label{fig:jres-filtering}
 \end{figure}
@@ -227,7 +227,7 @@ $\epsilon = \min\left(\nicefrac{\fswone}{\None},
 \nicefrac{\fswtwo}{\Ntwo}\right)$.  However, limitations in resolution due to
 signal damping and field inhomogeneities can mean that $\epsilon$ has to be
 increased beyond this for reasonable multiplet assignments to be achieved.
-Listing \ref{lst:mp-assign} provides a \Python routine that can be used for multiplet
+Listing \cref{lst:mp-assign} provides a \Python routine that can be used for multiplet
 prediction.
 
 There are certain circumstances where it is possible to safely assume that a
@@ -244,31 +244,3 @@ member of a multiplet grouping, it must be a singlet, and as such it will have
 an indirect-dimension frequency of \qty{0}{\hertz}. Oscillators which do agree
 with the two points above can be assumed to be related to either strong
 coupling artefacts or noise, and can be discarded.
-
-% Spurious oscillators:
-% \begin{itemize}
-%     \item Very broad, with $\fone \approx \qty{0}{\hertz}$. Caused in cases where very intense signal i.e. from solvent/residual water has a tail which ``breaks into'' the region of interest.
-%     \item Low intensity, random indirect frequency: overfit: probably fitting a
-%         noise component
-%     \item Around region boundary: likely due to artefacts induced by filtering
-% \end{itemize}
-% The ability to predict multiplet groupings can also assist in scenarios where
-% the estimation result contains some oscillators with a spurious nature,
-% typically due to overfitting. These typically possess either a very large
-% damping factor or low amplitude, and are not associated with discernible peaks
-% in the spectrum. Part of the reason that the variance of phases is included in
-% the fidelity for \ac{NLP} is to try and purge these oscillators, however this
-% method is not infallible, and undesired oscillators can end up in the final
-% result. An appreciable number of these can be removed in an automated fashion
-% by noting that there should not be any oscillators in the estimation result of
-% a 2DJ dataset which satisfy both of the following:
-% \begin{enumerate}
-%     \item The oscillator is not grouped with any other oscillator as part of
-%         the multiplet assignment.
-%     \item The magnitude of the indirect dimension frequency of the oscillator
-%         is appreciably greater than \qty{0}{\hertz}.
-% \end{enumerate}
-% These criteria are borne out of the fact that it should not be possible to have
-% oscillators in a 2DJ dataset which are not part of a multiplet structure,
-% unless such oscillators are singlets. As no scalar couplings contribute, these
-% singlets should have an indirect dimension frequency of \qty{0}{\hertz}.

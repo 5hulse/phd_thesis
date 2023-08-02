@@ -38,7 +38,7 @@ One fundamental property of the \ac{SVD} is that the number of non-zero
 singular values is equivalent to the rank of the matrix. As the \ac{EYM}
 theorem highlights, the \ac{SVD} is valuable in constructing low-rank
 approximations of matrices, with applications in various fields such as signal
-processing, (see Section \ref{subsec:mpm}) and data compression.
+processing, (see \cref{subsec:mpm}) and data compression.
 
 \subsubsection{Special matrices}
 A \emph{Hankel matrix} is a matrix in which each ascending diagonal from left to right
@@ -78,12 +78,12 @@ the region of integration is $0$.
 
 \section{Multidimensional \aclp{VE}}
 \label{sec:multidim-ve}
-The \ac{VE} concept (Section \ref{subsec:ve}) can be generalised to any number
+The \ac{VE} concept (\cref{subsec:ve}) can be generalised to any number
 of dimensions, assuming that a pair of amplitude-modulated signals exist for
 each indirect-dimension. Thus a set of $2^{D-1}$ signals is required for a
 $D$-dimensional \ac{FID}.
 For the \ac{2D} case, this corresponds to the pair of signals $\lbrace
-\bY^{\cos}, \bY^{\sin} \rbrace$, given by \eqref{eq:general-fid} with $D=2$ and
+\bY^{\cos}, \bY^{\sin} \rbrace$, given by \cref{eq:general-fid} with $D=2$ and
 $\zeta = \lbrace \cos(\cdot), \sin(\cdot) \rbrace$, taking the forms (with
 noise neglected)
 \begin{subequations}
@@ -149,12 +149,12 @@ from which the matrices $\symbf{T}_{1 \rightarrow 4} \in \mathbb{C}^{2 \None
 \end{subequations}
 The virtual echo is then given by $\symbf{Y}_{\text{ve}} = \sum_{i=1}^4
 \symbf{T}_i$, with the first row and column divided by two. For a full outline
-of the 2D filtering procedure, see Algorithm \ref{alg:filter-2d}.
+of the 2D filtering procedure, see \cref{alg:filter-2d}.
 
 It is possible to construct a virtual echo using an appropriate set of
 phase-modulated signals too, which for the \ac{2D} case would be $\lbrace
 \symbf{Y}^{\text{pos}}, \symbf{Y}^{\text{neg}}\rbrace$, given by
-\eqref{eq:general-fid} with $D=2$ and  $\zeta = \lbrace \exp(\iu \cdot),
+\cref{eq:general-fid} with $D=2$ and  $\zeta = \lbrace \exp(\iu \cdot),
 \exp(-\iu\cdot)\rbrace$. These can be used to generate an amplitude modulated pair via
 \begin{subequations}
     \begin{gather}
@@ -333,9 +333,9 @@ phase-modulated signals too, which for the \ac{2D} case would be $\lbrace
             $
         }
             \State $\symbf{g} \gets \nabla \FphithkY$;
-            \Comment{Grad vector: \eqref{eq:grad}}
+            \Comment{Grad vector: \cref{eq:grad}}
             \State $\symbf{H} \gets \nabla^2 \FphithkY$;
-            \Comment{Hessian matrix, either exact: \eqref{eq:hess} or approximate: \eqref{eq:hess-approx}}
+            \Comment{Hessian matrix, either exact: \cref{eq:hess} or approximate: \cref{eq:hess-approx}}
             \State $\epsilon^{(k)} \gets \min\left(
                     \nicefrac{1}{2},
                     \sqrt{\left\lVert \symbf{g} \right\rVert}

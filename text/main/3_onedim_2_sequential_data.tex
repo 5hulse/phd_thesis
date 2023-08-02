@@ -11,8 +11,8 @@ described, facilitating the determination of these properties.
 \subsection{Relaxation experiments}
 \label{subsec:relaxation_experiments}
 Any spin system which has been perturbed from its equilibrium position will
-eventually return to equilibrium by relaxation. As introduced in Chapter
-\ref{chap:intro}, the simplest model of relaxation centers around two
+eventually return to equilibrium by relaxation. As introduced in
+\cref{chap:intro}, the simplest model of relaxation centers around two
 quantities: the longitudinal relaxation rate and the transverse relaxation
 rate, quantified by the times $T_1$ and  $T_2$ respectively. Though a rigorous
 picture of relaxation in \ac{NMR} requires the use quantum mechanics
@@ -62,8 +62,8 @@ where $a_{\infty}$ is the intensity of the peak acquired when the spin system
 has returned to equilibrium. Note that $a(0) = -a_{\infty}$, as the spin system
 has been completely inverted, and no time has been allowed for longitudinal
 relaxation to take place. An example of a series of spectra acquired using an
-inversion recovery experiment is given by panel d in Figure
-\ref{fig:five-multiplets-invrec}.
+inversion recovery experiment is given by panel d in
+\cref{fig:five-multiplets-invrec}.
 
 \subsubsection{Measuring $T_2$: \acs{CPMG}}
 \label{subsec:cpmg}
@@ -95,7 +95,7 @@ the pulse sequence reduces to a standard pulse-acquire experiment.
 \ac{NMR} is well established as a means of determining the rates of diffusion of chemical species\cite{Johnson1999,Morris2009b}.
 The first showcase for determining translational diffusion coefficients came
 from Stejskal and Tanner, in which they described the \ac{PGSE} pulse
-sequence\cite{Stejskal1965} (Figure \ref{fig:diffusion_sequences}.a).
+sequence\cite{Stejskal1965} (\cref{fig:diffusion_sequences}.a).
 The \ac{PGSE} sequence consists of a conventional spin-echo ($\ang{90}
 \xrightarrow{\tau} \ang{180} \xrightarrow{\tau} \text{acquire}$), with
 \acp{PFG} applied after each of the \ac{RF} pulses.
@@ -182,7 +182,7 @@ $\Delta$ is the delay between the \acp{PFG}, often known as the diffusion time
 (\unit{\second}),
 and $D$ is the translational diffusion constant of the species giving rise to
 the signal (\unit{\meter\squared\per\second}).
-While \eqref{eq:stejskal_tanner} is widely stated in the literature, it is only
+While \cref{eq:stejskal_tanner} is widely stated in the literature, it is only
 strictly applicable when the \ac{PGSE} sequence is used, and \acp{PFG} with
 rectangular amplitude profiles are applied\footnote{
     Rectangular \acp{PFG} (i.e. those in which there is an infinitesimal time
@@ -192,7 +192,7 @@ rectangular amplitude profiles are applied\footnote{
 }.
 
 Tanner introduced a variant of the original \ac{PGSE} experiment called
-\ac{PGSTE}\cite{Tanner1970} (Figure \ref{fig:diffusion_sequences}.b). Instead
+\ac{PGSTE}\cite{Tanner1970} (\cref{fig:diffusion_sequences}.b). Instead
 of the diffusion period including a
 \ang{180} pulse, \ac{PGSTE} features two \ang{90} pulses, with the first being
 applied shortly after the initial \ac{PFG}, and the second being applied just
@@ -209,11 +209,11 @@ single direction. Experiments also exist which employ
 \emph{bipolar} gradient elements\cite{Cotts1989,Wu1995}, which consist of a
 \ac{PFG}, followed by a \ang{180} pulse, and then a second \ac{PFG} with the
 opposite polarity to the first. A well-known example is the \ac{PGSTEBP}
-experiment (Figure \ref{fig:diffusion_sequences}.c). Bipolar gradients are
+experiment (\cref{fig:diffusion_sequences}.c). Bipolar gradients are
 useful in circumstances where it is important to purge the effects of static
 gradients in the sample, caused by field inhomogeneities. Morris and coworkers
-have developed the \emph{one-shot} experiment\cite{Pelta2002} (Figure
-\ref{fig:diffusion_sequences}.d), which requires a single transient per
+have developed the \emph{one-shot} experiment\cite{Pelta2002}
+(\cref{fig:diffusion_sequences}.d), which requires a single transient per
 gradient strength (i.e. there is no requirement for a phase-cycling scheme).
 This is achieved through the use of bipolar gradients which comprise
 asymmetrical \acp{PFG} with relative powers $1 + \alpha : 1 - \alpha$ for some
@@ -292,14 +292,14 @@ with their discrete counterparts being
 \end{subequations}
 For \acp{PFG} with a symmetrical shape, $\lambda = \nicefrac{1}{2}$. $\kappa$
 is typically equal to or close to $\nicefrac{1}{3}$. It can now be seen that
-the original Stejskal-Tanner equation \eqref{eq:stejskal_tanner} comes from
-plugging \eqref{eq:monopolar} into \eqref{eq:stejskal_tanner_generic}, with
+the original Stejskal-Tanner equation (\cref{eq:stejskal_tanner}) comes from
+plugging \cref{eq:monopolar} into \cref{eq:stejskal_tanner_generic}, with
 parameters for rectangular \acp{PFG}: $\sigma = 1$,  $\lambda =
 \nicefrac{1}{2}$, and  $\kappa = \frac{1}{3}$. In many situations,  $\Delta$
 dominates in the expression of $\Delta^{\prime}$, and so ensuring the correct
 form of $c$ could be seen as excessive. However, especially when  $\Delta$ is
 not orders of magnitude greater than $\delta$, the exact form of
-$\Delta^{\prime}$ used in Equation \ref{eq:stejskal_tanner_generic} will be
+$\Delta^{\prime}$ used in \cref{eq:stejskal_tanner_generic} will be
 extremely important for accurate measurements of $D$.
 
 \note{Talk about means of determining $T_1$,  $D$ etc: peak pick and fit
@@ -369,9 +369,9 @@ experiment:
 \end{itemize}
 The function $\mathcal{A}$ describes how the amplitudes of resonances are
 attenuated by the experimental variable, and has a form which is intimately
-linked to the type of experiment. For the experiments described in Sections
-\ref{subsec:relaxation_experiments} and \ref{subsec:diffusion_experiments},
-these forms are provided in Table \ref{tab:seq-equations}.
+linked to the type of experiment. For the experiments described in
+\cref{subsec:relaxation_experiments,subsec:diffusion_experiments},
+these forms are provided in \cref{tab:seq-equations}.
 \begin{table}
     \begin{center}
         \begin{tabular}{ccccccc}
@@ -427,11 +427,11 @@ previous iteration, and subjecting it to a \ac{NLP} routine in which only the
 amplitudes are allowed to be varied. Thus, determining parameter estimates for
 each iteration $k \in \lbrace2, \cdots, K\rbrace$ is reduced to the
 problem\footnote{
-    $\mathcal{F}$ in \eqref{eq:fidelity-amp} reads as ``the fidelity
+    $\mathcal{F}$ in \cref{eq:fidelity-amp} reads as ``the fidelity
     with respect to the amplitudes $\bda$, given phases $\bdphi$,
     frequencies $\bdfone$, damping factors  $\bdetaone$, and \ac{FID}
     $\bY[k,:]$''. The expression has exactly the same mathematical form as
-    \eqref{eq:fidelity}, though it emphasises that the phases, frequencies and
+    \cref{eq:fidelity}, though it emphasises that the phases, frequencies and
     damping factors are no longer variables to be optimised, but fixed
     parameters.
 }
@@ -444,7 +444,7 @@ problem\footnote{
 An \ac{NLP} routine can solve this very efficiently, typically in few
 iterations, on account of the linear dependence of the model with respect to
 the oscillator amplitudes. The linear dependence also means that second
-derivatives of the model are all zero (see \eqref{eq:amp-second-deriv}),
+derivatives of the model are all zero (see \cref{eq:amp-second-deriv}),
 such that only first derivatives need to be computed to derive an exact Hessian
 matrix of the fidelity.
 
@@ -457,7 +457,7 @@ matrix of the fidelity.
         Routine for estimating a sequence of \ac{1D} \acsp{FID} which exhibit
         variation in amplitudes across increments.
         \textsc{NLPAmp} denotes a
-        routine which is akin to \textsc{NLP} (Algorithm \ref{alg:nlp}), except
+        routine which is akin to \textsc{NLP} (\cref{alg:nlp}), except
         only amplitudes are allowed to be altered, whilst phases, frequencies
         and damping factors are fixed.
     }
@@ -488,7 +488,7 @@ matrix of the fidelity.
                 \symbf{r}_{\text{noise}}
                 \right);
                 $
-            \Comment{Algorithm \ref{alg:filter-1d}.}
+            \Comment{\cref{alg:filter-1d}.}
             \State $\bth_{k}, \symbf{\epsilon}_{k} \gets
             \textsc{NLPAmp}\left(\widetilde{\by}, \bth_{k}\right)$;
             \State $\bth[kM : (k+1)M], \symbf{\epsilon}[kM : (k+1)M] \gets \bth_k[:M], \symbf{\epsilon}_k[:M]$;
@@ -539,7 +539,7 @@ $\symbf{A}$.
 This is another example of a residual sum-of-squares problem, and can also be
 solved using \iac{NLP} routine. The gradient vector and Hessian
 matrix of the fidelity take very similar functional forms to those for \ac{FID}
-estimation (see \eqref{eq:grad} and \eqref{eq:hess}), and are as follows
+estimation (see \cref{eq:grad} and \cref{eq:hess}), and are as follows
 $\forall i, j \in \lbrace 0, 1 \rbrace$:
 \begin{subequations}
     \begin{gather}
@@ -578,8 +578,8 @@ with explicit expressions for the requisite first and second derivatives being
     \end{gather}
 \end{subequations}
 The functional forms of the first and second derivatives for the different
-experiments of interest of $\mathcal{A}$ are given in Table
-\ref{tab:seq-equations}.
+experiments of interest of $\mathcal{A}$ are given in
+\cref{tab:seq-equations}.
 
 \subsubsection{Displaying results}
 Visualising the results from the routine described above can be done in a
@@ -608,7 +608,7 @@ distribution used is a Gaussian distribution with mean $\psi_m$ and standard
 deviation $c \epsilon_m$, where $\epsilon_m$ is the estimation error associated
 with oscillator $m$'s parameter of interest,\footnote{
     The errors can be extracted from the Hessian matrix once the \ac{NLP}
-    routine has reached convergence. See section \ref{subsec:errors} for more
+    routine has reached convergence. See \cref{subsec:errors} for more
     information.
 }
 and $c \in \mathbb{R}_{>0}$ is an arbitrary linewidth factor which can be chosen
@@ -617,7 +617,7 @@ to ensure clear visibility of the peaks.\footnote{
     so sharp relative to the resolution used for plotting, that
     $\text{max}(\symbf{d}_m)$ can be $0$ if the peak of the distribution does
     not coincide with one of the sampling values. In these situations, errors
-    arise due to attempted division by $0$ (see \eqref{eq:dosy-spectrum}).
+    arise due to attempted division by $0$ (see \cref{eq:dosy-spectrum}).
     Broadening the distribution (i.e. setting $c > 1$) resolves issues with
     plotting discrete samples.
 }
@@ -653,13 +653,13 @@ generate the distribution.
         generated by the estimation routine. Oscillators with the same colour
         are components of the same multiplet.
         \textbf{b.} Distribution of $T_1$ values, generated using
-        \eqref{eq:distribution}, with
+        \cref{eq:distribution}, with
         $p_{\text{min}} = \qty{0.7}{\second}$,
         $p_{\text{max}} = \qty{5.3}{\second}$,
         $c = 40$,
         $R=128$.
         \textbf{c.} \ac{DOSY}-style contour plot of the result, generated using
-        \eqref{eq:dosy-cross-product}.
+        \cref{eq:dosy-cross-product}.
         Dashed horizontal lines denote the true $T_1$ values for each spin.
         \textbf{c.} Estimation result for each increment for Run 3,
         illustrating the evolution of the amplitudes of each oscillator with
@@ -667,12 +667,12 @@ generate the distribution.
     }
     \label{fig:five-multiplets-invrec}
 \end{figure}
-Figure \ref{fig:five-multiplets-invrec} shows the result of the described
+\Cref{fig:five-multiplets-invrec} shows the result of the described
 method in determining the $T_1$ values of resonances in a simulated inversion
 recovery datasets featuring 5 overlapping ddd multiplet structures. The spin
 systems used to generate the datasets were constructed in a similar way to that
 described for the ``Four Multiplets'' example in
-Section \ref{subsec:cupid-results}. In this case however, 5 estimated spins were
+\cref{subsec:cupid-results}. In this case however, 5 estimated spins were
 present instead of 4. Constraints were also placed on the shifts and
 couplings to ensure that no two oscillators would have frequencies with a
 difference less than $\nicefrac{\fswone}{\None}$ \note{Describe in the
@@ -684,7 +684,7 @@ relaxation phenomena described by the ``extended $T_1$/$T_2$
 approximation'' (see Appendix \note{REF}).
 Each dataset was provided \ac{AWGN} such that the target \ac{SNR} of the
 datasets as a whole was \qty{40}{\deci\bel}.
-The estimation routine outlined by Algorithm \ref{alg:estimate-seq} was applied
+The estimation routine outlined by \cref{alg:estimate-seq} was applied
 to the generate a parameter estimate of the region which contained signals from
 the estimated spins.
 
@@ -725,7 +725,7 @@ center}
     }
     \label{fig:andrographolide-dosy}
 \end{sidewaysfigure}
-Figure \ref{fig:andrographolide-dosy} shows the result of applying the
+\Cref{fig:andrographolide-dosy} shows the result of applying the
 estimation technique on a oneshot \ac{DOSY} dataset of andrographolide in
 unfresh \acs{DMSOd6} at \qty{298}{\kelvin}. Exposure of the sample to water is
 evidenced by the broad
@@ -768,14 +768,14 @@ diffusion constants.
         diffusion dataset.
         \textbf{b.} Diffusion coefficient distribution.
         \textbf{c.} \acs{DOSY}-style plot of chemical shifts vs diffusion
-        constant, generated using \eqref{eq:distribution}, with
+        constant, generated using \cref{eq:distribution}, with
         $p_{\text{min}} = \qty{4.5e-10}{\meter\squared\per\second}$,
         $p_{\text{max}} = \qty{7e-10}{\meter\squared\per\second}$,
         $R=256$, and $c=1.5$.
     }
     \label{fig:gluc_val_thre}
 \end{figure}
-Another example is provided by Figure \ref{fig:gluc_val_thre}, where the
+Another example is provided by \cref{fig:gluc_val_thre}, where the
 estimation routine was applied to a diffusion dataset derived from a sample
 comprising the molecules
 L-valine ($M_r = \qty{117.148}{\gram\per\mole}$),
@@ -794,7 +794,7 @@ complicated by the presence of two major forms, \textalpha-D-glucopyroanose and
     The equilibrium mixture in water comprises 38\% of the \textalpha\ isomer
     and 62\% of the \textbeta\ isomer. A tiny amount of the open-chain form will
     also be present, though in a negligible quantity. This is evidenced by the
-    spectrum in Figure \ref{fig:gluc_val_thre}.a, where the relative integrals of
+    spectrum in \cref{fig:gluc_val_thre}.a, where the relative integrals of
     the doublets at \qty{5.15}{\partspermillion} and
     \qty{4.56}{\partspermillion} agree with this ratio.
 }, due to anomerisation\cite[Chapter 3]{Davis2002}.

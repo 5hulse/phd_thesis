@@ -16,7 +16,7 @@ simulation of the relevant experiment with the specifications provided. The
 along with other necessary information about the simulation.
 
 \subsubsection{Spin Systems}
-Table \ref{tab:shifts_and_couplings} provides a specification of the chemical
+\Cref{tab:shifts_and_couplings} provides a specification of the chemical
 shifts and scalar couplings that made up the spin systems used to construct
 simulated data with \textsc{Spinach}. Below is a description of how the spin
 systems were generated.
@@ -74,16 +74,16 @@ from\cite[Appendix 5]{Berger2004}.
 
 \subsection{\acs{2DJ}}
 The simulated datasets for the ``Four multiplets'' and Strychnine results in
-Sections \ref{subsec:four-mp} and \ref{subsec:strychnine-cupid} were generated
+\cref{subsec:four-mp,subsec:strychnine-cupid} were generated
 using \ac{EsPy}'s \mintinline{python}{Estimator2DJ.new_spinach} method, with
-parameters used in the simulation provided by Table
-\ref{tab:spinach-jres-params}.
+parameters used in the simulation provided by
+\cref{tab:spinach-jres-params}.
 
 \input{text/generated/cupid_spinach_parameters}
 
 A \ac{2DJ} pulse sequence simulation does not ship with \textsc{Spinach}.
-Therefore, an in-house one was written, which is given by Listing
-\ref{lst:jres-spinach}.
+Therefore, an in-house one was written, which is given by
+\cref{lst:jres-spinach}.
 
 \mylisting{matlab}{code_listings/jres.m}{
     Function for simulating \ac{2DJ} experiments using \textsc{Spinach}.
@@ -93,10 +93,10 @@ Therefore, an in-house one was written, which is given by Listing
 
 \subsection{Inversion recovery}
 The simulated datasets for the ``Five multiplets'' results in
-Section \ref{subsec:seq-results} was generated using \ac{EsPy}'s
+\cref{subsec:seq-results} was generated using \ac{EsPy}'s
 \mintinline{python}{EsimatorInvRec.new_spinach} method, with
-parameters used in the simulation provided by Table
-\ref{tab:spinach-invrec-params}.
+parameters used in the simulation provided by
+\cref{tab:spinach-invrec-params}.
 To model relaxation, \textsc{Spinach}'s \emph{$T_1$/$T_2$ approximation} was
 used\cite{SpinachRelax}. Under this model, all longitudinal states associated
 with a given spin relax at a rate $R_1 \coloneq \nicefrac{1}{T_1}$, while
@@ -156,19 +156,19 @@ The cyclosporin A pulse-acquire dataset was taken from \textsc{Bruker}'s
 \input{text/generated/onedim_params}
 
 \subsection{Diffusion datasets}
-The andrographolide diffusion dataset (Figure \ref{fig:andrographolide-dosy})
+The andrographolide diffusion dataset (\cref{fig:andrographolide-dosy})
 was acquired using the one-shot \ac{DOSY} pulse sequence\cite{Pelta2002}
 (version 1.0c, published on \formatdate{27}{03}{2012}), accessible via the webpage
 \url{https://www.nmr.chemistry.manchester.ac.uk/?q=node/264}. The pulse
-sequence is displayed in Figure \ref{fig:oneshot-dosy}.
+sequence is displayed in \cref{fig:oneshot-dosy}.
 
 \input{text/generated/diff_params}
 
-The glucose/valine/threonine diffusion dataset (Figure \ref{fig:gluc_val_thre})
+The glucose/valine/threonine diffusion dataset (\cref{fig:gluc_val_thre})
 was acquired using Bruker's \texttt{ledbpgp2s} pulse sequence (version 1.9, published on
 \formatdate{19}{02}{2011}). This is a stimulated echo pulse sequence, featuring
 bipolar gradients and a \ac{LED} component\cite{Wu1995}. The pulse sequence is
-displayed in Figure \ref{fig:ledbpgp2s}.
+displayed in \cref{fig:ledbpgp2s}.
 
 \begin{figure}[H]
     \centering
@@ -178,7 +178,7 @@ displayed in Figure \ref{fig:ledbpgp2s}.
         andrographolide data.
     ]{
         Oneshot \ac{DOSY} pulse sequence used for the acquisition of
-        andrographolide data (Figure \ref{fig:andrographolide-dosy}). All
+        andrographolide data (\cref{fig:andrographolide-dosy}). All
         delays are included, though they are not to scale.
         Delays:
         $d_1$ (relaxation delay): \qty{1.5}{\second},
@@ -234,7 +234,7 @@ displayed in Figure \ref{fig:ledbpgp2s}.
         diffusion data.
     ]{
         Pulse sequence used for the acquisition of glucose/threonine/valine
-        diffusion data (Figure \ref{fig:gluc_val_thre}). All
+        diffusion data (\cref{fig:gluc_val_thre}). All
         delays are included, though they are not to scale.
         Delays:
         $d_1$ (relaxation delay): \qty{6}{\second},
@@ -290,20 +290,20 @@ the EXORCYCLE phase-cycling scheme\cite[Section 11.6]{Keeler2010}:
         \Phi_{\text{rx}}: & \ang{0} & \ang{180} & \ang{0} & \ang{180}
     \end{array}
 \end{equation*}
-Key experiment parameters are provided in Table \ref{tab:jres_params}.
+Key experiment parameters are provided in \cref{tab:jres_params}.
 \input{text/generated/jres_params}
 
 \subsection{\acs{PSYCHE} datasets}
 The pulse sequence used for the acquisition of the estradiol \ac{PSYCHE}
-spectrum (Figure \ref{fig:estradiol-cupid}) is presented in Figure
-\ref{fig:psyche}, where
+spectrum (\cref{fig:estradiol-cupid}) is presented in
+\cref{fig:psyche}, where
 pulses, gradients, and delays are described in detail. Equivalent parameters
-were used for the basic setup as the estradiol 2DJ experiment, given in Table
-\ref{tab:jres_params}.
+were used for the basic setup as the estradiol 2DJ experiment, given in
+\cref{tab:jres_params}.
 
-The pure shift spectrum of dexamethasone (Figure
-\ref{fig:dexamethasone-cupid}.a) was acquired using a \ac{TSE-PSYCHE}
-experiment (Figure \ref{fig:tse_psyche}). The pulse sequence file
+The pure shift spectrum of dexamethasone (\cref{fig:dexamethasone-cupid}.a) was
+acquired using a \ac{TSE-PSYCHE}
+experiment (\cref{fig:tse_psyche}). The pulse sequence file
 \texttt{UoM\_1d\_if\_tsepsyche\_ts4x} can be obtained via the link
 \url{https://research.manchester.ac.uk/en/datasets/manchester-pure-shift-nmr-workshop-bruker-software}.
 
@@ -355,7 +355,7 @@ experiment (Figure \ref{fig:tse_psyche}). The pulse sequence file
     \acs{TSE-PSYCHE} pulse sequence used for the acquisition of dexamethasone data.
     ]{
         \acs{TSE-PSYCHE} pulse sequence used for the acquisition of dexamethasone
-        data (Figure \ref{fig:dexamethasone-cupid}.a).
+        data (\cref{fig:dexamethasone-cupid}.a).
         Delays:
         $d_1$ (relaxation delay): \qty{2}{\second},
         $d_{16}$: (gradient recovery delay): \qty{200}{\micro\second},
@@ -398,8 +398,8 @@ experiment (Figure \ref{fig:tse_psyche}). The pulse sequence file
             Metrics for all the results generated using \acs{CUPID}.
         ]
         {
-            Metrics for all the results generated using \acs{CUPID} (Section
-            \ref{subsec:cupid-results}) The \emph{Initial} $M$ specifies
+            Metrics for all the results generated using \acs{CUPID}
+            (\cref{subsec:cupid-results}) The \emph{Initial} $M$ specifies
             the number of oscillators given to the MMEMP. Values with a *
             indicate that they were
             determined by applying the MDL on the first direct-dimension slice
@@ -415,7 +415,7 @@ experiment (Figure \ref{fig:tse_psyche}). The pulse sequence file
             oscillators were found and purged during the optimisation.
             \emph{Purged oscillators} indicates how many oscillators were
             removed from the final estimation result, based on the first-order
-            signal criteria outlined in Section \ref{subsec:mp-selection}.
+            signal criteria outlined in \cref{subsec:mp-selection}.
         }
         \label{tab:cupid-metrics}\\
         \hline

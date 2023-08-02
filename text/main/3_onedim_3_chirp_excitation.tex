@@ -75,7 +75,7 @@ $[\foff - \nicefrac{1}{2} \Updelta F,
 \foff + \nicefrac{1}{2} \Updelta F]$,
 and the rate at which the frequency of the chirp is increased (the sweep
 rate) is given by $\nicefrac{\Updelta F}{\tau_{\text{p}}}$.
-Figure \ref{fig:single-chirp} provides an illustration of a single chirp
+\Cref{fig:single-chirp} provides an illustration of a single chirp
 excitation experiment. After application of the chirp pulse, there is typically
 a short pre-scan delay $\tau_{\text{del}}$, usually on the order of a few
 \unit{\micro\second}, prior to the start of acquisition. While the pre-scan
@@ -106,8 +106,8 @@ $\tau_{\text{p}}$ which satisfies $Q \approx 0.441$\footnote{
 For a pulse with sufficiently low $\omega_{\text{RF}}$\,---\,which requires a
 sufficiently large pulse duration for a given excitation bandwidth\,---\,it is
 reasonable to assume that the chirp pulse induces an instantaneous \ang{90}
-rotation at the point of resonance, as illustrated in Figure
-\ref{fig:single-chirp}. As such, resonances with different
+rotation at the point of resonance, as illustrated in
+\cref{fig:single-chirp}. As such, resonances with different
 Larmor frequencies evolve for different amounts of time prior to the start of
 acquisition, according to
 \note{Double check this with Ali: his draft has $+$
@@ -156,8 +156,9 @@ the gap between excitation and acquisition. Resonances of lower
 frequencies, will exhibit deeper, narrower artefacts since the signal is more
 significantly truncated. The result of applying quadratic phase correction is
 therefore a spectrum of well-phased peaks, but with major baseline distortions,
-particularly to the low-frequency end. Figures \ref{fig:bbqchili-sim}.b \&
-\ref{fig:bbqchili-real}.b both provide an example of this phenomenon.
+particularly to the low-frequency end. Panel b in
+\cref{fig:bbqchili-sim,fig:bbqchili-real} both provide an example of this
+phenomenon.
 
 \subsection{Methodology}
 Both the quadratic phase behaviour and delay-induced baseline distortions can
@@ -165,7 +166,7 @@ be resolved if an estimate of the \ac{FID}'s parameters is obtained. This enable
 the construction of \iac{FID} featuring oscillators which are back-propagated,
 such that they begin not at the point of acquisition, but at the point of
 excitation. The appropriate start time for an oscillator with frequency $\fone$
-is therefore given by $-\tau_0$, with $\tau_0$ defined in \eqref{eq:t0}. The
+is therefore given by $-\tau_0$, with $\tau_0$ defined in \cref{eq:t0}. The
 resulting corrected \ac{FID} $\by \in \mathbb{C}^N$ is defined as
 \begin{equation}
     y_n = \sum_{m=1}^{M} \amexpphim \exp((2 \pi \iu (f_m - \foff) - \eta_m) (n \Dt - \tau_0(f_m))).
@@ -206,7 +207,7 @@ output of the \ac{MPM} was used as the estimate of the \acp{FID} parameters.
         $\Updelta F = \qty{400}{\kilo\hertz}$.
         Coloured lines depict individual signals generated using the \ac{MPM}.
         \textbf{b.} Spectrum generated using quadratic phase correction, with
-        \eqref{eq:spec-phase-chili}.
+        \cref{eq:spec-phase-chili}.
         \textbf{c.} Spectrum generated from estimation using the \ac{MPM}, and
         back-propagation.
         \textbf{d.} Estimated phases of each oscillator as a function of
@@ -218,11 +219,11 @@ output of the \ac{MPM} was used as the estimate of the \acp{FID} parameters.
     }
     \label{fig:bbqchili-sim}
 \end{figure}
-Figures \ref{fig:bbqchili-sim} \& \ref{fig:bbqchili-real} present comparisons
+\Cref{fig:bbqchili-sim,fig:bbqchili-real} present comparisons
 between the application of quadratic phase correction and the proposed
-back-propagation procedure. In Figure \ref{fig:bbqchili-sim}, a simulated
+back-propagation procedure. In \cref{fig:bbqchili-sim}, a simulated
 dataset is considered, comprising 30 evenly-spaced signals, and generated using
-\eqref{eq:backprop} with $-\tau_0(f_m)$ replaced with $+\tau_0(f_m)$. Other
+\cref{eq:backprop} with $-\tau_0(f_m)$ replaced with $+\tau_0(f_m)$. Other
 relevant parameters used are stated in the caption.
 For the purposes of clarity, a very large damping factor
 ($\qty{1000}{\per\second}$) was assigned to each oscillator, as this augments
@@ -235,8 +236,8 @@ distortions associated with lower-frequency resonances.
 The \ac{MPM} was used to estimate the \ac{FID} parameters,
 with a truncated signal comprising only the first 2048 points considered.
 Performing the \ac{MPM} on a signal with $2^{14}$ points would take (a) a long
-time, and (b) require a very large amount of \ac{RAM} (see Figure
-\ref{fig:profiling}).
+time, and (b) require a very large amount of \ac{RAM} (see panels a and b of
+\cref{fig:profiling}).
 Consideration of the first 2048 points is justifiable here, since all
 resonance frequencies are spaced reasonably far apart, meaning each signal in
 the \ac{FID} becomes resolvable from the others early on into evolution.
@@ -249,20 +250,20 @@ second-order coefficient of $\qty{-7.85e-10}{\radian\second\squared}$, in
 agreement with the expected value of $-2 \pi \left(\nicefrac{\tau_{\text{p}}}{2
 \Updelta F}\right)$.
 
-Figure \ref{fig:bbqchili-real} features an experimental dataset, acquired
+\Cref{fig:bbqchili-real} features an experimental dataset, acquired
 from a sample of 1\% Gd-doped H\textsubscript{2}O in D\textsubscript{2}O.
 The dataset was acquired using a \ac{2D} experiment, in which the transmitter
 offset was adjusted for each increment. As such, \acp{FID} with a single
 resonance of differing frequency from H\textsubscript{2}O are produced across
-the increments, which when summed lead to the spectrum in panel a of Figure
-\ref{fig:bbqchili-real}.
+the increments, which when summed lead to the spectrum in panel a of
+\cref{fig:bbqchili-real}.
 
 As $\tau_{\text{del}}$ is not a readily known parameter, only second-order
 phase correction was applied to the spectrum in panel a (i.e. the first-order
-correction in \eqref{eq:quadratic-phase} was not carried out). This left a
+correction in \cref{eq:quadratic-phase} was not carried out). This left a
 spectrum with a first-order phase distortion, which was manually corrected. An
 analogous approach was taken to acquire the spectrum in panel c through the
-back-propagation approach; $\tau_0$ in \eqref{eq:backprop} was replaced with
+back-propagation approach; $\tau_0$ in \cref{eq:backprop} was replaced with
 \begin{equation}
     \tau_{0}^{\prime} = -\frac{(f - \foff) \tau_{\text{p}}}{2 \Delta F}.
 \end{equation}

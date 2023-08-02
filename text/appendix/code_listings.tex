@@ -8,7 +8,7 @@ Required imports for the subsequent \Python listings.
 }{
     Required imports for the subsequent listings in this chapter.
     The \mintinline{python3}{product} function is employed in the \acs{MMEMPM}
-    routine (Listing \ref{lst:mmempm}).
+    routine (\cref{lst:mmempm}).
     The imports from the \mintinline{python3}{typing} module are used to
     annotate what the expected types are for each argument, and what the return
     type is.
@@ -26,7 +26,7 @@ of a \acs{1D} \acs{FID}.
 }{%
 The \acs{MDL} for estimation of the model order of a \acs{1D} \acs{FID}.
 The first relative minimum in \mintinline{python}{mdl_vec} is determined to be
-the estimate of $M$, rather than the global minimum (line \ref{ln:argmin}),
+the estimate of $M$, rather than the global minimum (Line \ref{ln:argmin}),
 since the presence of very small singular values when \mintinline{python3}{k}
 is large can lead to errors involving floating-point arithmetic.
 }{lst:mdl}
@@ -48,7 +48,7 @@ The \acs{MMEMPM} for estimation of a \acs{2D} hypercomplex \acs{FID}. Due
 to the very large size of the Hankel matrix $\symbf{E}_{\bY}$, a truncated
 \acs{SVD} routine is employed, which determines only the first $M$
 components of the decomposition. This is only available to arrays stored in
-sparse form in \textsc{SciPy} (lines \ref{ln:sparse1}--\ref{ln:sparse2}).
+sparse form in \textsc{SciPy} (Lines \ref{ln:sparse1}--\ref{ln:sparse2}).
 }{lst:mmempm}
 
 \section{\ac{NLP}}
@@ -60,7 +60,7 @@ sparse form in \textsc{SciPy} (lines \ref{ln:sparse1}--\ref{ln:sparse2}).
 }{
 Steihaug-Toint trust region algorithm. Included is a check for oscillators with
 negative amplitudes, which causes the routine to terminate, in order for said
-oscillators to be purged (lines \ref{ln:negamp1}--\ref{ln:negamp2}).
+oscillators to be purged (Lines \ref{ln:negamp1}--\ref{ln:negamp2}).
 }{lst:tr}
 
 \subsection{Computing
@@ -83,7 +83,7 @@ is requested from the factory, the function is run, and the objective and its
 derivatives are cached (memoised), such that the next time a quantity is
 requested, the cached result is used, rather than the expensive function being
 re-computed.
-\mintinline{python3}{FunctionFactoryGaussNewton1D} (lines
+\mintinline{python3}{FunctionFactoryGaussNewton1D} (Lines
 \ref{ln:ff1}--\ref{ln:ff2}) inherits from the base class, for specific use in
 \ac{1D} estimation, with an approximated Hessian.}{lst:obj-grad-hess}
 
@@ -94,7 +94,7 @@ re-computed.
     estimation.
 }{
     Code for running the \acs{NLP} routine for \acs{FID} estimation. The
-    routine consists of running the \ac{ST} algorithm (Listing \ref{lst:tr})
+    routine consists of running the \ac{ST} algorithm (\cref{lst:tr})
     until it returns a parameter array without negative amplitudes. If negative
     amplitudes are present, the corresponding oscillators are removed, and the
     \ac{ST} algorithm is re-run.

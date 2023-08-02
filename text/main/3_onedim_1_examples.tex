@@ -26,10 +26,10 @@
     }
     \label{fig:mpm_vs_nlp}
 \end{sidewaysfigure}
-In order to assess the estimation routine proposed in Chapter \ref{chap:theory}
+In order to assess the estimation routine proposed in \cref{chap:theory}
 -- specifically the effectiveness of applying \ac{NLP} using an initial guess
 generated using the \ac{MPM} -- a series of synthetic \acp{FID} were constructed
-using \eqref{eq:hypercomplex-fid} with $D=1$. For each \ac{FID}, a model order
+using \cref{eq:hypercomplex-fid} with $D=1$. For each \ac{FID}, a model order
 of $M=20$ was used, the number of points sampled was $N = 1024$, the sweep
 width was $\fsw=\qty{125}{\hertz}$, and the transmitter offset was $\foff
 = \qty{0}{\hertz}$.  Each oscillator was assigned a phase of \ang{0}, while the
@@ -51,7 +51,7 @@ determined using the equation
 \note{Reference that this is the lowest
 SNR that the MPM considered to be effective}.
 The spectra of the simulated
-\acp{FID} are presented in panel a of Figure \ref{fig:mpm_vs_nlp}, with the set
+\acp{FID} are presented in panel a of \cref{fig:mpm_vs_nlp}, with the set
 of true oscillator peaks in panel b.
 
 For each \ac{FID}, the \ac{MPM} was performed, assuming that the model order is
@@ -64,7 +64,7 @@ damping factors. For this reason, prior to subjecting the \ac{MPM} result to
 \ac{NLP}, oscillators which satisfied either $a_m < 0.1$ or  $\eta_m <
 \qty{0.7}{\per\second}$ were removed from the parameter set. The individual
 oscillators which make up the \ac{MPM} result after purging spurious components
-are displayed in panel c of Figure \ref{fig:mpm_vs_nlp}, along with the
+are displayed in panel c of \cref{fig:mpm_vs_nlp}, along with the
 residual between the data and the summation of all the oscillator peaks.
 
 The \ac{MPM} invariably generates a model with good agreement with the data, as
@@ -76,7 +76,7 @@ being individual oscillator phases -- these regularly stray far from \ang{0} --
 and their associated amplitudes. The central motivation behind employing phase
 variance-regularised \ac{NLP} is as a means of attempting to overcome this
 detrimental feature of the \ac{MPM}.
-In panel c of Figure \ref{fig:mpm_vs_nlp}, the blue oscillators are those which
+In panel c of \cref{fig:mpm_vs_nlp}, the blue oscillators are those which
 agree very closely with a particular oscillator in the true set of parameters.
 Oscillators with other colours are not clearly mapped to a true oscillator,
 with the different colourings described shortly.
@@ -149,9 +149,9 @@ with spurious complex amplitudes ($a$ and  $\phi$). \note{More discussion here..
     }
     \label{fig:andro-onedim}
 \end{sidewaysfigure}
-Figure \ref{fig:andro-onedim} illustrates the outcome of applying the
+\Cref{fig:andro-onedim} illustrates the outcome of applying the
 estimation routine to selected regions of a \textsuperscript{1}H dataset of
-andrographolide (Figure \ref{fig:structures}.e) in \acs{DMSOd6} acquired with
+andrographolide (\cref{fig:structures}.e) in \acs{DMSOd6} acquired with
 a \qty{600}{\mega\hertz} spectrometer. The \ac{NLP}
 routine is effective at resolving the spurious phase-behaviour often generated
 by the \ac{MPM} (cf. panels b and c).
@@ -162,8 +162,8 @@ water which has entered the sample over time, alongside a nearby quartet
 corresponding to the methylene of some residual ethanol in the sample.
 
 The routine generally does well at generating oscillators which describe the
-apparent multiplet structures associated with each spin. Table
-\ref{tab:andro-multiplets} provides an overview of the most significant
+apparent multiplet structures associated with each spin.
+\Cref{tab:andro-multiplets} provides an overview of the most significant
 couplings associated with the spins giving rise to the multiplet structures
 considered.
 \begin{table}
@@ -197,12 +197,12 @@ Spin  & Coupling partners & Multiplet structure \\
 \end{tabular}
 \caption[
     Major coupling partners associated with spins in andrographolide whose
-    signals are considered in Figure \ref{fig:andro-onedim}.
+    signals are considered in \cref{fig:andro-onedim}.
 ]{
     Major coupling partners associated with spins in andrographolide and
     cyclosporin A whose
-    signals are considered in Figures \ref{fig:andro-onedim} \&
-    \ref{fig:andro-onedim}, respectively, along with the
+    signals are considered in \cref{fig:andro-onedim,fig:andro-onedim},
+    respectively, along with the
     apparent multiplet structures that arise.
     For andrographolide,
     coupling partners are labelled as follows:
@@ -294,7 +294,7 @@ routine without further user input/maybe just too difficult full stop?}
     ]{
         Result of applying the estimation routine to selected regions of a
         pulse-acquire dataset of cyclosporin A in benzene-d\textsubscript{6}.
-        The figure is of a similar layout to Figure \ref{fig:andro-onedim}.
+        The figure is of a similar layout to \cref{fig:andro-onedim}.
         Coloured peaks correspond to oscillators which have been assigned
         to multiplet structures of known spins. Grey oscillators correspond to
         those with an unknown association to a particular spin.

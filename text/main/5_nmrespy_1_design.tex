@@ -35,7 +35,7 @@ garbage collection for memory management. While \textsc{NumPy} provides
 interfaces to run fast computations with pre-compiled C-code, a significant
 performance benefit would likely be realised if a low-level compiled language
 like C, C++, or \textsc{Rust} were used instead (this is discussed more in
-Section \ref{sec:future-work}). While this may be so, the
+\cref{sec:future-work}). While this may be so, the
 development time in writing programs with these lower-level languages is
 typically a lot greater than with a language with a higher level of abstraction
 like \textsc{Python}.
@@ -66,7 +66,7 @@ but which also possess bespoke features that are solely of relevance to
 the type of \ac{NMR} data being considered. As an example, only the
 \texttt{Estimator2DJ} object possesses a method called \texttt{cupid\_spectrum},
 which returns the \ac{FT} of the \ang{-45} signal.
-Figure \ref{fig:inheritance} provides an \emph{inheritance
+\Cref{fig:inheritance} provides an \emph{inheritance
 diagram} for the different estimator classes in \ac{EsPy}. Basic overviews of
 each class are as follows:
 \begin{itemize}
@@ -85,12 +85,12 @@ each class are as follows:
         to be defined is the means by which the data is imported (experimental
         data) or generated (simulated data).
     \item \textbf{\texttt{Estimator1D}}: Conventional \ac{1D} datasets are
-        analysed using this class (Section \ref{sec:evaluation}).
+        analysed using this class (\cref{sec:evaluation}).
     \item \textbf{\texttt{\_EstimatorSeqAmp}}: An abstract class
         which enables the estimation of sequential \ac{1D} datasets
-        (Section \ref{sec:seq}). Analysis of the dataset varies depending on
+        (\cref{sec:seq}). Analysis of the dataset varies depending on
         the type of experiment considered, such as the function used for
-        fitting amplitudes (Table \ref{tab:seq-equations}), and the means by
+        fitting amplitudes (\cref{tab:seq-equations}), and the means by
         which that data should be imported/generated. As such, this is not
         designed for direct use; one of the classes which inherit it should be
         used instead. \texttt{\_EstimatorSeqAmp} stores a number of
@@ -103,11 +103,10 @@ each class are as follows:
     \item \textbf{\texttt{EstimatorDiffusion}}: For the estimation of
         diffusion datasets.
     \item \textbf{\texttt{EstimatorChirp}}: For the estimation of \acp{FID}
-        acquired using single-chirp excitation (Section \ref{sec:bbqchili}).
+        acquired using single-chirp excitation (\cref{sec:bbqchili}).
     \item \textbf{\texttt{Estimator2DJ}}: For the estimation of \ac{2DJ} data.
         This class also provides features to generate pure shift spectra and
-        assign multiplet structures using \ac{CUPID} (Chapter
-        \ref{chap:cupid}).
+        assign multiplet structures using \ac{CUPID} (\cref{chap:cupid}).
 \end{itemize}
 
 Other estimator objects which are yet to be implemented, but are potential
@@ -117,4 +116,4 @@ which enable the determination of $T_2$ times.
 \texttt{Estimator2D} and \texttt{Estimator3D} would be
 for the estimation of datasets comprising sets of \ac{2D} or \ac{3D} amplitude-
 or phase-modulated \acp{FID}, respectively. A discussion of the feasibility of
-implementing these is given in Section \ref{sec:future-work}.
+implementing these is given in \cref{sec:future-work}.
