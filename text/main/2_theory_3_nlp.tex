@@ -553,48 +553,46 @@ as will become clear in \cref{sec:profiling}.
 \subsection{Phase Variance Minimisation}
 \label{subsec:phase-variance}
 An \ac{NLP} procedure tasked with minimising the discrepancy between a model
-and the observed data ($\Fth$) is well-suited to produce an accurate holistic
+and the observed data $\Fth$ is well-suited to produce an accurate holistic
 representation of the data, assuming a sufficiently large
-model order is used. However, with \ac{FID} estimation being a ill-posed
-problem,(\note{details/citation?}) there are conceivably a large subset of
+model order is used. However\,---\,as with many inverse problems\,---\,\ac{FID}
+estimation is an ``ill-posed problem'',(\note{details/citation?}) such there
+are conceivably a large subset of
 parameter vectors which will achieve this. It is desirable to produce an
 estimate which not only achieves a good fit to the data, but which is also able
 to explain the process underpinning the observation. It is for this reason that
 iterative procedures typically require significant quantities of \textit{a
 priori} information in order to produce meaningful estimation results (see the
 discussion of \ac{VARPRO} and \ac{AMARES},
-\cref{subsec:estimation-techniques}).
+\cref{subsec:estimation-techniques}). This is also why they are often able to
+produce the best results relative to other methods where such information is
+not incorporated into the method.
 
 While the \ac{MPM} is often able to generate reasonable parameter estimates,
-one particular feature has been noticed which is systemic across results; it is
-common for the oscillators which comprise the model to exhibit \emph{spurious
-phases}. As has been discussed (see \cref{subsec:nmr-proc}), the phases of
+one particular feature has been noticed which is a common feature across
+results; often, oscillators in the model exhibit \emph{spurious
+phases}. As has been discussed (see \cref{subsec:nmr-proc}),
 signals in most \ac{NMR} experiments have phases which depend on their
 resonance frequencies to first order. This is routinely corrected in
 conventional \ac{NMR} spectral processing, such that all signals effectively
 acquire a phase of approximately \ang{0}. This feature of the dataset can be
 exploited in order to overcome the aforementioned shortcoming of the \ac{MPM},
 through appropriate adjustment of the \ac{NLP} routine. As such, assuming that
-the data has been phase corrected, incorporating the variance of oscillator
-phases into the fidelity can lead to improved estimation results, examples of
-which will be provided subsequently (\cref{sec:evaluation}).
-
-\note{Re-write this section}
-While numerical optimisation procedures can return estimates $\bthstar$ which
-can achieve highly accurate reconstructions of the original \acs{FID} (i.e.
-$\bY$ and  $\bXthstar$ are in close agreement), the estimate won't
-necessarily provide a faithful description of the physical phenomenon that has
-given rise to the data. For the purposes of \ac{FID} estimation, the goal is to
-ensure that each signal contributing to the \ac{FID} is described by a
-single oscillator in the model. In scenarios where the model order $M$ used is
-greater than the true number of resonances, over-fitting of the data will
-occur, leading to spurious features in the estimation result, such as single
-resonances being fit by multiple oscillators and/or noise components being fit.
-To overcome this problem, it is desirable to include known information about
-the signal into the optimisation routine as a means of guiding the parameter
-vector to a more appropriate final value. One particular means of achieving
-this which has been to found to be effective is the incorporation of the
-variance of oscillator phases into the fidelity, such that it becomes
+the data has been phase corrected\footnote{
+    Rather than rely on the data being phase-corrected, one could envisage
+    replacing the phase variance with a term which guides the
+    oscillators to adopt a first-order phase relationship. The reason why the
+    phase variance has been chosen is two-fold: (i) Applying phase-correction
+    to \ac{NMR} data is straightforward and can be automated,
+    meaning the user would experience minimal burden. (ii) As will be discussed
+    in \cref{sec:filtering}, it is beneficial to have a spectrum comprising
+    pure absorption-mode Lorentzians in order to produce frequency-filtered
+    ``sub-\acp{FID}'' from the original data, so the data being estimated will
+    be phase-corrected anyway.
+}, regularising the fidelity, by incorporating the variance of oscillator
+phases, can lead to improved estimation results. Examples of
+this principle will be provided later (\cref{sec:evaluation}).
+The updated fidelity becomes
 \begin{equation}
     \FphithY = \left \lVert \bY - \bXth \right \rVert^2 + \circvar,
     \label{eq:fidelity-phasevar}
@@ -609,43 +607,13 @@ where $\circvar$ is the \emph{circular variance} of the oscillator phases
     \rVert^2$ would dominate $\circvar$ in \cref{eq:fidelity-phasevar},
     such that the influence of the phase variance would be negligible.
 \end{remark}
-For the phase variance to act effectively, it is necessary to apply
-phase-correction to the data prior to estimation, as the assumption that the
-phases of all contributing resonances are equal is typically
-valid.
-\note{Mention phase-variation of multiplet peaks in experiments where
-J-coupling evolves prior to acquisition? $T_2$ for example.}
-The inclusion of phase variance has also been found to be effective at purging
-excessive oscillators that may be present in the initial guess $\bthzero$,
-which be thought of in the following way:
-\begin{enumerate}
-    \item Assume that the initial guess contains more oscillators than the
-        true number of resonances. In this circumstance, it is common to find
-        that true resonances are fit with an acceptable oscillator, whilst
-        extra oscillators exist with spurious phases on account of
-        over-fitting.
-    \item Unconstrained numerical optimisation is now run, with the fidelity
-        given by \cref{eq:fidelity-phasevar}. The phase variance will
-        force oscillators with phases that are significantly different to the
-        majority of oscillators to drastically alter their phases to match
-        them. For some/all of these oscillators, it may be the case that the
-        optimiser drives these to acquire a negative amplitude, such that they
-        act as if they have a phase of $\pi$ while ensuring that $\circvar$ is
-        small.
-    \item This provides a criterion for detecting oscillators which are likely
-        to be excessive. Such oscillators can be purged from $\bth$ by
-        periodically checking whether any amplitudes (i.e. $\bth[:M]$) have
-        become negative, purging these, and re-starting the optimisation.
-    \item The numerical optimisation routine is re-started each time
-        oscillators are purged. Termination is achieved once the routine
-        converges and no negative-amplitude oscillators exist in $\bth$.
-\end{enumerate}
 
 \subsubsection{Circular Variance}
 Oscillator phases are an example of a \emph{circular variable}, in that all
-phases are wrapped within an interval of width $2 \pi$. Given an unconstrained
-(unwrapped) phase $\widetilde{\phi} \in \mathbb{R}$, the corresponding wrapped
-phase $\phi \in \left( -\pi, \pi \right]$ is given by
+phases are wrapped within an interval of width
+$2\pi$. Given an
+unconstrained (unwrapped) phase $\widetilde{\phi} \in \mathbb{R}$, the
+corresponding wrapped phase $\phi \in \left( -\pi, \pi \right]$ is given by
 \begin{equation}
     \phi = \left(\left(\widetilde{\phi} + \pi\right) \bmod 2 \pi\right) - \pi.
     \label{eq:phase_wrap}
@@ -662,7 +630,7 @@ definition of variance, given by
 unsuitable for phases. Consider as a simple example a scenario
 where there are two oscillators with phases $\widetilde{\bdphi} = \left[ \pi +
 \delta\:\:\pi - \delta \right]\T$ for some small $\delta$.
-The phase variance is expected to be small as these two phases are similar.
+The phase variance is expected to be small as the phases are similar.
 However, with the inclusion of wrapping through application of
 \cref{eq:phase_wrap}, these phases would actually be set to $\bdphi = \left[
     -\pi
@@ -687,7 +655,33 @@ vectors will perfectly cancel, leading to $R=0$. In this case, the maximum
 variance of $1$ is obtained.
 
 The first and second derivatives of the circular variance are required for
-the computation of the gradient vector and Hessian matrix. These are given by
+the computation of the gradient vector and Hessian matrix, through
+\begin{subequations}
+    \begin{gather}
+        g_i = -2 \Re
+                \left\langle
+                    \left(\bY - \bX\right),
+                    \frac{\partial \bX}{\partial \theta_i}
+                \right\rangle
+                + \frac{\partial \circvar}{\partial \theta_i} \\
+        h_{i,j} = 2 \Re
+            \biggl(
+                    \left\langle
+                        \frac{\partial \bX}{\partial \theta_i},
+                        \frac{\partial \bX}{\partial \theta_j}
+                    \right\rangle
+                -
+                \underbrace{
+                    \left\langle
+                        \left(\bY - \bX\right),
+                        \frac{\partial^2 \bX}{\partial \theta_i \partial \theta_j}
+                    \right\rangle
+                }_{\parbox{6em}{\scriptsize{Neglected if approximation used}}}
+            \biggl)
+            + \frac{\partial^2 \circvar}{\partial \theta_i \partial \theta_j}.
+    \end{gather}
+\end{subequations}
+The derivatives of the phase variance are given by:
 \begin{subequations}
     \begin{gather}
         \frac{\partial \circvar}{\partial \theta_i} =
@@ -724,5 +718,3 @@ the computation of the gradient vector and Hessian matrix. These are given by
         \end{cases}
     \end{gather}
 \end{subequations}
-
-

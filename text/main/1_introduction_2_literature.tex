@@ -35,6 +35,7 @@ takes the form of a \emph{Lorentzian}:
         s(F) = \frac{a \exp(\iu \phi) }
             {\eta + 2 \pi \iu (f - F)}.
     \end{gather}
+    \label{eq:lorentzian}
 \end{subequations}
 When processing discrete data, the \ac{DFT} of an \ac{FID}
 features a vertical offset, such that the baseline does not sit at
@@ -152,6 +153,7 @@ reasons:
             At large frequency offsets, absorption Lorentzians decay at a rate
             $\propto \nicefrac{1}{(f_m - F)}^2$, while dispersive Lorentzians
             decay at a rate $\propto \nicefrac{1}{(f_m - F)}$.
+            \label{fn:lorentzian-decay}
         } and therefore exhibits better resolution.
 \end{enumerate}
 Generating a spectrum whose real component comprise peaks which all possess
@@ -452,6 +454,8 @@ A further technique in this category, the
 eigenvalue problem.  Pines and coworkers introduced the \ac{ITMPM}\cite{Lin1997},
 for use in \ac{NMR}, which combines the \ac{MPM} with a method for estimating
 the model order, such that no \textit{a priori} information is required.
+Recently, the \ac{MPM} has been employed for the analysis of \ac{NMR}
+relaxometry data\cite{Fricke2020, Wortge2023}.
 Outlines of the \ac{MPM} and its \ac{2D} equivalent, the
 \ac{MMEMPM}\cite{Hua1992,Chen2007} are provided in detail in
 \cref{subsec:mpm}.
