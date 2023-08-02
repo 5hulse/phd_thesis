@@ -552,6 +552,33 @@ as will become clear in \cref{sec:profiling}.
 
 \subsection{Phase Variance Minimisation}
 \label{subsec:phase-variance}
+An \ac{NLP} procedure tasked with minimising the discrepancy between a model
+and the observed data ($\Fth$) is well-suited to produce an accurate holistic
+representation of the data, assuming a sufficiently large
+model order is used. However, with \ac{FID} estimation being a ill-posed
+problem,(\note{details/citation?}) there are conceivably a large subset of
+parameter vectors which will achieve this. It is desirable to produce an
+estimate which not only achieves a good fit to the data, but which is also able
+to explain the process underpinning the observation. It is for this reason that
+iterative procedures typically require significant quantities of \textit{a
+priori} information in order to produce meaningful estimation results (see the
+discussion of \ac{VARPRO} and \ac{AMARES},
+\cref{subsec:estimation-techniques}).
+
+While the \ac{MPM} is often able to generate reasonable parameter estimates,
+one particular feature has been noticed which is systemic across results; it is
+common for the oscillators which comprise the model to exhibit \emph{spurious
+phases}. As has been discussed (see \cref{subsec:nmr-proc}), the phases of
+signals in most \ac{NMR} experiments have phases which depend on their
+resonance frequencies to first order. This is routinely corrected in
+conventional \ac{NMR} spectral processing, such that all signals effectively
+acquire a phase of approximately \ang{0}. This feature of the dataset can be
+exploited in order to overcome the aforementioned shortcoming of the \ac{MPM},
+through appropriate adjustment of the \ac{NLP} routine. As such, assuming that
+the data has been phase corrected, incorporating the variance of oscillator
+phases into the fidelity can lead to improved estimation results, examples of
+which will be provided subsequently (\cref{sec:evaluation}).
+
 \note{Re-write this section}
 While numerical optimisation procedures can return estimates $\bthstar$ which
 can achieve highly accurate reconstructions of the original \acs{FID} (i.e.
