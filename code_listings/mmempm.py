@@ -1,3 +1,8 @@
+# mmempm.py
+# Simon Hulse
+# simon.hulse@chem.ox.ac.uk
+# Last Edited: Fri 04 Aug 2023 14:43:44 BST
+
 def mmempm(
     Y: np.ndarray, sw1: float, sw2: float,
     offset1: float, offset2: float, M: int = 0,
@@ -81,11 +86,11 @@ def mmempm(
     UMP = P @ UM  # $\symbf{U}_{MP}$
     UMP1 = UMP[: (L1 - 1) * L2]  # Last $L^{(1)}$ rows deleted: $\symbf{U}_{MP1}$
     UMP2 = UMP[L1:]  # First $L^{(1)}$ rows deleted: $\symbf{U}_{MP2}$
-    Z2 = np.linalg.inv(W1) @ np.linalg.pinv(UMP1) @ UMP2 @ W1  # $\symbf{Z}^{(2)}$
-    z2 = np.diag(Z2).copy()  # $\symbf{z}^{(2)}$: copy needed as slice is readonly
+    G = np.linalg.inv(W1) @ np.linalg.pinv(UMP1) @ UMP2 @ W1  # $\symbf{G}$
+    z2 = np.diag(G).copy()  # $\symbf{z}^{(2)}$: copy needed as slice is readonly
 
-    # === Check for and deal with similar frequencies ===
-    freq1 = (0.5 * sw1 / np.pi) * np.imag(np.log(z1)) + offset1  # $\symbf{f}^{(1)}$
+    # === Check for and deal with similar frequencies in $\symbf{f}^{(1)}$ ===
+    freq1 = (0.5 * sw1 / np.pi) * np.imag(np.log(z1)) + offset1  # $\symbf{f}^{(1)} \label{ln:similar-f-start}$
     threshold = sw1 / N1  # $\nicefrac{f_{\text{sw}}^{(1)}}{N^{(1)}}$
     groupings = {}
     # Iterate through values in $\symbf{f}^{(1)}$ and group any with
@@ -108,10 +113,10 @@ def mmempm(
     for indices in groupings.values():
         n = len(indices)
         if n != 1:
-            A_slice = tuple(zip(*product(indices, repeat=2)))
-            A = Z2[A_slice].reshape(n, n)
-            new_group_z2, _ = np.linalg.eig(A)
-            z2[indices] = new_group_z2
+            Gr_slice = tuple(zip(*product(indices, repeat=2)))
+            Gr = G[Gr_slice].reshape(n, n)
+            new_group_z2, _ = np.linalg.eig(Gr)
+            z2[indices] = new_group_z2  # $\label{ln:similar-f-end}$
 
     # === Construct $\symbf{E}_{\text{L}}$ and $\symbf{E}_{\text{R}}$ ===
     ZL2 = np.power.outer(z2, np.arange(L2)).T  # $\symbf{Z}_{\text{L}}^{(2)}$

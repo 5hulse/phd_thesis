@@ -163,42 +163,46 @@ phase-modulated signals too, which for the \ac{2D} case would be $\lbrace
     \end{gather}
 \end{subequations}
 
-
-
 \section{Additional algorithms}
-\null\vfill
+\note{Last minute edit: manually rearrange algorithms so a masses of white space aren't present}
+\label{sec:algs}
 \begin{algorithm}[h!]
-    \caption{The \acs{MMEMPM}.}
+    \caption[
+        The \acs{MMEMPM}.
+    ]{
+        The \acs{MMEMPM}. \textsc{TruncatedSVD} is a routine which computes the
+        first $M$ \ac{SVD} components of a matrix.
+    }
     \label{alg:mmempm}
     \begin{algorithmic}[1]
         \Procedure {MMEMPM}{$\symbf{Y} \in \mathbb{C}^{\None \times \Ntwo}, M \in \mathbb{N}$}
         \State $\Lone, \Ltwo \gets \left\lfloor \nicefrac{\None}{2} \right\rfloor, \left\lfloor \nicefrac{\Ntwo}{2} \right\rfloor$;
         \For{$\none \gets \lbrace 0, \cdots, \None - 1 \rbrace$}
-            \State  $\symbf{H}_{\symbf{Y},\none} \gets
+            \State  $\symbf{H}_{\by,\none} \gets
                 \def\arraystretch{1.4}
             \begin{bmatrix}
-                \symbf{Y}\left[\none, 0\right] &
-                \symbf{Y}\left[\none, 1\right] &
+                y_{\none, 0} &
+                y_{\none, 1} &
                 \cdots &
-                \symbf{Y}\left[\none, \Ntwo-L^{(2)}\right]\\
-                \symbf{Y}\left[\none, 1\right] &
-                \symbf{Y}\left[\none, 2\right] &
+                y_{\none, \Ntwo-L^{(2)}}\\
+                y_{\none, 1} &
+                y_{\none, 2} &
                 \cdots &
-                \symbf{Y}\left[\none, \Ntwo-L^{(2)}+1\right]\\
+                y_{\none, \Ntwo-L^{(2)}+1}\\
                 \vdots & \vdots & \ddots & \vdots\\
-                \symbf{Y}\left[\none, L^{(2)} - 1\right] &
-                \symbf{Y}\left[\none, L^{(2)}\right] &
+                y_{\none, L^{(2)} - 1} &
+                y_{\none, L^{(2)}} &
                 \cdots &
-                \symbf{Y}\left[\none, \Ntwo-1\right]\\
+                y_{\none, \Ntwo-1}
             \end{bmatrix}
-        $
-        \EndFor;
+        $;
+        \EndFor
         \State $\symbf{E}_{\symbf{Y}} \gets
         \begin{bmatrix}
-            \symbf{H}_{\symbf{Y},0} & \symbf{H}_{\symbf{Y},1} & \cdots & \symbf{H}_{\symbf{Y},\None - L^{(1)}}\\
-            \symbf{H}_{\symbf{Y},1} & \symbf{H}_{\symbf{Y},2} & \cdots & \symbf{H}_{\symbf{Y},\None - L^{(1)} + 1}\\
+            \symbf{H}_{\by,0} & \symbf{H}_{\by,1} & \cdots & \symbf{H}_{\by,\None - L^{(1)}}\\
+            \symbf{H}_{\by,1} & \symbf{H}_{\by,2} & \cdots & \symbf{H}_{\by,\None - L^{(1)} + 1}\\
             \vdots & \vdots & \ddots & \vdots\\
-            \symbf{H}_{\symbf{Y},L^{(1)} - 1} & \symbf{H}_{\symbf{Y},L^{(1)}} & \cdots & \symbf{H}_{\symbf{Y},\None - 1}
+            \symbf{H}_{\by,L^{(1)} - 1} & \symbf{H}_{\by,L^{(1)}} & \cdots & \symbf{H}_{\by,\None - 1}
         \end{bmatrix}
         $;
         \State $\symbf{U}_M^{\vphantom{\dagger}},
@@ -210,8 +214,8 @@ phase-modulated signals too, which for the \ac{2D} case would be $\lbrace
         \For{$i = 0, \cdots, \Ltwo - 1$}
             \For{$j = 0, \cdots, \Lone - 1$}
                 \State $c \gets i + j \Ltwo$;
-                \State $\symbf{P}\left[r, c\right] \gets 1$;
-                \State $r = r + 1$;
+                \State $p_{r, c} \gets 1$;
+                \State $r \gets r + 1$;
             \EndFor
         \EndFor
         \State $\symbf{U}_{M1}, \symbf{U}_{M2} \gets \symbf{U}_M\left[ : L^{(1)}(L^{(2)}-1)\right], \symbf{U}_M\left[L^{(2)}:\right]$;
@@ -235,12 +239,22 @@ phase-modulated signals too, which for the \ac{2D} case would be $\lbrace
         $;
         \Comment{Last/First $L^{(1)}$ rows deleted}
         \State $
-            \symbf{z}^{(2)} \gets \operatorname{diag} \left(
+            \symbf{G} \gets
                 \left[\symbf{W}^{(1)}\right]^{-1}
                 \symbf{U}_{M\text{P}1}^{+}
                 \symbf{U}_{M\text{P}2}^{\vphantom{+}}
                 \symbf{W}^{(1)}
-            \right)$;
+            $;
+        \If{all values in $\bdfone$ are distinct}
+        \Comment{See \cref{fn:similar-freqs}, \cpageref{fn:similar-freqs}}
+            \State $\bdztwo \gets \diag(\symbf{G})$;
+        \Else
+            \State $R \gets$ number of distinct frequencies in $\bdfone$;
+            \For{$r = 1, \cdots, R$}
+                \State $\mathbb{C}^{h_r} \ni \bdztwo_r \gets \textsc{Eigenvalues}(\symbf{G}_r)$\footnotemark;
+                \Comment{See \cref{eq:block-G}.}
+            \EndFor
+        \EndIf
         \State $
             \bdftwo,
             \bdetatwo \gets
@@ -250,6 +264,20 @@ phase-modulated signals too, which for the \ac{2D} case would be $\lbrace
             \Im \left( \ln \symbf{z}^{(2)} \right) + \fofftwo,
             -\fswtwo \Re \left( \ln \symbf{z}^{(2)} \right)
         $;
+        \algstore{mmempm}
+    \end{algorithmic}
+\end{algorithm}
+\footnotetext{
+    N.B. Here it is assumed that $\symbf{G}$ is block-diagonal, in accordance
+    with \cref{eq:block-G}. In practice $\symbf{G}$ may not be block-diagonal,
+    as whether it is or not is dependent on the ordering of the rows and
+    columns in the matrix. A more explicit depiction of how $\symbf{G}_r$ can
+    be extracted from $\symbf{G}$ is provided by \cref{lst:mmempm} (Lines
+    \ref{ln:similar-f-start} to \ref{ln:similar-f-end}).
+}
+\begin{algorithm}
+    \begin{algorithmic}
+        \algrestore{mmempm}
         \State $
         \symbf{Z}^{(2)}_{\text{L}} =
         \begin{bmatrix}
@@ -313,8 +341,6 @@ phase-modulated signals too, which for the \ac{2D} case would be $\lbrace
     \end{algorithmic}
 \end{algorithm}
 \vfill\null
-
-
 
 \begin{algorithm}
     \caption[

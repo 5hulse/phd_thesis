@@ -15,30 +15,30 @@ is hypercomplex in form, meaning that it obeys
             2 \pi \iu \left(f^{(d)}_m - \foffd\right)
             -\eta_m\right)
             \nd \Dtd\right),\label{eq:x}\\
-        \wnonenD \sim \mathcal{N_C}\left(0, 2\sigma^2\right),
-    \end{gather}
-    \label{eq:hypercomplex-fid}
+        \wnonenD \sim \mathcal{N_C}\left(0, 2\sigma^2\right),%
+    \end{gather}%
+    \label{eq:hypercomplex-fid}%
 \end{subequations}%
-where $\Dtd = \nicefrac{1}{\fswd}$. Under this model, it is assumed that
+where $\Dtd = \nicefrac{1}{\fswd}$.
+Under this model, it is assumed that
 \iac{FID} consists of a summation of $M$ damped complex sinusoids in the
 presence in \ac{AWGN}.
 It is the goal of parametric estimation to establish the
 identity of all the quantities which describe the model component $\bX$, which
-are distilled into the vector $\bth \in \mathbb{R}^{2(D + 2)M}$, given by
+are distilled into the vector $\bth \in \mathbb{R}^{2(D + 1)M}$, given by
 \cref{eq:theta}.
 \Cref{eq:x} can be expressed in terms of complex amplitudes and signals poles
 as follows:
-\begin{subequations}
-    \begin{gather}
+\begin{subequations}%
+    \begin{gather}%
         \xnonenD(\bth) = \sumM \alpha_m \prodD {z^{(d)}_m}^{\nd},\\
         \alpha_m = \amexpphim,\\
         z_m^{(d)} = \exp\left(
             \left(2 \pi \iu \left(f_m^{(d)} - \foffd\right) - \eta^{(d)}_m\right) \Dtd
-        \right).
-    \end{gather}
-    \label{eq:x-alpha-z}
-\end{subequations}
-
+        \right).%
+    \end{gather}%
+    \label{eq:x-alpha-z}%
+\end{subequations}%
 Due to the assumed \ac{AWGN} nature of the noise array, the \ac{pdf} of an
 individual noise component is
 \begin{equation}
@@ -61,19 +61,21 @@ describing the entire noise array is given by the product of each element's
                 {\left\lvert \wnonenD \right\rvert^2}
                 {2\sigma^2}\right) \\
             &= \frac{1}{\left(2\pi \sigma^2\right)^{\mathfrak{N}}}
-            \exp\left( -\frac{\left\lVert \bW \right\rVert^2}{2\sigma^2}\right)
+            \exp\left( -\frac{\left\lVert \bW \right\rVert^2}{2\sigma^2}\right),
     \end{split}
 \end{equation}
+where $\mathfrak{N} \coloneq \None \times \cdots \times \ND$ is the total
+number of points the \ac{FID} comprises.
 As the noise array is the difference between the data and model, the
 likelihood function of $\bth$ given $\bY$, $\mathcal{L}\left(\bth \vert
-\bY\right)$, is given by
+\bY\right)$, is
 \begin{equation}
     \mathcal{L}\left(\bth \vert \bY\right) =
     \frac{1}{\left(2\pi \sigma^2\right)^{\mathfrak{N}}}
         \exp\left( -\frac{\left\lVert \bY - \bX(\bth) \right\rVert^2}{2\sigma^2}\right).
 \end{equation}
-It is common to consider instead the log-likelihood function of $\bth$ given
-$\bY$, $\ell\left(\bth \vert \bY\right)$. As application of the logarithm is a
+It is common to consider instead the log-likelihood function,
+$\ell\left(\bth \vert \bY\right)$. As application of the logarithm is a
 monotonic transformation, the arguments of the maxima of $\mathcal{L}$ and
 $\ell$ are equivalent.
 \begin{equation}
@@ -85,36 +87,28 @@ $\ell$ are equivalent.
 \Cref{eq:log-likeihood} implies that the optimal set of parameters
 $\bth^{(*)}$, often referred to as the \acfi{MLE}\acused{MLE},
 is that which minimises the
-(square) norm of the difference between the data and model
+squared norm of the difference between the data and model, often call the
+\acfi{RSS}:
 \begin{equation}
-    \bthstar = \argmax_{\bth \in \mathbb{R}^{2(D+2)M}}
+    \bthstar = \argmax_{\bth \in \mathbb{R}^{2(D+1)M}}
         \ell\left(\bth \vert \bY\right) \equiv
-        \argmin_{\bth \in \mathbb{R}^{2(D+2)M}} \left\lVert \bY - \bX(\bth) \right\rVert^2.
+        \argmin_{\bth \in \mathbb{R}^{2(D+1)M}} \left\lVert \bY - \bX(\bth) \right\rVert^2.
     \label{eq:argmin_y-x}
 \end{equation}
-The application of \acfi{NLP} is a well-established approach to solve such a
+The application of \ac{NLP} is a well-established approach to solve such a
 problem\cite{Fletcher1987,Nocedal2006}. The basic principle behind \ac{NLP} is
 to iteratively explore, in a methodical way, how a function varies with its
 arguments. By using information about the function and optionally its
 derivatives, such a routine attempts to find a minimum in the function, and
 terminates once this has been achieved. While derivative-free approaches to
-\ac{NLP} do exist,\note{(cite examples like simplex, simulated annealing,
-BOBYQA?)} in scenarios where the function under consideration has well-defined,
+\ac{NLP} do exist\cite{Nelder1965,Kirkpatrick1983,Powell2009},
+in scenarios where the function under consideration has well-defined,
 computationally tractable derivatives, the use of these can be valuable to
 solving optimisation problems; the problem outlined in
 \cref{eq:argmin_y-x} is such an example.
 
-In order for \ac{NLP} to perform effectively, a large amount of \textit{a
-priori} information is typically required, in the form of an initial guess
-$\bthzero$. There is precedent for using \ac{NLP} in the context of \ac{NMR}
-data estimation, in which substantial user input defines the initial guess (see
-the description of \ac{VARPRO} and \ac{AMARES} in
-\cref{subsec:estimation-techniques}). As an
-alternative, a routine is presented here in which an initial guess is
-determined using \iac{SVD}-based technique (the \ac{MPM}), requiring no or
-minimal user input. Subsequently, the result generated is subjected to \ac{NLP}
-under the assumption that the data is phase-corrected, which will be shown to
-be effective in correcting spurious features in \ac{MPM} result. In this sense,
-the \ac{NLP} routine can be seen as a means of validating the \ac{MPM} result,
-and correcting spurious features, if necessary.
-
+As discussed already, for \ac{NLP} to perform effectively, a large amount of
+\textit{a priori} information is typically required, in the form of an initial
+guess.
+To achieve this, the method employed in this work use the \ac{MPM}, the subject
+of the next section.

@@ -6,26 +6,29 @@
 \section{Future Work}
 \label{sec:future-work}
 Any future work related to this project would be centered around extending and
-improving the \ac{EsPy} package. Improvements in the speed of the estimation
-routine would be realised if the most intensive parts of it were written in a
-low-level compiled language like C++ or \textsc{Rust}. The may not be the case
-with the \ac{MPM} and \ac{MMEMPM}.  The majority of time running these routines
-involves \ac{SVD}, with \textsc{NumPy}'s implementation calling well-optimised
-routines from the \textsc{LAPACK} and \textsc{ARPACK} software package. However,
-in its current state, the \ac{NLP} routine could well be sped up considerably
-if current \Python implementation were ported to one of the aforementioned
-languages.
+improving the \ac{EsPy} package.
 
+\paragraph{Improving performance}
+Improvements in the speed of the estimation
+could be realised if the most computationally demanding parts of it were
+written in a low-level compiled language like C++ or \textsc{Rust}. The may not
+be the case with the \ac{MPM}; the majority of time running these routines
+involves \ac{SVD}, with \textsc{NumPy}'s implementation calling well-optimised
+routines from the \textsc{LAPACK} and \textsc{ARPACK} software packages.
+However, in its current state, the \ac{NLP} routine could well be sped up
+considerably if the current \Python implementation were ported to one of the
+aforementioned languages.
+
+\paragraph{A more general platform}
 Thinking further afield from the specific estimation routine considered in this
 work, the \ac{EsPy} package provides a large number of useful features which
 would be applicable to the estimation using any conceived method. The includes
 functionality to import data, pre-process data, and inspect the result of an
-estimation routine through figures\footnote{
-    All figures in this thesis were generated using \ac{EsPy} routines, with
-    the odd adjustment for aesthetic purposes.
-}. Incorporating other estimation routines into the software would be
-straightforward.
+estimation routine through parameter tables and figures.
+Incorporating other estimation routines into the software would therefore be
+rather straightforward.
 
+\paragraph{\ac{2D} and \ac{3D} datasets?}
 Another potential future venture would be to extend to routine for the
 consideration of other \ac{2D} datasets, such as those that comprise
 amplitude- or phase-modulated pairings, as well as \ac{3D} datasets,
@@ -40,7 +43,7 @@ are sought\cite{Yilmazer2006}. However, there is a key issue with
 multidimensional \ac{NMR} signals which would likely hamper the proposed method
 in this thesis from being effective. \ac{2DJ} datasets are rather anomalous in
 that they have very densely populated indirect dimensions. For this reason, it
-was necessary to be concerned about filtering the data in the indirect
+was not necessary to be concerned about filtering the data in the indirect
 dimension. However, for most \ac{2D} datasets, it would be desirable to filter
 the data in both dimensions. While the filtering procedure presented works well
 on direct-dimension \acp{FID}, which have usually decayed to noise at the end
@@ -64,3 +67,5 @@ be implemented. For \ac{3D} estimation, the computational burden required would
 also likely be too high for the routine to be practicable. \note{Once 2D
 profiling has been done, perhaps this could be used to guestimate typical 3D
 running times?}
+
+\paragraph{Incorporating constraints into the \ac{NLP} routine}

@@ -1,9 +1,29 @@
 \chapter{Theory}
 \label{chap:theory}
 
-\note{Describe what is to come in this chapter...}
-This chapter provides a detailed outline of an estimation routine which has
-been developed for the estimation of \ac{NMR} data.
+This chapter provides a description of the theory behind an estimation
+routine which has been developed for the consideration of time domain \ac{NMR}
+data.
+In brief, the routine consists of generating a parameter estimate using the
+\ac{SVD}-based \ac{MPM}, followed by the application of a \ac{NLP} routine to
+produce a final result. The \ac{MPM} is employed to generate an initial
+guess of parameters, while the \ac{NLP} routine behaves as a ``sanity
+check''\note{better phase?} by attempting to make the parameter estimate more consistent with
+known features of the data. The technique can be thought of as a compromise
+between ``black-box'' methods which require little to no prior knowledge about
+the data, and iterative methods like \ac{VARPRO} and \ac{AMARES}, which require
+vast amounts of prior knowledge, but are typically able to estimate
+complex datasets more effectively.
+
+Furthermore, after profiling the run time and memory consumption of the
+technique, a method for producing filtered \acp{FID}, featuring fewer signals
+and (optionally) datapoints is presented, which can drastically reduce the
+burden on computational resources.
+
+Outlines of relevant algorithms and \Python implementations are
+provided to supplement this chapter. As well as those present
+within this chapter, more algorithms can be found in \cref{sec:algs}, while
+\Python implementations can be found in \cref{chap:code-listings}.
 
 \input{text/main/2_theory_1_outline}
 \input{text/main/2_theory_2_mpm}

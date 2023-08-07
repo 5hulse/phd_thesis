@@ -1,6 +1,11 @@
-\section{Generating an Initial Guess: Matrix Pencil Method}
+\section{The \acl{MPM}}
 \label{sec:mpm}
-\note{Brief introductory text. Mention applications w. citations}
+In this section, a description of the \ac{MPM} is provided. This work is
+limited to the consideration of \ac{1D} and \ac{2D} \ac{NMR} data, and so both
+the original \ac{1D} \ac{MPM} and its \ac{2D} analogue, the \ac{MMEMPM} is
+provided. In theory, the method can be expanded to data with any number of
+dimensions\cite{Yilmazer2006}, though given the typical size of \ac{NMR}
+datasets, beyond \ac{2D} data the method is likely computationally intractable.
 
 \subsection{1D Matrix Pencil Method}
 \label{subsec:mpm}
@@ -9,9 +14,9 @@
     In contexts where \ac{1D} datasets are considered specifically, the
     redundant dimension index $^{(1)}$ will be neglected for conciseness.
 \end{remark}
-The \acfi{MPM}, developed by Hua and Sarkar\cite{Hua1990,Hua1990b,Hua1991}, provides a
-route to extracting the signal poles of a \ac{1D} dataset, based on the
-assumption that the number or oscillators $M$ is known.
+The \ac{MPM}, developed by Hua and Sarkar\cite{Hua1990,Hua1990b,Hua1991},
+provides a route to extracting the signal poles of a \ac{1D} dataset, based on
+the assumption that the number or oscillators $M$ is known.
 To motivate how the \ac{MPM} works, first consider a dataset which is devoid of
 noise, given by \cref{eq:x-alpha-z} with $D=1$:
 \begin{equation}
@@ -50,8 +55,9 @@ formed by the removal of the last or first column of $\Hx$, respectively:
         \end{bmatrix}.
    \end{gather}
 \end{subequations}
-These matrices can be deconstructed into the following forms involving matrices
-containing the $M$ signal poles and complex amplitudes that the data comprises:
+$\Hxone$ and  $\Hxtwo$ can be deconstructed into the following forms involving
+matrices containing the $M$ signal poles and complex amplitudes that the data
+comprises:
 \begin{subequations}
    \begin{gather}
        \Hxone = \symbf{Z}_{\text{L}} \symbf{A} \symbf{Z}_{\text{R}},\\
@@ -82,9 +88,9 @@ containing the $M$ signal poles and complex amplitudes that the data comprises:
         \begin{bmatrix}
             z_1 & z_2 & \cdots & z_M
         \end{bmatrix}\T.
-   \end{gather}
-    \label{eq:HX-decomp}
-\end{subequations}
+   \end{gather}%
+    \label{eq:HX-decomp}%
+\end{subequations}%
 The \emph{matrix pencil} $\Hxtwo - \lambda\Hxone$, with $\lambda \in
 \mathbb{C}$, can therefore be expressed as
 \begin{equation}
@@ -113,8 +119,8 @@ and are defined as\cite[Section 7.7]{Golub2013}
 \end{equation}
 One means of finding the signal poles is by finding the eigenvalues of the
 matrix $\Hxone^+ \Hxtwo^{\vphantom{+}}$. Deriving the corresponding complex
-amplitudes can then be achieved by solving the set of linear equations
-\begin{subequations}
+amplitudes can then be achieved by solving the set of linear equations%
+\begin{subequations}%
     \begin{gather}
         \symbf{\alpha} = \symbf{Z}^+ \symbf{x},\\
         \symbf{Z} =
@@ -125,22 +131,21 @@ amplitudes can then be achieved by solving the set of linear equations
             \cdots &
             {\symbf{z}}^{N-1}
         \end{bmatrix}\T.
-    \end{gather}
-    \label{eq:comp-amps}
-\end{subequations}
+    \end{gather}%
+    \label{eq:comp-amps}%
+\end{subequations}%
 Extraction of the amplitudes, phases, frequencies, and damping factors from the
-signal poles and complex amplitudes can then take place:
-\begin{subequations}
+signal poles and complex amplitudes can then take place:%
+\begin{subequations}%
     \begin{gather}
         \symbf{a} = \left \lvert \symbf{\alpha} \right \rvert,\\
         \symbf{\phi} = \arctan \left(\frac{\Im (\symbf{\alpha})}{\Re(\symbf{\alpha})}\right),\\
-        \symbf{f} = \frac{\fsw}{2 \pi} \Im\left(\ln \symbf{z} \right) + \foff, \\
+        \symbf{f} = \frac{\fsw}{2 \pi} \Im\left(\ln \symbf{z} \right) + \foff,\label{eq:poles-to-f}\\
         \symbf{\eta} = -\fsw \Re\left(\ln \symbf{z}\right).
     \end{gather}
 \end{subequations}
 
-\subsubsection{Noisy data}
-The presence of noise in the signal complicates the process of
+Noise corruption complicates the process of
 determining the $M$ signal poles, as $\Hy$\,---\,$\Hx$'s equivalent with
 elements replaced by the noisy data $\symbf{y}$\,---\, is likely to be
 full-rank, given by $\min(N - L, L + 1)$. To minimise the influence of noise on
@@ -175,11 +180,11 @@ through \ac{SVD} (see \cref{subsec:linear-algebra}):
         \diag \left( \sigma_1, \sigma_2, \cdots, \sigma_M \right).
     \end{gather}
 \end{subequations}
-$\sigma_m$ is the $m$ \textsuperscript{th} largest singular value of $\Hy$;
-$\symbf{u}_m \in \mathbb{C}^{N - L}$ and $\symbf{v}_m \in
+$\sigma_m$ is the $m$\textsuperscript{th} largest singular value of $\Hy$,
+while $\symbf{u}_m \in \mathbb{C}^{N - L}$ and $\symbf{v}_m \in
 \mathbb{C}^{L+1}$ are the corresponding left and right singular vectors,
-respectively. The \ac{EYM} proves that $\Hytilde$ is the closest matrix of rank
-$M$ to $\Hy$ in a Frobenius norm sense, i.e.
+respectively. The \ac{EYM} theorem proves that $\Hytilde$ is the closest matrix
+of rank $M$ to $\Hy$ in a Frobenius norm sense, i.e.
 \begin{equation}
     \Hytilde = \argmin_{\symbf{A}:\ \rank(\symbf{A}) = M} \left \lVert \symbf{A} - \Hy \right \rVert.
 \end{equation}
@@ -209,11 +214,11 @@ results, the pencil parameter should adhere to $\lfloor \nicefrac{N}{3} \rfloor
 $\lfloor\nicefrac{N}{3}\rfloor$ is always used, primarily since the computational
 complexity of the method is at a maximum when $L = \nicefrac{N}{2}$\footnote{
     With $L = \lfloor\nicefrac{N}{2}\rfloor$, the matrix
-    $\symbf{H}_{\symbf{Y}}$ is at its most ``square'' i.e. the number of rows
+    $\Hy$ is at its most ``square'' i.e. the number of rows
     and columns are at their most similar. Matrices which are more
     square will increase the demands on computing the \ac{SVD}, with a
     complexity $\mathcal{O}(\min(L+1,N-L+1)^2 \times \max(L+1,N-L+1))$.
-}
+}.
 
 \begin{algorithm}
     \caption[
@@ -222,7 +227,7 @@ complexity of the method is at a maximum when $L = \nicefrac{N}{2}$\footnote{
     ]
     {
         The \acs{MPM}, with the optional prediction of model order using the
-        \acs{MDL}, if $M$ is set to $0$.
+        \acs{MDL} if $M$ is set to $0$.
     }\label{alg:mpm}
     \begin{algorithmic}[1]
         \Procedure{MPM}{$\by \in \mathbb{C}^{N}, \fsw \in \mathbb{R}_{>0}, \foff \in \mathbb{R}, M \in \mathbb{N}_0$}
@@ -235,34 +240,33 @@ complexity of the method is at a maximum when $L = \nicefrac{N}{2}$\footnote{
                     y_{N-L-1} & y_{N-L} & \cdots & y_{N-1}\\
                 \end{bmatrix}
             $;
-            \State $\symbf{U}, \symbf{\sigma}, \symbf{V}^{\dagger} \gets
+            \State $\symbf{U}, \symbf{\sigma}, \symbf{V} \gets
             \SVD(\symbf{H}_{\symbf{y}})$;
             \If {$M = 0$}
                 \State $M \gets \operatorname{MDL}(\symbf{\sigma}, L, N)$;
             \EndIf
-            \State $\symbf{V} \gets \left[\symbf{V}^{\dagger}\right]^{\dagger}$;
-            \State $\symbf{V}_M \gets \symbf{V}\left[:, :M\right]$;
-            \Comment{Retain first $M$ right singular vectors.}
-            \State $
-                \symbf{V}_{M1}, \symbf{V}_{M2} \gets
-                \symbf{V}_M\left[:,:M-1\right],
-                \symbf{V}_M\left[:,1:\right]
+            \State $\symbf{V}_{M1}, \symbf{V}_{M2} \gets
+            \begin{bmatrix}
+                \symbf{v}_1 & \symbf{v}_2 & \cdots & \symbf{v}_{M-1}
+            \end{bmatrix},
+            \begin{bmatrix}
+                \symbf{v}_2 & \symbf{v}_3 & \cdots & \symbf{v}_{M}
+            \end{bmatrix}
             $;
-            \Comment{Remove last/first column}
             \State $\symbf{z} \gets \textsc{Eigenvalues}\left(\symbf{V}_{M1}^+ \symbf{V}_{M2}^{\vphantom{+}}\right)$;
             \State $\symbf{Z} \gets
                 \begin{bmatrix}
                     \symbf{1} & \symbf{z} & {\symbf{z}}^2 & \cdots & {\symbf{z}}^{N}
                 \end{bmatrix}\T
             $;
-            \State $\bdalpha \gets \symbf{Z}^+ \bY$;
+            \State $\bdalpha \gets \symbf{Z}^+ \by$;
             \State $
-                \symbf{a} \gets \left\lvert\symbf{\alpha}\right\rvert$;
-            \State $\symbf{\phi} \gets \arctan
-                \left(\frac{\Im(\symbf{\alpha})}{\Re(\symbf{\alpha})}\right)
+                \symbf{a}, \symbf{\phi} \gets \left\lvert\symbf{\alpha}\right\rvert,
+                \arctan \left(\frac{\Im(\symbf{\alpha})}{\Re(\symbf{\alpha})}\right)
+                $;
+            \State $\symbf{f}, \symbf{\eta} \gets \frac{\fsw}{2\pi} \Im \left( \ln \symbf{z} \right) + \foff,
+                -\fsw \Re \left( \ln \symbf{z} \right)
             $;
-            \State $\symbf{f} \gets \frac{\fsw}{2\pi} \Im \left( \ln \symbf{z} \right) + \foff$;
-            \State $\symbf{\eta} \gets -\fsw \Re \left( \ln \symbf{z} \right)$;
             \If {$\symbf{\eta}$ contains negative values}
             \Comment{Purge any oscillators with negative damping}
                 \State Remove these from $\symbf{\eta}$, and remove the
@@ -281,22 +285,21 @@ complexity of the method is at a maximum when $L = \nicefrac{N}{2}$\footnote{
         \EndProcedure
         \Statex
         \Procedure{MDL}{$\symbf{\sigma} \in \mathbb{R}^{L+1}, L \in \mathbb{N}, N \in \mathbb{N}$}
-            \State $\operatorname{MDL}_{k-1} \gets \infty$
-            \Comment{Ensure that on first iteration ($k=0$), the conditional does not hold}
-                \For {$k = 0, \cdots, L$}
-                    \State $\operatorname{MDL}_k \gets
-                    -\ln\left(
-                        \frac
-                        {\prod_{r=k}^{L-1} \sigma_{r+1}^{\nicefrac{1}{L-k}}}
-                        {\frac{1}{L-k} \sum_{r=k}^{L-1} \sigma_{r+1}}
-                    \right)^{(L-k)N}$;
-                    \If {$\operatorname{MDL}_k > \operatorname{MDL}_{k-1}$}
-                        \State $M \gets k-1$;
-                        \State \textbf{break};
-                        \Else\State$\operatorname{MDL}_{k-1} \gets \operatorname{MDL}_k$;
-                    \EndIf
-                \EndFor
-                \State \textbf{return} $M$;
+            \For {$k = 0, \cdots, L$}
+                \State $\operatorname{MDL}_k \gets
+                -\ln\left(
+                    \frac
+                    {\prod_{r=k}^{L-1} \sigma_{r+1}^{\nicefrac{1}{L-k}}}
+                    {\frac{1}{L-k} \sum_{r=k}^{L-1} \sigma_{r+1}}
+                \right)^{(L-k)N}
+                + \frac{1}{2}k(2L - k)\ln N
+                $;
+                \If {$k > 0$ \textbf{and} $\operatorname{MDL}_k > \operatorname{MDL}_{k-1}$}
+                    \State $M \gets k-1$;
+                    \State \textbf{break};
+                \EndIf
+            \EndFor
+            \State \textbf{return} $M$;
         \EndProcedure
     \end{algorithmic}
 \end{algorithm}
@@ -306,19 +309,19 @@ complexity of the method is at a maximum when $L = \nicefrac{N}{2}$\footnote{
 \label{subsec:mmempm}
 The \ac{MPM} was extended for the consideration of \ac{2D} data by Hua with the
 \acfi{MEMPM}\cite{Hua1992}. The method centers around the enhanced matrix $\EY
-\in \mathbb{C}^{\left(\Lone \Ltwo\right) \times \left(\None - \Lone +
-1\right)\left(\Ntwo - \Ltwo + 1\right)}$, a block Hankel matrix of the form
+\in \mathbb{C}^{\Lone \Ltwo \times (\None - \Lone + 1)(\Ntwo - \Ltwo + 1)}$,
+a block Hankel matrix of the form
 \begin{subequations}
     \begin{gather}
         \EY =
         \begin{bmatrix}
-            \symbf{H}_{\symbf{Y},0} & \symbf{H}_{\symbf{Y},1} & \cdots & \symbf{H}_{\symbf{Y},\None - \Lone} \\
-            \symbf{H}_{\symbf{Y},1} & \symbf{H}_{\symbf{Y},2} & \cdots & \symbf{H}_{\symbf{Y},\None - \Lone + 1} \\
+            \symbf{H}_{\symbf{y},0} & \symbf{H}_{\symbf{y},1} & \cdots & \symbf{H}_{\symbf{y},\None - \Lone} \\
+            \symbf{H}_{\symbf{y},1} & \symbf{H}_{\symbf{y},2} & \cdots & \symbf{H}_{\symbf{y},\None - \Lone + 1} \\
             \vdots & \vdots & \ddots & \vdots \\
-            \symbf{H}_{\symbf{Y},\Lone - 1} & \symbf{H}_{\symbf{Y},\Lone} & \cdots & \symbf{H}_{\symbf{Y},\None - 1}
+            \symbf{H}_{\symbf{y},\Lone - 1} & \symbf{H}_{\symbf{y},\Lone} & \cdots & \symbf{H}_{\symbf{y},\None - 1}
         \end{bmatrix}, \\
         \def\arraystretch{1.3}
-        \symbf{H}_{\symbf{Y},\none} =
+        \symbf{H}_{\symbf{y},\none} =
         \begin{bmatrix}
             y_{ \none, 0 } & y_{ \none, 1 } & \cdots & y_{ \none, \Ntwo - \Ltwo } \\
             y_{ \none, 1 } & y_{ \none, 2 } & \cdots & y_{ \none, \Ntwo - \Ltwo + 1 } \\
@@ -328,10 +331,10 @@ The \ac{MPM} was extended for the consideration of \ac{2D} data by Hua with the
     \end{gather}
 \end{subequations}
 In a similar fashion to \cref{eq:HX-decomp},
-$\symbf{H}_{\symbf{X},\none}$, the noiseless equivalent to
-$\symbf{H}_{\symbf{Y},\none}$, can be expressed as
+$\symbf{H}_{\symbf{x},\none}$, the noiseless equivalent to
+$\symbf{H}_{\symbf{y},\none}$, can be expressed as
 \begin{equation}
-    \symbf{H}_{\symbf{X},\none} =
+    \symbf{H}_{\symbf{x},\none} =
         \symbf{Z}^{(2)}_{\text{L}}
         \symbf{A}
         {\symbf{Z}^{(1)}_{\text{D}}}^{\none}
@@ -371,6 +374,12 @@ filtered matrix $\EYtilde$ with its rank reducd to $M$, in accordance witht he
         \symbf{\Sigma}_M^{\vphantom{\dagger}}
         \symbf{V}_M^{\dagger}
 \end{equation}
+Due to the large size of the enhanced matrix, a vast improvement
+in the speed of the \ac{MEMPM} can be realised when, rather than compute the
+\ac{SVD} in its entirety, a \emph{truncated} \ac{SVD} is computed, in
+which only the first $M$ components of the \ac{SVD} are
+determined\cite{Baglama2005}.
+
 If the conditions $\Nd - L^{(d)} + 1 \geq M\ \forall d \in \lbrace 1, 2
 \rbrace$ are met, $\range\left(\symbf{U}_M\right) =
 \range\left(\symbf{E}_{\text{L}}\right)$. This implies that there is some
@@ -405,30 +414,30 @@ $\bdzone$ are the solutions to the generalised eigenvalue problem, such that
 they are the eigenvalues of $\symbf{U}_{M1}^{+} \symbf{U}_{M2}^{\vphantom{+}}$.
 
 To extract the signal poles in the other dimension, $\bdztwo$, the permutation
-matrix is defined:
+matrix $\symbf{P} \in \mathbb{R}^{\Lone \Ltwo \times \Lone \Ltwo}$ is defined:
 \begin{equation}
-    \mathbb{R}^{\Lone \Ltwo \times \Lone \Ltwo} \ni
     \symbf{P} =
+    {\small
     \begin{bmatrix}
-        \symbf{e}\left(1\right)\T \\
-        \symbf{e}\left(\Ltwo + 1\right)\T \\
+        \symbf{e}\left(1\right) \\
+        \symbf{e}\left(1 + \Ltwo\right) \\
         \vdots \\
-        \symbf{e}\left(1 + \left(\Lone - 1\right)\Ltwo\right)\T \\
-        \symbf{e}\left(2\right)\T \\
-        \symbf{e}\left(2 + \Ltwo\right)\T \\
+        \symbf{e}\left(1 + \left(\Lone - 1\right)\Ltwo\right) \\
+        \symbf{e}\left(2\right) \\
+        \symbf{e}\left(2 + \Ltwo\right) \\
         \vdots \\
-        \symbf{e}\left(2 + \left(\Lone - 1\right)\Ltwo\right)\T \\
+        \symbf{e}\left(2 + \left(\Lone - 1\right)\Ltwo\right) \\
         \vdots \\
         \vdots \\
-        \symbf{e}\left(\Ltwo\right)\T \\
-        \symbf{e}\left(2\Ltwo\right)\T \\
+        \symbf{e}\left(\Ltwo\right) \\
+        \symbf{e}\left(2\Ltwo\right) \\
         \vdots \\
-        \symbf{e}\left(\Lone \Ltwo\right)\T \\
+        \symbf{e}\left(\Lone \Ltwo\right) \\
     \end{bmatrix}.
+    }
 \end{equation}
-$\symbf{e}\left(i\right) \in \mathbb{R}^{\Lone \Ltwo}$ corresponds to a unit
-vector comprising zeros except for $e_i = 1\ \forall i \in \lbrace 1, \cdots,
-\Lone\Ltwo \rbrace$.
+$\symbf{e}\left(i\right) \in \mathbb{R}^{\Lone \Ltwo}$ corresponds to a unit row
+vector comprising zeros except for $e_i = 1$.
 Multiplying $\symbf{E}_{\text{L}}$ by the permutation matrix leads to a matrix
 in which the roles of the two sets of signal poles are effectively swapped:
 \begin{equation}
@@ -441,31 +450,91 @@ in which the roles of the two sets of signal poles are effectively swapped:
     \end{bmatrix}.\label{eq:ELP}
 \end{equation}
 Note the similarity of \cref{eq:ELP} with \cref{eq:EL}, which
-implies that with the same reasoning as given above, $\bdztwo$ can be derived
+implies that with the same reasoning as above, $\bdztwo$ can be derived
 by extracting the eigenvalues of $\symbf{U}_{M\text{P}1}^+
 \symbf{U}_{M\text{P}2}^{\vphantom{+}}$, where $\symbf{U}_{M\text{P}1}$ and
 $\symbf{U}_{M\text{P}2}$ correspond to $\symbf{P} \symbf{U}_M$
 with the last and first $\Lone$ rows removed, respectively.
 
+\begin{figure}
+    \centering
+    \includegraphics{mmempm_poles/mmempm_poles.pdf}
+    \caption[
+        A comparison of the structure of the matrix $\symbf{G}$ from the
+        \acs{MMEMPM}, for the cases of an \acs{FID} with distinct signal poles
+        in $\Fone$ and one with repeated signal poles
+    ]{
+        A comparison of the structure of the matrix $\symbf{G}$ from the
+        \acs{MMEMPM}, for the cases of an \acs{FID} with \textbf{a.} distinct
+        signal poles in $\Fone$ and \textbf{b.} one with repeated signal poles.
+        \textbf{a1.} Magntiude-mode spectrum of a hypercomplex \ac{2D}
+        \ac{FID}, with $M=5$, and all indirect-dimension frequencies having
+        distinct values.
+        \textbf{b1.} An equivalent spectrum with two pairs of the $5$
+        indirect-dimension frequencies being identical ($\lbrace 1, 4 \rbrace$
+        and  $\lbrace 2, 5 \rbrace$).
+        \textbf{a2.} A representation of the matrix
+        $\lvert \symbf{G} \rvert$ for the dataset depicted in a1. All values
+        which are greater than \num{1e-10} are coloured black, while those that
+        are less than \num{1e-10} are white.
+        \textbf{b2.} An analogous representation for the dataset in b1. Note
+        that $\symbf{G}$ is no longer diagonal, but possesses non-zero
+        off-diagonal elements in agreement with signals with equivalent poles.
+        With an appropriate re-ordering of the rows and columns (i.e. swapping
+        the rows and columns of 2 and 4), this could be recast as a
+        block-diagonal matrix featuring 3 blocks, one which is $1 \times 1$,
+        and two which are  $2 \times 2$.
+    }
+    \label{fig:mmempm-poles}
+\end{figure}
 In the original account on the \ac{MEMPM}, the final stage involved employing a
 pairing algorithm in order to assign the uncorrelated signal poles in $\bdzone$
 with $\bdztwo$\cite{Hua1992}. The \emph{modified} \ac{MEMPM} (\acs{MMEMPM}) was
 developed in order to overcome two issues with the pairing algorithm: (a) it is
 computationally expensive (b) it is prone to return incorrect
-pairings\cite{Chen2007}.  As well as the eigenvalues of
+pairings\cite{Chen2007}.
+The procedure for extracting the paired poles differs slightly depending on
+whether in the first dimension, all the signal poles in $\symbf{z}^{(1)}$ are
+distinct or not.
+As well as the eigenvalues of
 $\symbf{U}^{+}_{M1}\symbf{U}_{M2}^{\vphantom{+}}$, the \ac{MMEMPM} requires
-extraction of the eigenvectors too, which are contained in the matrix
-$\symbf{W}^{(1)}$. Assuming that there are no repeated poles in $\bdzone$, the
-correctly paired second set of poles is then generated via
+the corresponding eigenvectors too, contained in the matrix
+$\symbf{W}^{(1)}$. Assuming that there are no repeated poles in
+$\bdzone$\footnote{
+    For the purposes of \ac{FID} estimation, it is deemed that a given pair
+    $i,j \in \lbrace 1, \cdots, M \rbrace$ of poles is repeated if their
+    frequencies satisfy $\lvert \fone_i - \fone_j \rvert <
+    \nicefrac{\fswone}{\None}$ (recall \cref{eq:poles-to-f}, which states the
+    relationship between a signal pole and its frequency).
+    \label{fn:similar-freqs}
+}, the following holds:
 \begin{equation}
-    \bdztwo = \diag\left(
-        \symbf{W}^{-1}
+    \bdZtwo_{\text{D}} \equiv \symbf{G} =
+        {\symbf{W}^{(1)}}^{-1}
         \symbf{U}_{M\text{P}1}^+
         \symbf{U}_{M\text{P}2}^{\vphantom{+}}
-        \symbf{W}
-    \right)
+        \symbf{W}^{(1)},
 \end{equation}
-\note{Talk about case of paired eigenvalues.}
+such that the second dimension signal poles are determined with $\bdztwo =
+\diag(\symbf{G})$ (see panel a of \cref{fig:mmempm-poles}).
+If some some values in $\bdzone$ are repeated, the matrix $\symbf{G}$ is
+no longer diagonal, but instead and can be expressed as block-diagonal;
+assuming there are $R < M$ unique signal poles, $\symbf{G}$ has the form
+\begin{equation}
+    \symbf{G} =
+    \begin{bmatrix}
+        \symbf{G}_1 & \symbf{0} & \cdots & \symbf{0} \\
+        \symbf{0} & \symbf{G}_2 & \cdots & \symbf{0} \\
+        \vdots & \vdots & \ddots & \vdots \\
+        \symbf{0} & \symbf{0} & \cdots & \symbf{G}_R
+    \end{bmatrix}
+    \label{eq:block-G}
+\end{equation}
+where $\symbf{G}_r \in \mathbb{C}^{h_r \times h_r}$ is a sub-matrix corresponding
+to the $r$\textsuperscript{th} unique signal pole with multiplicity $h_r$ (see
+panel b of \cref{fig:mmempm-poles}). Note that $\sum_{r=1}^R h_r = M$. When
+$h_r > 1$, the subset of poles $\bdztwo_r$ are determined by computing the
+eigenvalues of the matrix $\symbf{G}_r$
 
 See \cref{alg:mmempm} for a pseudo-code outline, and \cref{lst:mmempm} for a
 \Python implementation of the \ac{MMEMPM}.
@@ -583,6 +652,3 @@ consistent, such that distinguishing the noise and signal subspaces is an
 easier task (cf. the yellow and red lines in panel b). As such, the
 \ac{MDL} is more likely to provide a faithful estimate of the true number of
 components in the \ac{FID} (panel c) when the \ac{SNR} is higher.
-
-\note{Mention that multidimensional criteria are available, though not
-implemented in this work.}
