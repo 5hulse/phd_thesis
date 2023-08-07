@@ -284,8 +284,6 @@ corrected values can be computed using
             These would typically be provided in units of \unit{\hertz} or
             \unit{\partspermillion} by a user; conversion to indices can
             be carried out using \cref{eq:fidx}.
-            \textsc{RandomSample} indicates taking a random sample from the
-            given distribution.
         }
         \label{alg:filter-1d}
         \Procedure{Filter$1$D}{
@@ -293,7 +291,8 @@ corrected values can be computed using
             l_{\text{idx}},
             r_{\text{idx}},
             l_{\text{idx,noise}},
-            r_{\text{idx,noise}}
+            r_{\text{idx,noise}},
+            \chi \in \mathbb{R}: \chi > 1
             $}
             \State $\by_{\text{ve}} \gets \textsc{VirtualEcho$1$D}\left(\by\right)$;
             \State $\symbf{s}_{\text{ve}} \gets \FT\left(\by_{\text{ve}}\right)$;

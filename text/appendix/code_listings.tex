@@ -1,8 +1,10 @@
 \chapter{Code Listings}
 \label{chap:code-listings}
 
-\note{NEED TO ADD TEXT TO DESCRIBE THINGS}
-The following is all the required imports:
+Presented here are a number of \Python implementations for
+the routines described in this text. These can be thought of stripped-down
+versions of functions present in the back-end of \ac{EsPy} package.
+
 \mylisting{python3}{code_listings/imports.py}{%
 Required imports for the subsequent \Python listings.
 }{
@@ -72,7 +74,7 @@ oscillators to be purged (Lines \ref{ln:negamp1}--\ref{ln:negamp2}).
 \mylisting{python3}{code_listings/obj_grad_hess.py}{
 \Python implementation for the generation of the fidelity for \ac{NLP}
 applied to \ac{1D} estimation, as well as the gradient and (approximated)
-Hessian
+Hessian.
 }{
 Code for the generation of the fidelity for \ac{NLP}
 applied to \ac{1D} estimation, as well as the gradient and (approximated)
@@ -85,7 +87,11 @@ requested, the cached result is used, rather than the expensive function being
 re-computed.
 \mintinline{python3}{FunctionFactoryGaussNewton1D} (Lines
 \ref{ln:ff1}--\ref{ln:ff2}) inherits from the base class, for specific use in
-\ac{1D} estimation, with an approximated Hessian.}{lst:obj-grad-hess}
+\ac{1D} estimation, with an approximated Hessian.
+For the equivalent code for both \ac{2D} estimation, and for computing the
+exact Hessian, the reader is directed to \protect\path{nmrespy/nlp/_funcs.py} in the
+\ac{EsPy} package.
+}{lst:obj-grad-hess}
 
 \subsection{The main routine}
 
