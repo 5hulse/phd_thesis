@@ -338,18 +338,40 @@ intensity ``nuisance'' signals, likely from impurities in the sample.
 
 Nevertheless, the routine has performed effectively in generating a parameter
 estimate which agrees with the multiplet structures present. For the most
-downfield region considered, the \ac{MPM} performed admirably, and the \ac{NLP}
-routine hardly perturbed the initial guess because of this.
+downfield region considered, featuring signals from spins (A) and (B), the
+\ac{MPM} performed admirably; the \ac{NLP} routine hardly perturbed the initial
+guess as a result.
 \note{Middle region...}
+
 The most downfield region contains three separate multiplet structures
 featuring appreciable overlap, particularly between those corresponding to
-spins (E) and (F). The \ac{MPM} produced sufficient oscillators to model these
+spins (E) and (F).
+The resulting spectrum features many examples of highly overlapping peaks, with
+many peaks featuring ``shoulders'', in which lower amplitude oscillators
+overlap heavily.
+The \ac{MPM} produced sufficient oscillators to model these
 structures (see \cref{tab:andro-multiplets} for a description of these).
-However, particular in the most crowded section, around
-\SIrange{4.96}{4.92}{\partspermillion}, it can be seen that certain oscillators
+However, particularly in the most crowded section around
+\SIrange{4.96}{4.92}{\partspermillion} it can be seen that certain oscillators
 have phases which noticeably deviate from \ang{0}. In applying the \ac{NLP}
 routine, it can be seen that not only have the phase become more consistent,
 but the set of oscillators agree more consistently with the multiplet
 structures present. For example, the most upfield oscillator associated with
 the 1:3:6:3:1 quintet of spin (F) (orange) acquires an amplitude with much
-closer agreement to the most downfield oscillator, as expected. There are however still noticeable flaws with the estimation result;
+closer agreement to the most downfield oscillator, as expected. The most
+notable flaw in the final result is associated with the two oscillators marked
+by \textdagger, both of which are associated with the 1:3:1:3:3:1:3:1 dq
+structure from spin (E). Based on knowledge of the expected multiplet
+structure, it can be seen that rather than a 1:3 amplitude ratio, the two
+oscillators exhibit an unexpected ratio of $\approx 1:1$. It is not surprising
+that greater deviations for expectations occur in more heavily crowded spectral
+regions, since there is a larger set of values in the parameter space which
+will lead to acceptable fits of the data in an \ac{RSS} sense. Nonetheless,
+armed simply with knowledge that the data is phased, the routine performs
+admirably in highlighting  how the spectrum breaks down into its various
+multiplet structures. An improved estimation result could be attained by
+supplying the \ac{NLP} routine with more knowledge. For example, one could
+include extra constraints to ensure that the green oscillators in panel c of
+Figure \ref{fig:cyclosporin} agree with the aforementioned relative ratios.
+While this has not been implemented in this work, it is discussed in
+\cref{sec:future-work} as a possible pursuit for the future.

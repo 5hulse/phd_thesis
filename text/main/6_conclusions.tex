@@ -2,6 +2,12 @@
 \label{chap:conclusions}
 
 \section{Conclusions}
+\begin{itemize}
+    \item 1D data: quite easy for datasets to become too complex for accurate
+        estimation due to excessive crowding: cause by large number of spins
+        and/or dense coupling networks leading to complex multiplet
+        structures.
+\end{itemize}
 
 \section{Future Work}
 \label{sec:future-work}
@@ -70,3 +76,36 @@ profiling has been done, perhaps this could be used to guestimate typical 3D
 running times?}
 
 \paragraph{Incorporating constraints into the \ac{NLP} routine}
+The estimation routine in its current form is designed to require as little
+user input as possible while producing faithful parameter estimates. However,
+in particularly challenging circumstances, most notably when
+there is extreme signal overlap, the inclusion of oscillator phase variance
+alone can be insufficient to produce estimates which closely agree with the
+experiment. When this is the case, it would be useful to enable users to
+specify additional knowledge (incorporated into the routine as addition
+regularising terms) \emph{after} the initial estimation has been performed.
+This concept, while similar to \ac{VARPRO} and \ac{AMARES}, differs in that
+these require very large quantities or prior knowledge \emph{before}
+estimation. A lot of the heavy lifting towards an accurate parameter estimate could be achieved using phase variance-regularised \ac{NLP}, with the user indicating\note{...}
+
+Take the cyclosporin A example (\cref{fig:cyclosporin}) as an example. As
+discussed already, due to severe signal overlap, the assigned oscillators
+related to spin (E), while at the correct frequencies, do not have appropriate
+amplitudes for a dq multiplet structure. As such, re-running \ac{NLP}, with a
+new fidelity of
+\[
+    \FphithY + \Var(
+        a_{\text{E}1},
+        \tfrac{1}{3} a_{\text{E}2},
+        a_{\text{E}3},
+        \tfrac{1}{3} a_{\text{E}4},
+        \tfrac{1}{3} a_{\text{E}5},
+        a_{\text{E}6},
+        \tfrac{1}{3} a_{\text{E}7},
+        a_{\text{E}8}
+    )
+\]
+would likely lead to an improved result.
+$\lbrace \text{E}1, \cdots, \text{E}8 \rbrace \subset \lbrace 1, \cdots, M \rbrace$ are the
+indices of the oscillators corresponding to spin (E), i.e. the green
+oscillators in the figure.

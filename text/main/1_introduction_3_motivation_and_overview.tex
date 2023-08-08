@@ -1,50 +1,78 @@
 \section{Overview of this work}
 
 \subsection{Conception and motivation}
-The initial motivation for this work emerged from discussions within the NMR
-Methodology group in Manchester involving my principal
-supervisor Dr. Mohammadali Foroozandeh and coworkers\,---\,notably Prof.
-Gareth Morris and Prof. Mathias Nilsson\,---\,while Dr. Foroozandeh was a
-Postdoctoral
-researcher there. There was an interest in generating pure shift \ac{NMR}
-spectra from \acs{2DJ} data using an appropriate estimation and
-reconstruction algorithm. While little progress was made when Dr. Foroozandeh
-was based in Manchester, he wished to continue with it after moving to Oxford
-to take up a research fellowship. I took on a project focussed on this,
-though with a broader scope, when I joined his nascent research group as a PhD
-student.
+The central focus of this work is the development of a routine which performs
+parametric estimation on \ac{NMR} datasets.
+Motivation initially came from discussions within the NMR
+Methodology Group in Manchester involving
+Dr Mohammadali Foroozandeh and co-workers\,---\,notably Prof.
+Gareth Morris and Prof. Mathias Nilsson\,---\,while Dr Foroozandeh was a
+Postdoctoral researcher there. There was an interest in generating pure shift
+\ac{NMR} spectra from \ac{2DJ} datasets via appropriate post-processing of the
+data.  While little progress was made when Dr Foroozandeh was based in
+Manchester, he wished to continue with the project after moving to Oxford to
+take up a research fellowship, which I took the reins of when I joined his
+nascent research group as a PhD student.
+
+To ensure its applicability to \ac{2DJ} datasets, the following properties were
+sought when devising what the estimation routine would entail:
+
+\paragraph{Support for \ac{1D} and \ac{2D} data}
+The method should be able to analyse both \ac{1D} \acp{FID} and also
+hypercomplex \ac{2D} \acp{FID} (the form which \ac{2DJ} datasets take).
+\ac{2D} data should be analysed \emph{holistically},
+rather than as successive \ac{1D} increments, as is the case in methods like
+\ac{CRAFT}\cite{Krishnamurthy2017}. This is since
+better signal resolution is often available when both dimensions are
+considered at the same time; certain signals which exhibit clear resolution in a
+\ac{2D} dataset may be heavily overlapping in \ac{1D} data and are
+therefore more challenging if not impossible to quantify accurately.
+
+\paragraph{Time-domain based}
+As discussed in \cref{subsec:multidim}, due to the hypercomplex nature of
+\ac{2DJ} \acp{FID}, generating spectra with desirable absorption lineshapes is
+not possible. Typically, resorting to displaying the spectra in magnitude-mode is
+deemed optimal, as this overcomes the phase-twist peak lineshapes. Such
+spectra suffer from gross non-linearities and dispersion-mode contributions,
+both of which make the task of estimating \ac{2DJ} data in the Fourier domain
+challenging. For this reason, estimating the dataset by considering its \ac{FID}
+rather than its spectrum is preferred.
+
+\paragraph{Accessibility}
+To achieve wide-spread adoption, especially by non-expert \ac{NMR} users,
+the method should require minimal user intervention to perform effectively. As
+such, a method requiring the specification of as little prior knowledge
+about the data as possible is desired.
+On top of this, the method should be available as software that users can gain
+familiarity with easily.
 
 \subsection{Thesis Overview}
-This thesis is broken into four principal themes, which span the proceeding
-four chapters:
+This thesis is broken into the following chapters:
 \begin{itemize}
     \item \textbf{\cref{chap:theory}} discusses the theory behind routines
-        which can be applied to determine parameter estimates which describe
+        which can be applied to determine parameter estimates related to
         \ac{1D} and \ac{2D} \ac{NMR} datasets.
     \item \textbf{\cref{chap:results}} provides illustrations of the
         performance of the estimation routine on \ac{1D} \ac{NMR} datasets.
-        Furthermore, means in which the established estimation routine can be
-        extended for two applications are explored:
+        Furthermore, means in which parametric estimation routine can be
+        harnessed for two applications are explored:
         \begin{itemize}
-            \item Analysis of amplitude-attenuated datasets, such as those
+            \item The analysis of amplitude-attenuated datasets, such as those
                 derived from diffusion and inversion recovery experiments
                 (\cref{sec:seq}).
             \item Overcoming quadratic phase behaviour and baseline distortions
                 associated with ultra-broadband excitation by a single
                 \acl{FS} pulse (\cref{sec:bbqchili}).
         \end{itemize}
-    \item \textbf{\cref{chap:cupid}} outlines a method for generating pure
-        shift spectra and deriving the associated multiplet structures from
-        \ac{2DJ} datasets. As described above, this was the initial motivation
-        for embarking on this project.
+    \item \textbf{\cref{chap:cupid}} outlines the devised method, called
+        \ac{CUPID}, for generating pure shift spectra from \ac{2DJ} datasets.
     \item \textbf{\cref{chap:nmrespy}} describes the source code developed as
-        part of this project, called \acs{EsPy}.
+        part of this project: \ac{EsPy}.
     \item Finally, conclusions and considerations for further potential
         developments are discussed in \textbf{\cref{chap:conclusions}}.
 \end{itemize}
 
-Further supporting information can be found in the Appendix, which comprises
-the following chapters:
+Additional supporting information can be found in the appendix, comprising:
 \begin{itemize}
     \item \textbf{\cref{chap:nmr-glossary}} provides a glossary of terms
         related to \ac{NMR} which are not introduced in much detail in the main
@@ -53,12 +81,19 @@ the following chapters:
         information on the theory related to this work, including descriptions
         of mathematical concepts, and outlines of relevant algorithms.
     \item \textbf{\cref{chap:code-listings}} provides code listings outlining
-        how the methods described in this work can be implemented in \Python.
-        These are effectively reduced versions of code found in the \ac{EsPy}
-        package.
+        how the methods described in this work can be implemented in the
+        \Python programming language.
+        These are effectively bare-bones variants of code found in the
+        \ac{EsPy} package.
     \item \textbf{\cref{chap:datasets}} outlines how the simulated and
         experimental datasets considered in this work were generated.
     \item \textbf{\cref{chap:walkthrough}} is an insert from the documentation
-        of \ac{EsPy}, comprising tutorials on getting familiarised with using
-        the package.
+        of \ac{EsPy}, comprising tutorials to help users get started with the
+        package.
 \end{itemize}
+
+The following publication\note{s} is\note{are} related to this work:
+
+\fullcite{Hulse2022}
+
+\note{Mention status of 2DJ paper at point of submission}
