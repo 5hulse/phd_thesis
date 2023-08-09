@@ -13,7 +13,7 @@ is hypercomplex in form, meaning that it obeys
         \sumM \amexpphim
         \prodD \exp\left(\left(
             2 \pi \iu \left(f^{(d)}_m - \foffd\right)
-            -\eta_m\right)
+            -\eta_m^{(d)}\right)
             \nd \Dtd\right),\label{eq:x}\\
         \wnonenD \sim \mathcal{N_C}\left(0, 2\sigma^2\right),%
     \end{gather}%
@@ -39,7 +39,7 @@ as follows:
     \end{gather}%
     \label{eq:x-alpha-z}%
 \end{subequations}%
-Due to the assumed \ac{AWGN} nature of the noise array, the \ac{pdf} of an
+Due to the assumed \ac{AWGN} nature of the noise array, the \acf{pdf} of an
 individual noise component is
 \begin{equation}
     p(\wnonenD) =
@@ -47,8 +47,8 @@ individual noise component is
         \exp\left( -\frac{\left\lvert \wnonenD \right\rvert^2}{2\sigma^2}\right).
 \end{equation}
 As the elements are independent and identically distributed, the joint \ac{pdf}
-describing the entire noise array is given by the product of each element's
-\ac{pdf}:
+describing the entire noise array is given by the product of all the elements'
+\acp{pdf}:
 \begin{equation}
     \begin{split}
         p\left(\bW\right) &=
@@ -65,27 +65,27 @@ describing the entire noise array is given by the product of each element's
     \end{split}
 \end{equation}
 As the noise array is the difference between the data and model, the
-likelihood function of $\bth$ given $\bY$, $\mathcal{L}\left(\bth \vert
-\bY\right)$, is
+likelihood function of $\bth$ given the \ac{FID} $\bY$ is
 \begin{equation}
-    \mathcal{L}\left(\bth \vert \bY\right) =
+    \mathcal{L}(\bth \vert \bY) =
     \frac{1}{\left(2\pi \sigma^2\right)^{\mathfrak{N}}}
         \exp\left( -\frac{\left\lVert \bY - \bX(\bth) \right\rVert^2}{2\sigma^2}\right).
 \end{equation}
 It is common to consider instead the log-likelihood function,
-$\ell\left(\bth \vert \bY\right)$. As application of the logarithm is a
-monotonic transformation, the arguments of the maxima of $\mathcal{L}$ and
-$\ell$ are equivalent.
+$\ell(\bth \vert \bY) \coloneq \ln \mathcal{L}(\bth \vert
+\bY)$:
 \begin{equation}
-    \ell\left(\bth \vert \bY\right) =
+    \ell(\bth \vert \bY) =
         -\mathfrak{N} \ln\left(2 \pi \sigma^2\right)
         -\frac{\left\lVert \bY - \bX(\bth) \right\rVert^2}{2\sigma^2}.
     \label{eq:log-likeihood}
 \end{equation}
+As application of the logarithm is a monotonic transformation, the
+arguments of the maxima of $\mathcal{L}$ and $\ell$ are equivalent.
 \Cref{eq:log-likeihood} implies that the optimal set of parameters
 $\bth^{(*)}$, often referred to as the \acfi{MLE}\acused{MLE},
 is that which minimises the
-squared norm of the difference between the data and model, often call the
+squared norm of the difference between the data and model, often called the
 \acfi{RSS}:
 \begin{equation}
     \bthstar = \argmax_{\bth \in \mathbb{R}^{2(D+1)M}}
@@ -107,6 +107,6 @@ solving optimisation problems; the problem outlined in
 
 As discussed already, for \ac{NLP} to perform effectively, a large amount of
 \textit{a priori} information is typically required, in the form of an initial
-guess.
-To achieve this, the method employed in this work use the \ac{MPM}, the subject
-of the next section.
+guess, possibly alongside other constraints. To achieve this, the method
+employed in this work makes use of the \ac{MPM}, the subject of the next
+section.

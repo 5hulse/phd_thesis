@@ -1,8 +1,5 @@
 \section{\Acl{NLP}}
 \label{sec:nlp}
-Attention now turns to the application of \ac{NLP} for \ac{FID} estimation,
-which accepts an initial guess of parameters from the \ac{MPM},
-denoted $\symbf{\theta}^{(0)}$, and generates the final estimate $\bthstar$.
 
 \subsection{An overview of \ac{NLP}}
 \label{subsec:nlp-overview}
@@ -32,8 +29,8 @@ minimiser of $\Fth$ if there is a \emph{neighbourhood} $V \ni \bthstar$ for whic
     \Fthstar \leq \Fth\ \forall \bth \in V.
   \label{def:local-minimiser}
 \end{equation}
-$V \subset \mathbb{R}^n$ is such that one can move some amount in any direction
-away from $\bthstar$ and still be in $V$.
+$V \subset \mathbb{R}^n$ is a continuous space such that one can move some
+amount in any direction away from $\bthstar$ and still be in $V$.
 Key to \ac{NLP} are the \emph{necessary conditions}, which define whether a
 given vector $\bth$ is a local minimum of the fidelity.
 The \emph{first necessary condition} states
@@ -84,8 +81,8 @@ This process is repeated, until the convergence criterion as been met:
 \begin{equation}
     \left\lVert \bdgthk \right\rVert \leq \epsilon.
 \end{equation}
-The threshold $\epsilon > 0$, can be tuned based on the desired accuracy of the
-result, and is usually several orders of magnitude less than $1$.
+The convergence threshold $\epsilon > 0$ can be tuned based on the desired
+accuracy of the result.
 \Cref{eq:newton-update} tends not to be used as the update formula in real
 optimisation problems; one of the major downsides of the Newton update is the
 possibility that is not a minimising update if the Hessian is not positive
@@ -106,13 +103,14 @@ consideration of it will now be made.
 
 \begin{algorithm}
     \caption[
-        Nonlinear programming routine employed in \acs{EsPy}.
+        Nonlinear programming routine employed in this work.
     ]
     {
-        Nonlinear programming routine employed in \acs{EsPy}. This makes use of
+        Nonlinear programming routine employed in this work. This makes use of
         Algorithms 4.1 \& 7.2 in \cite{Nocedal2006}, with a extra check
         inserted to deal with any negative-amplitude oscillators which may be
-        generated as the routine evolves.
+        generated as the routine evolves
+        (\crefrange{state:neg-amp-start}{state:neg-amp-end}).
     }
     \label{alg:nlp}
     \begin{algorithmic}[1]
@@ -207,8 +205,7 @@ by taking the proposed step, and the predicted reduction based on the quadratic
 model. If $\rho^{(k)}$ is sufficiently close to $1$, the quadratic model being
 used to generate new iterates is deemed to be acting well enough to warrant
 accepting the proposed update
-(\cref{state:large-rho-start,state:large-rho-end} of
-\cref{alg:nlp}).
+(\cref{state:large-rho-start,state:large-rho-end}).
 Furthermore, if $\rho^{(k)}$ is particularly close to 1, and the proposed
 update is at the boundary of the trust radius, it is appropriate to enlarge the
 radius of the trust region for the next iteration in an attempt to increase the
@@ -445,9 +442,8 @@ the elements of $\symbf{I}\left(\bth\right)$ are
 which very closely resembles the Hessian of $\bth$:
 \begin{equation}
     \symbf{I}\left(\bth\right)_{i,j} =
-        \frac{1}{2 \sigma^2} \left(
-            \bdHth_{i,j}
-        \right).
+        \frac{1}{2 \sigma^2}
+            \bdHth_{i,j}.
 \end{equation}
 The standard errors therefore take the form
 \begin{equation}
@@ -518,8 +514,8 @@ $\phi=\qty{0}{\radian}$, $f=\qty{1}{\hertz}$, $\eta=\qty{0.2}{\per\second}$.
 \ac{AWGN} was added to the \ac{FID} to give it \iac{SNR} of approximately
 \qty{10}{\deci\bel}. As the visualisation of 5D space is beyond the scope of
 this work, only two parameters, the frequency and damping factor, were optimised
-from an initial guess $\bthzero$, with the amplitude and phase being fixed to
-their true values. The initial guess comprised a frequency of
+from an initial guess $\bthzero$; the amplitude and phase were fixed to
+their true values throughout. The initial guess comprised a frequency of
 \qty{1.1}{\hertz}, and a damping factor of \qty{0.8}{\per\second}, with the
 solid grey lines in panels a \& b denoting the model generated in the time- and
 Fourier-domains, respectively. $\bthzero$ was subjected to \ac{NLP} twice. In
@@ -550,30 +546,34 @@ as will become clear in \cref{sec:profiling}.
 \subsection{Phase Variance Minimisation}
 \label{subsec:phase-variance}
 An \ac{NLP} procedure tasked with minimising the discrepancy between a model
-and the observed data $\Fth$ is well-suited to produce an accurate holistic
+and the observed data is well-suited to produce an accurate holistic
 representation of the data, assuming a sufficiently large
-model order is used. However\,---\,as with many inverse problems\,---\,\ac{FID}
-estimation is an ``ill-posed problem'',(\note{details/citation?}) such there
-are conceivably a large subset of
-parameter vectors which will achieve this. It is desirable to produce an
-estimate which not only achieves a good fit to the data, but which is also in
-agreement with the process underpinning the observation. It is for this reason
-that iterative procedures typically require significant quantities of \textit{a
-priori} information in order to produce meaningful estimation results.
-This is also why they are often able to
-produce better results relative to other methods where such detailed
-information is not exploited.
+model order is used. However, as with many inverse problems, \ac{FID}
+estimation is \emph{ill-posed}\cite{Kabanikhin2008}; there
+is conceivably a large set of parameter vectors which will achieve a good
+\ac{RSS} fit.
+An added dimension of difficulty exists for \ac{FID} estimation, as the
+number of parameters to be estimated is not hard-coded since the model order
+is commonly not known.
+It is desirable to produce an estimate which not only achieves a good fit to
+the data, but which is also in agreement with the process underpinning the
+observation. It is for this reason that iterative procedures typically require
+significant quantities of prior knowledge\,---\,beyond basic assumptions of the
+underlying model,\,---\,in order to produce meaningful estimation results.
+This is also why they are often able to produce results which agree better with
+a spectroscopist's conception of what the ``correct'' parameter estimate is,
+relative to other methods where such detailed information is not exploited.
 
 While the \ac{MPM} is often able to generate reasonable parameter estimates,
-one particular feature has been noticed which is a common feature across
-results: often, oscillators in the model exhibit spurious
-phases. As has been discussed (\cref{subsec:nmr-proc}),
+one particular feature has been noticed which is a common across
+results: often, oscillators in the model exhibit ``spurious
+phases''. As has been discussed (\cref{subsec:nmr-proc}),
 signals in most \ac{NMR} experiments have phases which depend on their
 resonance frequencies to first order. This is routinely corrected in
-conventional \ac{NMR} spectral processing, such that all signals effectively
+conventional \ac{NMR} spectral processing, such that all signals are adjusted to
 acquire a phase of \qty{0}{\radian}. This feature of the dataset can be
 exploited in order to overcome the aforementioned shortcoming of the \ac{MPM},
-through appropriate adjustment of the \ac{NLP} routine. As such, assuming that
+through appropriate adjustment of the \ac{NLP} routine. Assuming that
 the data has been phase corrected\footnote{
     Rather than rely on the data being phase-corrected, one could envisage
     replacing the phase variance with a term which guides the
@@ -585,8 +585,8 @@ the data has been phase corrected\footnote{
     pure absorption-mode Lorentzians in order to produce frequency-filtered
     ``sub-\acp{FID}'' from the original data, so the data being estimated will
     be phase-corrected anyway.
-}, regularising the fidelity, by incorporating the variance of oscillator
-phases, can lead to improved estimation results. Examples of
+}, regularising the fidelity by incorporating the variance of oscillator
+phases can lead to improved estimation results. Examples of
 this principle will be provided later (\cref{sec:evaluation}).
 The updated fidelity becomes
 \begin{equation}
