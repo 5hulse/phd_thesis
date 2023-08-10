@@ -1,7 +1,7 @@
 \section{Frequency Filtration}
 \label{sec:filtering}
 The previous section provides motivation for finding ways to reduce both the
-number of datapoints and the number of signals present in an \ac{FID} of
+number of datapoints and the number of signals present in an \ac{FID},
 interest, without compromising the ability of the estimation routine
 to parameterise it. A means of generating frequency-filtered ``sub-\acp{FID}''
 is presented, which is able to achieve both of these. In essence, this
@@ -15,11 +15,12 @@ the per-signal level, especially with \ac{1D} \ac{NMR} data. By applying
 filtering, all focus can be devoted to those frequency regions which can
 realistically be studied.
 
-The concept of estimating selected regions in \ac{NMR} can be traced back to
-Tang and Norris's \ac{LP}-ZOOM method\cite{Tang1988}, which uses
-\textit{subband decomposition}. A number of methods, including adaptive ones
-in which the subbands employed for estimation are adjusted according to certain
-criteria, have also emerged\cite{Djermoune2004}\note{More citations!}. The approach
+The concept of estimating \ac{NMR} through the consideration of ``subbands''
+can be traced back to Tang and Norris's \ac{LP}-ZOOM method, and extension
+\ac{LPSVD}\cite{Tang1988}.
+A number of methods, including adaptive ones in which the estimated subbands
+are adjusted according to certain criteria, have also
+emerged\cite{Djermoune2004}\note{More citations!}. The approach
 used in this work requires the user to define the spectral regions that are of
 interest to them, and the estimation routine solely considers the signals that
 reside within these regions.
@@ -30,9 +31,9 @@ The key steps of the filtering procedure used are
 (i) transforming the time-domain data to the frequency domain,
 (ii) applying a band-pass filter to spectral regions not being considered, and
 (iii) returning the spectrum back to the time-domain.
-For a filtered sub-\ac{FID} to be faithfully modelled by a
+For a filtered sub-\ac{FID} to still be faithfully modelled by a
 summation of exponentially damped complex sinusoids, it is necessary that the
-spectral peaks of interest lie effectively entirely within the filter
+spectral peaks of interest lie (effectively) entirely within the filter
 region\footnote{
     Lorentzian lineshapes tend to, but don't reach zero, as the distance from
     the maximum tends to $\infty$ (\cref{eq:lorentzian}). However, as long as a
@@ -115,16 +116,17 @@ central index  $c \in \lbrace 0, \cdots, 2N-1 \rbrace$ and a bandwidth $b \in
 \end{equation}
 The scalar $p \in \mathbb{R}_{>0}$ dictates the steepness
 of the filter at the boundaries, with the function becoming more rectangular
-as it increases. It is set to $40$ in this work.
+as it increases.
 The central index and bandwidth of the super-Gaussian filter function are given
 by the following expressions:
 \begin{subequations}
     \begin{gather}
         c = \tfrac{1}{2} \left(l_{\text{idx}} + r_{\text{idx}}\right), \\
-        b = l_{\text{idx}} - r_{\text{idx}},
+        b = r_{\text{idx}} - l_{\text{idx}},
     \end{gather}
 \end{subequations}
-where $l_{\text{idx}}$ and $r_{\text{idx}}$ denote the left and right
+where $l_{\text{idx}}, r_{\text{idx}} \in \lbrace 0, \cdots, 2N-1 \rbrace,
+r_{\text{idx}} > l_{\text{idx}}$ denote the left and right
 boundaries of the region of interest, defined by the user.
 Vector indices can be obtained from the corresponding spectral frequencies
 $f_{\unit{\hertz}}$ via
@@ -243,7 +245,7 @@ The filtered spectrum is then sliced accordingly:
     \end{bmatrix}\T.
 \end{equation}
 Generation of the final sub-\ac{FID} is then achieved in a similar fashion to
-before: by performing \ac{IFT}, and retaining the first half of the signal.
+before, by performing \ac{IFT}, and retaining the first half of the signal.
 It is also necessary to scale the signal by the ratio of the number of points
 in the sliced spectrum and it's unsliced counterpart, in order to ensure that
 the amplitudes of each signal are unaffected:

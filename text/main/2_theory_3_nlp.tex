@@ -545,8 +545,9 @@ as will become clear in \cref{sec:profiling}.
 
 \subsection{Phase Variance Minimisation}
 \label{subsec:phase-variance}
-An \ac{NLP} procedure tasked with minimising the discrepancy between a model
-and the observed data is well-suited to produce an accurate holistic
+\Iac{NLP} procedure tasked with minimising the discrepancy between the model
+$\bX$ and the observed data $\bY$ is well-suited to produce an accurate
+holistic
 representation of the data, assuming a sufficiently large
 model order is used. However, as with many inverse problems, \ac{FID}
 estimation is \emph{ill-posed}\cite{Kabanikhin2008}; there
@@ -554,26 +555,26 @@ is conceivably a large set of parameter vectors which will achieve a good
 \ac{RSS} fit.
 An added dimension of difficulty exists for \ac{FID} estimation, as the
 number of parameters to be estimated is not hard-coded since the model order
-is commonly not known.
+is not known in general.
 It is desirable to produce an estimate which not only achieves a good fit to
 the data, but which is also in agreement with the process underpinning the
 observation. It is for this reason that iterative procedures typically require
 significant quantities of prior knowledge\,---\,beyond basic assumptions of the
-underlying model,\,---\,in order to produce meaningful estimation results.
+underlying model\,---\,in order to produce meaningful estimation results.
 This is also why they are often able to produce results which agree better with
 a spectroscopist's conception of what the ``correct'' parameter estimate is,
 relative to other methods where such detailed information is not exploited.
 
 While the \ac{MPM} is often able to generate reasonable parameter estimates,
-one particular feature has been noticed which is a common across
-results: often, oscillators in the model exhibit ``spurious
+one particular feature has been noticed in many of its results:
+often, oscillators in the model exhibit ``spurious
 phases''. As has been discussed (\cref{subsec:nmr-proc}),
 signals in most \ac{NMR} experiments have phases which depend on their
 resonance frequencies to first order. This is routinely corrected in
 conventional \ac{NMR} spectral processing, such that all signals are adjusted to
 acquire a phase of \qty{0}{\radian}. This feature of the dataset can be
 exploited in order to overcome the aforementioned shortcoming of the \ac{MPM},
-through appropriate adjustment of the \ac{NLP} routine. Assuming that
+through appropriate regularisation of the \ac{NLP} routine. Assuming that
 the data has been phase corrected\footnote{
     Rather than rely on the data being phase-corrected, one could envisage
     replacing the phase variance with a term which guides the
@@ -585,8 +586,8 @@ the data has been phase corrected\footnote{
     pure absorption-mode Lorentzians in order to produce frequency-filtered
     ``sub-\acp{FID}'' from the original data, so the data being estimated will
     be phase-corrected anyway.
-}, regularising the fidelity by incorporating the variance of oscillator
-phases can lead to improved estimation results. Examples of
+}, incorporating the variance of oscillator
+phases into the fidelity can lead to improved estimation results; examples of
 this principle will be provided later (\cref{sec:evaluation}).
 The updated fidelity becomes
 \begin{equation}
@@ -594,22 +595,12 @@ The updated fidelity becomes
     \label{eq:fidelity-phasevar}
 \end{equation}
 where $\circvar$ is the \emph{circular variance} of the oscillator phases.
-\begin{remark}
-    The inclusion of the phase variance into the fidelity is one of the
-    motivating reasons for normalising the data prior to estimation (see
-    \cref{rem:norm-data}). $\circvar$ is constrained to the interval $[0, 1]$.
-    If the data were not normalised, it is likely that $\lVert \bY - \bX
-    \rVert^2$ would dominate $\circvar$ in \cref{eq:fidelity-phasevar},
-    such that the influence of the phase variance would be negligible.
-\end{remark}
-
-Oscillator phases are an example of a \emph{circular variable}, in that all
-phases are wrapped within an interval of width
-2$\pi$\,\unit{\radian}. Given an
-unconstrained (unwrapped) phase $\widetilde{\phi} \in \mathbb{R}$, the
+Oscillator phases are an example of a circular variable, as all
+phases are wrapped within an interval of size 2$\pi$\,\unit{\radian}. Given an
+unwrapped phase $\widetilde{\phi} \in \mathbb{R}$, the
 corresponding wrapped phase $\phi \in \left( -\pi, \pi \right]$ is given by
 \begin{equation}
-    \phi = \left(\left(\widetilde{\phi} + \pi\right) \bmod 2 \pi\right) - \pi.
+    \phi = (\widetilde{\phi} + \pi) \bmod 2 \pi - \pi.
     \label{eq:phase_wrap}
 \end{equation}
 This makes the conventional (linear)
@@ -621,7 +612,8 @@ definition of variance, given by
         \mu\left(\symbf{\phi}\right) = \frac{1}{M} \sum_{m} \phi_m,
     \end{gather}
 \end{subequations}
-unsuitable for phases. Consider as a simple example a scenario
+unsuitable as a metric to define the variation in phases. Consider as a simple
+example a scenario
 where there are two oscillators with phases $\widetilde{\bdphi} = \left[ \pi +
 \delta\:\:\pi - \delta \right]\T$ for some small $\delta$.
 The phase variance is expected to be small as the phases are similar.
@@ -630,26 +622,35 @@ However, with the inclusion of wrapping through application of
     -\pi
 + \delta\:\:\pi - \delta \right]\T$, and the linear phase
 variance would be large. It is therefore apparent that a definition of variance
-which accounts for the periodicity of the phases is needed. The \emph{circular
-variance} is given by\cite[Chapter 3]{Fisher1993}
+which accounts for the periodicity of the phases is needed. The circular
+variance is defined as\cite[Chapter 3]{Fisher1993}
 \begin{subequations}
     \begin{gather}
         [0, 1] \ni \circvar = 1 - \frac{R}{M},\\
         R = \sqrt{c_{\Sigma}^2 + s_{\Sigma}^2}, \\
-        c_{\Sigma} = \sum_{m} \cos \phi_m, \\
-        s_{\Sigma} = \sum_{m} \sin \phi_m.
+        c_{\Sigma} = \sum_{m=1}^M \cos \phi_m, \\
+        s_{\Sigma} = \sum_{m=1}^M \sin \phi_m.
     \end{gather}
 \end{subequations}
 $R$ is the length of the resultant vector produced by summing $M$ unit vectors
-with the angles given by $\bdphi \in \mathbb{R}^M$. In the case that all the vectors have the
+with angles given by $\bdphi$. In the case that all the vectors have the
 same angle, $R=M$, leading to the variance being $0$ as expected. At the other
 extreme, with $M$ vectors uniformly separated about the unit circle\,---\,such
 that there is an angle of $\nicefrac{2 \pi}{M - 1}$\,\unit{\radian} between all
 pairs of adjacent vectors\,---\,the
 vectors will perfectly cancel, leading to $R=0$. In this case, the maximum
 variance of $1$ is obtained.
+\begin{remark}
+    The inclusion of the phase variance into the fidelity is one of the
+    motivating reasons for normalising the data prior to estimation (see
+    \cref{rem:norm-data}). Since $\circvar$ is constrained to the interval $[0,
+    1]$, if the data were not normalised it is likely that $\lVert \bY - \bX
+    \rVert^2$ would dominate $\circvar$ in \cref{eq:fidelity-phasevar},
+    such that the influence of the phase variance would be negligible.
+\end{remark}
 The first and second derivatives of the circular variance are required for
-the computation of the gradient vector and Hessian matrix, through
+the computation of the gradient vector and Hessian matrix, whose updated forms
+are
 \begin{subequations}
     \begin{gather}
         g_i = -2 \Re
@@ -657,7 +658,7 @@ the computation of the gradient vector and Hessian matrix, through
                     \left(\bY - \bX\right),
                     \frac{\partial \bX}{\partial \theta_i}
                 \right\rangle
-                + \frac{\partial \circvar}{\partial \theta_i} \\
+                + \frac{\partial \circvar}{\partial \theta_i}, \\
         h_{i,j} = 2 \Re
             \biggl(
                     \left\langle
@@ -716,18 +717,24 @@ The derivatives of the phase variance are given by:
 The phase variance-regularised fidelity (\cref{eq:fidelity-phasevar}) is
 minimised according the unconstrained \ac{NLP} routine described above. It is
 therefore possible for oscillators to acquire parameters which are unrealistic
-as the optimiser evolves (see \cpageref{pg:param-constraints} for a description
-of the sets that the parameters are expected to be in). With the inclusion of
+as the optimiser evolves (see \cpageref{pg:param-constraints} for an outline of
+the expected ranges that the parameters reside in). With the inclusion of
 the variance of oscillator phases, there are situations where oscillators
 acquire negative amplitudes. Typically, this occurs when there are
-oscillators in the \ac{MPM} result which start out with phases that are close
-to $\qty{\pi}{\radian}$. By acquiring a negative amplitude, and a phase close to
+oscillators in the \ac{MPM} result which start out with phases that are far from \qty{0}{\radian}. By acquiring a negative amplitude and a phase close to
 \qty{0}{\radian}\,---\,the expected phase of most oscillators in the parameter
-set\,---\,little change to the residual sum-of-squares term is made, while
-reducing the value of $\circvar$. The presence of such oscillators is
+set\,---\,little change to the \ac{RSS} term is made, while
+$\circvar$ will be reduced. The presence of such oscillators is
 undesirable, as they are spurious in the context of well-phased data. As a
 result, the \ac{NLP} routine periodically checks for negative-amplitude oscillators
 (\crefrange{state:neg-amp-start}{state:neg-amp-end} in \cref{alg:nlp}). After a
-given number of iterations ($25$ is the value given in \cref{alg:nlp}, but this
-can of course be adjusted), if any oscillators have acquired negative
-amplitudes, these are purged, and the routine continues.
+given number of iterations ($25$ is the value given in \cref{alg:nlp})
+if any oscillators have acquired negative
+amplitudes, these are purged, and the routine continues with a reduced number
+of oscillators. While not infallible, this can help to purge oscillators in the
+model which do not correspond to true signals in the data. For example, in
+scenarios where an overestimate of model order has occurred, noise components
+will be incorporated into the \ac{MPM} result. These typically have greater
+variability in their phases; often, such oscillators gain negative amplitudes
+as the \ac{NLP} routine evolves, leading to unwanted signals being removed and
+a more parsimonious result being obtained.
