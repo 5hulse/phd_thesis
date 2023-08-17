@@ -30,6 +30,12 @@
 \usepackage{graphicx}
 \graphicspath{{figures/}}
 
+%%% Refer to same footnote in multiple places
+% https://tex.stackexchange.com/questions/35043/reference-different-places-to-the-same-footnote
+\makeatletter
+\newcommand\footnoteref[1]{\protected@xdef\@thefnmark{\ref{#1}}\@footnotemark}
+\makeatother
+
 %%% Nomenclature: see text/front/nomenclature.tex
 \usepackage{nomencl}
 \renewcommand{\nompreamble}{\pagestyle{plain}}

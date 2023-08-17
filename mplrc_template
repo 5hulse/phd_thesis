@@ -35,5 +35,6 @@ ytick.major.pad: 1
 # LEGEND
 legend.edgecolor: k
 legend.facecolor: ffffff
+legend.framealpha: 1
 # PATCHES
 patch.linewidth: 1.2 # mainly to increase legend linewidth

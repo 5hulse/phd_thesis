@@ -1,8 +1,3 @@
-# mmempm.py
-# Simon Hulse
-# simon.hulse@chem.ox.ac.uk
-# Last Edited: Fri 04 Aug 2023 14:43:44 BST
-
 def mmempm(
     Y: np.ndarray, sw1: float, sw2: float,
     offset1: float, offset2: float, M: int = 0,
@@ -47,7 +42,7 @@ def mmempm(
         _, sigma_mdl, _ = np.linalg.svd(HY_mdl)
         M = mdl(sigma_mdl, N2, L_mdl)
 
-    # === Construct block Hankel $\symbf{E}_{\symbf{Y}}$ ===
+    # === Construct block Hankel $\symbf{E}_{\symbf{Y}}$ ===  $\label{ln:EY-start}$
     row_size = L2
     col_size = N2 - L2 + 1
     EY = np.zeros(
@@ -65,12 +60,16 @@ def mmempm(
                 EY[
                     r * row_size : (r + 1) * row_size,
                     c * col_size : (c + 1) * col_size
-                ] = HYn1
+                ] = HYn1  # $\label{ln:EY-end}$
 
     EY = sp.sparse.csr_matrix(EY)  # Make $\symbf{E}_{\symbf{Y}}$ sparse $\label{ln:sparse1}$
-    UM, *_ = sp.sparse.linalg.svds(EY, k=M)  # $\symbf{U}_M$ $\label{ln:sparse2}$
 
-    # === Construct permutation matrix $\symbf{P}$ ===
+    UM, *_ = sp.sparse.linalg.svds(EY, k=M)  # $\symbf{U}_M$ $\label{ln:sparse2}$
+    UM1 = UM[: L1 * (L2 - 1)]  # Last $L^{(2)}$ rows deleted: $\symbf{U}_{M1}$ $\label{ln:poles1-start}$
+    UM2 = UM[L2:]  # First $L^{(2)}$ rows deleted: $\symbf{U}_{M2}$
+    z1, W1 = np.linalg.eig(np.linalg.pinv(UM1) @ UM2)  # $\symbf{z}^{(1)}$, $\symbf{W}^{(1)}$ $\label{ln:poles1-end}$
+
+    # === Construct permutation matrix $\symbf{P}$ === $\label{ln:poles2-start}$
     P = np.zeros((L1 * L2, L1 * L2))
     r = 0
     for l2 in range(L2):
@@ -79,15 +78,11 @@ def mmempm(
             P[r, c] = 1
             r += 1
 
-    UM1 = UM[: L1 * (L2 - 1)]  # Last $L^{(2)}$ rows deleted: $\symbf{U}_{M1}$
-    UM2 = UM[L2:]  # First $L^{(2)}$ rows deleted: $\symbf{U}_{M2}$
-    z1, W1 = np.linalg.eig(np.linalg.pinv(UM1) @ UM2)  # $\symbf{z}^{(1)}$, $\symbf{W}^{(1)}$
-
     UMP = P @ UM  # $\symbf{U}_{MP}$
     UMP1 = UMP[: (L1 - 1) * L2]  # Last $L^{(1)}$ rows deleted: $\symbf{U}_{MP1}$
     UMP2 = UMP[L1:]  # First $L^{(1)}$ rows deleted: $\symbf{U}_{MP2}$
     G = np.linalg.inv(W1) @ np.linalg.pinv(UMP1) @ UMP2 @ W1  # $\symbf{G}$
-    z2 = np.diag(G).copy()  # $\symbf{z}^{(2)}$: copy needed as slice is readonly
+    z2 = np.diag(G).copy()  # $\symbf{z}^{(2)}$: copy needed as slice is readonly $\label{ln:poles2-end}$
 
     # === Check for and deal with similar frequencies in $\symbf{f}^{(1)}$ ===
     freq1 = (0.5 * sw1 / np.pi) * np.imag(np.log(z1)) + offset1  # $\symbf{f}^{(1)} \label{ln:similar-f-start}$
@@ -119,7 +114,7 @@ def mmempm(
             z2[indices] = new_group_z2  # $\label{ln:similar-f-end}$
 
     # === Construct $\symbf{E}_{\text{L}}$ and $\symbf{E}_{\text{R}}$ ===
-    ZL2 = np.power.outer(z2, np.arange(L2)).T  # $\symbf{Z}_{\text{L}}^{(2)}$
+    ZL2 = np.power.outer(z2, np.arange(L2)).T  # $\symbf{Z}_{\text{L}}^{(2)}$ $\label{ln:comp-amps-2d-start}$
     ZR2 = np.power.outer(z2, np.arange(N2 - L2 + 1))  # $\symbf{Z}_{\text{R}}^{(2)}$
     Z1D = np.diag(z1)  # $\symbf{Z}_{\text{D}}^{(1)}$
 
@@ -134,7 +129,7 @@ def mmempm(
         ER[:, i * col_size : (i + 1) * col_size] = Z1DZ2R
         Z1DZ2R = Z1D @ Z1DZ2R
     # $\symbf{\alpha} = \operatorname{diag}\left(\symbf{E}_{\text{L}}^+ \symbf{E}_{\symbf{Y}} \symbf{E}_{\text{R}}^+\right)$
-    alpha = np.diag(np.linalg.pinv(EL) @ EY @ np.linalg.pinv(ER))
+    alpha = np.diag(np.linalg.pinv(EL) @ EY @ np.linalg.pinv(ER))  # $\label{ln:comp-amps-2d-end}$
 
     amp = np.abs(alpha) * norm  # $\symbf{a}$
     phase = np.arctan2(np.imag(alpha), np.real(alpha))  # $\symbf{\phi}$
