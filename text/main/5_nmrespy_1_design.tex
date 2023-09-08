@@ -117,3 +117,17 @@ which enable the determination of $T_2$ times.
 for the estimation of datasets comprising sets of \ac{2D} or \ac{3D} amplitude-
 or phase-modulated \acp{FID}, respectively. A discussion of the feasibility of
 implementing these is given in \cref{sec:future-work}.
+
+\mylisting{python3}{code_listings/imports.py}{%
+Required imports for the subsequent \Python listings.
+}{
+    Required imports for the subsequent listings in this chapter.
+    The \mintinline{python3}{product} function is employed in the \acs{MMEMPM}
+    routine (\cref{lst:mmempm}).
+    The imports from the \mintinline{python3}{typing} module are used to
+    annotate what the expected types are for each argument, and what the return
+    type is.
+    The \mintinline{python3}{numpy} and \mintinline{python3}{scipy} modules are
+    ubiquitous in the listings, providing access to efficient routines for
+    numerical computations.
+}{lst:imports}

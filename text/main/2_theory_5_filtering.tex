@@ -2,7 +2,7 @@
 \label{sec:filtering}
 The previous section provides motivation for finding ways to reduce both the
 number of datapoints and the number of signals present in an \ac{FID},
-interest, without compromising the ability of the estimation routine
+without compromising the ability of the estimation routine
 to parameterise it. A means of generating frequency-filtered ``sub-\acp{FID}''
 is presented, which is able to achieve both of these. In essence, this
 sub-\ac{FID} approach transforms the problem of \ac{FID} estimation from a
@@ -11,46 +11,41 @@ As well as realising vast improvements in computational speed, filtering also
 enables a user to focus solely on spectral regions that are of interest.
 It is common for certain spectral regions to be so densely populated
 that it is futile to attempt to extract meaningful quantitative information at
-the per-signal level, especially with \ac{1D} \ac{NMR} data. By applying
-filtering, all focus can be devoted to those frequency regions which can
-realistically be studied.
+the per-signal level, especially with \ac{1D} \ac{NMR} data. Through data filtration,
+all focus can be devoted to those frequency regions which can realistically be
+studied.
 
-The concept of estimating \ac{NMR} through the consideration of ``subbands''
-can be traced back to Tang and Norris's \ac{LP}-ZOOM method, and extension
-\ac{LPSVD}\cite{Tang1988}.
-A number of methods, including adaptive ones in which the estimated subbands
-are adjusted according to certain criteria, have also
-emerged\cite{Djermoune2004}\note{More citations!}. The approach
-used in this work requires the user to define the spectral regions that are of
-interest to them, and the estimation routine solely considers the signals that
-reside within these regions.
-
+% The concept of estimating \ac{NMR} through the consideration of ``subbands''
+% has existed for a long time, and can be traced back to Tang and Norris's
+% \ac{LP}-ZOOM method, and extension \ac{LPSVD}\cite{Tang1988}.
+% A number of methods, including adaptive ones in which the estimated subbands
+% are adjusted according to certain criteria, have also
+% emerged\cite{Djermoune2004}\note{More citations!}.
 \subsection{The \acl{VE}}
 \label{subsec:ve}
-The key steps of the filtering procedure used are
+The key steps of the filtering procedure are
 (i) transforming the time-domain data to the frequency domain,
-(ii) applying a band-pass filter to spectral regions not being considered, and
-(iii) returning the spectrum back to the time-domain.
+(ii) applying a band-pass filter to the spectral region of interest, and
+(iii) returning the spectrum back to the time-domain for estimation.
 For a filtered sub-\ac{FID} to still be faithfully modelled by a
 summation of exponentially damped complex sinusoids, it is necessary that the
 spectral peaks of interest lie (effectively) entirely within the filter
 region\footnote{
-    Lorentzian lineshapes tend to, but don't reach zero, as the distance from
-    the maximum tends to $\infty$ (\cref{eq:lorentzian}). However, as long as a
-    sufficiently wide filter region is defined, the ``tails'' of the Lorentzian
-    which fall outside the filter window can be assumed to be negligible,
-    especially when in the presence of noise.
+    Lorentzian lineshapes tend to but never explicitly reach zero as the distance from
+    their maximum tends to $\infty$ (\cref{eq:lorentzian}). However, as long as a
+    sufficiently wide filter region is defined, the extent to which the
+    ``tails'' of the Lorentzian fall outside the filter window can be assumed
+    to be negligible, especially when in the presence of noise.
 }.
-Due to their narrower linewidths relative to dispersion Lorentzians
-(\cref{fn:lorentzian-decay}, \cpageref{fn:lorentzian-decay}), a spectrum solely
-comprising absorption Lorentzians is therefore desired.
+Due to their narrower linewidths relative to dispersion Lorentzians, a phased
+spectrum solely comprising absorption Lorentzians is therefore desired.
 The \ac{VE} has been employed here, which has found application in the field of
 compressed sensing NMR\cite{Mayzel2014,Golowicz2020,Luo2020}. The \ac{VE} is a
 signal with double the size as the original \ac{FID}, with the key
 characteristic that its \ac{FT} has an imaginary component of zeros. The
 \ac{VE} concept can be applied to data of any number of dimensions. However,
-only \ac{1D} virtual echoes are employed here.
-An account of the \ac{2D} virtual echo is provided in \cref{sec:multidim-ve}.
+discussion here will be limited to \ac{1D} \acp{VE}.
+An account of the \ac{2D} \ac{VE} is provided in \cref{sec:multidim-ve}.
 
 Assuming that a \ac{1D} \ac{FID} $\by \in \mathbb{C}^N$ is phased, such that
 $\bdphi = \symbf{0} \in \mathbb{R}^M$, it can be described by
@@ -127,8 +122,9 @@ by the following expressions:
 \end{subequations}
 where $l_{\text{idx}}, r_{\text{idx}} \in \lbrace 0, \cdots, 2N-1 \rbrace,
 r_{\text{idx}} > l_{\text{idx}}$ denote the left and right
-boundaries of the region of interest, defined by the user.
-Vector indices can be obtained from the corresponding spectral frequencies
+boundaries of the region of interest, defined by the user, expressed as vector
+indices.
+The vector indices can be obtained from the corresponding spectral frequencies
 $f_{\unit{\hertz}}$ via
 \begin{equation}
     \begin{gathered}
@@ -158,7 +154,7 @@ would lead to large sections of the filtered spectrum being $0$. This has an
 undesired impact on the \ac{MDL}, as noise that resides within the filter
 region will now seem to resemble true signal,
 as its amplitude is infinitely greater than the zeroed regions. A massive
-over-estimation of model order is likely to result due to this.
+over-estimation of model order results from this.
 In order to obtain better predictions from model order selection, an array of
 synthetic \ac{AWGN} is
 added to the filtered spectrum. To achieve this, a region in

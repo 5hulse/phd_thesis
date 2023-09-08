@@ -3,7 +3,8 @@
 \subsection{A Brief History}
 Since its conception almost 80 years ago, \ac{NMR} has become a ubiquitous
 technique in chemistry, biochemistry and numerous other disciplines, thanks to
-the unique insights into structure and dynamics it can provide.
+the unique insights into the structure and dynamics of chemical species that it
+can provide.
 The origins of the subject can be traced back to 1945, when independent work by
 Felix Bloch on water\cite{Bloch1946} and Edward Purcell on
 parrafin\cite{Purcell1946} gave rise to the first illustrations of nuclear
@@ -25,7 +26,7 @@ Russel Varian secured the first patent for a commercial \ac{NMR} machine, with
 a \qty{30}{\mega\hertz} spectrometer following soon after. The first
 spectrometers functioned by slowly sweeping the magnetic field,
 causing spins to come into resonance at different times, in a process referred
-to a continuous wave spectroscopy. Richard Ernst and
+to as continuous wave spectroscopy. Richard Ernst and
 Weston Anderson, working at Varian Inc. at the time, proposed an alternative
 method: pulsed \ac{FT} spectroscopy\cite{Ernst1966}. This was not seen as a
 fruitful endeavour by the company, largely because of the very long time it
@@ -34,18 +35,18 @@ Instead, the first commercial pulsed \ac{FT} spectrometer was produced by
 Bruker Corp. in 1969, which revolutionised NMR. The emergence of the
 Cooley and Tukey's \ac{FFT} algorithm\cite{Cooley1965} led to vast improvements
 in the speed with which experiments could be conducted, which incentivised the
-development of the new \ac{FT} approach.
+development of the new pulsed \ac{FT} approach.
 
 The idea of 2D NMR spectroscopy was proposed by Jean Jeener in
 1971\cite{Jeener1971, Jeener2016}, which Ernst and co-workers showcased a few
-years later in the form of a \acs{COSY} experiment\cite{Aue1976a}. The use of
+years later in the form of a \ac{COSY} experiment\cite{Aue1976a}. The use of
 multiple dimensions to spread out signals enabled vastly more complex
 structures to be studied. In 1985, a report of the first protein assigned by
-\ac{NMR} (using \acs{COSY} and \acs{NOESY} experiments) was presented by Kurt
-W\"utrich and co-workers\cite{Williamson1985}. Over time, extensive
+\ac{NMR}\,---\,using \ac{COSY} and \ac{NOESY} experiments\,---\,was presented
+by Kurt W\"utrich and co-workers\cite{Williamson1985}. Over time, extensive
 developments in techniques for biomolecular systems have occurred, including
 the creation of 3D and 4D ``triple resonance'' experiments\cite{Marion1989,
-Kay1990}, as well \acs{TROSY} experiments\cite{Pervushin1997} for the study of
+Kay1990}, as well \ac{TROSY} experiments\cite{Pervushin1997} for the study of
 large proteins.
 
 \ac{NMR}'s significance as an analytical tool is evidenced by Nobel Prizes in
@@ -58,9 +59,9 @@ solution"\cite{Wuthrich2003}.
 
 \subsection{The Bloch model of \acs{NMR}}
 \begin{remark}
-    In most of this work, the convention of expressing vectors with lower-case
-    bold letters and matrices/multidimensional arrays as upper-case bold
-    letters is strictly adhered to. In this section however, notation
+    In most of this work, vectors are expressed as lower-case
+    bold letters and matrices/multidimensional arrays are expressed as
+    upper-case bold letters. In this section however, notation
     frequently encountered in the literature is used; certain vector
     quantities are denoted with upper-case letters.
 \end{remark}
@@ -79,10 +80,11 @@ subject\cite{Abragam1961,Goldman1988,Cavanagh2007}. However, a basic
 appreciation can be gained using the \emph{Bloch model}, a semi-classical description
 of the simplest of possible system to study: a ensemble of isolated, identical
 spin-$\nicefrac{1}{2}$ nuclei\cite[Chapter 1]{Hore2015}.
-The Bloch model becomes insufficient for more complex spin systems, featuring
-non-identical spins which interact through mechanisms such as J-couplings.
-However, it provides valuable insights into the basic principles of \ac{NMR},
-including the form that a typical signal acquired by an experiment takes.
+The Bloch model becomes inadequate when more complex spin systems are
+considered, featuring non-identical spins which interact through mechanisms
+such as scalar (J) couplings. However, it provides valuable insights into the
+basic principles of \ac{NMR}, including the form that a typical dataset
+acquired by an experiment takes.
 
 The nuclear spin angular momentum $\symbf{I} \in
 \mathbb{R}^3$ is a vector with squared magnitude
@@ -108,10 +110,10 @@ values (i.e. it is quantised). A nucleus with non-zero spin has an associated
 \end{equation}
 $\gamma \in \mathbb{R}$ is a proportionality constant called the
 \textit{gyromagnetic ratio}, which is dependent on the nucleus of interest.
-\Cref{tab:nuclei} provides the gyromagnetic ratios for a some low-mass
-nuclei commonly encountered in NMR, along with some which are spin-$0$ an
-therefore benign in the context of \ac{NMR}. Sadly the most abundant isotopes
-of two of the most prominent atoms in organic chemistry fall into this
+\Cref{tab:nuclei} provides the gyromagnetic ratios for some low-mass
+nuclei commonly encountered in NMR, along with some which are spin-$0$ and
+therefore ``invisible'' in the context of \ac{NMR}. Sadly the most abundant
+isotopes of two of the most prominent atoms in organic chemistry fall into this
 category.
 
 \begin{table}
@@ -188,7 +190,7 @@ to the $m = -\nicefrac{1}{2}$ (\textbeta) state. Due to the very small relative
 energy difference however, it should be noted that the discrepancy in state
 populations is very small.
 The ensemble acquires a net (bulk) magnetic moment $\symbf{M}$, given by the
-summation of all the individual spin moments:
+sum of all the individual spin moments:
 \begin{equation}
     \symbf{M} = \sum\limits_{s=1}^{S} \symbf{\mu}_s,
 \end{equation}
@@ -204,7 +206,7 @@ magnitude $M_0$, which is approximately given by\cite[Section 1.1]{Cavanagh2007}
     M_0 \approx \frac{S \gamma^2 \hbar^2 B_0 I (I + 1)}{3 k_{\text{B}} T},
 \end{equation}
 where $k_{\text{B}}$ is the Boltzmann constant, and $T$ is the sample
-temperature. For purposes of experiment sensitivity, it is desirable to
+temperature. To maximise experiment sensitivity, it is desirable to
 utilise nuclei with high natural abundance (affecting $S$), and high
 gyromagnetic ratio. Along with other favourable attributes such as its ubiquity
 in organic molecules, \proton\ is therefore by far the most popular nucleus to
@@ -240,7 +242,7 @@ Under free precession, the magnetisation precesses around the $z$-axis at the
     While the SI base unit of magnetic field strength is the Tesla
     (\unit{\tesla}), when referring to the field strength that a spectrometer
     operates at, it is common to use \unit{\mega\hertz} instead. This refers to
-    the (negative) Larmor frequency of reference \proton\ nucleus at the
+    the Larmor frequency of a reference \proton\ nucleus at the
     given field strength. For example, a \qty{500}{\mega\hertz} spectrometer
     operates at a field strength of
     $\nicefrac{\qty{5e8}{\hertz}}{\qty{4.2577e7}{\per\tesla\hertz}}
@@ -293,7 +295,7 @@ its thermal equilibrium state, $\symbf{M}_{\text{eq}} \equiv
 Bloch model, two processes are introduced to account for this\footnote{
     The introduction of relaxation is phenomenological in the Bloch model; the
     reversion of the spin system to equilibrium is included purely to ensure
-    the model agrees with observation. More sophisticated theories evoking
+    the model agrees with observation. More sophisticated theories invoking
     Liouville-space quantum mechanics can account for
     relaxation\cite{Goldman2001,Kuprov2007}.
 }. \emph{Longitudinal} (spin-lattice)
@@ -323,9 +325,9 @@ $T_2 \coloneq \nicefrac{1}{R_2}$.
         $x$- and  $y$-axes are plotted in panels \textbf{b.} and \textbf{c.},
         respectively. Modern \acs{NMR} spectrometers utilise quadrature
         detection, such that the $x$- and  $y$- projections of the time-varying
-        magnetisation is sampled at regular intervals, separated by $\Dt$.
-        The resulting \acs{FID} is given by the complex value $p(x) + \iu
-        p(y)$.
+        magnetisation are sampled at regular time intervals, separated by
+        $\Dt$.  The resulting \acs{FID} is given by the complex value $p(x) +
+        \iu p(y)$.
     }\label{fig:quadrature}
 \end{figure}
 
@@ -375,7 +377,7 @@ with $c \in \mathbb{R}_{>0}$ being a proportionality constant.
 \subsection{The NMR Spectrometer}
 
 Modern \ac{NMR} spectrometers are capable of conducting a plethora of
-experiments which can aide scientists.
+experiments which can aide chemists.
 In essence, a spectrometer comprises a high-field magnet, a probe, components
 which are used to transmit \ac{RF} pulses to the probe, and components which
 are used to process the resulting signal from the probe. A brief summary of
@@ -401,8 +403,8 @@ spectrometers with more modest field strengths are typically adequate.
 To maintain high spatial field homogeneity (a necessity for data with
 acceptable resolution) a series of coils called \textit{shims} surround the
 sample. Each coil produces a weak magnetic field with a specific spatial
-profile according to a spherical harmonic function, which can cancel out any
-inhomogeneity inherent to the main magnet.
+profile in accordance with a spherical harmonic function. A collection of shim
+coils can cancel out any inhomogeneity inherent to the main magnet.
 
 A field-frequency lock is used to ensure the stability of the
 field. The lock is effectively a small \ac{NMR} spectrometer, tuned to a
@@ -415,17 +417,17 @@ specified isotope (typically \textsuperscript{2}H\footnote{
     studied.
 }), which monitors the resonance frequency of the isotope over
 time. If the frequency begins to drift, implying that the field strength is
-changing, the current in the ``$Z_0$ coil'' is adjusted to ensure consistent
-frequency is maintained.
+changing, the current in the ``$Z_0$ coil'' is adjusted to ensure a consistent
+field strength is maintained.
 
 \subsubsection{The Probe}
 The probe sits inside the bore of the magnet, and features the coils used to
 pulse the sample with \ac{RF} radiation. The same coils also
 receive the response from the sample. The principle source of noise in
 \ac{NMR} experiments is thermal noise within the probe circuitry. For
-this reason, cryogenic probes\cite{Kovacs2020} have become a popular
-development, in which the transmit/receive coils and other probe electronics
-are maintained at a very low temperature (typically about $\qty{20}{\kelvin}$).
+this reason, cryogenic probes\cite{Kovacs2020} have become a prominent
+development, in which the coils and other probe electronics are maintained at a
+very low temperature (typically about $\qty{20}{\kelvin}$).
 
 \subsubsection{The Transmitter}
 The transmitter is responsible for the generation of \ac{RF} pulses
@@ -455,13 +457,13 @@ each channel, the signal, which is of a very high frequency
 (\unit{\mega\hertz}), is mixed with a reference signal of frequency
 $\omega_{\text{RF}}$. The mixing process results in a low-frequency
 (\unit{\kilo\hertz}) signal being generated, along with a very high frequency
-signal. The reference signal one channel possesses a phase which
+signal. The reference signal in one channel possesses a phase which
 is shifted by \ang{90} relative to the other, such that the combined signal
 constitutes a quadrature pair.
 Both signals are then sent through a low-pass filter to remove
 the high frequency component produced through mixing. Finally, an analogue to
 digital converter translates the signal to the real and imaginary components of
-a binary dataset\,---\,the \ac{FID}\,---\,which is stored in memory.
+a binary dataset which is stored in memory.
 
 \subsection{The structure of the \acs{FID}}
 The result of running an \ac{NMR} experiment is an \ac{FID} $\by \in
@@ -496,7 +498,7 @@ therefore takes the form\footnote{
     (\cref{subsec:nmr-proc}). In cases where distortions to the data have
     occurred, techniques such as \emph{reference deconvolution}\cite{Morris1997}
     can be used as a corrective measure in a bid to make the data agree more
-    closely with the model.
+    closely with this model.
 }
 \begin{subequations}
     \begin{gather}
@@ -554,7 +556,7 @@ depicted in panels a1 to d1 in \cref{fig:amp-phase-freq-damp}.
     \includegraphics{amp_phase_freq_damp/amp_phase_freq_damp.pdf}
     \caption[
         An illustration of the influence of the four parameters associated
-        with a signal in both the time-domain nels and Fourier-domain.
+        with a signal in both the time-domain and the Fourier-domain.
     ]{
         An illustration of the influence of the four parameters associated
         with a signal in both the time-domain (panels \textbf{a1.} --
@@ -572,8 +574,9 @@ depicted in panels a1 to d1 in \cref{fig:amp-phase-freq-damp}.
         $f_{\text{blue}} = \nicefrac{1}{2} f_{\text{red}}$,
         $f_{\text{yellow}} = 0$.
         \textbf{d.}
-        $\eta_{\text{blue}} = \nicefrac{1}{2}\eta_{\text{red}}$,
-        $\eta_{\text{yellow}} = \nicefrac{1}{4}\eta_{\text{red}}$.
+        $\eta_{\text{yellow}} =
+        \nicefrac{1}{2}\eta_{\text{blue}} =
+        \nicefrac{1}{4}\eta_{\text{red}}$.
         The real and imaginary components of each signal are plotted, with the
         imaginary component being paler than its real counterpart.
     }

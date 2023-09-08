@@ -1,8 +1,6 @@
 \section{Summary}
-The \ac{MPM} is well established as an effective for parametric estimation of
-signals in a number of disciplines including \ac{NMR}.
-Due to considerable advances in computational processing power since
-its introduction, estimates of \acp{FID} can be acquired in reasonable times.
+The \ac{MPM} is well established as an effective method for the parametric
+estimation of signals in a number of disciplines.
 One notable downside of the technique that has been realised while assessing
 its effectiveness in parametrising \ac{NMR} \acp{FID} is its propensity to
 return oscillators with unexpected phase behaviour, especially in scenarios
@@ -14,17 +12,19 @@ returning improved parameter estimates. The theory underpinning the procedure
 has been explored in this chapter.
 
 The computational burden of running the procedure is large and often
-intractable for complete \ac{NMR} signals, which often comprise thousands of
-points, and at least hundreds of contributing signals. This has been
-illustrated through profiling both the \ac{CPU} time and the peak memory
-consumption for the \ac{1D} and \ac{2D} methods. \note{Say more when
-completed?} For this reason, a method to break the estimation problem into a
-series smaller problems, through the construction of frequency-filtered
-sub-\acp{FID}, is introduced.
+intractable for complete \ac{NMR} datasets, which commonly comprise thousands of
+points, and at least hundreds of contributing signals. As has been shown by
+profiling both the \ac{CPU} time and the peak memory consumption for the
+\ac{1D} and \ac{2D} methods, there are greater demands when the \ac{FID} of
+interest comprises more datapoints and is composed of more signals.
+For this reason, a method to break the estimation problem into a
+series of smaller, computationally tractable problems, through the construction
+of frequency-filtered sub-\acp{FID}, has been introduced.
 
 Having established an estimation routine, the next chapter focusses on its
-performance, as well as applications which are possible through parametric
-estimation.
+performance in analysing \ac{1D} \ac{NMR} datasets, along with two specific
+applications that arise.
+
 % Algorithm \ref{alg:1d-2d-summary} provides an overview of the principal steps
 % involved in the \ac{1D} estimation procedure. Detailed algorithms for each step
 % are presented elsewhere in this text.

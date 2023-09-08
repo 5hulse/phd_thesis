@@ -20,6 +20,10 @@ $1024$ points would take about
 \qty{100}{\mega\hertz} \ac{CPU}\cite{Lin1997}. On the system used for all
 results generated for this work (see \cref{rem:workstation}) an
 equivalent computation takes about \qty{100}{\milli\second}.
+\Python\ implementations of the aforementioned parts of the estimation routine
+were run, with profiling software used to assess both the line-by-line
+execution times\cite{LineProf}, and the time-dependent \ac{RAM}
+usage\cite{MemProf}.
 \begin{remark}
     \label{rem:workstation}
     All results generated in this work were acquired using a workstation
@@ -27,15 +31,12 @@ equivalent computation takes about \qty{100}{\milli\second}.
     \qty{3.7}{\giga\hertz}, and \qty{32}{\gibi\byte} of \ac{RAM}.
 \end{remark}
 
-To acquire the results presented in this section, third-party \Python profilers
-were employed to assess both the line-by-line execution times\cite{LineProf},
-and the time-dependent \ac{RAM} usage\cite{MemProf}.
-
 \subsection{The \acs{MPM} and \acs{MMEMPM}}
 \begin{figure}
+    \centering
     \includegraphics{mpm_profiling/mpm_profiling.pdf}
     \caption[
-        Outlines the run times and peak memory consumption of
+        Outlines of the run times and peak memory consumption of
         the \acs{1D} \acs{MPM} and \acs{2D} \acs{MMEMPM}.
     ]
     {
@@ -43,8 +44,6 @@ and the time-dependent \ac{RAM} usage\cite{MemProf}.
         the \acs{1D} \acs{MPM} and \acs{2D} \acs{MMEMPM}.
         The \acp{FID} that were used to acquire these results are described in
         the main text.
-        \textbf{a.} panels are related to the \acs{MPM}, while \textbf{b.}
-        panels are related to the \acs{MMEMPM}.
         \textbf{a1.} The amount of time required to compute the \ac{MPM}, as a
         function of number of points. Also plotted is a cubic fit of the
         circular points.
@@ -63,16 +62,17 @@ and the time-dependent \ac{RAM} usage\cite{MemProf}.
 
 A series of synthetic \ac{1D} \acp{FID} were constructed, comprising $10$ evenly-spaced
 signals, with a
-variable number of time-points $N \in \lbrace 512k \hspace*{2pt} \vert
-\hspace*{2pt} k \in \lbrace 1, 2, \cdots, 16 \rbrace \rbrace$.
+variable number of time-points $N \in \lbrace 512k : k \in \lbrace 1, 2, \cdots, 16 \rbrace \rbrace$.
 For each \ac{FID}, the \ac{MPM} routine outlined in \cref{lst:mpm} was
-performed 5 times, with a pencil parameter $L = \lfloor
-\nicefrac{N}{3} \rfloor$.
-The mean complete time to run the \ac{MPM} is plotted as a function
+performed 5 times.
+The mean time to perform the \ac{MPM} across the 5 runs is plotted as a function
 of $N$ in panel a1 of \cref{fig:mpm-profiling}, where it can be seen that for
 the larger values of $N$ considered, the \ac{MPM} is computed in approximately
-$\mathcal{O}({N}^3)$ time. This is because the rate-limiting step of the
-\ac{MPM} is the \ac{SVD} of $\Hy$, whose size is to a very good approximation
+$\mathcal{O}({N}^3)$ time;
+a fit of a cubic function of the form $aN^3 + b$ to the data satisfying $7 \leq
+k \leq 16$ is plotted to highlight this.
+The cubic dependence is realised since the rate-limiting step of the
+\ac{MPM} is \ac{SVD} of $\Hy$, whose size is to a very good approximation
 $\tfrac{2N}{3} \times \tfrac{N}{3}$\footnote{
     \label{fn:svd-complexity}
     The time complexity for the \ac{SVD} of generic a $m \times n$ matrix is
@@ -80,18 +80,15 @@ $\tfrac{2N}{3} \times \tfrac{N}{3}$\footnote{
     while the space complexity is $\mathcal{O}(mn)$.
 }. For smaller values of $N$, a deviation
 away from a cubic relationship is observed;
-a fit of a cubic function of the form $aN^3 + b$ to the data satisfying $7 \leq k \leq
-16$ is plotted in panel a1 to highlight this behaviour.
 This arises because the computation of the complex amplitudes using
 \cref{eq:complex-amplitudes} has a comparatively significant run time
 relative to \ac{SVD} in the low-$N$ regime;
-for a $512$ point signal, the \ac{SVD} of $\Hy$ took up roughly 80\% of the
+for a $512$ point signal, \ac{SVD} of $\Hy$ took up roughly 80\% of the
 complete run time, while the computation of the complex amplitudes took up
 roughly 20\%. For a 8192 point signal, these percentages had changed to
 $>\!\!99\%$ and $<\!\!1\%$, respectively.
-For all values of $N$,
 
-The \ac{MPM} was run a sixth time on each generated \ac{FID} in order to assess
+The \ac{MPM} was run once more on each generated \ac{FID} in order to assess
 the effect of $N$ on the space complexity.
 The peak \ac{RAM} consumption is plotted in panel a2 of \cref{fig:mpm-profiling}.
 A clear quadratic dependence on consumption is realised as function of $N$,
@@ -99,23 +96,23 @@ again in agreement with the expected space complexity of the
 \ac{SVD}\footnoteref{fn:svd-complexity}.
 
 A similar study was conducted in consideration of the \ac{MMEMPM}. A
-series of \ac{2D} \acp{FID} were simulated, all of which all comprised $\None =
-64$. The \acp{FID} possessed values of $\Ntwo \in \lbrace 32k
-\hspace*{2pt} \vert \hspace*{2pt} \lbrace 1, \cdots, 16 \rbrace \rbrace$.
-With the \ac{MPM}, since a
-complete \ac{SVD} of the matrix $\Hy$ is computed, the model order is
-irrelevant in dictating the run time (at least when $M \ll N$). This is not the
-case for the \ac{MMEMPM}; because the \Python implementation used
-(\cref{lst:mmempm}) employs a truncated \ac{SVD} in order to compute only the
-first $M$ components of $\EY$, the elected model order will have an impact on
-run time.  Therefore, \acp{FID} with different model orders were generated: $M
-\in \lbrace 10, 20, 40, 80 \rbrace$.
+series of hypercomplex \ac{2D} \acp{FID} were simulated, all of which all
+comprised $\None = 64$. The \acp{FID} possessed values of $\Ntwo \in \lbrace
+32k : k \in \lbrace 1, \cdots, 16 \rbrace \rbrace$.
+With the \ac{MPM}, since a complete \ac{SVD} of the matrix $\Hy$ is computed,
+the model order is irrelevant in dictating the run time (at least when $M \ll
+N$). This is not the case for the \ac{MMEMPM}; because the \Python
+implementation used (\cref{lst:mmempm}) employs a truncated \ac{SVD} in order
+to compute only the first $M$ components of $\EY$, the elected model order will
+have an impact on run time.  Therefore, \acp{FID} with different model orders
+were generated: $M \in \lbrace 10, 20, 40, 80 \rbrace$.
 
 The \ac{MMEMPM} was repeated 5 times for each \ac{FID}, and the mean run
 times for each $\Ntwo$ and $M$ considered is plotted in panel b1 of
 \cref{fig:mpm-profiling}.
-Only the results for cases where the \ac{MMEMPM} was able to yeild a result in
-agreement with the data are presented; for certain \acp{FID} with low
+Only the results for cases where the \ac{MMEMPM} was able to yield a
+satisfactory estimation result, in close agreement with the model used to
+generate the \ac{FID}, are presented; for certain \acp{FID} with low
 $\Ntwo$ and high $M$, appropriate estimation results could not be yielded as
 the constituent signals were too poorly resolved.
 While in the high-$N$ regime the \ac{MPM} has a cubic time dependence
@@ -139,9 +136,9 @@ the following five steps (with the relevant lines in \cref{lst:mmempm} given):
             standard \textsc{NumPy} array before converting it to
             \ac{CSR} format\cite{csr} was optimal.
         } (Lines \ref{ln:EY-start} to \ref{ln:sparse1}).
-    \item Step 2: Truncated \ac{SVD} of $\EY$ to form $\symbf{U}_M$ (Line \ref{ln:sparse2}).
+    \item Step 2: Truncated \ac{SVD} of $\EY$ to generate $\symbf{U}_M$ (Line \ref{ln:sparse2}).
     \item Step 3: Determining $\bdzone$ and  $\symbf{W}^{(1)}$ by computing the
-        \ac{EVD} of $\symbf{U}_{M1}^+ \symbf{U}_{M2}^{\vphantom{+}}$ (Lines
+        eigenvalue decomposition of $\symbf{U}_{M1}^+ \symbf{U}_{M2}^{\vphantom{+}}$ (Lines
         \ref{ln:poles1-start} to \ref{ln:poles1-end}).
     \item Step 4: Generating the second set of signal poles $\bdztwo$, by
         multiplying $\symbf{U}_M$ by the permutation matrix, and extracting
@@ -153,37 +150,37 @@ the following five steps (with the relevant lines in \cref{lst:mmempm} given):
         \cref{eq:complex-amplitudes-2d} (Lines \ref{ln:comp-amps-2d-start} to
         \ref{ln:comp-amps-2d-end}).
 \end{itemize}
-A comparison of the relative times to perform these steps for a few select
+A comparison of the relative times to perform these steps for some select
 pairings of $M$ and $\Ntwo$ is provided by \cref{tab:mmempm-steps}. It can be
 seen that as $M$ increases, the relative amount of time spent performing
 \ac{SVD} increases, while the amount of time to generate $\EY$ decreases. This
 reflects the greater number of iterations required by
-the Rayleigh-Ritz method to produce the desired number of \ac{SVD} components,
-while the run time to generate $\EY$ remains fixed.
+the truncated \ac{SVD} routine\cite{svds} to produce the desired number of
+components, while the run time to generate $\EY$ remains fixed.
 
 Interestingly, the plots for a given value of $M$ in panel b1 do not exhibit
 consistent quadratic behaviour throughout. After a certain value of $\Ntwo$, a
-slight reduction in the gradient of the plots in panel b1 can be observed (cf
+slight reduction in the gradient of the plots in panel b1 is observed (cf
 the square and circular points). This was found to be caused by the \ac{SVD}
 computation, whose run times for the $M=40$ \acp{FID} are plotted in panel b2.
 The square and circular points both display quadratic behaviour, though the
 exact form of the function which
-describes them are different ; both sets of points have been fit to curves of
-the form of the form $a\Ntwo^2 + b$. After $\Ntwo$ becomes larger than
+describes them are different; both sets of points have been fit to curves of
+the form $a\Ntwo^2 + b$. After $\Ntwo$ becomes larger than
 roughly $200$, the \ac{SVD} run time appears to enter a new regime in which
 subsequent increases in  $\Ntwo$ cause the rate of \ac{SVD} to increase at a
 slower rate than was the case previously. The exact reason for this probably
-lies in the implementation of the Rayleigh-Ritz algorithm, and has not yet been
+lies in the exact implementation of the \ac{SVD} but was not explicitly
 ascertained.
 
 The peak \ac{RAM} usage for the $M=40$ \acp{FID} as a function of $\Ntwo$ is
 plotted in panel b3, where a quadratic complexity is observed. The variation in
 memory consumption barely changes as a function of the model order, since the
-peak usage is dependent on the size of $\EY$.
+peak usage is largely dependent on the size of $\EY$.
 
 It should be noted that the run time and peak \ac{RAM} consumption will also be
 (roughly) quadratically dependent on $\None$, just as with $\Ntwo$, i.e.
-increasing  $\None$ for  $64$ to  $128$ would cause all the run times in panel
+increasing  $\None$ from  $64$ to $128$ would cause all the run times in panel
 b1 and peak memory usages in panel b3 to quadruple in value.
 
 \begin{table}
@@ -217,3 +214,126 @@ b1 and peak memory usages in panel b3 to quadruple in value.
 \end{table}
 
 \subsection{Computing the Hessian for \acs{NLP}}
+\begin{figure}
+    \centering
+    \includegraphics{nlp_profiling/nlp_profiling.pdf}
+    \caption[
+        Outlines of the run times and peak memory consumption in
+        computing the Hessian matrix for \acs{NLP}.
+    ]
+    {
+        Outlines of the run time and peak memory consumption in
+        computing the Hessian matrix for \acs{NLP}.
+        The \acp{FID} that were used to acquire these results are described in
+        the main text.
+        \textbf{a1.} \& \textbf{b1.} The amount of time required to compute the
+        Hessian for \ac{1D} and \ac{2D} \acp{FID}, respectively.
+        \textbf{a2.} \& \textbf{b2.} Equivalent plots showing the peak memory
+        consumption in computing the Hessian.
+    }
+    \label{fig:nlp-profiling}
+\end{figure}
+A consideration of the burden on the \ac{CPU} and \ac{RAM} in computing the
+Hessian matrix for \ac{1D} and \ac{2D} \acp{FID} (\cref{eq:hess}) is presented in
+\cref{fig:nlp-profiling}.
+It should be noted that for a typical \ac{NLP} routine, the Hessian will need
+to be computed many times (on the order of magnitude of $10^2$ is common) so
+while the times presented in the figure may seem small, a rather long total
+time to run \ac{NLP} is possible if it takes seconds to compute the Hessian
+once.
+For the \ac{1D} case, simulated \acp{FID} were generated
+with both a variable number of contributing signals: $M \in \lbrace 5k : k \in
+\lbrace 1, 2, \cdots, 16 \rbrace \rbrace$ and datapoints: $N \in \lbrace 1024k
+: k \in \lbrace 1, 2, \cdots, 8 \rbrace \rbrace$. For each signal, the Hessian
+matrix was computed using the \texttt{obj\_grad\_hess\_1d} function, given by
+Lines \ref{ln:obj-grad-hess-start} to \ref{ln:obj-grad-hess-end} in
+\cref{lst:obj-grad-hess}\footnote{
+    A slight variant of this function was used, which neglected the computation
+    of the objective and gradient, and returned only the Hessian.
+}. There are 4 main steps in computing the Hessian matrix:
+\begin{itemize}
+    \item Step 1: Generation of all the first partial derivatives
+        (\cref{eq:first-derivs}), which are stored in a $4M \times N$ array.
+    \item Step 2: Generation of all the non-trivially zero second partial
+        derivatives (\cref{eq:second-derivs}), which are stored in a $10M
+        \times N$ array.
+    \item Step 3: Computing the non-zero elements of term \circled{2} in
+        \cref{eq:hess}.
+    \item Step 4: Computing term \circled{1} in \cref{eq:hess}.
+\end{itemize}
+These steps produce an exact Hessian. Neglecting steps 2 \& 3 leads to the
+formation of the approximated Hessian as described in
+\cref{subsec:hess-approx}. Panel a1 in \cref{fig:nlp-profiling} shows that the
+time to compute the Hessian matrix scales quadratically with $M$, and
+linearly with $N$. The cause of this is the fact that the most time-consuming
+aspect of the routine is step 4, which involves multiplying the $4M \times N$
+matrix of first derivatives with its  $N \times 4M$ conjugate transpose, with a
+complexity $\mathcal{O}(M^2N)$. The relative amount of the total run time which
+is spent performing step 4 increases steadily as the model order increase, as
+seen in \cref{tab:hess-steps}.
+As such, for \ac{1D} \acp{FID}, it is
+common, especially when the data comprises a large number of
+signals, for the discrepancy in the amount of time to compute the true
+Hessian relative to its approximation to be small. In these cases, it may be
+valuable to compute the exact Hessian if it leads to a reduced number of
+required iterations for convergence.
+\begin{table}
+    \begin{center}
+        \begin{tabular}{ c c c c c c }
+            \toprule
+            $N$/$\Ntwo$ &
+            $M$ &
+            Step 1 &
+            Step 2 &
+            Step 3 &
+            Step 4 \\
+            \midrule
+            \multicolumn{6}{c}{\textbf{1D Hessian}}\\
+            \midrule
+            2048 & 20 & 3.7\% & 9.6\% & 6\% & 76.4\% \\
+            8192 & 20 & 3.5\% & 10.7\% & 6.3\% & 75\% \\
+            2048 & 80 & 1\% & 3\% & 2\% & 92.6\% \\
+            8192 & 80 & 1.2\% & 3.3\% & 1.9\% & 92.4\% \\
+            \midrule
+            \multicolumn{6}{c}{\textbf{2D Hessian}}\\
+            \midrule
+            64 & 20 & 8.2\% & 32.5\% & 18.5\% & 38.5\% \\
+            256 & 20 & 12.3\% & 50.2\% & 21.3\% & 14.3\% \\
+            64 & 80 & 10.8\% & 41\% & 24.3\% & 21.5\% \\
+            256 & 80 & 14.9\% & 45.4\% & 24.1\% & 13.8\% \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    \caption[
+        A comparison of the relative times to perform the key steps in
+        computing the Hessian matrix for \acs{NLP}.
+    ]{
+        A comparison of the relative times to perform the key steps in
+        computing the Hessian matrix for \acs{NLP}, for selected pairings of
+        $M$ and $N$ (\ac{1D})/$\Ntwo$ (\ac{2D}).
+    }
+    \label{tab:hess-steps}
+\end{table}
+
+To assess the effect of the number of signals and datapoints on Hessian
+computation for \ac{2D} \acp{FID}, a series of signals were generated with a
+fixed number of datapoints in the first dimension: $\None = 64$. \acp{FID} were
+then constructed with the same values of $M$ as the \ac{1D} case, and $\Ntwo
+\in \lbrace 64k : k \in \lbrace 1, 2, \cdots, 8 \rbrace \rbrace$. In contrast to
+the \ac{1D} case, it is seen that the run time in computing the Hessian now
+scales approximately linearly, rather than quadratically. Much more of the run
+time is taken up by the first three steps in comparison; computing the
+$6M\None\Ntwo$ first derivatives, $21M\None\Ntwo$ second derivatives, and
+forming term \circled{2} all scale linearly with $M$, $\None$, and $\Ntwo$. The
+relative times spent performing steps 2 \& 3 compared with 1 \& 4 imply that for
+the \ac{2D} case especially, a large saving in computational time is likely to be
+achieved when the Hessian approximation is utilised over the exact form.
+
+Both the time- and space-complexity of computing the Hessian is found to be
+roughly linear with both $M$ and the number of datapoints in each dimension
+for \ac{1D} and \ac{2D} \acp{FID} (see panels a2 and b2 of
+\cref{fig:nlp-profiling}). Most of the \ac{RAM} usage comes from storing arrays
+of the first and second partial derivatives. In general, the typical space
+requirements for both \ac{1D} and \ac{2D} \acp{FID} should be tolerable on
+modern computers, which tend to possess at least \qty{8}{\gibi\byte} of
+\ac{RAM}.

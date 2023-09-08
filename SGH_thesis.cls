@@ -136,7 +136,6 @@
 
 %%% Paragraph skip
 \RequirePackage{parskip}
-
 %%% Chapter and Section titles
 \RequirePackage[explicit]{titlesec}
 \RequirePackage{anyfontsize}

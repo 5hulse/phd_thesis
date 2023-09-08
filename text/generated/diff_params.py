@@ -1,7 +1,7 @@
 # diff_params.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Mon 17 Jul 2023 18:49:19 BST
+# Last Edited: Mon 04 Sep 2023 16:01:33 BST
 
 import nmrespy as ne
 from utils import RESULT_DIR
@@ -25,9 +25,9 @@ table = """
 \\hline
 \\end{tabular}
 \\caption[
-    Noteworthy experiment parameters for the diffusion datasets acquired.
+    Noteworthy experiment parameters for the diffusion datasets used.
 ]{
-    Noteworthy experiment parameters for the diffusion datasets acquired.
+    Noteworthy experiment parameters for the diffusion datasets used.
     NS: Number of scans,
     DS: Number of dummy scans,
     PLW1: Hard pulse power (\\unit{\\watt}),

@@ -1,12 +1,14 @@
 \section{\acs{NMR} Data Processing and Analysis}
-
+\begin{remark}
+    In contexts where \ac{1D} datasets are considered specifically, the
+    redundant dimension index $^{(1)}$ will be neglected for conciseness.
+\end{remark}
 \subsection{Conventional NMR Processing}
 \label{subsec:nmr-proc}
 The typical means of processing \ac{NMR} data is to
-transform the time (measured) domain \ac{FID} into the frequency (Fourier)
+transform the time (measured) domain \ac{FID} into the frequency
 domain, yielding an \ac{NMR} spectrum. This is achieved through application of
-the
-\acfi{FT}. The \ac{FT} converts a continuous function over time $t$, to one
+the \ac{FT}. The \ac{FT} converts a continuous function over time $t$, to one
 over frequency $F$ as follows\footnote{
     In general, the \ac{FT} is defined over the range $(-\infty, \infty)$.
     Since \ac{NMR} data isn't defined for $t < 0$, the \ac{FT} has been defined
@@ -42,12 +44,11 @@ features a vertical offset, such that the baseline does not sit at
 0\cite{Tang1994}. This results from only possessing data for positive
 values of $t$, rather than having a ``full echo'', where negative values of
 $t$ are accounted for too. Fortunately, this can be corrected easily by
-halving the initial point of the \ac{FID} prior to \ac{FT}.
-When $\phi = 0$, \cref{eq:lorentzian} is equivalent to the (unnormalised) \ac{pdf}
-of the Cauchy distribution. The \ac{FT} is a linear function, such that the
+halving the initial point of the \ac{FID} prior to \ac{DFT}.
+The \ac{FT} is a linear function, such that the
 \ac{FT} of a summation of signals is equivalent to the summation of all
 signals' \acp{FT}. A corollary is that an \ac{NMR} spectrum comprises a
-series of Lorentzian ``peaks'', located at the frequencies of all the signals
+series of Lorentzian ``peaks'', located at the frequencies of the signals
 in the \ac{FID}:
 \begin{equation}
     s\left(F\right) = \sum_{m=1}^{M}
@@ -79,10 +80,10 @@ at the cost of worsening the other feature.
 \paragraph{Sensitivity Enhancement} As \iac{FID} progresses with time, the
 contributions from the desirable signal ($\bx$) and experimental noise ($\bw$)
 becomes more
-weighted towards the noise, as spin relaxation phenomena dampen the signal. As
-such, multiplying the \ac{FID} with a function which decreases with time
-can be used to enhance the \ac{SNR} of the
-\ac{FID}. The most common function to achieve this is the negative exponential,
+weighted towards the noise, as spin relaxation phenomena attenuate the signal.
+Multiplying the \ac{FID} with a function which decreases with time
+can be used to enhance the \ac{SNR} of the \ac{FID}. The most common function
+to achieve this is the negative exponential,
 in which a given point is multiplied by $\exp(-\nicefrac{k n}{N - 1})$.
 $k$ is referred to as the line broadening factor, since the increased dampening
 applied to the signal causes the linewidth of the spectral peaks to increase
@@ -90,13 +91,13 @@ applied to the signal causes the linewidth of the spectral peaks to increase
 
 \paragraph{Resolution Enhancement} By contrast, resolution enhancement can be
 achieved by applying a window function that artificially reduces the rate of
-oscillator decay. This is achievable through the suppression of points that are
+signal decay. This is achievable through the attention of points that are
 early in the \ac{FID}. Popular
 examples of window functions for resolution enhancement are the Lorentz-Gauss
 function, which bestow a sharper, Gaussian shape to the peaks, and the
 sine-bell, which is commonly used in multidimensional experiments. Since the
-initial points in the \ac{FID} are attenuated, these window functions reduce the
-sensitivity of the resulting spectra.
+initial points in the \ac{FID} are reduced in magnitude, these window functions
+decrease the sensitivity of the resulting spectra.
 
 By being defined to decay to a sufficiently small value (or $0$ itself) at the
 end of
@@ -104,7 +105,7 @@ the \ac{FID}, window functions are also able to suppress \emph{truncation
 artefacts}, which appear when the \ac{FID} still possesses appreciable signal
 amplitude at the end of the acquisition period. Truncated \acp{FID} produce
 spectra with peaks of a form that is akin to the convolution of the \ac{FT} of
-the untruncated \ac{FID}, with the \ac{FT} of a box-function, which takes the
+the untruncated \ac{FID}, with the \ac{FT} of a box-function, taking the
 form of a sinc function ($\nicefrac{\sin(x)}{x}$). The resulting artefacts in
 spectra are often referred to as \emph{sinc wiggles} for this reason.
 
@@ -149,13 +150,11 @@ desirable than one with a dispersion lineshape for two key
 reasons:
 \begin{enumerate}
     \item Its maximum corresponds to the signal frequency, while a dispersion
-        Lorentzian has a magnitude of $0$ at the oscillator frequency.
-    \item It decays more rapidly\footnote{
-            At large frequency offsets, absorption Lorentzians decay at a rate
-            $\propto \nicefrac{1}{(f_m - F)}^2$, while dispersive Lorentzians
-            decay at a rate $\propto \nicefrac{1}{(f_m - F)}$.
-            \label{fn:lorentzian-decay}
-        } and therefore exhibits better resolution.
+        Lorentzian has a magnitude of $0$ at this frequency.
+    \item It decays more rapidly and therefore exhibits better resolution;
+        at large frequency offsets, absorption Lorentzians decay at a rate
+        $\propto \nicefrac{1}{(f_m - F)}^2$, while dispersive Lorentzians
+        decay at a rate $\propto \nicefrac{1}{(f_m - F)}$.
 \end{enumerate}
 Generating a spectrum whose real component comprises peaks which all possess
 absorption Lorentzians is therefore desired, which is possible if all signals
@@ -197,7 +196,7 @@ and pulse breakthrough.
 Whatever the cause(s), it is typically a corruption of the initial points in
 the \ac{FID} that causes baseline distortion.
 It is common to apply a baseline correction algorithm to negate any distortion,
-which involves multiplying the spectrum with a spline or high-order polynomial.
+which involves adding a spline or high-order polynomial to the spectrum.
 One class of approaches which are used widely involve the two principal steps
 of (a) determining spectral regions which are part of the baseline, and (b)
 fitting the baseline regions to the chosen
@@ -223,7 +222,7 @@ discrimination, on account of the relation
     \fone \tone \right)\right)
 \end{equation}
 Performing \ac{FT} on such a signal in both dimensions leads to a spectrum
-whose real component comprises two peaks, one at the true resonance frequency
+whose real component comprises two peaks: one at the true resonance frequency
 $\left(\fone, \ftwo\right)$, and the other at the mirror-image frequency in the
 indirect dimension, $(2\foffone - \fone, \ftwo)$. On top of this, the
 peaks possess a mixture of absorption and dispersion character, with the
@@ -238,8 +237,8 @@ For frequency discrimination, it is necessary to also possess the
 analogous sine-modulated signal ($\zeta^{(1)} = \sin(\cdot)$) as this
 achieves quadrature detection in the indirect dimension. For
 numerous multidimensional experiments, repeating the
-pulse sequence, with careful adjustments to the phases of particular pulses
-\,---\,in a process referred to as phase cycling\,---\,enables
+pulse sequence, with careful adjustments to the phases of particular pulses,
+in a process referred to as phase cycling, enables
 this\cite[Chapter 11]{Keeler2010}.
 Applying the same processing as that which achieved the double absorption
 spectrum for the cosine-modulated case generates a spectrum whose imaginary
@@ -295,7 +294,7 @@ and the conventional means of processing is simply to display the
 spectrum in \emph{magnitude-mode}, where the absolute value of each complex
 point is plotted. While the phase twist shapes are removed by doing this, the
 resulting peaks have broad ``wings'', due to the influence of the
-dispersive components, and also also from gross non-linearities. In scenarios
+dispersive components, and also also from significant non-linearities. In scenarios
 where it is possible, it is desirable to acquire the equivalent negative
 signal ($\zeta^{(1)} = \exp(-\iu \cdot)$), whose \ac{FT} leads to a peak with
 the same phase twist form, but centered at $2\foffone - \fone$ (panel f).
@@ -306,7 +305,8 @@ absorption lineshape\cite{Davis1992} (panel h).
 The concepts described here for \ac{2D} signals can be extended for the
 processing of \ac{NMR} datasets with any number of dimensions, provided that in
 each indirect dimension, the requisite pair of amplitude- or phase-modulated
-signals exist. As such, a set of $2^{D-1}$ signals need to be acquired.
+signals exist. As such, a set of $2^{D-1}$ signals need to be acquired to
+produce $D$-dimensional spectra with absorption-mode peaks in all dimensions.
 
 \subsection{Conventional \acs{NMR} analysis}
 The amount of detail required from an \ac{NMR} dataset depends on the
@@ -328,8 +328,8 @@ description of the data is desired. Some examples include:
         attenuations in their signal amplitudes (these are discussed in
         \cref{sec:seq}).  Typical approaches to analysing these datasets
         requires identification of the frequencies of spectral peaks of
-        interest, from which amplitudes are extracted and fit to a known
-        function relevant to the specific experiment run.
+        interest, from which amplitudes are extracted and fit to a
+        function which describes how the amplitudes decay.
 \end{itemize}
 
 Most \ac{NMR} users are principally interested in the integrals and positions
@@ -341,8 +341,9 @@ of peaks in spectra\footnote{
     The linewidth of peaks give an insight into the rate of transverse
     relaxation ($T_2$) associated with a given spin.
 }.
-Integrals are usually computed by summing a points in the spectrum which lie
-within user-specified regions.
+Integrals are usually computed by applying a discrete integration method such
+as Simpson's rule on a collection of consecutive points in the spectrum which
+lie within user-specified regions.
 The most rudimentary form of ``peak picking''\,---\,beyond the user
 simply defining where peaks are by inspecting the spectrum\,---\,involves
 assessing where relative maxima exist in the spectrum, subject to
@@ -364,17 +365,18 @@ to estimate the optimal set of parameters $\bth$ which describe them\footnote{
     here as it is a misnomer; deconvolution is simply the inverse operation of
     convolution, and has nothing to do with estimation. Equivalently,
     \emph{convolution} is not the process of generating an \ac{NMR}
-    signal by the process of summing a number of complex sinusoids.
+    signal by the process of summing a number of complex sinusoids, though it
+    is often described as so in the \ac{NMR} literature.
 }.
 Here, a summary of some of the most prominent methods for quantifying \ac{NMR}
 data are given. Attention is primarily given to methods which consider
-time-domain data; as will be explained shortly, time-domain estimation is the
-focus of this work.
+time-domain data; for reasons that will be explained shortly, time-domain
+estimation is the focus of this work.
 
 \subsubsection{\Acl{LP}}
 \Ac{LP}\cite{Stephenson1988,Koehl1999,Marion1989b,Zhu1992} is a procedure which
 is widely used in \ac{NMR} data analysis, for the purposes of (a) propagating
-the \ac{FID} further in time in order to reduce the presence of truncation
+\iac{FID} further in time in order to reduce the presence of truncation
 artefacts without the reliance on severe apodisation, and/or (b) correcting the
 commonly corrupted initial points of the \ac{FID}, as a means of improving the
 spectral baseline. \ac{LP} is notably different to the other methods presented
@@ -382,8 +384,7 @@ here; while the other approaches aim to determine the parameters defining each
 contributing signal in the \ac{FID}, \ac{LP} is used to provide a holistic
 picture, describing how a datapoint in the \ac{FID} is related to datapoints
 which precede or succeed it.  As such, \ac{LP} does not provide insights into
-individual signals in the \ac{FID}. \ac{LP} has however been employed as part
-of a routine for parametric estimation, which will be discussed shortly.
+individual signals in the \ac{FID}.
 
 The concept of \ac{LP} stems from the idea that \iac{FID} can be described as
 an \ac{AR} process, meaning that a given sample from the dataset is a linear
@@ -410,7 +411,7 @@ by a linear combination of subsequent points, using the set of \emph{backward}
 \end{equation}
 Determining
 the \ac{LP} coefficients enables the estimation of \ac{FID} values beyond the
-data actually acquired ($n < 0$ and $n > N - 1$), as well as to replace
+data actually acquired ($n > N - 1$), as well as to replace
 datapoints which are anticipated to be corrupted. It should be noted that
 \cref{eq:forward-lp,eq:backward-lp} are only technically valid for
 \acp{FID} without any corruption from experimental noise. Noisy datasets are
@@ -425,20 +426,21 @@ providing an efficient means of solving the
 equations\cite{Levinson1946,Durbin1960}.
 
 \subsubsection{\acs{SVD}-based methods}
-\note{Include ESPRIT}
 Some of the most prevalent methods for \ac{NMR} estimation involve \acfi{SVD}
 as a key component (\cref{subsec:linear-algebra}). For each of these methods,
 \ac{SVD} is applied to a Hankel or Toeplitz matrix containing the \ac{FID}.
 Above a certain \ac{SNR} threshold, it is found that the singular values in the
-data matrix associated with signal are larger than those related to noise, and
+data matrix are larger than those related to noise, and
 as such forming a low-rank approximation of the data matrix nullifies
 contributions from noise in the parameter estimate. The degree of truncation
-required is dependent on the suspected model order of the dataset, which must
+required is dependent on the suspected \emph{model order} (i.e. the number of
+contributing signals, $M$) of the dataset, which must
 be supplied, or determined by some appropriate metric. All the \ac{SVD}-based
-techniques determine the non-linear parameters in \cref{eq:x} (frequencies and
-damping factors, incorporated in the signal poles).  Subsequently, the
-amplitudes and phases can be computed by solving a linear least-squares
-problem involving the pseudoinverse of a Vanermonde matrix of the signal poles:
+techniques determine the non-linear parameters (frequencies and
+damping factors, incorporated in the signal poles) associated with the dataset.
+Subsequently, the amplitudes and phases can be computed by solving a linear
+least-squares problem involving the pseudo-inverse of a Vanermonde matrix of
+the signal poles:
 \begin{subequations}
     \begin{gather}
         \symbf{\alpha} = \symbf{Z}^+ \symbf{y},\\
@@ -458,23 +460,20 @@ after introduction by Barkhuijsen and
 co-workers\cite{Barkhuijsen1985a,Barkhuijsen1985b,Barkhuijsen1987,Beer1988,Pijnappel1992}.
 With
 \ac{LPSVD}, the signal poles are determined by finding the roots of a
-polynomial which features the backward \ac{LP} coefficients associated with the signal.
-\note{Mention SVD-Prony:}Due to the close similarity of \ac{LPSVD} with the
-classic Prony method\cite{Prony1795} in that\note{...}
-\ac{HSVD} is
-based on the ``state-space'' principle, which generated interest in part
-because it meant that the computationally costly polynomial rooting step in
-\ac{LPSVD} was avoided.
+polynomial which features the backward \ac{LP} coefficients associated with the
+signal, in a similar fashion to the classical Prony method\cite{Prony1795}.
+\ac{HSVD} is based on the ``state-space'' principle, which generated interest
+in part because it meant that the computationally costly polynomial rooting
+step in \ac{LPSVD} was avoided.
 A further technique in this category, the
 \ac{MPM}\cite{Hua1990,Hua1990b,Hua1991} is based on solving a generalised
 eigenvalue problem.  Pines and coworkers introduced the \ac{ITMPM}\cite{Lin1997},
 for use in \ac{NMR}, which combines the \ac{MPM} with a method for estimating
-the model order, such that no \textit{a priori} information is required.
-Recently, the \ac{MPM} has been employed for the analysis of \ac{NMR}
-relaxometry data\cite{Fricke2020, Wortge2023}.
-Outlines of the \ac{MPM} and its \ac{2D} equivalent, the
-\ac{MMEMPM}\cite{Hua1992,Chen2007} are provided in detail in
-\cref{subsec:mpm}.
+the model order, such that no \textit{a priori} information is required from
+the user.  Recently, the \ac{MPM} has been employed for the analysis of
+\ac{NMR} relaxometry data\cite{Fricke2020, Wortge2023}.  Outlines of the
+\ac{MPM} and its \ac{2D} equivalent, the \ac{MMEMPM}\cite{Hua1992,Chen2007} are
+provided in detail in \cref{subsec:mpm}.
 
 % separating contributions from deterministic
 % signal in the \ac{FID} from experimental noise.
@@ -586,23 +585,25 @@ Outlines of the \ac{MPM} and its \ac{2D} equivalent, the
 % \ac{LPSVD} and \ac{HSVD} nowadays
 
 \subsubsection{Iterative Methods}
-For problems involving nonlinear function fitting, the most widespread approach
+For problems involving nonlinear function fitting, the most widespread approaches
 are iterative techniques. The \ac{VARPRO} method\cite{Golub1973} is such an
 example, which has been applied extensively in the field of \ac{MRS}, following
 its introduction by van der Veen and
 co-workers\cite{VanDerVeen1988,Decannierec1994}. \ac{VARPRO}
-relies on minimising the following quantity:
+relies on determining the following quantity, an example of a \ac{RSS} problem:
 \begin{equation}
-    \hat{\symbf{\theta}} = \argmin_{\symbf{\theta} \in \mathbb{R}^{4M}}
+    \symbf{\theta}^{(*)} = \argmin_{\symbf{\theta} \in \mathbb{R}^{4M}}
         \left \lVert \symbf{y} - \symbf{x}(\symbf{\theta}) \right \rVert^2 \equiv
-        \argmin_{\symbf{\theta} \in \mathbb{R}^{4M}} \left \lVert \symbf{y} - \symbf{Z}\symbf{\alpha} \right \rVert^2
+        \argmin_{\symbf{\theta} \in \mathbb{R}^{4M}} \left \lVert \symbf{y} - \symbf{Z}\symbf{\alpha} \right \rVert^2,
 \end{equation}
+where $\bthstar$ is the optimal set of parameters which describe the data,
+often referred to as the \ac{MLE}.
 The linear parameters, residing in the vector of complex amplitudes, can be
 expressed as $\symbf{Z}^+\symbf{y}$ (see \cref{eq:complex-amplitudes}). By doing
 this, it becomes possible to recast the optimisation problem to only solve for
 the nonlinear terms:
 \begin{equation}
-    \hat{[\symbf{f}\T \hspace*{5pt} \symbf{\eta}\T]\T} =
+    {[\symbf{f}\T \hspace*{5pt} \symbf{\eta}\T]^{(*)}}\T =
         \argmin_{[\symbf{f}\T \hspace*{5pt} \symbf{\eta}\T]\T \in \mathbb{R}^{2M}}
         \lVert \symbf{y} - \symbf{Z}\symbf{Z}^+\symbf{y} \rVert^2.
 \end{equation}
@@ -627,25 +628,44 @@ There is not much precedent for using iterative schemes for \ac{NMR} analysis,
 despite its widespread adoption in \ac{MRS}. The main cause of this is probably due to
 the requirement to supply a large amount of prior knowledge; in \ac{MRS}, it
 is likely that the practitioner has an intimate understanding of the expected signals
-which will be present, since all signals will derive from species
-which make up the human metabolome, whose chemical shifts and multiplet
-structures will be well-established. Over many experiments, little adjustment
-to the information provided to the optimiser will need to be given, making the
-process facile. In \ac{NMR} experiments, there is a far greater variation in
-the appearance of the data, such that the process of defining \textit{a priori}
-information for each dataset of interest may become time-consuming and
-cumbersome. There is also a good possibility that the expected identity of the
-dataset in unknown in \ac{NMR}, making any method which requires intimate
-knowledge about the data worthless.
+which will be present in an acquired dataset, since all signals will derive
+from species which make up the human metabolome, whose chemical shifts and multiplet
+structures will be well-established. As \textsuperscript{31}P is the most
+common nucleus studies in \ac{MRS}, the number of potential species
+contributing to datasets is reduced even further. Over many experiments, little
+adjustment to the information provided to the optimiser will need to be given,
+making the process facile. In \ac{NMR} experiments, there is a far greater
+variation in the appearance of the data, such that the process of defining
+\textit{a priori} information for each dataset of interest may become
+time-consuming and cumbersome. There is also a good possibility that the
+expected identity of the dataset in unknown in \ac{NMR}, making any method
+which requires intimate knowledge about the data worthless.
 
 \subsubsection{Bayesian Methods}
-\note{TODO}
-\ac{CRAFT}\cite{Krishnamurthy2013}
-2D\cite{Krishnamurthy2017}
-perspective\cite{Krishnamurthy2021}
+\Ac{CRAFT}\cite{Krishnamurthy2013,Krishnamurthy2021} is a routine developed by
+Krishnamurthy, inspired by previous work by
+Bretthorst\cite{Bretthorst1990a,Bretthorst1990b,Bretthorst1990c,Bretthorst1991,Bretthorst1992},
+for the parametric estimation based on the principle of Bayesian inference.
+In brief, \ac{CRAFT} consists of defining prior distributions for the signal
+parameters, and gradually increasing the number of signal components in the
+model until a maximisation of the posterior probably is achieved, such that
+both model order selection and parameter estimation are achieved
+simultaneously. In order to reduce the computational burden of the
+estimation, the complete \ac{FID} is downsampled into a series of
+``sub-\acp{FID}'', with each sub-\ac{FID} being analysed separately.
+\ac{CRAFT} has been extended for the consideration of \ac{2D} \acp{FID},
+through a simple extension of the \ac{1D} estimation
+procedure\cite{Krishnamurthy2017}. After the direct-dimension of the dataset is
+processed using the conventional \ac{FT} approach, each \ac{FID} in the
+indirect-dimension is estimated separately, yielding a $4 \times M$ parameter
+set for each indirect increment. Such an approach is not able to extract all $6
+\times M$ parameters associated with the \ac{2D} dataset however.
 
 \subsubsection{Machine Learning Methods}
-In recent years, the application of deep learning approaches for estimation have been
-introduced, with the currently available methods focussing on spectral
-data\cite{Li2021,Schmid2023}
-\note{Mention deconvolution networks.}
+The vast surge in prevalence of machine learning across virtually all
+scientific disciplines has unsurprisingly lead to work which applies it for the
+purposed of \ac{NMR} estimation in recent years. At the time of writing,
+approaches have focussed on Fourier-domain estimation\cite{Li2021,Schmid2023}.
+The currently available methods employ deep (i.e. many-layered) neural
+networks, featuring numerous deconvolution layers, which have been shown to be
+widely successful in image- and signal processing applications.

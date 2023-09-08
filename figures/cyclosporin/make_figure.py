@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Mon 17 Jul 2023 17:18:30 BST
+# Last Edited: Fri 08 Sep 2023 14:37:24 BST
 
 from utils import transfer
 import nmrespy as ne
@@ -248,5 +248,12 @@ for i, (ax_idx, x, y, s) in enumerate(zip(label_axs, label_xs, label_ys, label_s
 
 for i, ax in enumerate((data_axs[0], mpm_axs[0], nlp_axs[0])):
     ax.text(0.02, 0.9, f"\\textbf{{{chr(i + 97)}.}}", va="bottom", transform=ax.transAxes)
+
+mpm_axs[2].text(0.57, 0.27, "\\textdagger", color=colors[5], transform=mpm_axs[2].transAxes, va="center", ha="center")
+mpm_axs[2].text(0.895, 0.22, "\\textdagger", color=colors[5], transform=mpm_axs[2].transAxes, va="center", ha="center")
+nlp_axs[2].text(0.575, 0.19, "\\textdagger", color=colors[5], transform=nlp_axs[2].transAxes, va="center", ha="center")
+nlp_axs[2].text(0.895, 0.19, "\\textdagger", color=colors[5], transform=nlp_axs[2].transAxes, va="center", ha="center")
+nlp_axs[2].text(0.595, 0.2, "\\textdaggerdbl", color=colors[4], transform=nlp_axs[2].transAxes, va="center", ha="center")
+nlp_axs[2].text(0.605, 0.28, "\\textdaggerdbl", color=colors[4], transform=nlp_axs[2].transAxes, va="center", ha="center")
 
 fig.savefig("figures/cyclosporin/cyclosporin.pdf")

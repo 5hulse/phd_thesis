@@ -76,6 +76,81 @@ the region of integration is $0$.
 
 \subsubsection{Likelihood function}
 
+\section{Estimation Errors}
+\label{subsec:errors}
+A measure of the degree of uncertainty in the parameter estimates can be obtained
+by computing the \emph{standard errors} associated with the \ac{NLP} routine.
+Standard errors are related  to the \emph{observed Fisher information matrix}
+at convergence\cite[Section 2.7]{Pawitan2001}:
+\begin{equation}
+    \symbf{\epsilon}\left(\bthstar\right) = \sqrt{\diag\left(\symbf{I}\left( \bthstar \right)^{-1}\right)},
+\end{equation}
+where the observed Fisher Information matrix contains the negative partial second
+derivatives of the log-likelihood with respect to $\bth$:
+\begin{equation}
+    \symbf{I}\left(\bth\right)_{i, j} =
+        -\frac
+        {\partial^2 \ell \left( \bdthY \right)}
+        {\partial \theta_i \partial \theta_j}.
+\end{equation}
+Recalling the form of the log-likelihood given by \cref{eq:log-likeihood},
+the elements of $\symbf{I}\left(\bth\right)$ are
+\begin{equation}
+    \symbf{I}\left(\bth\right)_{i, j} =
+        -\frac{1}{\sigma^2}
+        \Re
+        \biggl(
+            \left\langle
+                \frac{\partial \bX}{\partial \theta_i},
+                \frac{\partial \bX}{\partial \theta_j}
+            \right\rangle
+            -
+            \left\langle
+                \left(\bY - \bX\right),
+                \frac{\partial^2 \bX}{\partial \theta_i \partial \theta_j}
+            \right\rangle
+        \biggl),
+\end{equation}
+which very closely resembles the Hessian of $\bth$:
+\begin{equation}
+    \symbf{I}\left(\bth\right)_{i,j} =
+        \frac{1}{2 \sigma^2}
+            \bdHth_{i,j}.
+\end{equation}
+The standard errors therefore take the form
+\begin{equation}
+    \symbf{\epsilon}\left(\bthstar\right) =
+        \sqrt{
+            2\sigma^2 \diag \left(
+                \bdHthstar^{-1}
+            \right)
+        }.
+\end{equation}
+The mean and variance of the noise are $0$ and $2\sigma^2$, respectively,
+leading to:
+\begin{equation}
+    2 \sigma^2 = \frac{1}{\mathfrak{N} - 1}
+    \left\lVert \bW \right\rVert^2 =
+    \frac{1}{\mathfrak{N} - 1} \left \lVert
+        \bY - \bXthstar
+    \right \rVert^2.
+\end{equation}
+Finally a useable expression for the standard errors is arrived at:
+\begin{equation}
+    \symbf{\epsilon}\left(\bthstar\right) =
+        \sqrt{
+            \frac
+            {
+                \Fthstar \diag \left(
+                    \bdHthstar^{-1}
+                \right)
+            }
+            {\mathfrak{N} - 1}
+        }
+\end{equation}
+
+
+
 \section{Multidimensional \aclp{VE}}
 \label{sec:multidim-ve}
 The \ac{VE} concept (\cref{subsec:ve}) can be generalised to any number
@@ -344,11 +419,10 @@ phase-modulated signals too, which for the \ac{2D} case would be $\lbrace
 
 \begin{algorithm}
     \caption[
-        Steihaug-Toint method for determining an update for nonlinear
-        programming.
+        \acs{ST} method for determining an update in \acs{NLP}.
     ]{
-        Steihaug-Toint method for determining an update for nonlinear
-        programming. This is equivalent to Algorithm 7.2 in \cite{Nocedal2006}.
+        \ac{ST} method for determining an update in \ac{NLP}.
+        This is equivalent to Algorithm 7.2 in \cite{Nocedal2006}.
     }
     \label{alg:steihaug-toint}
     \begin{algorithmic}[1]

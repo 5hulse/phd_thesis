@@ -4,7 +4,7 @@
 \subsection{An overview of \ac{NLP}}
 \label{subsec:nlp-overview}
 In an optimisation problem, the goal is to determine the minimum\footnote{
-    In certain applications, the interest is actually in finding the maximum of
+    In certain applications, the interest could actually be to find the maximum of
     a function. However, it is trivial to transform a maximisation problem into
     a minimisation problem by finding the minimum of negative of the function.
 }
@@ -21,10 +21,10 @@ parameter vector is subjected to. Unless $\Fth$ has particular properties, such
 as convexity\footnote{
     A convex function is one such that a line segment through any two points of
     the function lies above it.
-}, it is generally only possible to determine a \emph{local minimum},
-rather than a \emph{global minimum} for high-dimensionality problems such as
+}, it is generally only possible to determine a \emph{local} minimum,
+rather than a \emph{global} minimum for high-dimensionality problems such as
 the one of interest here. $\bthstar$ is a local
-minimiser of $\Fth$ if there is a \emph{neighbourhood} $V \ni \bthstar$ for which
+minimiser of $\Fth$ if there is a neighbourhood $V \ni \bthstar$ for which
 \begin{equation}
     \Fthstar \leq \Fth\ \forall \bth \in V.
   \label{def:local-minimiser}
@@ -103,10 +103,10 @@ consideration of it will now be made.
 
 \begin{algorithm}
     \caption[
-        Nonlinear programming routine employed in this work.
+        \acs{NLP} routine employed in this work.
     ]
     {
-        Nonlinear programming routine employed in this work. This makes use of
+        \ac{NLP} routine employed in this work. This makes use of
         Algorithms 4.1 \& 7.2 in \cite{Nocedal2006}, with a extra check
         inserted to deal with any negative-amplitude oscillators which may be
         generated as the routine evolves
@@ -222,16 +222,9 @@ thresholds which dictate whether to accept an update, and whether to adjust the
 trust region radius are customisable. The hard-coded numerical values found in
 \cref{alg:nlp} are the values used for the results presented in this work.
 
-\subsection{Non-linear programming applied to FID estimation}
-\begin{remark}
-    \label{rem:norm-data}
-    Prior to estimating the dataset, it is normalised, such that the signal
-    actually under consideration is $\nicefrac{\bY}{\lVert \bY \rVert}$.
-    To make the result reflect the unnormalised dataset, the estiamted
-    amplitudes $\bdastar$ are multiplied by $\lVert \symbf{Y} \rVert$.
-\end{remark}
+\subsection{\acs{NLP} applied to \acs{FID} estimation}
 Focus now turns to the specific problem of FID estimation using \ac{NLP}, for
-which a general $D$-dimensional dataset will be considered. As establised in
+which a general $D$-dimensional dataset will be considered. As established in
 \cref{sec:theory-outline}, the fidelity $\FthY : \mathbb{C}^{\None \times
 \cdots \times \ND} \times \mathbb{R}^{2(1 + D)M} \rightarrow \mathbb{R}$ is
 given by
@@ -281,7 +274,8 @@ $\forall d, d^{\prime} \in \lbrace 1, \cdots, D \rbrace$:
     \begin{gather}
         \xderiv{\theta_m} \equiv
             \xderiv{a_m} =
-            \frac{x}{a_m},\\
+            \frac{x}{a_m},
+            \label{eq:deriv-a}\\
         \xderiv{\theta_{m + M}} \equiv
             \xderiv{\phi_m} =
             \iu x,\\
@@ -292,6 +286,7 @@ $\forall d, d^{\prime} \in \lbrace 1, \cdots, D \rbrace$:
             \xderiv{\etadm} =
             - \Dtd \nd x.
     \end{gather}
+    \label{eq:first-derivs}
 \end{subequations}
 \paragraph{Second derivatives}
 \begin{subequations}
@@ -333,11 +328,12 @@ $\forall d, d^{\prime} \in \lbrace 1, \cdots, D \rbrace$:
         \xderivtwodiff{\theta_{i}}{\theta_{j}} = 0\ \text{ if not specified above.}
         \label{eq:zero-second-deriv}
     \end{gather}
+    \label{eq:second-derivs}
 \end{subequations}
 \Cref{eq:zero-second-deriv} indicates that any second derivative
-with respect to two parameters which do not belong to the same oscillator will
-always be $0$. This, along with the symmetrical nature of the second
-derivatives (\cref{eq:symmetric-second-derivs}) drastically reduces the
+with respect to two parameters which do not belong to the same oscillator in
+then model will always be $0$. This, along with the symmetrical nature of the
+second derivatives (\cref{eq:symmetric-second-derivs}) drastically reduces the
 required number to explicitly compute, from $4 (1 + D)^2 M^2$ per data-point
 to  $(1+D)\left(3 + 2D\right)M$. Finally, \cref{eq:amp-second-deriv}
 indicates that another $M$ second derivatives do not need to be computed, as
@@ -369,12 +365,14 @@ numbers of dimensions.
 \end{table}
 
 \subsection{Approximating the Hessian}
+\label{subsec:hess-approx}
 Despite many of the model second derivatives being $0$, computation of those
-that are not zero, and subsequently using these the form the Hessian matrix, is
-often the most computationally expensive part of the optimisation.
+that are not zero, and subsequently using these the form the Hessian matrix,
+can be an expensive part of the optimisation routine.
 Numerous optimisation problems exist where this is the case, and as such
 there is considerable precedent for improving the efficiency of optimisation
-algorithms by generating approximations of the Hessian which are less expensive.
+algorithms by generating approximations of the Hessian which are demanding to
+compute.
 Examples include the \ac{GN} method and \ac{LM} algorithm,
 which are specifically for \ac{RSS} problems\cite[Chapter
 10]{Nocedal2006}, as well as quasi-Newton methods such as the \ac{BFGS}
@@ -403,79 +401,6 @@ when close to local minima. Despite this, by invoking this approximation, the
 rate of convergence, i.e. the number of iterations required to reach
 $\bthstar$, tends to be adversely affected. See \cref{subsec:optim-vis} for an
 example of this phenomenon.
-
-\subsection{Estimation Errors}
-\label{subsec:errors}
-A measure of the degree of uncertainty in the parameter estimates can be obtained
-by computing the \emph{standard errors} associated with the \ac{NLP} routine.
-Standard errors are related  to the \emph{observed Fisher information matrix}
-at convergence\cite[Section 2.7]{Pawitan2001}:
-\begin{equation}
-    \symbf{\epsilon}\left(\bthstar\right) = \sqrt{\diag\left(\symbf{I}\left( \bthstar \right)^{-1}\right)},
-\end{equation}
-where the observed Fisher Information matrix contains the negative partial second
-derivatives of the log-likelihood with respect to $\bth$:
-\begin{equation}
-    \symbf{I}\left(\bth\right)_{i, j} =
-        -\frac
-        {\partial^2 \ell \left( \bdthY \right)}
-        {\partial \theta_i \partial \theta_j}.
-\end{equation}
-Recalling the form of the log-likelihood given by \cref{eq:log-likeihood},
-the elements of $\symbf{I}\left(\bth\right)$ are
-\begin{equation}
-    \symbf{I}\left(\bth\right)_{i, j} =
-        -\frac{1}{\sigma^2}
-        \Re
-        \biggl(
-            \left\langle
-                \frac{\partial \bX}{\partial \theta_i},
-                \frac{\partial \bX}{\partial \theta_j}
-            \right\rangle
-            -
-            \left\langle
-                \left(\bY - \bX\right),
-                \frac{\partial^2 \bX}{\partial \theta_i \partial \theta_j}
-            \right\rangle
-        \biggl),
-\end{equation}
-which very closely resembles the Hessian of $\bth$:
-\begin{equation}
-    \symbf{I}\left(\bth\right)_{i,j} =
-        \frac{1}{2 \sigma^2}
-            \bdHth_{i,j}.
-\end{equation}
-The standard errors therefore take the form
-\begin{equation}
-    \symbf{\epsilon}\left(\bthstar\right) =
-        \sqrt{
-            2\sigma^2 \diag \left(
-                \bdHthstar^{-1}
-            \right)
-        }.
-\end{equation}
-The mean and variance of the noise are $0$ and $2\sigma^2$, respectively,
-leading to:
-\begin{equation}
-    2 \sigma^2 = \frac{1}{\mathfrak{N} - 1}
-    \left\lVert \bW \right\rVert^2 =
-    \frac{1}{\mathfrak{N} - 1} \left \lVert
-        \bY - \bXthstar
-    \right \rVert^2.
-\end{equation}
-Finally a useable expression for the standard errors is arrived at:
-\begin{equation}
-    \symbf{\epsilon}\left(\bthstar\right) =
-        \sqrt{
-            \frac
-            {
-                \Fthstar \diag \left(
-                    \bdHthstar^{-1}
-                \right)
-            }
-            {\mathfrak{N} - 1}
-        }
-\end{equation}
 
 \subsection{Visualisation of a simple example}
 \label{subsec:optim-vis}
@@ -539,9 +464,8 @@ when the true Hessian was used, while 81 were required for the approximated
 case. Despite being an anecdotal example, this highlights that use of the true
 Hessian matrix tends to allow a better rate of convergence. However, for
 \acp{FID} comprising many signals and far more points, the approximated form
-often requires a shorter time to converge overall; the cost of computing the
-second derivatives required for the true Hessian becomes incredibly expensive,
-as will become clear in \cref{sec:profiling}.
+often requires a shorter time to converge overall, especially for \ac{2D}
+\acp{FID}, as will be illustrated in \cref{sec:profiling}.
 
 \subsection{Phase Variance Minimisation}
 \label{subsec:phase-variance}
@@ -549,33 +473,30 @@ as will become clear in \cref{sec:profiling}.
 $\bX$ and the observed data $\bY$ is well-suited to produce an accurate
 holistic
 representation of the data, assuming a sufficiently large
-model order is used. However, as with many inverse problems, \ac{FID}
-estimation is \emph{ill-posed}\cite{Kabanikhin2008}; there
-is conceivably a large set of parameter vectors which will achieve a good
-\ac{RSS} fit.
-An added dimension of difficulty exists for \ac{FID} estimation, as the
-number of parameters to be estimated is not hard-coded since the model order
-is not known in general.
+model order is used. However, as has already been discussed, this is not
+necessarily sufficient due to the ill-posed nature of the estimation problem.
 It is desirable to produce an estimate which not only achieves a good fit to
-the data, but which is also in agreement with the process underpinning the
-observation. It is for this reason that iterative procedures typically require
-significant quantities of prior knowledge\,---\,beyond basic assumptions of the
-underlying model\,---\,in order to produce meaningful estimation results.
-This is also why they are often able to produce results which agree better with
-a spectroscopist's conception of what the ``correct'' parameter estimate is,
-relative to other methods where such detailed information is not exploited.
+the data in \iac{RSS} sense, but which is also in agreement with the process
+underpinning the observation. It is for this reason that iterative procedures
+typically require significant quantities of prior knowledge, beyond basic
+assumptions of the underlying model, in order to produce meaningful estimation
+results.  This is also why they are often able to produce results which agree
+better with a spectroscopist's conception of what the ``correct'' parameter
+estimate should look like, relative to other methods where such detailed
+information is not exploited.
 
-While the \ac{MPM} is often able to generate reasonable parameter estimates,
+While the \ac{MPM} is often able to generate seemingly reasonable parameter
+estimates,
 one particular feature has been noticed in many of its results:
-often, oscillators in the model exhibit ``spurious
-phases''. As has been discussed (\cref{subsec:nmr-proc}),
-signals in most \ac{NMR} experiments have phases which depend on their
-resonance frequencies to first order. This is routinely corrected in
-conventional \ac{NMR} spectral processing, such that all signals are adjusted to
-acquire a phase of \qty{0}{\radian}. This feature of the dataset can be
-exploited in order to overcome the aforementioned shortcoming of the \ac{MPM},
-through appropriate regularisation of the \ac{NLP} routine. Assuming that
-the data has been phase corrected\footnote{
+often, oscillators in the result exhibit spurious phase behaviour.
+As has been discussed (\cref{subsec:nmr-proc}),
+\ac{NMR} datasets for most experiments comprise signals whose phases
+depend on their resonance frequencies to first order. This is routinely
+corrected in conventional \ac{NMR} spectral processing, such that all signals
+are adjusted to acquire a phase of \qty{0}{\radian}. This feature of the
+dataset can be exploited in order to overcome the aforementioned shortcoming of
+the \ac{MPM}, through appropriate regularisation of the \ac{NLP} routine.
+Assuming that the data has been phase corrected\footnote{
     Rather than rely on the data being phase-corrected, one could envisage
     replacing the phase variance with a term which guides the
     oscillators to adopt a first-order phase relationship. The reason why the
@@ -588,7 +509,7 @@ the data has been phase corrected\footnote{
     be phase-corrected anyway.
 }, incorporating the variance of oscillator
 phases into the fidelity can lead to improved estimation results; examples of
-this principle will be provided later (\cref{sec:evaluation}).
+this will be provided later (\cref{sec:evaluation}).
 The updated fidelity becomes
 \begin{equation}
     \FphithY = \left \lVert \bY - \bXth \right \rVert^2 + \circvar,
@@ -640,14 +561,13 @@ that there is an angle of $\nicefrac{2 \pi}{M - 1}$\,\unit{\radian} between all
 pairs of adjacent vectors\,---\,the
 vectors will perfectly cancel, leading to $R=0$. In this case, the maximum
 variance of $1$ is obtained.
-\begin{remark}
-    The inclusion of the phase variance into the fidelity is one of the
-    motivating reasons for normalising the data prior to estimation (see
-    \cref{rem:norm-data}). Since $\circvar$ is constrained to the interval $[0,
-    1]$, if the data were not normalised it is likely that $\lVert \bY - \bX
-    \rVert^2$ would dominate $\circvar$ in \cref{eq:fidelity-phasevar},
-    such that the influence of the phase variance would be negligible.
-\end{remark}
+The inclusion of the phase variance into the fidelity is one of the
+motivating reasons for normalising the data prior to estimation (see
+\cref{rem:norm-data}). Since $\circvar$ is constrained to the interval $[0,
+1]$, if the data were not normalised it is likely that $\lVert \bY - \bX
+\rVert^2$ would dominate $\circvar$ in \cref{eq:fidelity-phasevar}, such that
+the influence of the phase variance would be negligible.
+
 The first and second derivatives of the circular variance are required for
 the computation of the gradient vector and Hessian matrix, whose updated forms
 are
@@ -725,13 +645,13 @@ oscillators in the \ac{MPM} result which start out with phases that are far from
 \qty{0}{\radian}\,---\,the expected phase of most oscillators in the parameter
 set\,---\,little change to the \ac{RSS} term is made, while
 $\circvar$ will be reduced. The presence of such oscillators is
-undesirable, as they are spurious in the context of well-phased data. As a
+undesirable, as they are spurious in the context of phased data. As a
 result, the \ac{NLP} routine periodically checks for negative-amplitude oscillators
 (\crefrange{state:neg-amp-start}{state:neg-amp-end} in \cref{alg:nlp}). After a
 given number of iterations ($25$ is the value given in \cref{alg:nlp})
 if any oscillators have acquired negative
-amplitudes, these are purged, and the routine continues with a reduced number
-of oscillators. While not infallible, this can help to purge oscillators in the
+amplitudes, these are removed from the model, and the routine continues with a reduced number
+of oscillators. While not infallible, this can help to to get rid of excessive oscillators in the
 model which do not correspond to true signals in the data. For example, in
 scenarios where an overestimate of model order has occurred, noise components
 will be incorporated into the \ac{MPM} result. These typically have greater

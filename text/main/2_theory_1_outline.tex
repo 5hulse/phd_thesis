@@ -1,11 +1,53 @@
 \section{Outline of the Problem}
 \label{sec:theory-outline}
+Through the application of \ac{NMR} theory, one can
+rationalise how a particular spin system, subjected to a given pulse sequence,
+is mapped to an \ac{FID}. This is an example of a \emph{forward problem}, in
+which one wishes to determine how a set of parameters is mapped to the
+resulting data.
+The chemical shifts, J-couplings, dipolar couplings, etc. of the spin system may
+be recast as a list of signal amplitudes, phases, frequencies and
+damping factors, which define the form of the \ac{FID}.
+Many sophisticated pieces of software such as \textsc{Spinach}\cite{Hogben2011}
+solve this forward problem, yielding \ac{NMR} experiment simulations.
+Simulating an \ac{NMR} experiment is a \emph{well-posed} problem, since it
+satisfies the following properties:
+\begin{enumerate}
+    \item The problem has a solution.
+    \item The solution is unique.
+    \item The solution's behaviour changes continuously with the parameters
+        provided. i.e. continuously changing the chemical shift of a given spin
+        will lead to the position of it's signal(s) in the resulting spectrum
+        to continuously move\footnote{
+            Other phenomena such as strong coupling effects may manifest too as
+            a given spin's chemical shift changes, those these will also evolve
+            in a continuous fashion.
+        }.
+\end{enumerate}
+The parametric estimation of \acp{FID} is an example of an \emph{inverse problem};
+given an acquired dataset, one seeks to determine the set of parameters which
+went into constructing it.
+Parametric estimation, as with many inverse problems, is
+\emph{ill-posed}\cite{Kabanikhin2008}. These problems do not satisfy at least
+one of the three properties above. For example, given \iac{FID}, it is possible
+to conceive of numerous signal parameter specifications which would lead to a
+faithful representation of the data in a least squares sense.
+Determining the ``optimal'' parameter set is therefore a rather difficult
+challenge.
+
+\begin{remark}
+    \label{rem:norm-data}
+    Prior to estimating the dataset, it is normalised, such that the signal
+    actually under consideration is $\nicefrac{\bY}{\lVert \bY \rVert}$.
+    To make the result reflect the unnormalised dataset, the estimated
+    amplitudes $\bdastar$ are multiplied by $\lVert \symbf{Y} \rVert$.
+\end{remark}
 For the purposes of this work, it is always assumed that an \ac{FID} to be
 estimated
 $\bY \in \mathbb{C}^{\None \times \cdots \times \ND}$
 is hypercomplex in form, meaning that it obeys
 \cref{eq:general-fid} with $\zeta^{(d)} = \exp(\iu \cdot)\ \forall d \in
-\lbrace 1, \cdots D \rbrace$:
+\lbrace 1, \cdots, D \rbrace$:
 \begin{subequations}
     \begin{gather}
         \ynonenD = \xnonenD(\bth) + \wnonenD,\\
@@ -39,16 +81,16 @@ as follows:
     \end{gather}%
     \label{eq:x-alpha-z}%
 \end{subequations}%
-Due to the assumed \ac{AWGN} nature of the noise array, the \acf{pdf} of an
+Due to the assumed \ac{AWGN} nature of the noise array, the \acf{PDF} of an
 individual noise component is
 \begin{equation}
     p(\wnonenD) =
         \frac{1}{2\pi \sigma^2}
         \exp\left( -\frac{\left\lvert \wnonenD \right\rvert^2}{2\sigma^2}\right).
 \end{equation}
-As the elements are independent and identically distributed, the joint \ac{pdf}
+As the elements are independent and identically distributed, the joint \ac{PDF}
 describing the entire noise array is given by the product of all the elements'
-\acp{pdf}:
+\acp{PDF}:
 \begin{equation}
     \begin{split}
         p\left(\bW\right) &=
@@ -83,10 +125,8 @@ $\ell(\bth \vert \bY) \coloneq \ln \mathcal{L}(\bth \vert
 As application of the logarithm is a monotonic transformation, the
 arguments of the maxima of $\mathcal{L}$ and $\ell$ are equivalent.
 \Cref{eq:log-likeihood} implies that the optimal set of parameters
-$\bth^{(*)}$, often referred to as the \acfi{MLE}\acused{MLE},
-is that which minimises the
-squared norm of the difference between the data and model, often called the
-\acfi{RSS}:
+$\bth^{(*)}$, i.e. the \ac{MLE},
+is that which minimises the \ac{RSS} between the data and the model:
 \begin{equation}
     \bthstar = \argmax_{\bth \in \mathbb{R}^{2(D+1)M}}
         \ell\left(\bth \vert \bY\right) \equiv

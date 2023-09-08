@@ -7,9 +7,9 @@ Motivation initially came from discussions within the NMR
 Methodology Group in Manchester involving
 Dr Mohammadali Foroozandeh and co-workers\,---\,notably Prof.
 Gareth Morris and Prof. Mathias Nilsson\,---\,while Dr Foroozandeh was a
-Postdoctoral researcher there. There was an interest in generating pure shift
-\ac{NMR} spectra from \ac{2DJ} datasets via appropriate post-processing of the
-data.  While little progress was made when Dr Foroozandeh was based in
+Postdoctoral researcher there. The group were interested in generating pure
+shift \ac{NMR} spectra from \ac{2DJ} datasets via appropriate post-processing
+of the data.  While little progress was made when Dr Foroozandeh was based in
 Manchester, he wished to continue with the project after moving to Oxford to
 take up a research fellowship, which I took the reins of when I joined his
 nascent research group as a PhD student.
@@ -20,7 +20,7 @@ sought when devising what the estimation routine would entail:
 \paragraph{Support for \ac{1D} and \ac{2D} data}
 The method should be able to analyse both \ac{1D} \acp{FID} and also
 hypercomplex \ac{2D} \acp{FID} (the form which \ac{2DJ} datasets take).
-\ac{2D} data should be analysed \emph{holistically},
+\ac{2D} data should be analysed holistically,
 rather than as successive \ac{1D} increments, as is the case in methods like
 \ac{CRAFT}\cite{Krishnamurthy2017}. This is since
 better signal resolution is often available when both dimensions are
@@ -33,7 +33,7 @@ As discussed in \cref{subsec:multidim}, due to the hypercomplex nature of
 \ac{2DJ} \acp{FID}, generating spectra with desirable absorption lineshapes is
 not possible. Typically, resorting to displaying the spectra in magnitude-mode is
 deemed optimal, as this overcomes the phase-twist peak lineshapes. Such
-spectra suffer from gross non-linearities and dispersion-mode contributions,
+spectra suffer from severe non-linearities and dispersion-mode contributions,
 both of which make the task of estimating \ac{2DJ} data in the Fourier domain
 challenging. For this reason, estimating the dataset by considering its \ac{FID}
 rather than its spectrum is preferred.
@@ -51,28 +51,29 @@ This thesis is broken into the following chapters:
 \begin{itemize}
     \item \textbf{\cref{chap:theory}} discusses the theory behind routines
         which can be applied to determine parameter estimates related to
-        \ac{1D} and \ac{2D} \ac{NMR} datasets.
+        \ac{1D} and \ac{2D} \acp{FID}.
     \item \textbf{\cref{chap:results}} provides illustrations of the
         performance of the estimation routine on \ac{1D} \ac{NMR} datasets.
         Furthermore, means in which parametric estimation routine can be
         harnessed for two applications are explored:
         \begin{itemize}
             \item The analysis of amplitude-attenuated datasets, such as those
-                derived from diffusion and inversion recovery experiments
-                (\cref{sec:seq}).
+                derived from diffusion, $T_1$- and $T_2$-measuring
+                experiments (\cref{sec:seq}).
             \item Overcoming quadratic phase behaviour and baseline distortions
                 associated with ultra-broadband excitation by a single
                 \acl{FS} pulse (\cref{sec:bbqchili}).
         \end{itemize}
-    \item \textbf{\cref{chap:cupid}} outlines the devised method, called
-        \ac{CUPID}, for generating pure shift spectra from \ac{2DJ} datasets.
+    \item \textbf{\cref{chap:cupid}} outlines a devised method, given the acronym
+        \acs{CUPID}, for generating pure shift spectra from the estimation of
+        \ac{2DJ} datasets.
     \item \textbf{\cref{chap:nmrespy}} describes the source code developed as
-        part of this project: \ac{EsPy}.
+        part of this project call \ac{EsPy}.
     \item Finally, conclusions and considerations for further potential
         developments are discussed in \textbf{\cref{chap:conclusions}}.
 \end{itemize}
 
-Additional supporting information can be found in the appendix, comprising:
+Additional supporting information can be found in the appendix:
 \begin{itemize}
     \item \textbf{\cref{chap:nmr-glossary}} provides a glossary of terms
         related to \ac{NMR} which are not introduced in much detail in the main
@@ -92,8 +93,12 @@ Additional supporting information can be found in the appendix, comprising:
         package.
 \end{itemize}
 
-The following publication\note{s} is\note{are} related to this work:
+The following publications are related to this work:
 
 \fullcite{Hulse2022}
 
-\note{Mention status of 2DJ paper at point of submission}
+At the time of writing (\today) a draft for a communication exists which
+outlines the \ac{2DJ}/pure shift work outlined in \cref{chap:cupid}, and is
+written for a wide chemistry audience.  It is intended that this will shortly
+be submitted to \textit{Angewandte Chemie}.  See \cref{chap:cupid-draft} for
+the current form of the draft.

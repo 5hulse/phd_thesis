@@ -75,11 +75,10 @@ oscillators to be purged (Lines \ref{ln:negamp1}--\ref{ln:negamp2}).
 
 \mylisting{python3}{code_listings/obj_grad_hess.py}{
 \Python implementation for the generation of the fidelity for \ac{NLP}
-applied to \ac{1D} estimation, as well as the gradient and (approximated)
-Hessian.
+applied to \ac{1D} estimation, as well as the gradient and Hessian.
 }{
 Code for the generation of the fidelity for \ac{NLP}
-applied to \ac{1D} estimation, as well as the gradient and (approximated)
+applied to \ac{1D} estimation, as well as the gradient and
 Hessian. The \mintinline{python3}{FunctionFactory} object accepts a parameter
 set (\mintinline{python3}{theta}) and function (\mintinline{python3}{fun}),
 which computes the objective, gradient and Hessian. The first time a quantity
@@ -87,7 +86,7 @@ is requested from the factory, the function is run, and the objective and its
 derivatives are cached (memoised), such that the next time a quantity is
 requested, the cached result is used, rather than the expensive function being
 re-computed.
-\mintinline{python3}{FunctionFactoryGaussNewton1D} (Lines
+\mintinline{python3}{FunctionFactory1D} (Lines
 \ref{ln:ff1}--\ref{ln:ff2}) inherits from the base class, for specific use in
 \ac{1D} estimation, with an approximated Hessian.
 For the equivalent code for both \ac{2D} estimation, and for computing the

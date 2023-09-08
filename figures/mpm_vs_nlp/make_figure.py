@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Sun 11 Jun 2023 19:28:51 BST
+# Last Edited: Wed 06 Sep 2023 15:24:54 BST
 
 from pathlib import Path
 import pickle
@@ -175,4 +175,10 @@ for i, ax in enumerate(axs[0]):
     )
 fig.text(0.5, 0.005, "Hz", transform=fig.transFigure, ha="center", fontsize=8)
 
+axs[0, 2].text(0.715, 0.27, "*", transform=axs[0, 2].transAxes)
+
+for ax in axs[1]:
+    for line in ax.lines:
+        if line.get_color() == "#808080":
+            line.remove()
 fig.savefig("figures/mpm_vs_nlp/mpm_vs_nlp.pdf")
