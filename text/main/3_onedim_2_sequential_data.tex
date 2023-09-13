@@ -1,27 +1,35 @@
 \section{Amplitude-attenuated Datasets}
 \label{sec:seq}
-There are a number of \ac{2D} \ac{NMR} experiments in which the
-variation of a parameter in the pulse sequence leads to the generation of
-\acp{FID} of the same form except for an attenuation in their amplitudes across
-increments.  In this section, an extension to the \ac{1D} estimation
-technique is described, facilitating the determination of these properties.
-After the most prominent examples of this class of \ac{NMR} experiment are
-described\,---\,including experiments for the determination of translational
-diffusion rates and relaxation properties such as longitudinal and transverse
-decoherence rates\,---\, a methodology of the technique is presented, after
-which its performance of some simulated and experimental datasets are
-showcased.
+There are a number of \ac{NMR} experiments in which the
+variation of a particular pulse sequence parameter over a number of iterations
+leads to the generation of a series of
+\acp{FID} with the same form except for discrepancies in their amplitudes.
+In this section, an extension of the established \ac{1D} estimation
+technique is described, facilitating the analysis of datasets acquired using
+these experiments.
+After the most prominent examples of the relevant experiments are
+introduced, the theory behind the extended estimation method is described.
+Finally, its performance when applied to both simulated and experimental
+datasets is showcased.
 
 \subsection{Relaxation experiments}
 \label{subsec:relaxation_experiments}
 Any spin system which has been perturbed from its equilibrium position will
-eventually return to equilibrium by relaxation. As introduced in
+eventually return to equilibrium due to relaxation. As introduced in
 \cref{chap:intro}, the simplest model of relaxation centers around two
 processes: longitudinal relaxation and transverse relaxation, whose rates are
 quantified by the times $T_1$ and  $T_2$ respectively.
 The $T_1$ and $T_2$ values of the spins in a sample provide valuable insight
 into the chemical system being studied, and can also help to guide spectroscopists
-when they determine optimal pulse sequence parameters.
+in the determination of optimal pulse sequence parameters\footnote{
+    For example, after a pulse sequence has been run, it is necessary to include a
+    delay (often called the \emph{relaxation delay}) prior to
+    re-running it, to enable the spin system's longitudinal magnetisation to
+    sufficiently recover. Having an understanding of the $T_1$ values
+    associated with a sample can help to determine a relaxation delay which is
+    long enough to facilitate the recovery, but that is not overly long, to
+    avoid an experiment time which is longer than necessary.
+}.
 Numerous factors affect $T_1$ and  $T_2$, including the rate at which the spin
 tumbles in space, and its electronic environment.
 
@@ -30,17 +38,17 @@ tumbles in space, and its electronic environment.
 The inversion recovery experiment involves the simple pulse sequence $\ang{180}
 \rightarrow \tau \rightarrow \ang{90} \rightarrow \tone$, where $\tone$ is the
 period during which \ac{FID} acquisition takes place. The initial
-\ang{180} pulse inverts the magnetisation, so that it is along $-z$ from a
+\ang{180} pulse inverts the magnetisation, so that it is along $-z$ from the
 Bloch model perspective. During $\tau$, the spin system undergoes longitudinal
 relaxation, with the spin state populations gradually being driven back to
 their equilibrium configuration. The \ang{90} pulse rotates the magnetisation
 into the transverse plane, enabling detection. The resultant phase and
 magnitude of the signal is directly related to the amount of time that
 longitudinal relaxation is allowed to occur. With $\tau = \qty{0}{\second}$, a
-signal with maximal amplitude, but a phase of \ang{180}\,---\,equivalent to a
-negative amplitude\,---\,will result. At the other extreme of $\tau \gg T_1$,
+signal with maximal amplitude, but a phase of \ang{180}, equivalent to a
+negative amplitude, will result. At the other extreme of $\tau \gg T_1$,
 the spin system will have reverted
-back to equilibrium, such that the signal which also has maximal amplitude, but a
+back to equilibrium, such that the signal will also has maximal amplitude, but a
 phase of \ang{0}. By sequentially adjusting $\tau$ in a
 \ac{2D} experiment, a series of \acp{FID} will be obtained in which the intensity
 of a given signal, arising from a spin with longitudinal time $T_1$, will vary
@@ -48,24 +56,27 @@ according to
 \begin{equation}
     a\left(\tau\right) = a_{\infty} \left( 1 - 2 \exp\left( -\frac{\tau}{T_1}\right) \right),
 \end{equation}
-where $a_{\infty}$ is the intensity signal when the spin system
-has returned to equilibrium. Note that $a(0) = -a_{\infty}$, as the spin system
+where $a_{\infty}$ is the intensity of the signal when the spin system
+has returned to equilibrium. Note that $a(0) = -a_{\infty}$, as the magnetisation
 has been completely inverted, and no time has been allowed for longitudinal
-relaxation to take place. An example of a series of spectra acquired using an
-inversion recovery experiment is given by panel d in
+relaxation to take place. An example of a series of spectra acquired using a
+(simulated) inversion recovery experiment is given by panel d in
 \cref{fig:five-multiplets-invrec}.
 
 \subsubsection{Measuring $T_2$: \acs{CPMG}}
 \label{subsec:cpmg}
-In an analogous fashion to the inversion recovery experiment, by creating
-transverse magnetisation and leaving it to evolve for different amounts of
-time, it is possible to determine $T_2$. This might lead one to believe
+Inspired by the inversion recovery experiment, one might assume
 that the pulse sequence $\ang{90} \rightarrow \tau \rightarrow \tone$ would be
-effective for  $T_2$ determination. However the presence of J-modulation would
+effective for  $T_2$ determination. However the effects of J-modulation would
 generate undesirable spectra with phase-modulated peaks. As well as this the
 presence of field inhomogeneities will cause relaxation at a faster rate than
 anticipated; the effect of field inhomogeneities is incorporated into the
-``observed'' transverse relaxation time, $T_2^* < T_2^{\vphantom{*}}$. The effects of
+``observed'' transverse relaxation time, $T_2^* < T_2^{\vphantom{*}}$\footnote{
+    $T_2^*$ is defined by the expression
+    $\nicefrac{1}{T_2^*} \coloneq \nicefrac{1}{T_2} + \gamma \Updelta B_0$,
+    where $\Updelta B_0$ is the variation in magnetic field strength across the
+    sample volume.
+}\cite{Chavhan2009}. The effects of
 J-modulation and field inhomogeneity can be nullified if rapid refocussing is
 applied, by subjecting the spin system to a train of spin echoes. The classic
 route to $T_2$ measurement is the \ac{CPMG}
@@ -73,22 +84,25 @@ experiment\cite{Carr1954,Meiboom1958}, comprising $\ang{90}_x \rightarrow
 \left[ \tau \rightarrow \ang{180}_y \rightarrow \tau \right]_n \rightarrow
 \tone$, where the spin echo duration $\tau$ is short and fixed, and the number
 of cycles $n$ can be varied to alter the total evolution time. The number of
-\ac{CPMG} cycles applied attenuates the intensity of the resulting signal
+\ac{CPMG} cycles applied affects the intensity of the resulting signal
 according to
 \begin{equation}
     a(n) = a_0 \exp\left(-\frac{2 \tau n}{T_2}\right),
 \end{equation}
 where $a_0$ is the intensity where no spin echo cycles were employed, such that
-the pulse sequence reduces to a standard pulse-acquire experiment. Recent
+the pulse sequence is reduced to the standard pulse-acquire experiment. Recent
 enhancements to the \ac{CPMG} approach, including the \ac{PROJECT} pulse
 sequence\cite{Aguilar2012} are also well-suited to $T_2$ determination.
 
 \subsection{Diffusion experiments}
 \label{subsec:diffusion_experiments}
-\ac{NMR} is well established as a means of determining the rates of diffusion
-of chemical species\cite{Johnson1999,Morris2009b}.
-The first showcase for determining translational diffusion coefficients came
-from Stejskal and Tanner, in which they described the \ac{PGSE} pulse
+\ac{NMR} is well established as a means of determining the rates of
+translational diffusion of chemical species\cite{Johnson1999,Morris2009b}.
+The rate of translation of a species is given by the translational
+diffusion coefficient, $D$ (\unit{\meter\squared\per\second})\cite[Chapter
+19]{Atkins2014}.
+The first showcase for determining the diffusion coefficient using \ac{NMR}
+came from Stejskal and Tanner, in which they described the \ac{PGSE} pulse
 sequence\cite{Stejskal1965} (\cref{fig:diffusion_sequences}.a).
 The \ac{PGSE} sequence consists of a conventional spin-echo ($\ang{90}_x
 \xrightarrow{\tau} \ang{180}_y \xrightarrow{\tau} \text{acquire}$), with
@@ -100,7 +114,12 @@ the main field axis, where $l_z$ is the length of the sample lying within the
 receiver coil ($\approx \qty{1.5}{\centi\meter}$).
 After the \ang{90} pulse, the magnetisation will be $-M_y$.
 During the first \ac{PFG}, the spin's resonance frequency will become
-$\omega_{\text{PFG}} = -\gamma g z$, where $g$ is the strength of the \ac{PFG}.
+$\omega_{\text{PFG}} = -\gamma g z$, where $g$ is the strength of the \ac{PFG}
+(\unit{\tesla\per\meter})\footnote{
+    Gradient strengths are often expressed in units of
+    \unit{\gauss\per\centi\meter}, which is equivalent to
+    \qty[print-unity-mantissa = false]{e-2}{\tesla\per\meter}.
+}.
 Assuming the gradient is applied for a time $\delta$, the spin will
 precess by an angle of  $\alpha = -\gamma g z \delta$. After the \ang{180}
 pulse, the spin's magnetisation is as follows:
@@ -109,10 +128,10 @@ pulse, the spin's magnetisation is as follows:
     \xrightarrow{\text{PFG}} -M_y \cos(\alpha) + M_x \sin(\alpha)
     \xrightarrow{\ang{180}_y} -M_y \cos(\alpha) - M_x \sin(\alpha).
 \]
-Supposing that the spin has moved to a new position $z + \Delta_z$
-between the end of the first gradient and the beginning of the second,
-application of the second gradient causes precession by the angle
-$\beta = -\gamma g (z + \Delta_z) \delta$:
+Suppose the spin has moved to a new position $z + \Updelta_z$
+between the end of the first gradient and the beginning of the second.
+Application of the second gradient will cause precession by the angle
+$\beta = -\gamma g (z + \Updelta_z) \delta$:
 \begin{equation*}
    \begin{split}
         \xrightarrow{\text{PFG}}
@@ -120,22 +139,19 @@ $\beta = -\gamma g (z + \Delta_z) \delta$:
             M_x \cos(\alpha)\sin(\beta) -
             M_x \sin(\alpha)\cos(\beta) -
             M_y \sin(\alpha)\sin(\beta)\\
-        &= -M_y \cos(\gamma g \delta \Delta_z) -
-           M_x \sin(\gamma g \delta \Delta_z),
+        &= -M_y \cos(\gamma g \delta \Updelta_z) -
+           M_x \sin(\gamma g \delta \Updelta_z),
    \end{split}
 \end{equation*}
-In the scenario that the spin has not translated in the $z$-direction between
-\acp{PFG} ($\Delta_z = 0$), the net effect of the pulse sequence is nothing
-(except for a loss of signal amplitude through $T_2$ relaxation). However, if
-translation does occur, the signal phase is adjusted, as a function of the
-extent of translation $\Delta_z$. The gradients have effectively been employed
-to encode the change in position of the spin after a known amount of time.
+The \acp{PFG} have been been employed to encode the change in
+$z$-coordinate of the spin after a known amount of time, by influencing the
+phase of the magnetisation relative to its phase immediately after the \ang{90}
+pulse.
 Extending this idea to a system of many identical spins, which will translate
 by different extents between the \acp{PFG}, individual spin contributions to
 the bulk magnetisation will become dephased, leading to an attenuation of the
 amplitude of the resulting \ac{FID}. For species which diffuse at a faster
-rate, this effect is more severe, such that a more rapid attenuation is
-anticipated.
+rate, this effect is more severe, such that a more rapid attenuation results.
 
 \begin{figure}
    \includegraphics{diffusion_sequences/diffusion_sequences.pdf}
@@ -149,7 +165,7 @@ anticipated.
        \textbf{d.} One-shot DOSY.
        \ac{RF} pulses are denoted by solid rectangles. Diffusion-encoding
        gradients are denoted by sine-bell shapes with varying shades,
-       indicating that the intensity is incremented to create a \ac{2D}
+       indicating that the intensity ($g$) is incremented to create a \ac{2D}
        dataset. Spoiler gradients are denoted by solid black sine-bell shapes.
    }
    \label{fig:diffusion_sequences}
@@ -160,33 +176,25 @@ extend the classic Bloch equations to account for the effects of diffusion on
 magnetisation, the following equation, known as the \emph{Stejskal-Tanner
 equation}, may be derived:
 \begin{equation}
-    a(g) = a_0 \exp \left(- \gamma^2 \delta^2 g^2 D \left(\Delta -
+    a(g) = a_0 \exp \left(- \gamma^2 \delta^2 g^2 D \left(\Updelta -
     \frac{\delta}{3}\right)\right),
     \label{eq:stejskal_tanner}
 \end{equation}
 where
 $a_0 = \lim_{g \rightarrow 0} a$,
-$\gamma$ is the gyromagnetic ratio of the nucleus being studied
-(\unit{\radian \mega\hertz\per\tesla}),
-$g$ is the gradient strength (\unit{\tesla\per\meter})\footnote{
-    Gradient strengths are often expressed in units of
-    \unit{\gauss\per\centi\meter}, which is equivalent to
-    \qty[print-unity-mantissa = false]{e-2}{\tesla\per\meter}.
-},
-$\delta$ is the duration of each \ac{PFG} (\unit{\second}),
-$\Delta$ is the delay between the \acp{PFG}, often known as the diffusion time
+$\delta$ is the duration of each \ac{PFG} (\unit{\second}), and
+$\Updelta$ is the delay between the \acp{PFG}, often known as the \emph{diffusion time}
 (\unit{\second}),
-and $D$ is the translational diffusion constant of the species giving rise to
-the signal (\unit{\meter\squared\per\second}).
-While \cref{eq:stejskal_tanner} is widely stated in the literature, it is only
-strictly applicable when the \ac{PGSE} sequence is used, and \acp{PFG} with
-rectangular amplitude profiles are applied\footnote{
+While \cref{eq:stejskal_tanner} is widely stated in the diffusion \ac{NMR}
+literature, it is only strictly applicable when the \ac{PGSE} sequence is used,
+and \acp{PFG} with rectangular amplitude profiles are applied\footnote{
     Rectangular \acp{PFG} (i.e. those in which there is an infinitesimal time
     to rise to full strength, and to fall back to zero) are technically
     impossible to achieve as they would require gradient coils with zero
     inductance, though in practice it is possible to generate gradients with
     behaviour close to this.
-}.
+}. As will be discussed soon, the exact form of the pulse sequence impacts the
+functional form by which $a(g)$ varies.
 
 Tanner introduced a variant of the original \ac{PGSE} experiment called
 \ac{PGSTE}\cite{Tanner1970} (\cref{fig:diffusion_sequences}.b). Instead
@@ -204,18 +212,19 @@ encoding, in the sense that both diffusion-encoding \acp{PFG} are polarised in a
 single direction. Experiments also exist which employ
 \emph{bipolar} gradient elements\cite{Cotts1989,Wu1995}, which consist of a
 \ac{PFG}, followed by a \ang{180} pulse, and then a second \ac{PFG} with the
-opposite polarity to the first. A well-known example is the \ac{PGSTEBP}
-experiment (\cref{fig:diffusion_sequences}.c). Bipolar gradients are
-useful in circumstances where it is important to purge the effects of static
-gradients in the sample, caused by field inhomogeneities. Morris and coworkers
-have developed the \emph{one-shot} experiment\cite{Pelta2002}
+opposite polarity to the first. The \ac{PGSTEBP} experiment
+(\cref{fig:diffusion_sequences}.c) is analogous \ac{PGSTE}, with monopolar
+gradients replaced with bipolar ones. Bipolar gradients are useful in
+circumstances where it is important to purge the effects of static gradients in
+the sample, caused by field inhomogeneities. Morris and coworkers have
+developed the \emph{one-shot} experiment\cite{Pelta2002}
 (\cref{fig:diffusion_sequences}.d), which requires a single transient per
 gradient strength (i.e. there is no requirement for a phase-cycling scheme).
 This is achieved through the use of bipolar gradients which comprise
 asymmetrical \acp{PFG} with relative powers $1 + \alpha : 1 - \alpha$ for some
 $ 0 > \alpha > 1$ (commonly, $\alpha=0.2$).
 
-The typical means of performing a diffusion experiment is to run an
+The most common approach to conducting a diffusion experiment is to run an
 appropriate pulse sequence, and vary $g$ across increments.
 It is virtually always the case that the amplitudes of each signal in an
 \ac{FID} abide by the following general form of the Stejskal-Tanner equation:
@@ -229,20 +238,20 @@ A consideration of the Bloch-Torrey equations for a given experiment is
 necessary, with an extensive overview provided by Sinnaeve for most diffusion
 NMR experiments\cite{Sinnaeve2012}. In general, $c$ is as follows:
 \begin{equation}
-    c = \gamma^2 \delta^2 \sigma^2 \Delta^{\prime}.
+    c = \gamma^2 \delta^2 \sigma^2 \Updelta^{\prime}.
     \label{eq:stejskal_tanner_generic}
 \end{equation}
 $\sigma$ is the \emph{shape factor} of the \acp{PFG} (\textit{vide infra}),
-and $\Delta^{\prime}$ is the effective time that diffusion is allowed
-to occur. Examples of the form that $\Delta^{\prime}$ takes include:
+and $\Updelta^{\prime}$ is the effective time that diffusion is allowed
+to occur. Examples of the form that $\Updelta^{\prime}$ takes include:
 \begin{subequations}
     \begin{alignat}{2}
-        & \text{Monopolar gradients (\ac{PGSE}, \ac{PGSTE})} \quad && \Delta + 2 \left(\kappa - \lambda\right) \delta,
+        & \text{Monopolar gradients (\ac{PGSE}, \ac{PGSTE})} \quad && \Updelta + 2 \left(\kappa - \lambda\right) \delta,
         \label{eq:monopolar}\\
-        & \text{Bipolar gradients (\ac{PGSTEBP})} \quad && \Delta + \frac{\left(2 \kappa - 2 \lambda
+        & \text{Bipolar gradients (\ac{PGSTEBP})} \quad && \Updelta + \frac{\left(2 \kappa - 2 \lambda
             - 1\right)\delta}{4} - \frac{\tau}{2},\\
         & \text{One-shot}
-            \quad && \Delta + \frac{\left(\kappa - \lambda\right)
+            \quad && \Updelta + \frac{\left(\kappa - \lambda\right)
             \left(\alpha^2 + 1\right) \delta}{2} +
             \frac{\left(\delta + 2 \tau\right)\left(\alpha^2 - 1\right)}{4}.
     \end{alignat}
@@ -291,11 +300,11 @@ is typically equal to or close to $\nicefrac{1}{3}$. It can now be seen that
 the original Stejskal-Tanner equation (\cref{eq:stejskal_tanner}) comes from
 plugging \cref{eq:monopolar} into \cref{eq:stejskal_tanner_generic}, with
 parameters for rectangular \acp{PFG} used: $\sigma = 1$,  $\lambda =
-\nicefrac{1}{2}$, and  $\kappa = \frac{1}{3}$. In many situations,  $\Delta$
-dominates in the expression of $\Delta^{\prime}$, and so ensuring the correct
-form of $c$ could be seen as excessive. However, especially when  $\Delta$ is
+\nicefrac{1}{2}$, and  $\kappa = \frac{1}{3}$. In many situations,  $\Updelta$
+dominates in the expression of $\Updelta^{\prime}$, and so ensuring the correct
+form of $c$ could be seen as excessive. However, especially when  $\Updelta$ is
 not orders of magnitude greater than $\delta$, the exact form of
-$\Delta^{\prime}$ used in \cref{eq:stejskal_tanner_generic} will be
+$\Updelta^{\prime}$ used in \cref{eq:stejskal_tanner_generic} will be
 important for accurate measurements of $D$.
 
 \note{Talk about means of determining $T_1$,  $D$ etc: peak pick and fit
