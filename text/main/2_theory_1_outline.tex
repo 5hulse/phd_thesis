@@ -16,13 +16,11 @@ satisfies the following properties:
     \item The problem has a solution.
     \item The solution is unique.
     \item The solution's behaviour changes continuously with the parameters
-        provided. i.e. continuously changing the chemical shift of a given spin
-        will lead to the position of it's signal(s) in the resulting spectrum
-        to continuously move\footnote{
-            Other phenomena such as strong coupling effects may manifest too as
-            a given spin's chemical shift changes, those these will also evolve
-            in a continuous fashion.
-        }.
+        provided. For example, continuously changing the chemical shift of a
+        given spin will lead to the position of its signal(s) in the resulting
+        spectrum to continuously vary. Other phenomena such as strong coupling
+        effects may manifest as a given spin's chemical shift changes;
+        these will also evolve in a continuous fashion as well.
 \end{enumerate}
 The parametric estimation of \acp{FID} is an example of an \emph{inverse problem};
 given an acquired dataset, one seeks to determine the set of parameters which
@@ -32,16 +30,9 @@ Parametric estimation, as with many inverse problems, is
 one of the three properties above. For example, given \iac{FID}, it is possible
 to conceive of numerous signal parameter specifications which would lead to a
 faithful representation of the data in a least squares sense.
-Determining the ``optimal'' parameter set is therefore a rather difficult
+Therefore, determining the ``optimal'' parameter set is a rather difficult
 challenge.
 
-\begin{remark}
-    \label{rem:norm-data}
-    Prior to estimating the dataset, it is normalised, such that the signal
-    actually under consideration is $\nicefrac{\bY}{\lVert \bY \rVert}$.
-    To make the result reflect the unnormalised dataset, the estimated
-    amplitudes $\bdastar$ are multiplied by $\lVert \symbf{Y} \rVert$.
-\end{remark}
 For the purposes of this work, it is always assumed that an \ac{FID} to be
 estimated
 $\bY \in \mathbb{C}^{\None \times \cdots \times \ND}$
@@ -62,6 +53,11 @@ is hypercomplex in form, meaning that it obeys
     \label{eq:hypercomplex-fid}%
 \end{subequations}%
 where $\Dtd = \nicefrac{1}{\fswd}$.
+It should be noted that, prior to estimating the dataset, it is normalised
+such that the signal actually under consideration is $\nicefrac{\bY}{\lVert \bY
+\rVert}$.
+To make the final result reflect the unnormalised dataset, the estimated
+amplitudes can be multiplied by $\lVert \symbf{Y} \rVert$.
 Under this model, it is assumed that
 \iac{FID} consists of a summation of $M$ damped complex sinusoids in the
 presence in \ac{AWGN}.

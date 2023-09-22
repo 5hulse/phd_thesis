@@ -144,11 +144,9 @@
 
 \titleformat{\chapter}[hang]{}{%
   \thispagestyle{empty}
-  % \begin{minipage}[c][3em][c]{.8\textwidth}
   \parbox{0.8\textwidth}{
-      \raggedright\scshape\fontsize{28}{36}\selectfont#1
+      \raggedright\bfseries\fontsize{28}{36}\selectfont#1
   }
-  % \end{minipage}
   \hspace*{3em}
   \colorbox{boxcolor}{%
     \begin{minipage}[c][4em][c]{.5\textwidth}
@@ -161,7 +159,7 @@
     {}
     {}
     {-80pt}
-    {\centering{\scshape\fontsize{30}{30}\selectfont #1}}
+    {\centering{\bfseries\fontsize{28}{36}\selectfont #1}}
 
 %%% ToC formatting
 \RequirePackage{titletoc}
@@ -172,9 +170,9 @@
 \titlecontents{chapter}
 [0pt]
 {\vspace{15pt}\large}
-{\contentslabel{0pt}\scshape\hspace{20pt}}
+{\bfseries\contentslabel{0pt}\hspace{20pt}}
 {}
-{\hfill\upshape\contentspage}
+{\hfill\upshape\bfseries\contentspage}
 []
 
 \titlecontents{section}
@@ -189,7 +187,7 @@
 [40pt]
 {}
 {\contentslabel{0pt}\hspace{35pt}}
-{\contentsmargin{0pt}\scshape}
+{\contentsmargin{0pt}\bfseries}
 {\titlerule*[.5pc]{.}\contentspage}
 []
 
@@ -207,7 +205,7 @@
 %% Caption formatting
 \RequirePackage[%
     font=singlespacing,%
-    labelfont=small,bf,sc,%
+    labelfont=small,bf,%
     textfont=small,%
 ]{caption}
 
@@ -221,14 +219,12 @@
     	\begin{center}
         \huge
         \@title\\[1cm]
-      	\scshape\LARGE{\@author}\\[0.5cm]
+      	\bfseries\LARGE{\@author}\\[0.5cm]
       	\large\mdseries\upshape
       	\@college\\
       	University of Oxford\\[1cm]
         A thesis submitted for the degree of\\
-        \itshape
         \@degree\\
-        \upshape
         \@degreedate\\[1cm]
         \ifsupervisors
       	  Supervisors:\\
@@ -268,7 +264,7 @@
     \cleardoublepage
     \newpage
     \begin{center}
-    {\scshape\fontsize{30}{30}\selectfont #1\\ \vspace{0.5em}}
+    {\bfseries\fontsize{28}{36}\selectfont #1\\\vspace{1.5em}}
     \end{center}}%
     {}
 
@@ -297,6 +293,22 @@
     itemsep=-5pt,%
 }
 
+%%% Bibliography configuration
+\RequirePackage[
+    doi=false,
+    isbn=false,
+    url=false,
+    eprint=false,
+    sorting=none,
+    style=numeric-comp,
+    giveninits=true,
+    maxbibnames=20,
+]{biblatex}
+\DeclareDelimFormat{postnotedelim}{\addcolon\space}
+\DeclareFieldFormat{postnote}{\mknormrange{#1}}
+
+%%% Footnotes
+% Symbols instead of numbers
 \RequirePackage[symbol]{footmisc}
 \renewcommand{\thefootnote}{\fnsymbol{footnote}}
 % No footnote indent
@@ -305,3 +317,102 @@
   \noindent{\@makefnmark}#1}
 \makeatother
 
+%%% Hyperlink configuration
+\usepackage{hyperref}
+\definecolor{linkblue}{HTML}{0000ee}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=linkblue,
+    citecolor=black,
+}
+\def\UrlBreaks{\do\/\do-\do.}
+
+%%% Algorithm configuration
+\RequirePackage{algorithm,algpseudocode}
+\numberwithin{algorithm}{chapter}
+\makeatletter
+\algrenewcommand\ALG@beginalgorithmic{\footnotesize}
+\makeatother
+\captionsetup[algorithm]{%
+    font=singlespacing,%
+    labelfont={small,bf},%
+    textfont=small,%
+}
+
+%%% Internal reference configuration
+\RequirePackage[capitalize,noabbrev]{cleveref}
+\crefformat{equation}{Equation~#2#1#3}
+\Crefformat{equation}{Equation~#2#1#3}
+\crefrangeformat{equation}{Equations~(#3#1#4) to~(#5#2#6)}
+\Crefrangeformat{equation}{Equations~(#3#1#4) to~(#5#2#6)}
+\crefmultiformat{equation}{Equations~#2#1#3}%
+{ and~#2#1#3}{, #2#1#3}{ and~#2#1#3}
+\Crefmultiformat{equation}{Equations~#2#1#3}%
+{ and~#2#1#3}{, #2#1#3}{ and~#2#1#3}
+
+\makeatletter
+\crefformat{tcb@cnt@mylisting}{Code Listing~#2#1#3}
+\Crefformat{tcb@cnt@mylisting}{Code Listing~#2#1#3}
+\crefrangeformat{tcb@cnt@mylisting}{Code Listings~(#3#1#4) to~(#5#2#6)}
+\Crefrangeformat{tcb@cnt@mylisting}{Code Listings~(#3#1#4) to~(#5#2#6)}
+\crefmultiformat{tcb@cnt@mylisting}{Code Listings~#2#1#3}%
+{ and~#2#1#3}{, #2#1#3}{ and~#2#1#3}
+\Crefmultiformat{tcb@cnt@mylisting}{Code Listings~#2#1#3}%
+{ and~#2#1#3}{, #2#1#3}{ and~#2#1#3}
+\makeatother
+
+%%% Code listing configuration
+\RequirePackage{minted,tcolorbox,listings}
+\tcbuselibrary{listings,minted,breakable,skins}
+\definecolor{code_bg}{HTML}{f0f0f0}
+\renewcommand{\theFancyVerbLine}{\ttfamily\textbf{\small
+    \textcolor{black}{\arabic{FancyVerbLine}}}}
+\newtcbinputlisting[
+    list inside=mylist,
+    auto counter,
+    number within=chapter,
+]{\mylisting}[5]{%
+    listing only,
+    minted language={#1},
+    listing file={#2},
+    list entry={\protect\numberline{\thetcbcounter} #3},
+    title={{\small\textbf{Code Listing \thetcbcounter:} #4}},
+    label={#5},
+    boxrule=0pt,
+    titlerule=0.5pt,
+    borderline north={0.5pt}{0pt}{black},
+    borderline south={0.5pt}{-0.5pt}{black},
+    code={\setlength{\parskip}{0.05in}\singlespacing},
+    colframe=black,
+    colback=code_bg,
+    coltitle=black,
+    colbacktitle=white,
+    arc=0pt,
+    outer arc=0pt,
+    enhanced,
+    breakable,
+    top=0pt,
+    bottom=0pt,
+    width=\textwidth,
+    minted options = {
+        style=friendly,
+        linenos,
+        tabsize=0,
+        breaklines,
+        autogobble=false,
+        mathescape,
+        escapeinside=||,
+        numbersep=2.2mm,
+        xleftmargin=3mm
+    },
+    overlay = {
+    \begin{tcbclipinterior}
+        \fill[code_bg] (frame.south west) rectangle ([xshift=5mm]frame.north west);
+    \end{tcbclipinterior}
+    }
+}
+\renewcommand{\contentsname}{Contents}
+\renewcommand{\listfigurename}{Figures}
+\renewcommand{\listtablename}{Tables}
+\renewcommand{\listalgorithmname}{Algorithms}
