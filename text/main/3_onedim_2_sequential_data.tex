@@ -198,42 +198,43 @@ functional form by which $a(g)$ varies.
 
 Tanner introduced a variant of the original \ac{PGSE} experiment called
 \ac{PGSTE}\cite{Tanner1970} (\cref{fig:diffusion_sequences}.b). Instead
-of the diffusion period including a
-\ang{180} pulse, \ac{PGSTE} features two \ang{90} pulses, with the first being
-applied shortly after the initial \ac{PFG}, and the second being applied just
-before the second \ac{PFG}. The key difference between this and the \ac{PGSE}
-experiment is that decoherence during the diffusion time is
-dictated by longitudinal relaxation rather than transverse relaxation.
-\ac{PGSTE} is therefore favoured in scenarios where $T_1 \ll T_2$, as improved
-data sensitivity is achievable.
+of the diffusion period being bisected by a
+\ang{180} pulse, \ac{PGSTE} features two \ang{90} pulses at the beginning and
+end of the diffusion period.
+Hence, signal loss due to decoherence is
+a result of longitudinal relaxation in \ac{PGSTE}, as opposed to transverse
+relaxation in \ac{PGSE}. \ac{PGSTE} is therefore favoured in scenarios where
+$T_1 \ll T_2$, as improved data sensitivity is achievable.
 
 Both \ac{PGSE} and \ac{PGSTE} employ \emph{monopolar} \acp{PFG} for diffusion
-encoding, in the sense that both diffusion-encoding \acp{PFG} are polarised in a
-single direction. Experiments also exist which employ
-\emph{bipolar} gradient elements\cite{Cotts1989,Wu1995}, which consist of a
+encoding.
+Experiments also exist which employ
+\emph{bipolar} gradient elements, which consist of a
 \ac{PFG}, followed by a \ang{180} pulse, and then a second \ac{PFG} with the
-opposite polarity to the first. The \ac{PGSTEBP} experiment
-(\cref{fig:diffusion_sequences}.c) is analogous \ac{PGSTE}, with monopolar
-gradients replaced with bipolar ones. Bipolar gradients are useful in
-circumstances where it is important to purge the effects of static gradients in
-the sample, caused by field inhomogeneities. Morris and coworkers have
-developed the \emph{one-shot} experiment\cite{Pelta2002}
-(\cref{fig:diffusion_sequences}.d), which requires a single transient per
-gradient strength (i.e. there is no requirement for a phase-cycling scheme).
-This is achieved through the use of bipolar gradients which comprise
-asymmetrical \acp{PFG} with relative powers $1 + \alpha : 1 - \alpha$ for some
-$ 0 > \alpha > 1$ (commonly, $\alpha=0.2$).
+opposite polarity to the first\cite{Cotts1989,Wu1995}. The \ac{PGSTEBP} experiment
+(\cref{fig:diffusion_sequences}.c) can be thought of as the bipolar analogue of
+\ac{PGSTE}.
+Bipolar gradients are useful in circumstances where it is important to purge
+the effects of static gradients in the sample, caused by field inhomogeneities.
+Morris and coworkers have developed the \emph{one-shot}
+experiment\cite{Pelta2002} (\cref{fig:diffusion_sequences}.d), which requires a
+single transient per gradient strength (i.e. there is no requirement for a
+phase-cycling scheme).  This is achieved through the use of bipolar gradients
+which comprise asymmetrical \acp{PFG} with relative powers $1 + \alpha : 1 -
+\alpha$ for some $ 0 > \alpha > 1$ (commonly, $\alpha=0.2$).
 
-The most common approach to conducting a diffusion experiment is to run an
-appropriate pulse sequence, and vary $g$ across increments.
-It is virtually always the case that the amplitudes of each signal in an
-\ac{FID} abide by the following general form of the Stejskal-Tanner equation:
+The most common means of conducting a diffusion experiment is to run one of
+pulse sequences mentioned above (or variants thereof) with $g$ varied across
+increments.
+It is virtually always the case that the \ac{FID}'s signal amplitudes will
+abide by the following general form of the Stejskal-Tanner equation,
+regardless of the exact pulse sequence used:
 \begin{equation}
-    a(g) = a_0 \exp\left(- c g^2 D\right)
+    a(g) = a_0 \exp\left(- c g^2 D\right),
 \end{equation}
 for some constant $c$ (\unit{\tesla\per\second\squared}).
 The functional form of $c$ depends on the type of experiment used, as well as
-the amplitude profile of the \acp{PFG}.
+the amplitude profile (\emph{shape}) of the \acp{PFG}.
 A consideration of the Bloch-Torrey equations for a given experiment is
 necessary, with an extensive overview provided by Sinnaeve for most diffusion
 NMR experiments\cite{Sinnaeve2012}. In general, $c$ is as follows:
@@ -244,23 +245,25 @@ NMR experiments\cite{Sinnaeve2012}. In general, $c$ is as follows:
 $\sigma$ is the \emph{shape factor} of the \acp{PFG} (\textit{vide infra}),
 and $\Updelta^{\prime}$ is the effective time that diffusion is allowed
 to occur. Examples of the form that $\Updelta^{\prime}$ takes include:
-\begin{subequations}
-    \begin{alignat}{2}
-        & \text{Monopolar gradients (\ac{PGSE}, \ac{PGSTE})} \quad && \Updelta + 2 \left(\kappa - \lambda\right) \delta,
-        \label{eq:monopolar}\\
-        & \text{Bipolar gradients (\ac{PGSTEBP})} \quad && \Updelta + \frac{\left(2 \kappa - 2 \lambda
-            - 1\right)\delta}{4} - \frac{\tau}{2},\\
-        & \text{One-shot}
-            \quad && \Updelta + \frac{\left(\kappa - \lambda\right)
+\begin{equation}
+    \Updelta^{\prime} =
+    \begin{cases}
+        \Updelta + 2 \left(\kappa - \lambda\right) \delta &
+        \text{\ac{PGSE}, \ac{PGSTE}}\\
+        \Updelta + \frac{\left(2 \kappa - 2 \lambda - 1\right)\delta}{4} - \frac{\tau}{2} &
+        \text{\ac{PGSTEBP}} \\
+        \Updelta + \frac{\left(\kappa - \lambda\right)
             \left(\alpha^2 + 1\right) \delta}{2} +
-            \frac{\left(\delta + 2 \tau\right)\left(\alpha^2 - 1\right)}{4}.
-    \end{alignat}
-\end{subequations}
+        \frac{\left(\delta + 2 \tau\right)\left(\alpha^2 - 1\right)}{4} &
+        \text{One-shot}
+    \end{cases}.
+    \label{eq:Delta-prime}
+\end{equation}
 $\tau$ is the delay between the initial \ac{PFG} and the \ang{180} pulse in
 experiments with bipolar gradients.
 The factors $\sigma$,  $\lambda$, and $\kappa$ are related to the shape
 function $s(\epsilon) : \epsilon \in [0, 1]$ of the \ac{PFG}, which describes
-the variation in the intensity of the gradient as a function of its progression.
+the variation of the gradient amplitude as a function of its progression.
 For a rectangular gradient, $s(\epsilon) = 1 \forall \epsilon$, whereas for a
 sine-bell gradient, $s(\epsilon) = \sin(\pi \epsilon)$. The cumulative
 distribution of the shape function is given by:
@@ -268,14 +271,15 @@ distribution of the shape function is given by:
     S(\epsilon) = \int_0^{\epsilon} s\left(\epsilon^{\prime}\right)
             \mathrm{d} \epsilon^{\prime} \quad \forall \epsilon \in [0, 1].
 \end{equation}
-The corresponding definition of $S$ for the case of a gradient made of $N_g$
-discrete steps with shape $\symbf{s} \in \mathbb{R}^{N_g}$ is
+The corresponding definition of $S$ for the case of a gradient made of $N$
+discrete steps with shape $\symbf{s} \in \mathbb{R}^{N}$ is
 \begin{equation}
     S_n =
         \frac{1}{n} \sum_{i = 1}^{n} s_i \quad
-        \forall n \in \left\lbrace 1, \cdots, N_g\right\rbrace,
+        \forall n \in \left\lbrace 1, \cdots, N\right\rbrace,
 \end{equation}
-The three factors are given by
+$\sigma$, $\lambda$, and $\kappa$ are related to the shape function cumulative
+distribution as follows:
 \begin{subequations}
     \begin{gather}
         \sigma = S(1),\\
@@ -283,51 +287,103 @@ The three factors are given by
         \kappa = \frac{1}{\sigma^2} \int_0^1 S^2(\epsilon) \mathrm{d} \epsilon,
     \end{gather}
 \end{subequations}
-with their discrete counterparts being
+with their discrete counterparts being:
 \begin{subequations}
     \begin{gather}
-        \sigma = S_{N_g} \\
-        \lambda = \frac{1}{\sigma N_g} \sum_{n = 1}^{N_g} S_n
-            = \frac{1}{\sigma N_g} \sum_{n=1}^{N_g}
+        \sigma = S_{N} \\
+        \lambda = \frac{1}{\sigma N} \sum_{n = 1}^{N} S_n
+            = \frac{1}{\sigma N} \sum_{n=1}^{N}
             \left(\frac{1}{n} \sum_{i=1}^{n} s_i\right) \\
-        \kappa = \frac{1}{\sigma^2 N_g} \sum_{n = 1}^{N_g} S^2_n
-            = \frac{1}{\sigma^2 N_g} \sum_{n = 1}^{N_g}
-            \left(\frac{1}{n} \sum_{i=1}^{n} s_i\right)^2
+        \kappa = \frac{1}{\sigma^2 N} \sum_{n = 1}^{N} S^2_n
+            = \frac{1}{\sigma^2 N} \sum_{n = 1}^{N}
+            \left(\frac{1}{n} \sum_{i=1}^{n} s_i\right)^2.
     \end{gather}
 \end{subequations}
 For \acp{PFG} with a symmetrical shape, $\lambda = \nicefrac{1}{2}$. $\kappa$
 is typically equal to or close to $\nicefrac{1}{3}$. It can now be seen that
-the original Stejskal-Tanner equation (\cref{eq:stejskal_tanner}) comes from
-plugging \cref{eq:monopolar} into \cref{eq:stejskal_tanner_generic}, with
-parameters for rectangular \acp{PFG} used: $\sigma = 1$,  $\lambda =
-\nicefrac{1}{2}$, and  $\kappa = \frac{1}{3}$. In many situations,  $\Updelta$
+the original Stejskal-Tanner equation (\cref{eq:stejskal_tanner}) for the
+\ac{PGSE} experiment comes from
+inserting \cref{eq:Delta-prime} into \cref{eq:stejskal_tanner_generic},
+assuming a rectangular shape factor for the \acs{PFG}:
+$\sigma = 1$,  $\lambda = \nicefrac{1}{2}$, and  $\kappa = \frac{1}{3}$.
+In many situations,  $\Updelta$
 dominates in the expression of $\Updelta^{\prime}$, and so ensuring the correct
 form of $c$ could be seen as excessive. However, especially when  $\Updelta$ is
 not orders of magnitude greater than $\delta$, the exact form of
 $\Updelta^{\prime}$ used in \cref{eq:stejskal_tanner_generic} will be
-important for accurate measurements of $D$.
+important for accurate measurements of the diffusion coefficient.
 
-\note{Talk about means of determining $T_1$,  $D$ etc: peak pick and fit
-amplitudes across increments, DOSY, DECRA/SCORE etc}
+Determining the quantity of interest from the above experiments is most
+typically done using the following procedure:
+\begin{enumerate}
+    \item The series of \acp{FID} are processed in an equivalent fashion,
+        leading to a set of \ac{1D} spectra.
+    \item Peak-picking is performed to locate the chemical shift values which
+        correspond to signals of interest within the spectra.
+    \item For each chemical shift of interest, the values of the spectra are
+        extracted, and the relevant function (see
+        \cref{tab:seq-equations}) is fit to these values.
+\end{enumerate}
+This method is \emph{univariate} in the sense that it considers a single sample
+(chemical shift) in isolation from the rest of the data.
+It is popular to visualise the result of univariate fitting by plotting \ac{2D}
+pseudo-spectra, featuring axes denoting (a) chemical shift, and (b)
+the parameter of interest. Distributions taking
+into account the predicted value of interest and the associated uncertainty
+are plotted at each chemical shift.
+In the context of diffusion \ac{NMR}, this form of data analysis is
+referred to as \ac{DOSY}\cite{Morris2009b}.
+The \ac{DOSY} approach works well in cases where peaks of interest are intense
+and well-resolved. However, when there is considerable peak overlap, accurately
+determining the parameter of interest associated with a given signal becomes
+more challenging, since nearby signals will influence the rate of amplitude
+decay at the chemical shift of interest. An aggregated value of the
+contributing decay rates will be predicted using the above approach.
+In such cases, it is possible to instead fit
+a superposition of functions to the spectral amplitudes, as a means of
+separating out contributions from the overlapping signals\cite{Nilsson2006}.
+However, this process is usually only effective when the data has very high
+\ac{SNR}, and the quantities of interest associated with the overlapping
+signals differ considerably.
+
+An alternative approach
+is to use a \emph{multivariate} analysis method, which considers the entire
+spectrum holistically, and attempts to decompose the spectrum into components
+with different decay rates. Prominent examples of multivariate methods
+developed for diffusion data analysis are \ac{DECRA}\cite{Windig1998} and
+\emph{speedy} component resolution (\acs{SCORE})\cite{Nilsson2008}, an
+improvement over the original \acs{CORE}\cite{Stilbs1996,Stilbs1996b}.
+\acused{SCORE}\acused{CORE}
+Multivariate techniques tend to only be only effective in situations where a
+few (2 or 3) different signal decay rates are present. In diffusion
+\ac{NMR}, each molecule in the sample will give rise to the same decay rate
+across its signals (effects such as chemical exchange can lead to exceptions to
+this: see \cref{fig:andrographolide-dosy}).
+These methods are generally unsuitable for inversion recovery and \ac{CPMG} datasets:
+each spin in a sample will possess different $T_1$ and $T_2$ values, such that
+a far greater number of decay rates will be present.
 
 \subsection{Methodology}
-The datasets arising from the experiments described above can be considered in
-a general fashion.
-Suppose the experiment of interest is run with $K \in \mathbb{N}$ increments,
-such that there is a vector  $\symbf{p} \in \mathbb{R}^K$ which gives the
-pulse sequence variable for each increment.
-The complete dataset that results from the experiment is expected to take the
-form $\symbf{Y} \in \mathbb{C}^{K \times N}$ in which the value of the
-experimental parameter attenuates the amplitudes of the contributing
-resonances:
+A straightforward extension of \ac{1D} parametric estimation
+provides a route to estimating amplitude-attenuated datasets in a
+fashion with similarities to the traditional univariate (\ac{DOSY}) approach.
+In this section, the theory of this method is discussed.
+
+The datasets of interest can be considered in a general fashion.
+Suppose the experiment is run with $K \in \mathbb{N}$ increments,
+such that there is a vector  $\symbf{p} \in \mathbb{R}^K$ comprising the
+values of the pulse sequence variable used to acquire each \ac{1D} \ac{FID} in
+the data.  The complete dataset is expected to take the form $\symbf{Y} \in
+\mathbb{C}^{K \times N}$ in which the value of the pulse sequence variable
+affects the amplitudes of the contributing signals:
 \begin{equation}
     y_{k,n} = \sum_{m=1}^{M} a_{k,m} \exp(\iu \phi_m)
     \exp((2 \pi \iu (f_m - \foff) - \eta_m) n \Dt).
 \end{equation}
-$\forall k \in \lbrace 1, \cdots, K \rbrace$ and $\forall n \in \lbrace 0,
+$\forall k \in \lbrace 1, \cdots, K \rbrace$, $\forall n \in \lbrace 0,
 \cdots, N-1 \rbrace$.
-$\symbf{A} \in \mathbb{R}^{K \times M}$ is a matrix of the oscillator amplitudes
-across the increments:
+$\symbf{A} \in \mathbb{R}^{K \times M}$ is a matrix of the signal amplitudes
+across the \acp{FID}:
 \begin{equation}
     \symbf{A} =
     \begin{bmatrix}
@@ -346,22 +402,22 @@ A complete parameter vector for the dataset is given by $\bth \in
     \end{bmatrix}\T,
 \end{equation}
 where $\symbf{a}_k$ denotes the relevant row in $\symbf{A}$.
-The amplitudes are a function of the experiment parameter with the following
+The amplitudes are a function of the pulse sequence variable with the following
 form:
 \begin{equation}
-    a_{k,m} = a_{0,m} \mathcal{A} (\psi_m \hspace*{2pt} | \hspace*{2pt} p_k),
+    a_{k,m} = a_{0,m} \mathcal{A} (\psi_m \hspace*{2pt} | \hspace*{2pt} p_k).
 \end{equation}
-where $\symbf{a}_0 \in \mathbb{R}^{M}$ is a vector of the ``maximal''
-amplitudes for the signals, and $\symbf{\psi} \in \mathbb{R}^M$ is a vector
-of the parameter of interest (diffusion coefficient, relaxation time etc.) of
+$\symbf{a}_0 \in \mathbb{R}^{M}$ is a vector of the ``maximal
+amplitudes'' of the signals, and $\symbf{\psi} \in \mathbb{R}^M$ is a vector
+of the parameter of interest ($T_1$,  $T_2$, $D$) associated with
 each signal. $a_{0,m}$ can be thought of as the largest
 possible amplitude that could be obtained for signal $m$ with the given
-experiment:
+pulse sequence:
 \begin{itemize}
     \item In an inversion recovery experiment, the largest amplitude is
         achieved as $\tau \rightarrow \infty$, as the spin system will have
         returned back to equilibrium prior to the \ang{90} pulse.
-    \item With \ac{CPMG} experiments, the greatest amplitude will occur when
+    \item With \ac{CPMG} experiments, the largest amplitude will occur when
         $n = 0$, as no time is designated for transverse
         relaxation to take place.
     \item For diffusion experiments, the largest amplitude is achieved when
@@ -383,7 +439,7 @@ the forms of $\mathcal{A}$ are listed in \cref{tab:seq-equations}.
             $\mathcal{A}(\psi | p)$ &
             $\frac{\partial \mathcal{A}(\psi | p)}{\partial \psi}$ &
             $\frac{\partial^2 \mathcal{A}(\psi | p)}{\partial \psi^2}$ \\ \hline
-            Inversion Recovery &
+            Inv. Recov.&
             $\tau$ &
             $T_1$ &
             $\left(1 - 2 \exp \left(-\frac{\tau}{T_{1}}\right)\right)$ &
@@ -419,22 +475,25 @@ the forms of $\mathcal{A}$ are listed in \cref{tab:seq-equations}.
 \end{table}
 
 \subsubsection{Estimating amplitude-attenuated datasets}
-The close relationship between signals across increments means that completely
-estimating each signal in turn is typically not necessary. Instead, after the
-first increment is estimated from scratch, yielding $\bth_{k=1} \in
-\mathbb{R}^{4M}$, the phases, frequencies and damping factors are fixed, and
-subsequent increments are determined by taking the parameter estimate of the
-previous iteration, and subjecting it to a \ac{NLP} routine in which only the
-amplitudes are allowed to be varied. Thus, determining parameter estimates for
+The close relationship between the \acp{FID} within the dataset means that
+completely estimating all of them separately, without exploiting information
+from previously estimated \acp{FID}, is unnecessary.
+Instead, after the first increment is estimated without prior knowledge,
+yielding $\bth_{k=1} \in \mathbb{R}^{4M}$, the phases, frequencies and damping
+factors, all of which should remain the same across the
+\acp{FID}, are fixed.
+Subsequent parameter estimates are determined by taking the estimate
+of the previous \ac{FID}, and subjecting it to \iac{NLP} routine in which only
+the amplitudes are optimised. Thus, estimating
 each iteration $k \in \lbrace2, \cdots, K\rbrace$ is reduced to the
 problem\footnote{
     $\mathcal{F}$ in \cref{eq:fidelity-amp} reads as ``the fidelity
-    with respect to the amplitudes $\bda$, given phases $\bdphi$,
-    frequencies $\bdfone$, damping factors  $\bdetaone$, and \ac{FID}
-    $\bY[k,:]$''. The expression has exactly the same mathematical form as
-    \cref{eq:fidelity}, though it emphasises that the phases, frequencies and
-    damping factors are no longer variables to be optimised, but fixed
-    parameters.
+    with respect to the amplitudes $\bda$, given phases $\bdphi_{k=1}$,
+    frequencies $\bdf_{k=1}$, damping factors  $\bdeta_{k=1}$, and \ac{FID}
+    $\by_k$''. The fidelity has exactly the same mathematical form as
+    \cref{eq:fidelity}, though it has been emphasised that the phases,
+    frequencies and damping factors are no longer variables to be optimised,
+    but fixed parameters.
 }
 \begin{equation}
     \symbf{a}_k = \argmin_{\bda \in \mathbb{R}^M}
@@ -442,12 +501,31 @@ problem\footnote{
         \bdphi_{k=1}, \bdf_{k=1}, \bdeta_{k=1}, \by_k).
         \label{eq:fidelity-amp}
 \end{equation}
-An \ac{NLP} routine can solve this very efficiently, typically in few
+\Iac{NLP} routine can solve this very efficiently, typically in a few
 iterations, on account of the linear dependence of the model with respect to
-the oscillator amplitudes. The linear dependence also means that second
+the oscillator amplitudes. The linear dependence means that second
 derivatives of the model are all zero (see \cref{eq:amp-second-deriv}),
 such that only first derivatives need to be computed to derive an exact Hessian
 matrix of the fidelity.
+Due to the linear dependence on amplitudes, an alternative means of
+deriving amplitudes for each increment is to determine the following:
+\begin{subequations}
+    \begin{gather}
+        \symbf{a}_k = \symbf{Z}^+ \symbf{y}_k, \\
+        \symbf{Z} =
+        \begin{bmatrix}
+            1 & \cdots & 1 \\
+            z_1 & \cdots & z_M\\
+            \vdots & \ddots & \vdots \\
+            z_1^{N-1} & \cdots & z_M^{N-1}
+        \end{bmatrix}
+        \begin{bmatrix}
+            \exp(\iu \phi_1) \\ \vdots \\ \exp(\iu \phi_M)
+        \end{bmatrix},\\
+        z_m = \exp((2\pi \iu (f_m - \foff) - \eta_m)\Dt).
+    \end{gather}
+\end{subequations}
+An outline of the estimation procedure is provided by \cref{alg:estimate-seq}.
 
 \begin{algorithm}
     \caption[
@@ -459,8 +537,8 @@ matrix of the fidelity.
         variation in amplitudes across increments.
         \textsc{NLPAmp} denotes a
         routine which is akin to \textsc{NLP} (\cref{alg:nlp}), except
-        only amplitudes are allowed to be altered, whilst phases, frequencies
-        and damping factors are fixed.
+        only amplitudes are optimised; phases, frequencies and damping factors
+        are fixed.
     }
     \label{alg:estimate-seq}
     \begin{algorithmic}[1]
@@ -500,33 +578,18 @@ matrix of the fidelity.
     \end{algorithmic}
 \end{algorithm}
 
-Due to the linear dependence on amplitudes, an alternative means of
-deriving amplitudes for each increment is to determine the following:
-\begin{subequations}
-    \begin{gather}
-        \symbf{a}_k = \symbf{Z}^+ \symbf{y}_k, \\
-        \symbf{Z} =
-        \begin{bmatrix}
-            \exp(\iu \phi_1) & \cdots & \exp(\iu \phi_M) \\
-            \exp(\iu \phi_1) z_1 & \cdots & \exp(\iu \phi_M) z_M\\
-            \vdots & \ddots & \vdots \\
-            \exp(\iu \phi_1) z_1^{N-1} & \cdots & \exp(\iu \phi_M) z_M^{N-1}
-        \end{bmatrix},\\
-        z_m = \exp((2\pi \iu (f_m - \foff) - \eta_m)\Dt).
-    \end{gather}
-\end{subequations}
 
 
 \subsubsection{Determining the parameter of interest}
-Having generated a complete parameter estimate for the \ac{FID}, focus
-subsequently moves to determining the parameters of interest $\symbf{\psi}$.
+Having generated a parameter estimate for each \ac{FID} in the dataset, focus
+now moves to determining the parameter of interest for each signal $\symbf{\psi}$.
 For each oscillator, the maximal amplitude and parameter of
-interest are determined by solving the following problem $\forall m \in \lbrace
-1, \cdots, M \rbrace$:
+interest are determined by solving the following problem $\forall m
+\in \lbrace 1, \cdots, M \rbrace$:
 \begin{equation}
     \begin{bmatrix}
         a_{0,m}^{(*)} \\
-        \psi_{0,m}^{(*)}
+        \psi_{m}^{(*)}
     \end{bmatrix} =
     \argmin_{
         [a_0 \hspace*{5pt} \psi]\T \in \mathbb{R}^2
@@ -536,31 +599,31 @@ interest are determined by solving the following problem $\forall m \in \lbrace
     \right\rVert^2,
 \end{equation}
 where $\symbf{a}_m$ corresponds to the $m$\textsuperscript{th} column of
-$\symbf{A}$.
-This is another example of a residual sum-of-squares problem, and can also be
-solved using \iac{NLP} routine. The gradient vector and Hessian
-matrix of the fidelity take very similar functional forms to those for \ac{FID}
-estimation (see \cref{eq:grad} and \cref{eq:hess}), and are as follows
-$\forall i, j \in \lbrace 0, 1 \rbrace$:
+$\symbf{A}$.  This is another example of \iac{RSS} problem, which can be solved using
+\iac{NLP} routine as already described. The gradient vector and Hessian matrix
+of the fidelity take very similar functional forms to those for \ac{FID}
+estimation for this reason (see \cref{eq:grad} and \cref{eq:hess}), and are as
+follows $\forall
+i, j \in \lbrace 0, 1 \rbrace$:
 \begin{subequations}
     \begin{gather}
         g_i =
             -2 \left \langle
                 \symbf{a}_m - a_0 \mathcal{A}(\psi | \symbf{p}),
                 \frac{\partial a_0 \mathcal{A} (\psi | \symbf{p})}
-                {\partial \vartheta_i}
-            \right \rangle\\
+                {\partial \theta_i}
+            \right \rangle,\\
         h_{i,j} =
             2 \left( \left \langle
-                \frac{\partial a_0 \mathcal{A} (\psi | \symbf{p})}{\partial \vartheta_i},
-                \frac{\partial a_0 \mathcal{A} (\psi | \symbf{p})}{\partial \vartheta_j}
+                \frac{\partial a_0 \mathcal{A} (\psi | \symbf{p})}{\partial \theta_i},
+                \frac{\partial a_0 \mathcal{A} (\psi | \symbf{p})}{\partial \theta_j}
             \right \rangle -
             \left \langle
                 \symbf{a}_m - a_0 \mathcal{A}(\psi | \symbf{p}),
                 \frac{\partial^2 a_0 \mathcal{A} (\psi | \symbf{p})}{\partial
-                \vartheta_i\partial \vartheta_j}
+                \theta_i\partial \theta_j}
             \right \rangle \right), \\
-            \mathbb{R}^2 \ni \symbf{\vartheta} = [a_0 \hspace*{10pt} \psi]\T,
+            \symbf{\theta} = [a_0 \hspace*{10pt} \psi]\T,
     \end{gather}
 \end{subequations}
 with explicit expressions for the requisite first and second derivatives being
@@ -583,11 +646,11 @@ experiments of interest of $\mathcal{A}$ are given in
 \cref{tab:seq-equations}.
 
 \subsubsection{Displaying results}
-Visualising the results from the routine described above can be done in a
-similar fashion to \ac{DOSY} analysis. For each oscillator in the estimation
-result, a \ac{2D} array is generated, corresponding to the outer product of the
-\ac{FT} of the oscillator ($\symbf{s}_m$) and a distribution describing the
-predicted value of $\psi$ ($\symbf{d}_m$).
+It is possible to visualise the estimation results acquired by this method in a
+similar fashion to \ac{DOSY} analysis. For each oscillator in the estimated
+model, a \ac{2D} array is generated, corresponding to the outer product of the
+\ac{FT} of the model oscillator ($\symbf{s}_m$) and a distribution describing
+the predicted value of $\psi$ ($\symbf{d}_m$).
 \begin{subequations}
     \begin{gather}
         \mathbb{R}^{R \times N} \ni \symbf{S} = \sum_{m=1}^{M}
@@ -596,31 +659,27 @@ predicted value of $\psi$ ($\symbf{d}_m$).
         \symbf{s}_m = \Re\left(\FT\left(\bx_m\right)\right),\\
         x_{m,n} = a_{0,m} \exp(\iu \phi_m)
         \exp((2 \pi \iu (f_m - \foff) - \eta_m ) n \Dt),
-    \end{gather}
-    \label{eq:dosy-cross-product}
+    \end{gather}%
+    \label{eq:dosy-cross-product}%
 \end{subequations}
 where $R \in \mathbb{N}$ is the number of samples to generate the distribution from.
-The exact form that the distribution should take is not set in stone, though it
-should indicate two key pieces of information:
-(i) its maximum should coincide with the predicted value of $\psi_m$ and (ii) its
-width should indicate the level of uncertainty associated with the prediction.
-In this work, the
+The exact form that the distribution $\symbf{d}_m$ should take is arbitrary,
+though it should indicate two key pieces of information:
+(a) its maximum should coincide with the predicted value of $\psi_m$, and (b) its
+broadness should indicate the level of uncertainty associated with the
+prediction. In this work, the
 distribution used is a Gaussian distribution with mean $\psi_m$ and standard
 deviation $c \epsilon_m$, where $\epsilon_m$ is the estimation error associated
-with oscillator $m$'s parameter of interest,\footnote{
-    The errors can be extracted from the Hessian matrix once the \ac{NLP}
-    routine has reached convergence. See \cref{subsec:errors} for more
-    information.
-}
-and $c \in \mathbb{R}_{>0}$ is an arbitrary linewidth factor which can be chosen
-to ensure clear visibility of the peaks.\footnote{
-    In cases where the estimation error is small, the distribution can be
-    so sharp relative to the resolution used for plotting, that
-    $\text{max}(\symbf{d}_m)$ can be $0$ if the peak of the distribution does
-    not coincide with one of the sampling values. In these situations, errors
-    arise due to attempted division by $0$ (see \cref{eq:dosy-spectrum}).
-    Broadening the distribution (i.e. setting $c > 1$) resolves issues with
-    plotting discrete samples.
+with oscillator $m$'s parameter of interest, and $c \in \mathbb{R}_{>0}$ is an
+arbitrary broadening factor which can be chosen to ensure clear visibility of
+the peaks.\footnote{
+    In cases where the error in estimating $\psi_m$ is very small, it may be
+    that the distribution derived from \cref{eq:distribution} satisfies
+    $\text{max}(\symbf{d}_m)=0$ if the peak of the distribution does
+    not closely coincide with any of the sampled values. The affected
+    oscillator will not appear in the \ac{DOSY}-like spectrum under these
+    circumstances.
+    Broadening the distribution (i.e. setting $c > 1$) resolves this.
 }
 \begin{subequations}
     \begin{gather}
@@ -628,12 +687,14 @@ to ensure clear visibility of the peaks.\footnote{
         \exp\left(
             - \frac{(p_r - \psi_m)^2}{2 (c \epsilon_m)^2}
         \right)\quad \forall r \in \lbrace 1, \cdots, R \rbrace,\\
-        p_r = p_{\text{min}} + \frac{r (p_{\text{max}} - p_{\text{min}})}{R-1}.
+        p_r = p_{\text{min}} + \frac{(r-1) (p_{\text{max}} - p_{\text{min}})}{R-1}.
     \end{gather}
-    \label{eq:distribution}
+    \label{eq:distribution}%
 \end{subequations}
 $p_{\text{min}}$ and $p_{\text{max}}$ specify the range of values over which to
 generate the distribution.
+The errors $\symbf{\epsilon}$ can be extracted from the Hessian matrix at
+convergence; more detail on this is provided in \cref{subsec:errors}.
 
 \subsection{Results}
 \label{subsec:seq-results}
@@ -641,17 +702,17 @@ generate the distribution.
 \begin{figure}
     \includegraphics{five_multiplets_invrec/five_multiplets_invrec.pdf}
     \caption[
-        Three examples of results generated on simulated inversion recovery
-        datasets comprising five ddd multiplet structures.
+        Three examples of results generated wehn considering simulated
+        inversion recovery datasets comprising five ddd multiplet structures.
     ]
     {
-        Three examples of results generated on
+        Three examples of results generated when considering
         simulated inversion recovery datasets comprising five ddd multiplet
         structures.
         \textbf{a.} Plot of the result generated for the first increment ($\tau
-        = \qty{0}{\second}$), with each plot multiplied by $-1$. Black:
+        = \qty{0}{\second}$), with all the plots multiplied by $-1$. Black:
         spectrum of the data. Coloured lines: spectra of individual oscillators
-        generated by the estimation routine. Oscillators with the same colour
+        present in the estimated model. Oscillators with the same colour
         are components of the same multiplet.
         \textbf{b.} Distribution of $T_1$ values, generated using
         \cref{eq:distribution}, with
@@ -659,52 +720,50 @@ generate the distribution.
         $p_{\text{max}} = \qty{5.3}{\second}$,
         $c = 40$,
         $R=128$.
-        \textbf{c.} \ac{DOSY}-style contour plot of the result, generated using
+        \textbf{c.} \ac{DOSY}-style representation of the result, generated using
         \cref{eq:dosy-cross-product}.
         Dashed horizontal lines denote the true $T_1$ values for each spin.
-        \textbf{c.} Estimation result for each increment for Run 3,
+        \textbf{d.} Estimation result for each increment for Run 3,
         illustrating the evolution of the amplitudes of each oscillator with
         $\tau$.
     }
     \label{fig:five-multiplets-invrec}
 \end{figure}
-\Cref{fig:five-multiplets-invrec} shows the result of the described
-method in determining the $T_1$ values of resonances in a simulated inversion
-recovery datasets featuring 5 overlapping ddd multiplet structures. The spin
-systems used to generate the datasets were constructed in a similar way to that
-described for the ``Four Multiplets'' example in
-\cref{subsec:cupid-results}. In this case however, 5 estimated spins were
-present instead of 4. Constraints were also placed on the shifts and
-couplings to ensure that no two oscillators would have frequencies with a
-difference less than $\nicefrac{\fswone}{\None}$ \note{Describe in the
-appendix}. For each spin, a $T_1$ value
-was sampled from $\mathcal{U}(\qty{1}{\second}, \qty{5}{\second})$, and a $T_2$
-value was sampled from  $\mathcal{U}(\qty{0.2}{\second}, \qty{0.6}{\second})$.
+\Cref{fig:five-multiplets-invrec} shows the result achieved by applying the
+described method in determining the $T_1$ associated with signals in a set of
+three of simulated inversion recovery datasets featuring 5 overlapping ddd
+multiplet structures.
+Each dataset was generated using spin systems such that within a
+known region of the spectrum (\SIrange{0.15}{-0.15}{\partspermillion}) five ddd
+multiplet structures with significant overlap, abiding by the weak coupling
+approximation, were present.
+Constraints were placed on the shifts and
+couplings of the spin system to ensure that no two signals would have
+frequencies with a difference less than $\nicefrac{\fswone}{\None}$.
+For each spin, a $T_1$ value was sampled from $\mathcal{U}(\qty{1}{\second},
+\qty{5}{\second})$, and a $T_2$ value was sampled from
+$\mathcal{U}(\qty{0.2}{\second}, \qty{0.6}{\second})$.
 The inversion recovery experiment was simulated using \textsc{Spinach}, with the
 relaxation phenomena described by the ``extended $T_1$/$T_2$
-approximation'' (see Appendix \note{REF}).
-Each dataset was provided \ac{AWGN} such that the target \ac{SNR} of the
-datasets as a whole was \qty{40}{\deci\bel}.
+approximation'' (see \cref{subsec:invrec-datasets} for more information).
+Each dataset was corrupted by \ac{AWGN} with a target \ac{SNR} of
+\qty{40}{\deci\bel} for the dataset as a whole.
 The estimation routine outlined by \cref{alg:estimate-seq} was applied
-to the generate a parameter estimate of the region which contained signals from
-the estimated spins.
+to the generate a parameter estimate of the region of interest.
 
 Despite heavy overlap between peaks, the routine was successful at
 assigning each signal in the dataset with a $T_1$ value that closely agreed
-with the true value (see panel b.). As is to be expected, in scenarios where
-little multiplet
-overlap existed, $T_1$ predictions tended to be more accurate, with smaller
-associated errors (see for example the purple and orange multiplets in Run 1.
+with the $T_1$ of the spin giving rise to it (see panel b.). As is to be
+expected, in scenarios where little overlap existed between signals with
+different decay rates, $T_1$ predictions tended to be more accurate, with
+smaller associated errors (see for example the purple and orange multiplets in Run 1.
 Nevertheless, adequate estimates could still be obtained in cases of severe
-overlap, especially when the predicted $T_1$s for all oscillators associated
-with a given multiplet are averaged. (see the red, blue and yellow multiplets
-in Run 1). Particular oscillators for which the estimate of $T_1$ is
-particularly far from the true value tend to be associated with large errors,
-with examples denoted with an asterisk.
+overlap (see the red, blue and yellow multiplets in Run 1). Particular
+oscillators for which the estimate of $T_1$ is notably far from the true
+value tended to be associated with large errors, with examples denoted with an
+asterisk in panel c.
 
 \subsubsection{Andrographolide Diffusion}
-\note{TODO: Re-run figure generation, with sigma set to 1. Compare with dynamic
-center}
 \begin{sidewaysfigure}
     \centering
     \includegraphics{andrographolide_dosy/andrographolide_dosy.pdf}
@@ -731,31 +790,28 @@ estimation technique on a oneshot \ac{DOSY} dataset of andrographolide in
 unfresh \acs{DMSOd6} at \qty{298}{\kelvin}. Exposure of the sample to water is
 evidenced by the broad
 peak around \qty{3.3}{\partspermillion}, estimated to have a diffusion constant
-of \qty{4.57e-10}{\meter\squared\per\second}. On top of this, the acidic
+of \qty{3.7e-10}{\meter\squared\per\second}. On top of this, the acidic
 hydroxyl protons (B, C, H) of andrographolide show significant line-broadening,
 and their estimated diffusion coefficients are considerably different compared
 with those of the non-hydroxyl protons, due chemical exchange with water in the
 sample\cite{Chen1998}.
 The diffusion profile generated suggests a diffusion constant of andrographolide of
-\qty{2.54e-10}{\meter\squared\per\second}. The predicted diffusion constant for
-each estimated oscillator shows decent consistency, especially with oscillators
-of greater intensity. Lower intensity oscillators - especially those which
-significantly overlap with other oscillators - tended to be associated with
+\qty{2.07e-10}{\meter\squared\per\second}. The predicted diffusion constant for
+each estimated oscillator, especially those with greater intensity, shows
+decent consistency.
+Lower intensity oscillators, especially those which
+significantly overlap with others, tended to be associated with
 less consistent diffusion constants and larger errors with examples of this
 phenomenon apparent in panel d of the figure. A few oscillators also show a
-significant deviation at around \qty{2.5}{\partspermillion}. This is likely due to
-the presence of signals that make up a 1:2:3:2:1 quintet due to the presence of
-partially protonated \acs{DMSO}. As the data is
-insufficiently resolved to enable the separation of andrographoilde and
-\ac{DMSO} signals in the estimation result, oscillators exist which
-will have an amplitude profile influenced by both species, leading to an
-aggregated diffusion constant. As $D_{\text{DMSO}} >
-D_{\text{andrographoilide}}$, the affected oscillators show larger apparent
-diffusion constants.
-
+significant deviation at around \qty{2.5}{\partspermillion}. This is due to the
+presence of a 1:2:3:2:1 quintet from partially protonated \acs{DMSO}. As the
+data is insufficiently resolved to enable the separation of andrographoilde and
+\acs{DMSO} signals, oscillators exist which will have an amplitude profile
+influenced by both species, leading to an aggregated diffusion constant. As
+$D_{\text{DMSO}} > D_{\text{andrographoilide}}$, the affected oscillators
+possess larger predicted diffusion constants.
 
 \subsubsection{Glucose/valine/threonine diffusion}
-\note{TODO: get result from dynamic center and compare}
 \begin{figure}
     \centering
     \includegraphics{glu_thre_val_diffusion/glu_thre_val_diffusion.pdf}
@@ -776,36 +832,37 @@ diffusion constants.
     }
     \label{fig:gluc_val_thre}
 \end{figure}
-Another example is provided by \cref{fig:gluc_val_thre}, where the
-estimation routine was applied to a diffusion dataset derived from a sample
-comprising the molecules
-L-valine ($M_r = \qty{117.148}{\gram\per\mole}$),
-L-threonine ($M_r = \qty{119.120}{\gram\per\mole}$),
-and D-(+)-glucose ($M_r = \qty{180.156}{\gram\per\mole})$ dissolved in
+Another diffusion example is provided by \cref{fig:gluc_val_thre}, where the
+estimation routine was applied to a dataset derived from a sample comprising
+the molecules L-valine ($M_r = \qty{117.148}{\gram\per\mole}$), L-threonine
+($M_r = \qty{119.120}{\gram\per\mole}$), and D-(+)-glucose ($M_r =
+\qty{180.156}{\gram\per\mole})$ dissolved in
 D\textsubscript{2}O at \qty{298}{\kelvin}. Not included in the figure is the
-result for the water
-signal, from which a diffusion constant of
-\qty{1.88e-9}{\meter\squared\per\second} was determined. The routine was able
-to achieve separation of the three species in the sample. Predicted diffusion
-coefficients for valine and threonine were
+result for the water signal, for which a diffusion constant of
+\qty{1.88e-9}{\meter\squared\per\second} was determined. The routine
+achieved decent separation of the three species in the sample. Predicted
+diffusion coefficients for valine and threonine were
 \qty{6.20e-10}{\meter\squared\per\second} and
-\qty{6.39e-10}{\meter\squared\per\second}. For glucose, the situation is
-complicated by the presence of two major forms, \textalpha-D-glucopyroanose and
+\qty{6.39e-10}{\meter\squared\per\second}, respectively. For glucose, the situation is
+complicated by the presence of two major anomeric forms:
+\textalpha-D-glucopyroanose and
 \textbeta-D-glucopyroanose\footnote{
     The equilibrium mixture in water comprises 38\% of the \textalpha\ isomer
-    and 62\% of the \textbeta\ isomer. A tiny amount of the open-chain form will
-    also be present, though in a negligible quantity. This is evidenced by the
+    and 62\% of the \textbeta\ isomer.
+    This is evidenced by the
     spectrum in \cref{fig:gluc_val_thre}.a, where the relative integrals of
     the doublets at \qty{5.15}{\partspermillion} and
     \qty{4.56}{\partspermillion} agree with this ratio.
-}, due to anomerisation\cite[Chapter 3]{Davis2002}.
+    A tiny amount of the open-chain form will
+    also be present, though in a negligible quantity.
+}\cite[Chapter 3]{Davis2002}.
 There is some evidence of separation of these anomers, principally due
 to the downfield doublets at \qty{5.15}{\partspermillion} (\textalpha) and
 \qty{4.56}{\partspermillion} (\textbeta), which have estimated diffusion
 coefficients of \qty{5.47e-10}{\meter\squared\per\second}
 and \qty{5.34e-10}{\meter\squared\per\second}, respectively. Beyond these
 however, the other estimated oscillators corresponding to glucose have
-associated errors which are too large for clear resolution of the two anomers.
+associated errors which are too large for clear resolution of the two species.
 
 As is to be expected, signals which are of greater intensity, and which are
 more clearly resolved enable the determination of diffusion coefficients with
@@ -816,11 +873,9 @@ the high intensity doublet of doublets around \qty{0.95}{\partspermillion},
 resulting from six equivalent protons from two methyl groups. Far
 greater uncertainty is observed for the predictions associated with proton (B),
 which has a doublet of septets structure, featuring many low-intensity signals.
-
 Application of multivariate methods on the dataset was unsuccessful at
-extracting diffusion information for the separate components. Applying
-\ac{DECRA} and \ac{SCORE} with 2 components led to the separation of the water
-signal from the rest of the dataset with the two components being associated
+extracting diffusion information for the separate components. Both
+\ac{DECRA} and \ac{SCORE} could extract the water
+signal from the rest of the dataset, with the two components having associated
 diffusion coefficients of \qty{6.31e-10}{\meter\squared\per\second}
-and \qty{1.88e-9}{\meter\squared\per\second}. Using more than two
-components produced results with spurious components \note{Ask about this}.
+and \qty{1.88e-9}{\meter\squared\per\second}, respectively.

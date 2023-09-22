@@ -1,7 +1,7 @@
 # shifts_and_couplings.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Mon 24 Jul 2023 15:11:37 BST
+# Last Edited: Wed 20 Sep 2023 15:13:23 BST
 
 from pathlib import Path
 import pickle
@@ -36,10 +36,10 @@ def make_tabular(shifts, couplings, sfo, t1s=None):
         t1s = len(shifts) * [None]
     tabular = ""
     for i, (shift, t1) in enumerate(zip(shifts, t1s), start=1):
-        tabular += f"\\textbf{{{chr(64 + i)}}} & {shift:.3f} & {shift*sfo:.1f} & "
+        tabular += f"({chr(64 + i)}) & {shift:.3f} & {shift*sfo:.1f} & "
         if i in couplings:
             tabular += ", ".join(
-                [f"\\textbf{{{chr(64 + spin2)}}}: ${freq:.3f}$"
+                [f"({chr(64 + spin2)}): ${freq:.3f}$"
                  for spin2, freq in couplings[i]]
             )
         else:
@@ -154,11 +154,11 @@ def get_info_from_file(file, title, shift=0.):
             coupling_line = txt[s + nspins]
             couplings = ", ".join(
                 [
-                    f"\\textbf{{{chr(65 + nspins + i)}:}} {float(x):.3f}" for i, x in
+                    f"({chr(65 + nspins + i)}): {float(x):.3f}" for i, x in
                     enumerate(re.search(coupling_regex, coupling_line).group(1).split(", "))
                 ]
             )
-            rows.append(f"\\textbf{{{chr(65 + s)}}} & \\num{{{shift_ppm:.2e}}} & {shift_hz:.2f} & {couplings} & <T1> \\\\\n")
+            rows.append(f"({chr(65 + s)}) & \\num{{{shift_ppm:.2e}}} & {shift_hz:.2f} & {couplings} & <T1> \\\\\n")
             # rows.append(f"\\textbf{{{chr(65 + s)}}} & \\num{{{shift_ppm:.2e}}} & {shift_hz:.2f} & {couplings} & <T1> & <T2>\\\\\n")
         for _ in range(2 * nspins):
             txt.pop(0)

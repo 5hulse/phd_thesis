@@ -15,7 +15,7 @@
 
 %%% colours
 \RequirePackage{xcolor}
-\definecolor{headingcolor}{HTML}{002f60}
+\definecolor{boxcolor}{HTML}{000000}
 
 
 %%% font configuration
@@ -30,15 +30,16 @@
     Path           = fonts/EBGaramond/,%
     Extension      = .otf,%
     UprightFont    = *-Regular,%
-    BoldFont       = *-Bold,%
+    BoldFont       = *-SemiBold,%
     ItalicFont     = *-Italic,%
     BoldItalicFont = *-BoldItalic,%
+    FontFace       = {sb}{n}{*-SemiBold},%
 ]
 \setmathfont{Garamond-Math}[%
     Path           = fonts,%
     Extension    = .otf,%
     Path         = fonts/,%
-    StylisticSet = {2,8},%
+    StylisticSet = {2,4,8},%
 ]
 \setmonofont{FiraMono}[%
     Scale       = MatchLowercase,%
@@ -99,11 +100,11 @@
     \fancyhf{}%
     \fancyhead[LE]{%
     \makebox[0pt][r]{%
-      \colorbox{headingcolor}{\makebox[\textwidth][r]{\textcolor{white}{\thepage}\enskip}}\hspace*{1em}}%
+    \colorbox{boxcolor}{\makebox[\textwidth][r]{\textcolor{white}{\thepage}\enskip}}\hspace*{1em}}%
   }
     \fancyhead[RO]{%
     \makebox[0pt][l]{%
-      \hspace*{1em}\colorbox{headingcolor}{\makebox[\textwidth][l]{\enskip\textcolor{white}{\thepage}}}}%
+      \hspace*{1em}\colorbox{boxcolor}{\makebox[\textwidth][l]{\enskip\textcolor{white}{\thepage}}}}%
     }
 }%
 
@@ -112,13 +113,13 @@
     \fancyhf{}%
     \fancyhead[LE]{%
     \makebox[0pt][r]{%
-      \colorbox{headingcolor}{\makebox[\textwidth][r]{\textcolor{white}{\thepage}\enskip}}\hspace*{1em}}%
+      \colorbox{boxcolor}{\makebox[\textwidth][r]{\fontseries{sb}\selectfont\textcolor{white}{\thepage}\enskip}}\hspace*{1em}}%
     \headrulefill\hspace*{1em}{\leftmark}\hspace*{1em}\headrulefill%
     }%
     \fancyhead[RO]{%
     \mbox{}\headrulefill \hspace*{1em}{\rightmark}\hspace*{1em}\headrulefill%
     \makebox[0pt][l]{%
-      \hspace*{1em}\colorbox{headingcolor}{\makebox[\textwidth][l]{\enskip\textcolor{white}{\thepage}}}}%
+      \hspace*{1em}\colorbox{boxcolor}{\makebox[\textwidth][l]{\enskip \fontseries{sb}\selectfont\textcolor{white}{\thepage}}}}%
     }
 }
 
@@ -145,11 +146,11 @@
   \thispagestyle{empty}
   % \begin{minipage}[c][3em][c]{.8\textwidth}
   \parbox{0.8\textwidth}{
-      \raggedright\color{headingcolor}\scshape\fontsize{28}{36}\selectfont#1
+      \raggedright\scshape\fontsize{28}{36}\selectfont#1
   }
   % \end{minipage}
   \hspace*{3em}
-  \colorbox{headingcolor}{%
+  \colorbox{boxcolor}{%
     \begin{minipage}[c][4em][c]{.5\textwidth}
       {\hspace*{1em}\fontsize{50}{48}\selectfont\bfseries\textcolor{white}{\thechapter}}
     \end{minipage}
@@ -160,7 +161,7 @@
     {}
     {}
     {-80pt}
-    {\centering\color{headingcolor}{\scshape\fontsize{30}{30}\selectfont #1}}
+    {\centering{\scshape\fontsize{30}{30}\selectfont #1}}
 
 %%% ToC formatting
 \RequirePackage{titletoc}
@@ -170,7 +171,7 @@
 
 \titlecontents{chapter}
 [0pt]
-{\vspace{15pt}\large\color{headingcolor}}
+{\vspace{15pt}\large}
 {\contentslabel{0pt}\scshape\hspace{20pt}}
 {}
 {\hfill\upshape\contentspage}
@@ -267,7 +268,7 @@
     \cleardoublepage
     \newpage
     \begin{center}
-    {\color{headingcolor}\scshape\fontsize{30}{30}\selectfont #1\\ \vspace{0.5em}}
+    {\scshape\fontsize{30}{30}\selectfont #1\\ \vspace{0.5em}}
     \end{center}}%
     {}
 
@@ -285,15 +286,15 @@
 
 \RequirePackage{enumitem}
 \setlist[itemize,1]{%
-    label={\raisebox{.45ex}{\scriptsize$\blacksquare$}},%
+    label={\raisebox{.45ex}{\tiny$\blacksquare$}},%
     labelwidth=0pt,%
     leftmargin=2em,%
-    itemsep=0pt,%
+    itemsep=-5pt,%
 }
 \setlist[enumerate,1]{
-    label={(\roman*)},%
+    label={\arabic*.},%
     leftmargin=2em,%
-    itemsep=0pt,%
+    itemsep=-5pt,%
 }
 
 \RequirePackage[symbol]{footmisc}

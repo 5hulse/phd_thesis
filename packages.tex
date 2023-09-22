@@ -35,6 +35,8 @@
 \makeatletter
 \newcommand\footnoteref[1]{\protected@xdef\@thefnmark{\ref{#1}}\@footnotemark}
 \makeatother
+% prevent footnote breaking
+\interfootnotelinepenalty=10000
 
 %%% Nomenclature: see text/front/nomenclature.tex
 \usepackage{nomencl}
@@ -93,13 +95,13 @@
 { and~#2#1#3}{, #2#1#3}{ and~#2#1#3}
 
 \makeatletter
-\crefformat{tcb@cnt@mylisting}{Listing~#2#1#3}
-\Crefformat{tcb@cnt@mylisting}{Listing~#2#1#3}
-\crefrangeformat{tcb@cnt@mylisting}{Listings~(#3#1#4) to~(#5#2#6)}
-\Crefrangeformat{tcb@cnt@mylisting}{Listings~(#3#1#4) to~(#5#2#6)}
-\crefmultiformat{tcb@cnt@mylisting}{Listings~#2#1#3}%
+\crefformat{tcb@cnt@mylisting}{Code Listing~#2#1#3}
+\Crefformat{tcb@cnt@mylisting}{Code Listing~#2#1#3}
+\crefrangeformat{tcb@cnt@mylisting}{Code Listings~(#3#1#4) to~(#5#2#6)}
+\Crefrangeformat{tcb@cnt@mylisting}{Code Listings~(#3#1#4) to~(#5#2#6)}
+\crefmultiformat{tcb@cnt@mylisting}{Code Listings~#2#1#3}%
 { and~#2#1#3}{, #2#1#3}{ and~#2#1#3}
-\Crefmultiformat{tcb@cnt@mylisting}{Listings~#2#1#3}%
+\Crefmultiformat{tcb@cnt@mylisting}{Code Listings~#2#1#3}%
 { and~#2#1#3}{, #2#1#3}{ and~#2#1#3}
 \makeatother
 
@@ -121,9 +123,9 @@
 %%% Code listing configuration
 \usepackage{minted,tcolorbox,listings}
 \tcbuselibrary{listings,minted,breakable,skins}
-\definecolor{code_bg}{HTML}{f8f8f8}
-\renewcommand{\theFancyVerbLine}{\ttfamily\small
-    \textcolor{black}{\arabic{FancyVerbLine}}}
+\definecolor{code_bg}{HTML}{f0f0f0}
+\renewcommand{\theFancyVerbLine}{\ttfamily\textbf{\small
+    \textcolor{black}{\arabic{FancyVerbLine}}}}
 \newtcbinputlisting[
     list inside=mylist,
     auto counter,
@@ -135,14 +137,15 @@
     list entry={\protect\numberline{\thetcbcounter} #3},
     title={{\small\textbf{\textsc{Code Listing \thetcbcounter:}} #4}},
     label={#5},
-    minted style=friendly,
-    boxrule=1pt,
+    boxrule=0pt,
+    titlerule=0.5pt,
+    borderline north={0.5pt}{0pt}{black},
+    borderline south={0.5pt}{-0.5pt}{black},
     code={\setlength{\parskip}{0.05in}\singlespacing},
     colframe=black,
     colback=code_bg,
     coltitle=black,
     colbacktitle=white,
-    titlerule=0mm,
     arc=0pt,
     outer arc=0pt,
     enhanced,
@@ -151,12 +154,13 @@
     bottom=0pt,
     width=\textwidth,
     minted options = {
+        style=friendly,
         linenos,
         tabsize=0,
         breaklines,
         autogobble=false,
         mathescape,
-        escapeinside=!!,
+        escapeinside=||,
         numbersep=2.2mm,
         xleftmargin=3mm
     },

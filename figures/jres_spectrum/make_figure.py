@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Wed 19 Jul 2023 12:31:32 BST
+# Last Edited: Tue 19 Sep 2023 18:39:18 BST
 
 import matplotlib as mpl
 from matplotlib import pyplot as plt, patches, rcParams
@@ -129,5 +129,8 @@ axs[0, 1].text(0.99, 0.95, f"\\times {scale}", ha="right", va="top", transform=a
 
 for i, ax in enumerate(axs[0]):
     ax.text(0.01, 0.83, f"\\textbf{{{chr(97 + i)}.}}", transform=ax.transAxes)
+
+ellipse = patches.Ellipse((7.25, -10), 0.01, 18, angle=30)
+axs[1, 1].add_patch(ellipse)
 
 fig.savefig("figures/jres_spectrum/jres_spectrum.pdf")

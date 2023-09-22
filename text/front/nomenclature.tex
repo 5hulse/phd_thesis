@@ -1,3 +1,8 @@
+%%% Hack has been applied in a couple of cases:
+%%% Set of integers (C,05)
+%%% Cross product (E,11)
+%%% Descriptions have \newpage tacked onto the end.
+%%% This prevents a section title being at the bottom of the page (not very aesthetic)
 \renewcommand\nomgroup[1]{%
     \item[\bfseries
     \ifstrequal{#1}{A}{General Mathematics}{%
@@ -29,15 +34,21 @@
     \]
 }
 %%% Arrays
-\nomenclature[E,01]{$\symbf{x}$, $\symbf{X}$}{
-Vectors are denoted with bold lower-case letters. Matrices and
-generic arrays with variable numbers of dimensions are denoted with bold
-capital letters.}
+\nomenclature[E,01]{$\symbf{x}$, $\symbf{X}, x_n$}{
+    Vectors are denoted with bold italic lower-case letters. Matrices, array with
+    $>2$ dimensions, and
+    generic arrays with variable numbers of dimensions are denoted with bold
+    italic capital letters. Individual elements of such objects are denoted by
+    italic letters with subscripts denoting their index. E.g. The element located
+    at the second row and third column of a matrix $\symbf{Y}$ would be denoted
+    $y_{2,3}$. In some circumstances where it is more appropriate, indexing begins at
+    0 rather than 1.
+}
 \nomenclature[E,01]{$\symbf{X}^{\mathrm{T}}$}{Transpose}%
 \nomenclature[E,02]{$\symbf{X}^{\dagger}$}{Conjugate transpose}
 \nomenclature[E,03]{$\symbf{X}^{-1}$}{Inverse of a square, non-singular matrix}
 \nomenclature[E,04]{$\symbf{X}^+$}{Moore-Penrose pseudo-inverse of a matrix.}
-\nomenclature[E,05]{$\symbf{X}^{\circlearrowright (d)}$}{Right circular rotation by along axis $d$ of an array by one element.
+\nomenclature[E,05]{$\symbf{X}^{\circlearrowright (d)}$}{Right circular rotation along axis $d$ of an array by one element.
     As an example, for a 2D matrix $\symbf{X} \in \mathbb{F}^{M \times N}$, $\symbf{X}^{\circlearrowright (1)}$ is given by
     \[
         \begin{bmatrix}
@@ -175,7 +186,7 @@ capital letters.}
         \nabla^2 f(\symbf{x}) =
         \def\arraystretch{1.4}
         \begin{bmatrix}
-            \frac{\partial^2 f}{\partial x_{1}^2} &
+            \frac{\partial^2 f}{\partial x_{1}^2}
             \frac{\partial^2 f}
             {
                 \partial x_1^{\vphantom{2}}
@@ -248,5 +259,5 @@ capital letters.}
 \nomenclature[C,03]{$\mathbb{N}_0$}{The set of natural numbers with zero included}%
 \nomenclature[C,04]{$\mathbb{R}$}{The set of real numbers}%
 \nomenclature[C,05]{$\mathbb{R}_{>0}$}{The set of positive real numbers}%
-\nomenclature[C,05]{$\mathbb{Z}$}{The set of integers}%
-\printnomenclature[1in]\label{chap:nomenclature}
+\nomenclature[C,05]{$\mathbb{Z}$}{The set of integers\newpage}%
+\printnomenclature[2cm]\label{chap:nomenclature}

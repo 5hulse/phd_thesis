@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Tue 21 Mar 2023 00:36:15 GMT
+# Last Edited: Wed 20 Sep 2023 19:16:28 BST
 
 from dataclasses import dataclass
 import matplotlib as mpl
@@ -152,7 +152,7 @@ axs[0].add_patch(arrow)
 axs[0].text(
     left + (Delta_w / 2),
     0.99,
-    "$\\Delta$",
+    "$\\Updelta$",
     ha="center",
     transform=axs[0].transAxes,
 )
@@ -428,7 +428,7 @@ axs[1].add_patch(arrow)
 axs[1].text(
     left + (Delta_w / 2),
     0.99,
-    "$\\Delta$",
+    "$\\Updelta$",
     ha="center",
     transform=axs[1].transAxes,
 )
@@ -642,7 +642,7 @@ for i, ax in enumerate(axs[2:]):
     ax.text(
         left + (Delta_w / 2),
         0.99,
-        "$\\Delta$",
+        "$\\Updelta$",
         ha="center",
         transform=ax.transAxes,
     )

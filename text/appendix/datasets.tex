@@ -92,6 +92,7 @@ Therefore, an in-house one was written, which is given by
 }{lst:jres-spinach}
 
 \subsection{Inversion recovery}
+\label{subsec:invrec-datasets}
 The simulated datasets for the ``Five multiplets'' results in
 \cref{subsec:seq-results} was generated using \ac{EsPy}'s
 \mintinline{python}{EsimatorInvRec.new_spinach} method, with
@@ -169,6 +170,9 @@ was acquired using Bruker's \texttt{ledbpgp2s} pulse sequence (version 1.9, publ
 \formatdate{19}{02}{2011}). This is a stimulated echo pulse sequence, featuring
 bipolar gradients and a \ac{LED} component\cite{Wu1995}. The pulse sequence is
 displayed in \cref{fig:ledbpgp2s}.
+Analysis of the dataset using the multivariate methods \ac{DECRA} and
+\ac{SCORE} was facilitated through use of The University of Manchester's
+\ac{GNAT} software\cite{Castanar2018}.
 
 \begin{figure}[H]
     \centering
@@ -273,6 +277,7 @@ displayed in \cref{fig:ledbpgp2s}.
     }
     \label{fig:ledbpgp2s}
 \end{figure}
+
 
 \subsection{\acs{2DJ} datasets}
 \label{subsec:cupid-experimental}

@@ -1,9 +1,9 @@
-\section{Phased broadband spectra from chirp excitation}
+\section{Ideal spectra from single-chirp excitation}
 \label{sec:bbqchili}
 
 The are numerous nuclei of value in \ac{NMR} with very wide chemical shift
 ranges, including \textsuperscript{13}C, \textsuperscript{19}F (of
-particular interest in the pharmaceutical industry) \textsuperscript{31}P,
+particular interest in the pharmaceutical industry) \textsuperscript{31}P, and
 \textsuperscript{195}Pt.
 Attaining spectra covering the entire chemical shift range of such spins for
 use in quantitative applications is challenging due to off-resonance effects,
@@ -33,12 +33,11 @@ a single chirp excitation experiment is the fact that ultra-broadband spectra
 can be generated using with a far shorter pulse sequence than state of the art
 methods such as \ac{CHORUS}\cite{Power2016,Foroozandeh2019}, where both a
 \ang{90} chirp pulse, and two \ang{180} chirp pulses are applied. Spectra with
-greater intensity, as which could include broad resonances from slowly tumbling
-species could therefore be realised.  Here, a description of the technique is
-presented, followed by an illustration of its performance on a simulated and an
-experimental dataset. This work is fairly nascent, and while the initial
-results presented here show promise, there is yet to be consideration on
-samples of greater interest.
+improved sensitivity could therefore be realised.  Here, a description of the
+technique is presented, followed by an illustration of its performance on a
+simulated and an experimental dataset. This work is fairly nascent, and while
+the initial results presented here show promise, there is yet to be
+consideration on samples of greater interest.
 
 \subsection{Chirp excitation}
 \begin{figure}
@@ -65,7 +64,7 @@ samples of greater interest.
     }
     \label{fig:single-chirp}
 \end{figure}
-Here, focus is limited to chirp pulses which sweep from low to high
+Focus is limited to chirp pulses which sweep from low to high
 frequencies. Such a pulse is parameterised by
 its duration $\tau_{\text{p}}$ (\unit{\second}),
 excitation bandwidth $\Updelta F$ (\unit{\hertz}),
@@ -82,7 +81,7 @@ a short pre-scan delay $\tau_{\text{del}}$, usually on the order of a few
 delay can be determined if an intimate knowledge of the spectrometer hardware
 is known, this varies from instrument to instrument, and is not trivial to
 ascertain. It is this delay which induces a first-order phase shift in \ac{NMR}
-experiments.
+experiments, and which is routinely corrected for by phase correction.
 The various pulse parameters are inter-related as
 follows\cite{Foroozandeh2019,Kupce1995b}:
 \begin{equation}
@@ -97,23 +96,17 @@ For a pulse with flip angle  $\beta < \ang{180}$, $Q$ is related to $\beta$ via
 \end{equation}
 such that an appropriate pulse to achieve a flip angle of \ang{90} requires
 selecting a combination of $\omega_{\text{RF}}$, $\Updelta F$, and
-$\tau_{\text{p}}$ which satisfies $Q \approx 0.441$\footnote{
-    The combination used in examples in this work are
-    $\omega_{\text{RF}} \approx \qty{16.8}{\kilo\hertz}$,
-    $\Updelta F = \qty{400}{\kilo\hertz}$,
-    $\tau_{\text{p}} = \qty{100}{\micro\second}$
-}.
-For a pulse with sufficiently low $\omega_{\text{RF}}$\,---\,which requires a
+$\tau_{\text{p}}$ which satisfies $Q \approx 0.441$.
+The combination used in examples in this work are $\Updelta F =
+\qty{400}{\kilo\hertz}$, $\tau_{\text{p}} = \qty{100}{\micro\second}$, and
+$\omega_{\text{RF}} \approx \qty{16.8}{\kilo\hertz}$.
+For a pulse with sufficiently low $\omega_{\text{RF}}$\,---\,this requires a
 sufficiently large pulse duration for a given excitation bandwidth\,---\,it is
 reasonable to assume that the chirp pulse induces an instantaneous \ang{90}
 rotation at the point of resonance, as illustrated in
 \cref{fig:single-chirp}. As such, resonances with different
 Larmor frequencies evolve for different amounts of time prior to the start of
 acquisition, according to
-\note{Double check this with Ali: his draft has $+$
-for last term, rather than $-$. I have $-$, as this makes  $\tau_0$ larger for
-frequencies less than the transmitter, as I would expect for a low-to-high
-sweep.}
 \begin{equation}
     \tau_0\left(f\right) =
         \tau_{\text{del}} + \frac{\tau_{\text{p}}}{2} -
@@ -123,11 +116,10 @@ sweep.}
 $\tau_{\text{del}} + \nicefrac{\tau_{\text{p}}}{2}$ is the amount of time
 between excitation and detection for the on-resonance case, in which
 excitation occurs exactly halfway through the pulse. Resonances
-with an frequency smaller than the transmitter are excited earlier and hence
+with a frequency smaller than that of the transmitter are excited earlier and hence
 have a larger $\tau_0$, while the converse is true for resonances with greater
 frequencies. The resulting overall phase as a function of frequency can be
 approximated as\cite{Foroozandeh2019}
-\note{Double check sign for quadratic term}
 \begin{equation}
     \phi(f) = \phi_0 + 2 \pi \left(\tau_{\text{del}} + \frac{\tau_{\text{p}}}{2} \right) (f - \foff) -
         2 \pi \left(\frac{\tau_{\text{p}}}{2 \Updelta F}\right)
@@ -153,37 +145,38 @@ severely
 truncated \ac{FID} is well approximated as a broad sinc function with its maximum
 at the resonance frequency. The appearance of the sinc ``wiggle'' depends on
 the gap between excitation and acquisition. Resonances of lower
-frequencies, will exhibit deeper, narrower artefacts since the signal is more
+frequencies will exhibit deeper, narrower artefacts since the signal is more
 significantly truncated. The result of applying quadratic phase correction is
 therefore a spectrum of well-phased peaks, but with major baseline distortions,
 particularly to the low-frequency end. Panel b in
-\cref{fig:bbqchili-sim,fig:bbqchili-real} both provide an example of this
+\cref{fig:bbqchili-sim,fig:bbqchili-real} both provide examples of this
 phenomenon.
 
 \subsection{Methodology}
 Both the quadratic phase behaviour and delay-induced baseline distortions can
 be resolved if an estimate of the \ac{FID}'s parameters is obtained. This enables
-the construction of \iac{FID} featuring oscillators which are back-propagated,
+the construction synthetic \ac{FID} featuring oscillators which are back-propagated,
 such that they begin not at the point of acquisition, but at the point of
-excitation. The appropriate start time for an oscillator with frequency $\fone$
-is therefore given by $-\tau_0$, with $\tau_0$ defined in \cref{eq:t0}. The
+excitation. The appropriate start time for an oscillator with frequency $f$
+is given by $-\tau_0$, with $\tau_0$ defined in \cref{eq:t0}. The
 resulting corrected \ac{FID} $\by \in \mathbb{C}^N$ is defined as
 \begin{equation}
-    y_n = \sum_{m=1}^{M} \amexpphim \exp((2 \pi \iu (f_m - \foff) - \eta_m) (n \Dt - \tau_0(f_m))).
+    y_n = \sum_{m=1}^{M} \amexpphim \exp((2 \pi \iu (f_m - \foff) - \eta_m) (n \Dt - \tau_0(f_m))),
     \label{eq:backprop}
 \end{equation}
+$\forall n \in \lbrace 0, \cdots, N-1 \rbrace$.
 This concept has similarities to the use of \ac{LP} in order to back-propagate
-an \ac{FID} to correct for corrupted initial points. A holistic approach such
-as \ac{LP}\,---\,in which the behaviour of the \ac{FID} as a whole over time is
-determined\,---\,is not of use in this application, as each signal component
-must be treated differently according to its frequency.
+an \ac{FID} to correct for corrupted initial points. However, a holistic
+approach such as \ac{LP} is not of use in this application, as each signal
+component must be treated differently according to its frequency.
 
-In this work so far, it has been assumed that all oscillators that make up the
-data are of the same phase. Of course this isn't the case for signals
+Thus far in this work, it has been assumed that all signals which make up a
+dataset are of the same phase. Of course this isn't the case for \acp{FID}
 generated from single-chirp excitation. As such, it is inappropriate to
 incorporate the variance of oscillator phases in fidelity for \ac{NLP}.
-For the examples presented in this work, \ac{NLP} was not applied; the direct
-output of the \ac{MPM} was used as the estimate of the \acp{FID} parameters.
+For the examples presented in this section, \ac{NLP} was not applied at all;
+the direct output of the \ac{MPM} was used as the estimate of the \acp{FID}
+parameters.
 
 \subsection{Results}
 \begin{figure}
@@ -205,7 +198,8 @@ output of the \ac{MPM} was used as the estimate of the \acp{FID} parameters.
         $\tau_{\text{p}} = \qty{100}{\micro\second}$,
         $\tau_{\text{del}} = \qty{0}{\second}$,
         $\Updelta F = \qty{400}{\kilo\hertz}$.
-        Coloured lines depict individual signals generated using the \ac{MPM}.
+        Coloured lines depict individual signals generated using the \ac{MPM};
+        these have been slightly offset for clarity.
         \textbf{b.} Spectrum generated using quadratic phase correction, with
         \cref{eq:spec-phase-chili}.
         \textbf{c.} Spectrum generated from estimation using the \ac{MPM}, and
@@ -221,58 +215,74 @@ output of the \ac{MPM} was used as the estimate of the \acp{FID} parameters.
 \end{figure}
 \Cref{fig:bbqchili-sim,fig:bbqchili-real} present comparisons
 between the application of quadratic phase correction and the proposed
-back-propagation procedure. In \cref{fig:bbqchili-sim}, a simulated
+back-propagation procedure. In the former, a simulated
 dataset is considered, comprising 30 evenly-spaced signals, and generated using
 \cref{eq:backprop} with $-\tau_0(f_m)$ replaced with $+\tau_0(f_m)$. Other
 relevant parameters used are stated in the caption.
-For the purposes of clarity, a very large damping factor
-($\qty{1000}{\per\second}$) was assigned to each oscillator, as this augments
-the baseline distortions in the spectrum. \ac{AWGN} was added to the \ac{FID},
-with a target \ac{SNR} of \qty{25}{\deci\bel}.
+A very large damping factor ($\qty{1000}{\per\second}$) was assigned to each
+oscillator, as this augments the baseline distortions in the spectrum.
+\ac{AWGN} was added to the \ac{FID}, with a target \ac{SNR} of
+\qty{25}{\deci\bel}.
 
-The spectrum after quadratic phase correction, in panel b, exhibits the typical
-baseline distortions as discussed, with more intense, narrower baseline
-distortions associated with lower-frequency resonances.
-The \ac{MPM} was used to estimate the \ac{FID} parameters,
-with a truncated signal comprising only the first 2048 points considered.
-Performing the \ac{MPM} on a signal with $2^{14}$ points would take (a) a long
-time, and (b) require a very large amount of \ac{RAM} (see panels a and b of
-\cref{fig:profiling}).
-Consideration of the first 2048 points is justifiable here, since all
-resonance frequencies are spaced reasonably far apart, meaning each signal in
-the \ac{FID} becomes resolvable from the others early on into evolution.
-The spectrum generated via back-propagation is presented in panel c, where a
-well-phased spectrum without baseline distortion is could be generated.
-The variation of the estimated oscillator phases against their frequencies is
-plotted in panel d, with the quadratic dependence clearly illustrated.
-Fitting the blue points in panel d to a quadratic function yielded a
-second-order coefficient of $\qty{-7.85e-10}{\radian\second\squared}$, in
-agreement with the expected value of $-2 \pi \left(\nicefrac{\tau_{\text{p}}}{2
-\Updelta F}\right)$.
+The spectrum after quadratic phase correction, in panel b, exhibits the
+undesired baseline distortions as discussed, with more intense, narrower
+baseline distortions associated with lower-frequency signals.
+The \ac{MPM} was used to estimate the \ac{FID}'s parameters,
+with only the first 2048 points considered\footnote{
+    Performing the \ac{MPM} on a signal with $2^{14}$ points would take (a) a
+    long time, and (b) require a very large amount of \ac{RAM} (see panels a1
+    \& a2 in \cref{fig:mpm-profiling}).
+    Estimating a truncated \ac{FID} comprising the first 2048 points of the
+    data is justifiable here, since all signal frequencies are spaced
+    reasonably far apart, meaning each signal in the \ac{FID} becomes
+    resolvable from the others early on into evolution.
+}. The spectrum generated via back-propagation is presented in panel c of
+\cref{fig:bbqchili-sim}, where a well-phased spectrum without baseline
+distortion was generated. The variation of the estimated oscillator
+phases against their frequencies is plotted in panel d, with the quadratic
+dependence clearly illustrated.  Fitting the blue points in panel d to a
+quadratic function yielded a second-order coefficient of
+$\qty{-7.85e-10}{\radian\second\squared}$, in agreement with the expected value
+of $-2 \pi \left(\nicefrac{\tau_{\text{p}}}{2 \Updelta F}\right)$.
 
 \Cref{fig:bbqchili-real} features an experimental dataset, acquired
-from a sample of 1\% Gd-doped H\textsubscript{2}O in D\textsubscript{2}O.
+from a sample of 1\% \ch{Gd}-doped \ch{H2O} in \ch{D2O}\footnote{
+    The paramagnetic species \ch{Gd^{III}} is a popular example of a
+    contrast agent used in \ac{MRI}, owing to its ability to decrease the $T_1$
+    of nearby spins. This typically has an influence on $T_2$ too, with it
+    being shortened at high enough concentrations.
+    The signal from \ch{H2O} therefore decays at a more rapid rate, such that
+    the baseline distortions observed in the phased spectrum (panel b of
+    \cref{fig:bbqchili-real}) are more pronounced.
+}.
 The dataset was acquired using a \ac{2D} experiment, in which the transmitter
-offset was adjusted for each increment. As such, \acp{FID} with a single
-resonance of differing frequency from H\textsubscript{2}O are produced across
-the increments, which when summed lead to the spectrum in panel a of
+offset was adjusted for each increment. The result was a series of \acp{FID},
+each comprising a single \ch{H2O} signal with differing frequencies.
+When summed, these lead to an \ac{FID} with multiple signals at defined
+frequencies. The resulting spectrum is presented in panel a of
 \cref{fig:bbqchili-real}.
 
-As $\tau_{\text{del}}$ is not a readily known parameter, only second-order
-phase correction was applied to the spectrum in panel a (i.e. the first-order
-correction in \cref{eq:quadratic-phase} was not carried out). This left a
-spectrum with a first-order phase distortion, which was manually corrected. An
-analogous approach was taken to acquire the spectrum in panel c through the
-back-propagation approach; $\tau_0$ in \cref{eq:backprop} was replaced with
+To produce the phased spectrum in panel b, only the second-order
+phase correction was automatically corrected. This was followed by manual
+first-order phase correction.  This was done because, as stated above, the
+length of the spectrometer delay $\tau_{\text{del}}$ is not trivial to
+determine. As with the simulated case, severe baseline wobbles exist in the
+spectrum making the spectrum unsuitable for quantitative applications.
+
+Analogously, to generate the spectrum via back-propagation, only the
+contribution to $\tau_0$ which is dependent on the signal frequency was
+included, i.e. $\tau_0$ in \cref{eq:backprop} was replaced with
 \begin{equation}
     \tau_{0}^{\prime} = -\frac{(f - \foff) \tau_{\text{p}}}{2 \Delta F}.
 \end{equation}
-First-order phase correction was applied to the resulting spectrum to yield the
-final result.
-As with the simulated case, severe baseline distortions are apparent when
-quadratic phase correction is applied (panel b) with the most severe dips
-exhibited by low-frequency resonances. Again, estimation-based back-propagation
-yields a far cleaner spectral baseline.
+First-order phase correction was applied to the spectrum produced from the
+back-propagated \ac{FID} to yield the result presented in panel c.
+In comparison with the quadratic phase-correction approach, it is evident that
+a far cleaner spectral baseline is achieved. There is not a perfectly
+consistent phase across all signals; most notably, the highest and
+second-lowest signals have phases which stray noticeably from \ang{0}. It is
+likely that this resulted from error associated with the \ac{MPM}.
+
 \begin{figure}
     \centering
     \includegraphics{chirp_phase_vs_estimation_real_data/chirp_phase_vs_estimation_real_data.pdf}

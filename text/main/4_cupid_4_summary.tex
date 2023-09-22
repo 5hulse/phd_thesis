@@ -1,63 +1,61 @@
 \section{Summary}
-In this chapter \ac{CUPID}, a procedure for the parametrisation of \ac{2DJ} datasets using
-a holistic \ac{2D} estimation routine, is outlined.
-With access to the parameters associated with a \ac{2DJ} dataset, pure shift
-spectra can be generated with myriad beneficial features relative to
-alternative methods.
+In this chapter, \ac{CUPID}, a procedure for the construction of pure shift
+spectra via the holistic estimation of \ac{2DJ} datasets, is presented.
+Such spectra can be possess myriad beneficial features relative to alternative
+methods, albeit with the requirement of a complex post-processing procedure.
 
-The original method for pure shift spectrum generation consisted of shearing a
-magnitude-mode \ac{2DJ} spectrum by \ang{45}, and computing the projection onto
-the $\Ftwo$ axis. To overcome the grotesque lineshapes which arise due to the
-presence of dispersion character, and non-linearities in the magnitude-mode
-spectrum, severe data treatment such as the used of sine-bell apodisation are
-applied. The resulting pure shift spectra suffer from reduced intensities
-because of this. On top of this, the intensities of peaks are attenuated by
-different extents, such that relative peak integrals become meaningless. The
-presence of strong coupling in the spin system also introduces unwanted
-artefacts into the spectra.
+% The original method for pure shift spectrum generation consisted of shearing a
+% magnitude-mode \ac{2DJ} spectrum by \ang{45}, and computing the projection onto
+% the $\Ftwo$ axis. To overcome the grotesque lineshapes which arise due to the
+% presence of dispersion character, and non-linearities in the magnitude-mode
+% spectrum, severe data treatment such as the used of sine-bell apodisation are
+% applied. The resulting pure shift spectra suffer from reduced intensities
+% because of this. On top of this, the intensities of peaks are attenuated by
+% different extents, such that relative peak integrals become meaningless. The
+% presence of strong coupling in the spin system also introduces unwanted
+% artefacts into the spectra.
 
-Experimental procedures  based on ``chunking'' the initial sections of the
-\acp{FID} in a \ac{2D} experiment\,---\,including \ac{ZS}, \ac{BIRD} and
-\ac{PSYCHE}\,---\,have largely superseded the shear and summation approach.
-One key disadvantage of all of these is that only a fraction of the available
-spin magnetisation contributes to the final pure shift spectrum, leading to
-poorer sensitivity.
+% Experimental procedures  based on ``chunking'' the initial sections of the
+% \acp{FID} in a \ac{2D} experiment\,---\,including \ac{ZS}, \ac{BIRD} and
+% \ac{PSYCHE}\,---\,have largely superseded the shear and summation approach.
+% One key disadvantage of all of these is that only a fraction of the available
+% spin magnetisation contributes to the final pure shift spectrum, leading to
+% poorer sensitivity.
 
 Through a number of examples, it has been shown that by employing parametric
 estimation, a simple \ac{2DJ} experiment can be harnessed to generate pure
-shift spectra with sharp, absorption Lorentzian peaks which retain the same
-signal intensity as the \ac{2DJ} experiment. It has been shown to perform
+shift spectra with sharp absorption Lorentzian peaks which retain the same
+signal intensity as the \ac{2DJ} experiment. It it is able to perform
 admirably even when state of the art techniques like \ac{PSYCHE} produce
-spectra with such low \acp{SNR} that they are useless. Frequently, the specific
-procedure employed here is able to automatically discard oscillators present in
-the model which either correspond to strong coupling artefacts or noise,
-leading to simplified spectra in which appear to adhere to the weak coupling
-approximation. There are cases where strong coupling signals do end up in the
-estimation result. It has been shown that these can be manually neglected from
-the parameter set so they don't have an unwanted influence on final pure shift
-spectrum, though this requires manual intervention from a knowledgeable user.
+spectra with such low \acp{SNR} as to render them unusable. Frequently, \ac{CUPID}
+is able to automatically discard oscillators present in the model which either
+correspond to strong coupling artefacts or noise, leading to simplified spectra
+in which appear to adhere to the weak coupling regime. There are cases where
+strong coupling artefacts do end up in the estimation result. It has been shown
+that these can be manually neglected from the parameter set so they don't have
+an unwanted influence on final pure shift spectrum, though this requires manual
+intervention from a knowledgeable user.
 
 Simultaneously, \ac{CUPID} can assign multiplet structures,
 by grouping oscillators which lie along a specific \ang{45} cross section in
 frequency space. Achieving this experimentally\,---\,effectively involving
 a \ac{2DJ} experiment in conjunction with a pure shift element\,---\,requires
 running an extremely long (hours or even days) \ac{3D} pulse sequence. The
-usefulness of
-the multiplet structures generated by \ac{CUPID} is dependent on how accurately
-the estimation routine was able to parameterise the dataset. In numerous
-occasions in the examples presented here, the estimation routine was unable to
-resolve certain, similar frequency signals. A complete understanding of the
-coupling network associated with a given spin in not attainable when this is
-so. However, such multiplet structures are still able to provide large amounts
-of information about the spin system.
+usefulness of the multiplet structures generated by \ac{CUPID} is dependent on
+the level of the estimation routine's accuracy. In
+numerous occasions in the examples presented here, the estimation routine was
+unable to resolve certain, similar frequency signals. A complete understanding
+of the coupling network associated with a given spin in not possible when
+this is so. However, such multiplet structures can still provide valuable
+insights into a given sample.
 
 \ac{CUPID} is limited by the complexity of the dataset of interest. The reasons
 for this are two-fold. First, with datasets comprising progressively more peaks
 in a given spectral region, the difficulty in estimating the dataset becomes
 harder. Second, with an increased model order required to estimate the dataset,
-the time required for computation increases rather drastically. This feature is
+the time required for computation increases drastically. This feature is
 most clearly observed when comparing the times required in estimating the
-different regions considered in the estradiol example. As a rule of thumb, it's
+different regions considered in the estradiol example. As a rule of thumb, it is
 anticipated that \ac{CUPID} will perform admirably on datasets derived from
-small molecules, though I am sceptical about its prospects as an effective
-tool to generate pure shift spectra from large molecules such as proteins.
+small molecules, though datasets derived from large molecules such as proteins
+are likely to be too complex and demanding for good results.

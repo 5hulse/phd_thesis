@@ -1,28 +1,29 @@
 \section{Results}
 \label{subsec:cupid-results}
-A number of examples of the application of \ac{CUPID} are now presented.
-Each result was obtained using the same procedure. For every region of interest
-in the dataset, a frequency-filtered \ac{FID} was produced. An initial estimate
-of model order was determined either using the \ac{MDL}, or by hard-coding a
-value determined through manual inspection of the \ac{2DJ} spectrum\footnote{
-    The \ac{MDL} was used in circumstances where it provided reasonable
-    predictions of model order, as less user input needs to be given to the
-    routine when this is so. However, in certain situations when the \ac{MDL}
-    performed inadequately\,---\,most commonly when the
-    region being considered was very crowded\,---\,a manual specification
-    needed to be provided.
-}.
-An estimation result was then generated using the \ac{MMEMPM} followed by
-phase-variance regularised \ac{NLP}. Finally, a suitable frequency threshold
-$\epsilon$ was determined, and any oscillators in the parameter estimate which
-abided by the two criteria in \cref{subsec:mp-selection} were removed.
+% A number of examples of the application of \ac{CUPID} are now presented.
+% Each result was obtained using the same procedure. For every region of interest
+% in the dataset, a frequency-filtered \ac{FID} was produced. An initial estimate
+% of model order was determined either using the \ac{MDL}, or by hard-coding a
+% value determined through manual inspection of the \ac{2DJ} spectrum\footnote{
+%     The \ac{MDL} was used in circumstances where it provided reasonable
+%     predictions of model order, as less user input needs to be given to the
+%     routine when this is so. However, in certain situations when the \ac{MDL}
+%     performed inadequately\,---\,most commonly when the
+%     region being considered was very crowded\,---\,a manual specification
+%     needed to be provided.
+% }.
+% An estimation result was then generated using the \ac{MMEMPM} followed by
+% phase-variance regularised \ac{NLP}. Finally, a suitable frequency threshold
+% $\epsilon$ was determined, and any oscillators in the parameter estimate which
+% abided by the two criteria in \cref{subsec:mp-selection} were removed.
 
+A number of examples of the application of \ac{CUPID} are now presented.
 For details relating to generation of the \ac{2DJ} datasets, see
 \cref{sec:simulated-datasets,subsec:cupid-experimental}. Useful
-metrics, such a run times and the number of oscillators present at different
+metrics, such as run times and the number of oscillators present at different
 stages of the routine are provided in \cref{tab:cupid-metrics}.
 
-\subsection{``Four Multiplets''}
+\subsection{Four Multiplets}
 \label{subsec:four-mp}
 \begin{figure}
     \centering
@@ -46,40 +47,60 @@ stages of the routine are provided in \cref{tab:cupid-metrics}.
         \textbf{d.} Contour plot of the magnitude-mode \ac{2DJ} spectrum.
         Coloured points denote the frequencies of oscillators in the
         estimation result. Coloured vertical lines denote the predicted central
-        frequencies of each multiplet structure.
+        frequencies of each multiplet structure, determined using multiplet
+        assignment routine.
     }
     \label{fig:four-multiplets}
+    \vspace{20pt}
+    \includegraphics{strychnine_cupid/strychnine_cupid.pdf}
+    \caption[
+        Application of \acs{CUPID} on a simulated strychnine \acs{2DJ} dataset.
+    ]
+    {
+        Application of \ac{CUPID} on a simulated strychnine \ac{2DJ} dataset.
+        See \cref{fig:four-multiplets} for a description of the panels.
+        The multiplet structures were assigned using the threshold
+        $\epsilon = \nicefrac{\fswtwo}{\Ntwo} \approx \qty{0.39}{\hertz}$.
+    }
+    \label{fig:strychnine-cupid}
 \end{figure}
+
 A series of five simulated \ac{2DJ} datasets
 were generated using \textsc{Spinach} such that within a
-known region of the spectrum (\SIrange{-30}{30}{\hertz}) four ddd multiplet
-structures with significant overlap, abiding by the weak coupling
-approximation, were present. \ac{AWGN} was added to each \ac{FID}, with a
-target \ac{SNR} of \qty{30}{\deci\bel}.
-The resulting frequency-filtered \acp{FID} were expected to comprise 32 ($4 \times
-2^3$) signals. As can be seen in
-\cref{fig:four-multiplets}.b, the first direct-dimension \acp{FID} of these
-datasets are too crowded for reasonable estimates of model order to be made
-using the \ac{MDL}, so a value was manually provided. For each run, a random
+known region of the spectrum four ddd multiplet
+structures with significant overlap were present. \ac{AWGN} was added to each
+\ac{FID}, with a target \ac{SNR} of \qty{30}{\deci\bel}.
+Filtering was applied to the datasets to generate sub-\acp{FID} containing the
+signals in the region of interest
+(\SIrange{-30}{30}{\hertz}).
+\cref{fig:four-multiplets} provides an illustration of \ac{CUPID}'s performance
+when applied to the datasets.
+Each of the sub-\acp{FID} comprised 32 ($4 \times 2^3$) signals.
+As can be seen in \cref{fig:four-multiplets}.b, the first direct-dimension
+slices of these \acp{FID} are too crowded for reasonable estimates of model
+order to be made using the \ac{MDL}, so a value was manually provided; for each
+run, a random
 integer from the range $[33, 40]$ was selected as the initial number of
-oscillators. Hence, the initial guess from the \ac{MMEMPM} would comprise a
-slightly excessive number of oscillators.
-\Cref{fig:four-multiplets} illustrates the result achieved for each of
-the runs. For each \ac{FID} generated, the method was effective at producing an
-estimation result with 32 oscillators, as desired, despite the excessive number
+oscillators. Hence, the initial guess from the \ac{MMEMPM} comprised a
+slightly excessive number of oscillators in each case.
+For each \ac{FID} generated, \ac{CUPID} was able to produce a
+result with 32 oscillators, as desired, despite the excessive number
 that were present in the initial guess. Most of the excessive oscillators were
-purged during the \ac{NLP} procedure.
+purged during the \ac{NLP} procedure by acquiring negative amplitudes.
 For 2 of the 5 datasets, the result after \ac{NLP} comprised 33
-oscillators, with a single oscillator being associated with noise. These were
-automatically detected and removed using the first-order criteria. With
-simulated examples, it is possible to confirm that the pure shift spectrum
-generated using \ac{CUPID} agrees with the desired result;
-the ``true'' pure shift spectrum can be obtained by simulating a pulse-acquire
-experiment, using a spin system with same chemical shifts, but all scalar
-couplings set to \qty{0}{\hertz}. As seen in
-\cref{fig:four-multiplets}.a. the spectra produced using \ac{CUPID} agree well
-with these. The ddd multiplet structures were all assigned successfully, and
-are plotted individually in panel c of the figure.
+oscillators, with a single oscillator being associated with noise remaining in
+the parameter set. These could be
+automatically detected and removed using the first-order signal detection
+criteria described in \cref{subsec:mp-selection}.
+
+With simulated examples such as this, it is possible to confirm that the pure
+shift spectrum generated using \ac{CUPID} agrees with the expected result; the
+``true'' pure shift spectrum can be obtained by simulating a pulse-acquire
+experiment, using a spin system with same chemical shifts, but with all J-couplings
+set to \qty{0}{\hertz}. As seen in \cref{fig:four-multiplets}.a. the spectra
+produced using \ac{CUPID} agree well with these. Beyond pure shift spectrum
+generation, the multiplet assignment was also successful, assigning all the ddd
+multiplet structures present; these are plotted in \cref{fig:four-multiplets}.c.
 
 % \subsection{Sucrose simulated}
 % \label{subsec:sucrose-cupid}
@@ -140,25 +161,6 @@ are plotted individually in panel c of the figure.
 
 \subsection{Strychnine simulated}
 \label{subsec:strychnine-cupid}
-\begin{figure}
-    \centering
-    \includegraphics{strychnine_cupid/strychnine_cupid.pdf}
-    \caption[
-        Application of \acs{CUPID} on a simulated strychnine \acs{2DJ} dataset.
-    ]
-    {
-        Application of \ac{CUPID} on a simulated strychnine \ac{2DJ} dataset.
-        \textbf{a.} Black: the spectrum generated from \ac{FT} of the \ang{-45}
-        signal. Grey: the spectrum of a simulated dataset with the same
-        chemical shifts, with all scalar couplings set to \qty{0}{\hertz}.
-        \textbf{b.} Conventional \ac{1D} spectrum.
-        \textbf{c.} Multiplet structures assigned ($\epsilon =
-        \nicefrac{\fswone}{\None} \approx \qty{0.39}{\hertz}$).
-        \textbf{d.} Magnitude-mode \ac{2DJ} spectrum,
-        with the locations of assigned oscillators given as coloured points.
-    }
-    \label{fig:strychnine-cupid}
-\end{figure}
 As a second example of applying \ac{CUPID} on simulated data, the chemical
 shifts and isotropic scalar couplings associated with strychnine
 were used to construct a 2DJ dataset. \ac{AWGN} was included with a target
@@ -178,13 +180,13 @@ the relevant oscillators were purged on every occasion based on the first-order
 criteria. As such, no such artefacts appear in the final pure shift spectrum.
 The absence of strong coupling artefacts in the estimation result also leads to
 generated multiplet structures which do not exhibit the typical ``roofing''
-phenomenon associated with strongly coupled spins (\textit{cf.} panels b and c of
-\cref{fig:strychnine-cupid}). The clearest examples of this are
-associated with the pair (U) \& (V), as well as trio (A), (B) \& (C). As with the
-``four multiplets'' example, good agreement is achieved between the pure shift
-spectrum generated via the \ang{-45} signal, and a spectrum generated by
-running a \ac{1D} simulation with the same spin system, expect that scalar couplings
-are set to \qty{0}{\hertz}.
+effect associated with strongly coupled spins (\textit{cf.} Figures
+\ref{fig:strychnine-cupid}.b and \ref{fig:strychnine-cupid}.c). The clearest
+examples of this are associated with the pair (U) and (V), as well as the trio (A),
+(B) and (C). As with the four multiplets example, good agreement is achieved
+between the pure shift spectrum generated via the \ang{-45} signal, and a
+spectrum generated by running a \ac{1D} simulation with the same spin system,
+expect that scalar couplings are set to \qty{0}{\hertz}.
 
 \subsection{Quinine}
 \begin{figure}
@@ -196,8 +198,8 @@ are set to \qty{0}{\hertz}.
     ]{
         Application of \ac{CUPID} on the non-aromatic regions of a quinine
         \ac{2DJ} dataset.
-        \textbf{a.} Spectrum produced using the \ang{45} shear and summation
-        methodology. The peaks denoted by and asterisk arise from strong
+        \textbf{a.} Spectrum produced using the \ang{45} shear and projection
+        approach. The peaks denoted by an asterisk originate from strong
         coupling artefacts.
         \textbf{b.} The spectrum generated from \ac{FT} of the \ang{-45}
         signal, with the signal arising from H\textsubscript{2}O (grey, close
@@ -210,92 +212,104 @@ are set to \qty{0}{\hertz}.
         with the locations of assigned oscillators given as coloured points.
     }
     \label{fig:quinine-cupid}
-\end{figure}
-
-\Cref{fig:quinine-cupid} illustrates the result of applying \ac{CUPID} on
-a dataset generated from a sample comprising quinine (\cref{fig:structures}.a)
-in CD\textsubscript{3}OD,
-with all signals arising from non-aromatic protons considered. The method
-successfully generated a pure shift spectrum with distinct peaks for each
-\textsuperscript{1}H environment.
-An example of strong coupling artefacts being neglected can be seen
-around the \qty{4.9}{\partspermillion} region, featuring signals from spins (C)
-\& (D). As well as this, the multiplet grouping procedure is able to separate
-the signals corresponding to spin (D) (purple) and residual water in the sample
-(grey).
-The presence of water is a hindrance since it heavily overlaps with (D)'s
-multiplet structure.
-To obtain a clean singlet for spin (D) in the pure shift spectrum, the
-oscillator corresponding to the water signal was simply neglected from
-the parameter set used to generate the \ang{-45} signal. This concept of
-neglecting nuisance signals through post-processing has similarities with
-\ac{SVD}-based approaches for solvent suppression\cite{Zhu1997}.
-Solvent suppression approaches of this manner tend to operate by assuming
-that the most significant component(s) in the data are derived from the
-solvent, and these are subtracted from the dataset to
-remove their influence. The removal of the water signal is slightly
-different here, in that it was removed manually by inspecting the
-\ac{CUPID} result. A knowledgeable user would be able to locate the water
-signal, determine that it is unrelated to, and neglect it. In scenarios where
-little is known about the sample, or the user does not have a high level or
-expertise, manually neglecting signals in this manner may not be achievable.
-
-This example provides a few examples where a noticeable under-fitting of
-multiplet structures has occurred.
-The most notable case comes from the spin (G) multiplet, where close proximity
-with spin (F)'s multiplet has likely compounded the task of accurately
-estimating the associated signals. With fewer oscillators than the true number
-of signals at its disposal, the \ac{NLP} routine will compensate
-by giving said oscillators large amplitudes and damping factors, so that they
-can reasonably fit multiple similar-frequency signals. This phenomenon
-culminates in the pure shift peak possessing an augmented linewidth.
-This behaviour is also exhibited to a lesser extent by the multiplet for spin
-(B), which comprises two pairs of very close signals in a dd structure. A
-single oscillator is fit to each pair of signals, culminating in a broadened
-pure shift peak.
-
-For comparison, panel a of \cref{fig:quinine-cupid} presents a pure-shift
-spectrum produced via application of a \ang{45} shear, followed by summation
-along the indirect dimension. Due to the application of sine-bell apodisation,
-the relative amplitudes of the pure-shift peaks are drastically different.
-In particular, the alkenyl signals from spins (A), (C) \& (D), are less
-perturbed by the apodisation relative to the aliphatic signals due to longer
-$T_2$ times\footnote{
-    Spins with longer $T_2$s produce signals which decay less rapidly.
-    Sine-bell apodisation diminishes the amplitudes of the initial points in
-    the \ac{FID}. Therefore, if the signal decays less rapidly, the relative
-    extent by which the \emph{power} of the signal is diminished is less
-    compared with a signal derived from a spin with a small $T_2$.
-}. As well as this, signals arising from strong coupling between (C) and
-(D) are visible (these are denoted with an asterisk).
-
-\subsection{Camphor}
-\begin{figure}%
-    \centering%
+    \vspace{20pt}
     \includegraphics{camphor_cupid/camphor_cupid.pdf}%
     \caption[
         Application of \acs{CUPID} on a camphor dataset.
     ]{
-        Application of \acs{CUPID} on camphor \ac{2DJ} dataset.
-        \textbf{a.} Spectrum produced using the \ang{45} shear and summation
-        methodology. The peaks denoted by and asterisk arise from strong
-        coupling artefacts.
-        \textbf{b.} Black: the spectrum generated from \ac{FT} of the \ang{-45}
-        signal. Oscillators associated with strong coupling artefacts between
-        spins (F) and (G) were neglected. Grey: spectrum generated without
-        neglecting oscillators associated with strong coupling artefacts.
-        \textbf{c.} Spectrum of the first direct-dimension \ac{FID}.
-        \textbf{d.} Multiplet structures assigned ($\epsilon =
-        \nicefrac{2 \fswtwo}{\Ntwo} \approx \qty{1.23}{\hertz}$).
-        \textbf{e.} Magnitude-mode \acs{2DJ} spectrum, with the locations of
-        assigned oscillators given as coloured points.
+        Application of \acs{CUPID} on a camphor \ac{2DJ} dataset.
+        See \cref{fig:quinine-cupid} for a description of the panels.
+        The multiplet structures were assigned using the threshold
+        $\epsilon = \nicefrac{2 \fswtwo}{\Ntwo} \approx \qty{1.23}{\hertz}$.
     }
     \label{fig:camphor-cupid}%
-\end{figure}%
+\end{figure}
+
+\Cref{fig:quinine-cupid} illustrates the result of applying \ac{CUPID} on
+a dataset generated from a sample comprising quinine (\cref{fig:structures}.a)
+in \ch{CD3OD},
+with all signals arising from non-aromatic protons considered.
+For comparison with \ac{CUPID}, \cref{fig:quinine-cupid}.a presents a
+spectrum produced using the shear and projection approach. Because
+sine-bell apodisation was applied to the \ac{FID} to suppress dispersive
+contributions, the relative amplitudes of the pure-shift
+peaks are drastically different.  In particular, the signals from the alkenyl
+spins (A), (C) and (D) are attenuated less by apodisation relative to the
+aliphatic signals due to their longer $T_2$ times\footnote{
+    Spins with longer $T_2$s produce signals which decay less rapidly.
+    Sine-bell apodisation heavily diminishes the intensities of the initial
+    points in the \ac{FID}. Therefore, if the signal decays less rapidly, the
+    relative extent by which the power of the signal is diminished is less
+    compared with a signal derived from a spin with a small $T_2$.
+}. As well as this, signals arising from strong coupling between (C) and
+(D) are visible (these are denoted with an asterisk).
+
+\ac{CUPID} successfully generated a pure shift spectrum with distinct peaks for
+each \ch{^1H} environment, which possess sharper lines and more consistent
+integrals relative to the shear and project spectrum (\cref{fig:quinine-cupid}.b).
+Furthermore, the strong coupling artefacts between (C) and (D) were not
+incorporated into the estimation result, and as such a clean baseline between
+between (C) and (D) was achieved.
+The multiplet grouping procedure was also able to resolve
+the signals corresponding to spin (D) (purple) from the singlet corresponding
+to residual water in the sample (grey).
+To obtain a clean signal for spin (D), without heavy overlap with the water
+signal, the oscillator corresponding to the water was simply neglected from
+the parameter set used to generate the \ang{-45} signal. This concept of
+neglecting nuisance signals through post-processing has similarities with
+\ac{SVD}-based approaches for solvent suppression\cite{Zhu1997}.
+These methods operate by assuming that the most significant component(s) in the
+data are derived from the solvent; these are subtracted from the dataset to
+remove their influence. The process of removing the water signal the quinine
+data has slight differences, since in that it was suppressed manually through
+inspection of the \ac{CUPID} result. A knowledgeable user would be able to
+locate the water signal and neglect it. However, in scenarios where little is
+known about the sample, or the user does not have a high level or expertise,
+manually neglecting signals in this manner may not be possible.
+
+This example provides a few examples where a noticeable under-fitting of
+certain multiplet structures has occurred.
+The most notable case comes from the spin (G) multiplet, where close proximity
+with spin (F)'s multiplet has likely compounded the task of accurately
+estimating the associated signals. With fewer oscillators than the true number
+of signals at its disposal, the \ac{NLP} routine has compensated
+by giving said oscillators large amplitudes and damping factors, so that they
+can reasonably fit multiple similar-frequency signals. In these situations,
+pure shift peaks generated via the \ang{-45} signal will possess augmented
+linewidths.
+This behaviour is also exhibited to a lesser extent by the multiplet for spin
+(B), which comprises two pairs of very close signals in a dd structure. A
+single oscillator is fit to each of the doublets, culminating in a slightly
+broadened pure shift peak.
+
+
+\subsection{Camphor}
+% \begin{figure}%
+%     \centering%
+%     \includegraphics{camphor_cupid/camphor_cupid.pdf}%
+%     \caption[
+%         Application of \acs{CUPID} on a camphor dataset.
+%     ]{
+%         Application of \acs{CUPID} on camphor \ac{2DJ} dataset.
+%         \textbf{a.} Spectrum produced using the \ang{45} shear and summation
+%         methodology. The peaks denoted by and asterisk arise from strong
+%         coupling artefacts.
+%         \textbf{b.} Black: the spectrum generated from \ac{FT} of the \ang{-45}
+%         signal. Oscillators associated with strong coupling artefacts between
+%         spins (F) and (G) were neglected. Grey: spectrum generated without
+%         neglecting oscillators associated with strong coupling artefacts.
+%         \textbf{c.} Spectrum of the first direct-dimension \ac{FID}.
+%         \textbf{d.} Multiplet structures assigned ($\epsilon =
+%         \nicefrac{2 \fswtwo}{\Ntwo} \approx \qty{1.23}{\hertz}$).
+%         \textbf{e.} Magnitude-mode \acs{2DJ} spectrum, with the locations of
+%         assigned oscillators given as coloured points.
+%     }
+%     \label{fig:camphor-cupid}%
+% \end{figure}%
 The application of \ac{CUPID} to the non-methyl signals of a \ac{2DJ}
 dataset of camphor (\cref{fig:structures}.c) in \acs{DMSOd6} is presented
 in \cref{fig:camphor-cupid}. As with the quinine example, a spectrum
-generated through the shear and summation procedure is presented for
+generated through shearing and projection is presented for
 comparison. In most regions of the dataset, the estimation technique
 successfully parametrised the first-order signals, while neglecting strong
 coupling artefacts. However, it was not possible to solely estimate the
@@ -314,9 +328,9 @@ ideally would not exist. In much the same way that the parameters associated
 with water in the quinine example were neglected in constructing the \ang{-45}
 signal, those associated with strong coupling artefacts can be too.
 In neglecting said parameters, the black spectrum in panel b
-results. Achieving this requires manual intervention, such that the user needs
-the expertise to distinguish between first-order signals and strong coupling
-artefacts.
+results. Again, achieving this requires manual intervention, such that the user
+requires knowledge about the sample to distinguish between first-order signals
+and strong coupling artefacts.
 
 \subsection{Dexamethasone}
 \begin{sidewaysfigure}%
@@ -326,8 +340,8 @@ artefacts.
         Application of \acs{CUPID} on a dexamethasone dataset.
     ]{
         Application of \acs{CUPID} on a \ac{2DJ} dataset of dexamethasone in
-        \ac{DMSO}-d\textsubscript{6}.
-        \textbf{a.} \acs{TSE-PSYCHE} spectrum of the sample.
+        \acs{DMSOd6}.
+        \textbf{a.} \acs{TSE-PSYCHE}.
         \textbf{b.} The spectrum generated from \ac{FT} of the \ang{-45}
         signal.
         \textbf{c.} Conventional \acs{1D} spectrum.
@@ -343,25 +357,26 @@ artefacts.
 dataset acquired from a sample dexamethasone in DMSO-d\textsubscript{6}. A
 pure shift spectrum was also acquired using the
 \ac{TSE-PSYCHE} experiment\cite{Foroozandeh2018,Foroozandeh2015} for
-comparison (see \cref{fig:tse_psyche}). Overall, excellent agreement is
-achieved between the \ac{PSYCHE}
+comparison (see \cref{fig:tse_psyche} for a description of the pulse sequence).
+Overall, excellent agreement is achieved between the \ac{PSYCHE}
 spectrum, and that generated using the \ang{-45} signal. The estimation routine
-performed amicably in cases where heteronuclear coupling to
-\textsuperscript{19}F were present. For spins (H) and (N), two distinct
-multiplet structures were assigned, which are coloured blue and yellow (H) and
-yellow and purple (N) in the figure. The perceptible though very small
+performed amicably even in cases where heteronuclear coupling to
+\ch{^{19}F} exists. For spins (H) and (N), two distinct
+multiplet structures were assigned, which are coloured blue and yellow (H), and
+yellow and purple (N) in the figure. The very small though perceptible
 heteronuclear coupling between \textsuperscript{19}F and (D) could not be
 resolved by the estimation routine however.
 
 In this example, there are a few cases where oscillators which result from
 parametrising strong coupling artefacts exist. These persist because
-either they have an indirect frequency $\approx \qty{0}{\hertz}$, or because at
+either they have an indirect frequency $\approx \qty{0}{\hertz}$ (these exist close to
+\qty{1.4}{\partspermillion}, \qty{1.6}{\partspermillion}, and
+\qty{2.1}{\partspermillion}), or because at
 least two parameterised artefacts are grouped together as part of the multiplet
-assignment. As with the camphor example, a knowledgeable user could identify
-and neglect the culprit oscillators if desired, though they are not purged in
-producing the \ang{-45} signal in this case.
-
-\note{Ask Ali: is PSYCHE quantitative? Quite major discrepancies in peak integrals}
+assignment (this occurs close to \qty{4.1}{\partspermillion}). As with the
+camphor example, a knowledgeable user could identify and neglect the culprit
+oscillators if desired, though they are not purged in producing the \ang{-45}
+signal in this case to illustrate their effect on the final pure shift spectrum.
 
 \subsection{Estradiol}
 \begin{figure}
@@ -369,43 +384,50 @@ producing the \ang{-45} signal in this case.
     \caption[
         Application of \acs{CUPID} on a 17\textbeta-estradiol dataset.
     ]{
-        Application of \acs{CUPID} on \ac{2DJ} dataset of 17\textbeta-estradiol
+        Application of \acs{CUPID} on a \ac{2DJ} dataset of 17\textbeta-estradiol
         in \acs{DMSOd6}.
-        \textbf{a.} \acs{PSYCHE} spectrum of the sample (see
-        \cref{fig:psyche} for details on the pulse sequence). The spectrum has
-        been scaled such that its maximum is of the same magnitude as the
-        spectrum in panel b.
-        \ac{2DJ} dataset.
-        \textbf{b.} Pure shift spectrum generated using \ac{CUPID}.
-        \textbf{c.} Spectrum of the first direct-dimension \ac{FID} in the
+        \textbf{a.} \acs{PSYCHE} spectrum.
+        The spectrum has been scaled such that its maximum is of the same
+        magnitude as the \acs{CUPID} spectrum.
+        \textbf{b.} Pure shift spectrum generated via the \ang{-45} signal.
+        \textbf{c.} Conventional \ac{1D} spectrum.
         \textbf{d.} Multiplet structures assigned ($\epsilon =
         \qty{2}{\hertz}$).
         \textbf{e.} Magnitude-mode \ac{2DJ} spectrum, with coloured points
         denoting the frequencies of oscillators assigned using estimation.
-        N.B. The \ac{2DJ} spectrum was produced using a more concentrated
+        N.B. This \ac{2DJ} spectrum was produced using a more concentrated
         sample of estradiol, since the original \ac{2DJ} dataset was too
-        insensitive to produce a useable spectrum after sine-bell apodisation.
+        insensitive to produce a sufficiently sensitive spectrum after
+        sine-bell apodisation.
     }
     \label{fig:estradiol-cupid}%
 \end{figure}
 
-A final showcase of \ac{CUPID} is provided by \cref{fig:estradiol-cupid},
+A final illustration of \ac{CUPID}'s performance is provided by
+\cref{fig:estradiol-cupid},
 where a low concentration (\qty{2}{\milli\molar}) sample of
 17\textbeta-estradiol (\cref{fig:structures}.d) in \acs{DMSOd6} is
-considered. This presents the most challenging example of using \ac{CUPID} due
-to (a) the low \ac{SNR} and (b) the presence of incredibly complex regions for
-a small molecule spectrum, featuring many overlapping multiplet structures.
-Because of the complexity of the dataset, estradiol was used as a showcase of
+considered. This is most challenging example presented due
+to (a) the low \ac{SNR} of the data and (b) the presence of incredibly complex
+regions for a small molecule spectrum, featuring many complex overlapping
+multiplet structures. In fact, because of the considerable complexity
+estradiol's spectra, it was used as a showcase for
 the \ac{PSYCHE} experiment in the original work describing
-it\cite{Foroozandeh2014}. With the sample and concentration and experimental
-setup used, the \ac{PSYCHE} experiment produced a spectrum with very poor
+it\cite{Foroozandeh2014}. With the sample and concentration used, the
+\ac{PSYCHE} experiment produced a spectrum with very poor
 \ac{SNR}, such that it is barely sensitive enough for pure shift peaks to be
-distinguish from noise (panel a). However due to the innately higher
-sensitivity associated with the \ac{2DJ} experiment (assuming similar
-experiment parameters) it was still possible to generate a decent parameter
-estimate of the \ac{2DJ} dataset. Due to the severe signal overlap in the first
+distinguished from the noise. However due to the innately higher
+sensitivity associated with the \ac{2DJ} experiment it was still possible to
+generate a reasonable parameter estimate of the \ac{2DJ} dataset, an agreeable
+pure shift spectrum. Due to the severe signal overlap in the first
 direct-dimension \ac{FID}, initial values for the model order had to be
-manually specified.  The time elapsed to run the estimation routine was rather
+manually specified. It is clear from inspection of the most downfield region
+that certain strong coupling artefacts have been incorporated into the
+estimation result, manifesting in the appearance of artefacts in the pure shift
+spectrum (see the positions marked by the grey vertical lines in
+\cref{fig:estradiol-cupid}.b.
+
+The time elapsed to run the estimation routine was rather
 long, at \qty{10.25}{\minute} for all regions considered (see
 \cref{tab:cupid-metrics} for a more detailed description of timings). This is
 largely attributable to the high model orders, particularly in the most

@@ -1,7 +1,7 @@
 # make_figure_new.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Wed 19 Jul 2023 15:49:49 BST
+# Last Edited: Tue 19 Sep 2023 20:33:38 BST
 
 import matplotlib as mpl
 from matplotlib import pyplot as plt, patches, rcParams
@@ -92,5 +92,22 @@ for x, y in zip(xs, ys):
 
 for i, ax in enumerate(axs[0]):
     ax.text(0.01, 0.83, f"\\textbf{{{chr(97 + i)}.}}", transform=ax.transAxes)
+
+xys = [
+    (0.205, 0.705),
+    (0.54, 0.12),
+    (0.82, 0.86),
+    (0.825, 0.295),
+]
+heights = [0.42, 0.4, 0.4, 0.42]
+widths = [0.1, 0.1, 0.1, 0.1]
+angles = [-20, -20, -20, -20]
+for xy, width, height, angle in zip(xys, widths, heights, angles):
+    ellipse = patches.Ellipse(
+        xy=xy, width=width, height=height, angle=angle,
+        facecolor="none", edgecolor="k", ls=":", transform=axs[1, 0].transAxes,
+        lw=0.6,
+    )
+    axs[1, 0].add_artist(ellipse)
 
 fig.savefig("figures/jres_spectrum/jres_spectrum_new.pdf")
