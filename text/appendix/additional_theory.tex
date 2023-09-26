@@ -76,6 +76,74 @@ the region of integration is $0$.
 
 \subsubsection{Likelihood function}
 
+\section{NLP Derivatives}
+\label{sec:derivatives}
+The complete set of first and second derivatives of a particular element of the
+model $x \coloneq \xnonenD$, given by \cref{eq:x}, is as follows
+$\forall m \in \lbrace 1, \cdots, M \rbrace$,
+$\forall d, d^{\prime} \in \lbrace 1, \cdots, D \rbrace$:
+\paragraph{First derivatives}
+\begin{subequations}
+    \begin{gather}
+        \xderiv{\theta_m} \equiv
+            \xderiv{a_m} =
+            \frac{x}{a_m},
+            \label{eq:deriv-a}\\
+        \xderiv{\theta_{m + M}} \equiv
+            \xderiv{\phi_m} =
+            \iu x,\\
+        \xderiv{\theta_{m + (d + 1)M}} \equiv
+            \xderiv{\fdm} =
+            2 \pi \iu \Dtd \nd x,\\
+        \xderiv{\theta_{m + (d + D + 1)M}} \equiv
+            \xderiv{\etadm} =
+            - \Dtd \nd x.
+    \end{gather}
+    \label{eq:first-derivs}
+\end{subequations}
+\paragraph{Second derivatives}
+\begin{subequations}
+    \begin{gather}
+        \xderivtwosame{\theta_{m}} \equiv
+            \xderivtwosame{a_m} =
+            0,
+            \label{eq:amp-second-deriv}\\
+        \xderivtwodiff{\theta_{m}}{\theta_{m + M}} \equiv
+            \xderivtwodiff{a_m}{\phi_m} =
+            \frac{\iu x}{a_m},\\
+        \xderivtwodiff{\theta_{m}}{\theta_{m + (d + 1)M}} \equiv
+            \xderivtwodiff{a_m^{\vphantom{(d)}}}{\fdm} =
+            \frac{2 \pi \iu \Dtd \nd x}{a_m},\\
+        \xderivtwodiff{\theta_{m}}{\theta_{m + (d + D + 1)M}} \equiv
+            \xderivtwodiff{a_m^{\vphantom{(d)}}}{\etadm} =
+            \frac{-\Dtd \nd x}{a_m},\\
+        \xderivtwosame{\theta_{m + M}} \equiv
+            \xderivtwosame{\phi_m} =
+            -x,\\
+        \xderivtwodiff{\theta_{m + M}}{\theta_{m + (d + 1)M}} \equiv
+            \xderivtwodiff{\phi_m^{\vphantom{(d)}}}{\fdm} =
+            -2 \pi \Dtd \nd x,\\
+        \xderivtwodiff{\theta_{m + M}}{\theta_{m + (d + D + 1)M}} \equiv
+            \xderivtwodiff{\phi_m^{\vphantom{(d)}}}{\etadm} =
+            -\iu \Dtd \nd x,\\
+        \xderivtwodiff{\theta_{m + (d + 1)M}}{\theta_{m + (d^{\prime} + 1)M}} \equiv
+            \xderivtwodiff{\fdm}{\fdmp} =
+            -4\pi^2 \left(\Dtd \nd \right) \left(\Dtdp \ndp \right) x,\\
+        \xderivtwodiff{\theta_{m + (d + 1)M}}{\theta_{m + (d^{\prime} + D + 1)M}} \equiv
+            \xderivtwodiff{\fdm}{\etadmp} =
+            -2 \pi \iu \left(\Dtd \nd \right) \left(\Dtdp \ndp \right) x,\\
+        \xderivtwodiff{\theta_{m + (d + D + 1)M}}{\theta_{m + (d^{\prime} + D + 1)M}} \equiv
+            \xderivtwodiff{\etadm}{\etadmp} =
+            \left(\Dtd \nd \right) \left(\Dtdp \ndp \right) x,\\
+        \xderivtwodiff{\theta_{i}}{\theta_{j}} =
+            \xderivtwodiff{\theta_{j}}{\theta_{i}},
+            \label{eq:symmetric-second-derivs}\\
+        \xderivtwodiff{\theta_{i}}{\theta_{j}} = 0\ \text{ if not specified above.}
+        \label{eq:zero-second-deriv}
+    \end{gather}
+    \label{eq:second-derivs}
+\end{subequations}
+
 \section{Estimation Errors}
 \label{subsec:errors}
 A measure of the degree of uncertainty in the parameter estimates can be obtained

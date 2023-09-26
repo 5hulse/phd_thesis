@@ -12,11 +12,9 @@ returning improved parameter estimates. The theory underpinning the procedure
 has been explored in this chapter.
 
 The computational burden of running the procedure is large and often
-intractable for complete \ac{NMR} datasets, which commonly comprise thousands of
-points, and at least hundreds of contributing signals. As has been shown by
-profiling both the \ac{CPU} time and the peak memory consumption for the
-\ac{1D} and \ac{2D} methods, there are greater demands when the \ac{FID} of
-interest comprises more datapoints and is composed of more signals.
+insurmountable for complete \ac{NMR} datasets, which commonly comprise thousands of
+points, and at least hundreds of contributing signals. Both the run time
+and peak memory consumption of the \ac{1D} and \ac{2D} methods increase for \acp{FID} with more datapoints and more signals.
 For this reason, a method to break the estimation problem into a
 series of smaller, computationally tractable problems, through the construction
 of frequency-filtered sub-\acp{FID}, has been introduced.

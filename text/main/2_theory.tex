@@ -2,15 +2,15 @@
 \label{chap:theory}
 
 This chapter provides a description of the theory behind an estimation
-routine which has been developed for the consideration of time domain \ac{NMR}
+routine which has been developed for the consideration of time-domain \ac{NMR}
 data.
 In essence, the routine consists of generating a parameter estimate using the
-\ac{SVD}-based \ac{MPM}, which is fed to a \ac{NLP} routine to
-produce a final result. The \ac{MPM} is employed to generate an initial
+\ac{SVD}-based \ac{MPM}, which is fed to an iterative \ac{NLP} routine to
+produce the final result. The \ac{MPM} is employed to form an initial
 guess of parameters, while the \ac{NLP} routine behaves as a means of validation,
 by attempting to make the parameter estimate consistent with
 known features of the data. The technique can be thought of as a compromise
-between ``black-box'' methods\cite{Poullet2008} which require little to no
+between ``black-box methods''\cite{Poullet2008} which require little to no
 prior knowledge about the data, and iterative methods like \ac{VARPRO} and
 \ac{AMARES}, which require vast amounts of user input, but are typically
 able to estimate complex datasets more effectively.
@@ -19,11 +19,8 @@ technique, a method for producing filtered \acp{FID}, featuring a subset of the
 signals and (optionally) fewer datapoints relative to the full \ac{FID} is
 presented, which can drastically reduce the burden on computational resources.
 
-Outlines of relevant algorithms and corresponding \Python implementations are
-provided to supplement this chapter. As well as those present
-within the main text, further pseudo-code algorithms can be found in
-\cref{sec:algs}, while \Python implementations can be found in
-\cref{chap:code-listings}.
+\Python implementations of relevant algorithms are provided to supplement this
+chapter; these can be found in in \cref{chap:code-listings}.
 
 \input{text/main/2_theory_1_outline}
 \input{text/main/2_theory_2_mpm}

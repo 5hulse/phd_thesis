@@ -1,12 +1,12 @@
 \section{Outline of the Problem}
 \label{sec:theory-outline}
-Through the application of \ac{NMR} theory, one can
+By applying the theory of \ac{NMR}, one can
 rationalise how a particular spin system, subjected to a given pulse sequence,
-is mapped to an \ac{FID}. This is an example of a \emph{forward problem}, in
-which one wishes to determine how a set of parameters is mapped to the
-resulting data.
-The chemical shifts, J-couplings, dipolar couplings, etc. of the spin system may
-be recast as a list of signal amplitudes, phases, frequencies and
+is mapped to a final \ac{FID}. This is an example of a \emph{forward problem},
+in which one wishes to determine how a set of parameters is leads to a
+observed dataset.
+The chemical shifts, J-couplings, dipolar couplings, etc. of the spin system
+may be recast as a list of signal amplitudes, phases, frequencies and
 damping factors, which define the form of the \ac{FID}.
 Many sophisticated pieces of software such as \textsc{Spinach}\cite{Hogben2011}
 solve this forward problem, yielding \ac{NMR} experiment simulations.
@@ -53,14 +53,15 @@ is hypercomplex in form, meaning that it obeys
     \label{eq:hypercomplex-fid}%
 \end{subequations}%
 where $\Dtd = \nicefrac{1}{\fswd}$.
+Under this model, it is assumed that
+\iac{FID} consists of a summation of $M$ damped complex sinusoids in the
+presence in \ac{AWGN}.
 It should be noted that, prior to estimating the dataset, it is normalised
 such that the signal actually under consideration is $\nicefrac{\bY}{\lVert \bY
 \rVert}$.
 To make the final result reflect the unnormalised dataset, the estimated
 amplitudes can be multiplied by $\lVert \symbf{Y} \rVert$.
-Under this model, it is assumed that
-\iac{FID} consists of a summation of $M$ damped complex sinusoids in the
-presence in \ac{AWGN}.
+
 It is the goal of parametric estimation to establish the
 identity of all the quantities which describe the model component $\bX$, which
 are distilled into the vector $\bth \in \mathbb{R}^{2(D + 1)M}$, given by
@@ -98,7 +99,7 @@ describing the entire noise array is given by the product of all the elements'
                 -\frac
                 {\left\lvert \wnonenD \right\rvert^2}
                 {2\sigma^2}\right) \\
-            &= \frac{1}{\left(2\pi \sigma^2\right)^{\mathfrak{N}}}
+            &= \frac{1}{\left(2\pi \sigma^2\right)^{N_{\text{tot}}}}
             \exp\left( -\frac{\left\lVert \bW \right\rVert^2}{2\sigma^2}\right).
     \end{split}
 \end{equation}
@@ -106,7 +107,7 @@ As the noise array is the difference between the data and model, the
 likelihood function of $\bth$ given the \ac{FID} $\bY$ is
 \begin{equation}
     \mathcal{L}(\bth \vert \bY) =
-    \frac{1}{\left(2\pi \sigma^2\right)^{\mathfrak{N}}}
+    \frac{1}{\left(2\pi \sigma^2\right)^{N_{\text{tot}}}}
         \exp\left( -\frac{\left\lVert \bY - \bX(\bth) \right\rVert^2}{2\sigma^2}\right).
 \end{equation}
 It is common to consider instead the log-likelihood function,
@@ -114,7 +115,7 @@ $\ell(\bth \vert \bY) \coloneq \ln \mathcal{L}(\bth \vert
 \bY)$:
 \begin{equation}
     \ell(\bth \vert \bY) =
-        -\mathfrak{N} \ln\left(2 \pi \sigma^2\right)
+        -N_{\text{tot}} \ln\left(2 \pi \sigma^2\right)
         -\frac{\left\lVert \bY - \bX(\bth) \right\rVert^2}{2\sigma^2}.
     \label{eq:log-likeihood}
 \end{equation}

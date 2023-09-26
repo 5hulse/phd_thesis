@@ -1,7 +1,7 @@
 \section{\Acl{NLP}}
 \label{sec:nlp}
 
-\subsection{An overview of \ac{NLP}}
+\subsection{An Overview of \ac{NLP}}
 \label{subsec:nlp-overview}
 In an optimisation problem, the goal is to determine the minimum\footnote{
     In certain applications, the interest could actually be to find the maximum of
@@ -29,32 +29,34 @@ minimiser of $\Fth$ if there is a neighbourhood $V \ni \bthstar$ for which
     \Fthstar \leq \Fth\ \forall \bth \in V.
   \label{def:local-minimiser}
 \end{equation}
-$V \subset \mathbb{R}^n$ is a continuous space such that one can move some
-amount in any direction away from $\bthstar$ and still be in $V$.
+$V \subset \mathbb{R}^n$ is a continuous space such that it is possible to move
+a finite amount in any direction away from $\bthstar$ and still be in $V$.
 Key to \ac{NLP} are the \emph{necessary conditions}, which define whether a
-given vector $\bth$ is a local minimum of the fidelity.
-The \emph{first necessary condition} states
-that if $\Fth$ is continuously differentiable, and $\bthstar$ is a local extremum\footnote{
-    ``Extremum'' is used here instead of ``minimum'', as the first necessary
-    condition applies to maxima of a function as well as minima.
-} of $\Fth$, then the gradient vector $\bdgthstar \coloneq \nabla \Fthstar$ is the
-zero vector:
-\begin{equation}
-    \bdgthstar = \symbf{0} \in \mathbb{R}^n
-\end{equation}
-The \emph{second necessary condition} subsequently states that
-if $\Fth$ and $\bdgth$ are continuously differentiable, and $\bthstar$ is a
-local minimiser of $\Fth$, then the Hessian matrix $\bdHthstar \coloneq
-\nabla^2 \Fthstar$ is positive semidefinite, i.e.
-\begin{equation}
-  \symbf{v}^{\mathrm{T}} \bdHthstar \symbf{v} \geq 0\ \forall \symbf{v} \in \mathbb{R}^n.
-\end{equation}
-Furthermore, it is a \emph{unique} local minimiser if the \emph{second-order
-sufficient condition} is also satisfied, i.e. that the Hessian is positive
-definite:
-\begin{equation}
-    \symbf{v}^{\mathrm{T}} \bdHthstar \symbf{v} > 0\ \forall \symbf{v} \in \mathbb{R}^n.
-\end{equation}
+given vector $\bth$ is a local minimum of the fidelity:
+\begin{itemize}
+    \item The \emph{first necessary condition} states
+        that if $\Fth$ is continuously differentiable, and $\bthstar$ is a local extremum\footnote{
+            ``Extremum'' is used here instead of ``minimum'', as the first necessary
+            condition applies to maxima of a function as well as minima.
+        } of $\Fth$, then the gradient vector $\bdgthstar \coloneq \nabla \Fthstar$ is the
+        zero vector:
+        \begin{equation}
+            \bdgthstar = \symbf{0} \in \mathbb{R}^n
+        \end{equation}
+    \item The \emph{second necessary condition} subsequently states that
+        if $\Fth$ and $\bdgth$ are continuously differentiable, and $\bthstar$ is a
+        local minimiser of $\Fth$, then the Hessian matrix $\bdHthstar \coloneq
+        \nabla^2 \Fthstar$ is positive semidefinite, i.e.
+        \begin{equation}
+          \symbf{v}^{\mathrm{T}} \bdHthstar \symbf{v} \geq 0\ \forall \symbf{v} \in \mathbb{R}^n.
+        \end{equation}
+        \item Furthermore, $\bthstar$ is a \emph{unique} local minimiser if the \emph{second-order
+            sufficient condition} is also satisfied, i.e. that the Hessian is positive
+            definite:
+            \begin{equation}
+                \symbf{v}^{\mathrm{T}} \bdHthstar \symbf{v} > 0\ \forall \symbf{v} \in \mathbb{R}^n.
+            \end{equation}
+\end{itemize}
 
 A plethora of approaches have been established to determine local minima of
 scalar functions. One of the better-known strategies is \emph{Newton's method},
@@ -98,8 +100,7 @@ definite. Two primary strategies have emerged which are typically used instead:
         \cref{eq:quad-approx} subject to the constraint that
         $\left\lVert\symbf{h}\right\rVert \leq \Updelta^{(k)}$.
 \end{itemize}
-A trust region method is applied in this work, and as such further
-consideration of it will now be made.
+
 
 \begin{algorithm}
     \caption[
@@ -167,7 +168,8 @@ consideration of it will now be made.
         \EndProcedure
     \end{algorithmic}
 \end{algorithm}
-The structure of a typical trust region method is presented in
+A trust region method is applied in this work,
+with the typical steps involved given in
 \cref{alg:nlp} (ignoring \crefrange{state:neg-amp-start}{state:neg-amp-end}, which is a custom addition,
 see \cref{subsec:phase-variance}). An initial radius for the trust region
 $\trustradius{0}$ is defined, along with a maximum permitted radius
@@ -182,7 +184,7 @@ For each iteration, a solution to the following sub-problem is sought:
         \text{subject to } \left \lVert \bp \right \rVert \leq \trustradius{k}.
     \end{split}
 \end{equation}
-This sub-problem is not usually minimised exactly, but instead an efficient
+This sub-problem is not usually solved exactly, but instead an efficient
 means of determining a sufficiently good update is used.
 Common approaches include computing the Cauchy point, the Dogleg
 method, and a truncated conjugate-gradient
@@ -191,27 +193,26 @@ The latter is employed in this work (see \cref{alg:steihaug-toint} and
 \cref{lst:tr}). In the \ac{ST} approach, iterates of the conjugate-gradient
 method\cite[Chapter 5]{Nocedal2006} are computed, either until an iterate which
 is outside the trust region is computed, or negative curvature is discovered.
-
 Once a provisional update $\bthkplusone = \bthk + \bpk$ is determined using the
 \ac{ST} method, a metric is considered which indicates how well the
 quadratic estimate agrees with the true value of the fidelity:
 \begin{equation}
-    \rho^{(k)} = \frac
+    \rho = \frac
         {\Fthk - \Fthkpk}
         {\FQthk - \FQthkpk}.
 \end{equation}
-$\rho^{(k)}$ is the ratio between the actual reduction of the fidelity caused
+$\rho$ is the ratio between the actual reduction of the fidelity caused
 by taking the proposed step, and the predicted reduction based on the quadratic
-model. If $\rho^{(k)}$ is sufficiently close to $1$, the quadratic model being
-used to generate new iterates is deemed to be acting well enough to warrant
+model. If $\rho$ is sufficiently large, the quadratic model being
+used to generate new iterate is deemed to be acting well enough to warrant
 accepting the proposed update
 (\cref{state:large-rho-start,state:large-rho-end}).
-Furthermore, if $\rho^{(k)}$ is particularly close to 1, and the proposed
+Furthermore, if $\rho$ is particularly close to $1$ and the proposed
 update is at the boundary of the trust radius, it is appropriate to enlarge the
-radius of the trust region for the next iteration in an attempt to increase the
+radius of the trust region for the next iteration in order to increase the
 rate of convergence
 (\cref{state:increase-tr-start,state:increase-tr-end}).
-On the other hand, a small value of $\rho^{(k)}$ implies that the
+On the other hand, a small value of $\rho$ implies that the
 quadratic model reflects the true fidelity poorly, such that the proposed
 update should be rejected
 (\cref{state:small-rho-start,state:small-rho-end}).
@@ -222,12 +223,10 @@ thresholds which dictate whether to accept an update, and whether to adjust the
 trust region radius are customisable. The hard-coded numerical values found in
 \cref{alg:nlp} are the values used for the results presented in this work.
 
-\subsection{\acs{NLP} applied to \acs{FID} estimation}
-Focus now turns to the specific problem of FID estimation using \ac{NLP}, for
-which a general $D$-dimensional dataset will be considered. As established in
-\cref{sec:theory-outline}, the fidelity $\FthY : \mathbb{C}^{\None \times
-\cdots \times \ND} \times \mathbb{R}^{2(1 + D)M} \rightarrow \mathbb{R}$ is
-given by
+For the specific case of \ac{FID} estimation using \ac{NLP}, consider a general
+$D$-dimensional dataset. As established in \cref{sec:theory-outline}, the
+fidelity $\FthY : \mathbb{C}^{\None \times \cdots \times \ND} \times
+\mathbb{R}^{2(1 + D)M} \rightarrow \mathbb{R}$ is given by
 \begin{equation}
     \FthY = \left \lVert \bY - \bXth \right \rVert^2.
     \label{eq:fidelity}
@@ -260,86 +259,27 @@ respect to the elements in $\bth$:
                     \right\rangle
                 }_{\circled{2}}
             \biggl),
-            \label{eq:hess}
+            \label{eq:hess}\\
+        \forall i,j \in \lbrace 1, \cdots, 2(1+D)M \rbrace.\notag
     \end{gather}
     \label{eq:fidelity-grad-hess}%
 \end{subequations}
-$\forall i,j \in \lbrace 1, \cdots, 2(1+D)M \rbrace$.
-The complete set of first and second derivatives of a particular element of the
-model $x \coloneq \xnonenD$, given by \cref{eq:x}, is as follows
-$\forall m \in \lbrace 1, \cdots, M \rbrace$,
-$\forall d, d^{\prime} \in \lbrace 1, \cdots, D \rbrace$:
-\paragraph{First dreivatives}
-\begin{subequations}
-    \begin{gather}
-        \xderiv{\theta_m} \equiv
-            \xderiv{a_m} =
-            \frac{x}{a_m},
-            \label{eq:deriv-a}\\
-        \xderiv{\theta_{m + M}} \equiv
-            \xderiv{\phi_m} =
-            \iu x,\\
-        \xderiv{\theta_{m + (d + 1)M}} \equiv
-            \xderiv{\fdm} =
-            2 \pi \iu \Dtd \nd x,\\
-        \xderiv{\theta_{m + (d + D + 1)M}} \equiv
-            \xderiv{\etadm} =
-            - \Dtd \nd x.
-    \end{gather}
-    \label{eq:first-derivs}
-\end{subequations}
-\paragraph{Second derivatives}
-\begin{subequations}
-    \begin{gather}
-        \xderivtwosame{\theta_{m}} \equiv
-            \xderivtwosame{a_m} =
-            0,
-            \label{eq:amp-second-deriv}\\
-        \xderivtwodiff{\theta_{m}}{\theta_{m + M}} \equiv
-            \xderivtwodiff{a_m}{\phi_m} =
-            \frac{\iu x}{a_m},\\
-        \xderivtwodiff{\theta_{m}}{\theta_{m + (d + 1)M}} \equiv
-            \xderivtwodiff{a_m^{\vphantom{(d)}}}{\fdm} =
-            \frac{2 \pi \iu \Dtd \nd x}{a_m},\\
-        \xderivtwodiff{\theta_{m}}{\theta_{m + (d + D + 1)M}} \equiv
-            \xderivtwodiff{a_m^{\vphantom{(d)}}}{\etadm} =
-            \frac{-\Dtd \nd x}{a_m},\\
-        \xderivtwosame{\theta_{m + M}} \equiv
-            \xderivtwosame{\phi_m} =
-            -x,\\
-        \xderivtwodiff{\theta_{m + M}}{\theta_{m + (d + 1)M}} \equiv
-            \xderivtwodiff{\phi_m^{\vphantom{(d)}}}{\fdm} =
-            -2 \pi \Dtd \nd x,\\
-        \xderivtwodiff{\theta_{m + M}}{\theta_{m + (d + D + 1)M}} \equiv
-            \xderivtwodiff{\phi_m^{\vphantom{(d)}}}{\etadm} =
-            -\iu \Dtd \nd x,\\
-        \xderivtwodiff{\theta_{m + (d + 1)M}}{\theta_{m + (d^{\prime} + 1)M}} \equiv
-            \xderivtwodiff{\fdm}{\fdmp} =
-            -4\pi^2 \left(\Dtd \nd \right) \left(\Dtdp \ndp \right) x,\\
-        \xderivtwodiff{\theta_{m + (d + 1)M}}{\theta_{m + (d^{\prime} + D + 1)M}} \equiv
-            \xderivtwodiff{\fdm}{\etadmp} =
-            -2 \pi \iu \left(\Dtd \nd \right) \left(\Dtdp \ndp \right) x,\\
-        \xderivtwodiff{\theta_{m + (d + D + 1)M}}{\theta_{m + (d^{\prime} + D + 1)M}} \equiv
-            \xderivtwodiff{\etadm}{\etadmp} =
-            \left(\Dtd \nd \right) \left(\Dtdp \ndp \right) x,\\
-        \xderivtwodiff{\theta_{i}}{\theta_{j}} =
-            \xderivtwodiff{\theta_{j}}{\theta_{i}},
-            \label{eq:symmetric-second-derivs}\\
-        \xderivtwodiff{\theta_{i}}{\theta_{j}} = 0\ \text{ if not specified above.}
-        \label{eq:zero-second-deriv}
-    \end{gather}
-    \label{eq:second-derivs}
-\end{subequations}
-\Cref{eq:zero-second-deriv} indicates that any second derivative
-with respect to two parameters which do not belong to the same oscillator in
-then model will always be $0$. This, along with the symmetrical nature of the
-second derivatives (\cref{eq:symmetric-second-derivs}) drastically reduces the
-required number to explicitly compute, from $4 (1 + D)^2 M^2$ per data-point
-to  $(1+D)\left(3 + 2D\right)M$. Finally, \cref{eq:amp-second-deriv}
-indicates that another $M$ second derivatives do not need to be computed, as
-they are always $0$. See \cref{tab:number-of-derivatives} for the total
-number of derivatives that need to be computed for datasets with different
-numbers of dimensions.
+Computing these requires the generation of a large number of first and second
+partial derivatives. The complete set of these are given in
+\cref{sec:derivatives}.
+Fortunately, fewer second partial derivatives need to be computed than one
+might initially suspect. $4(1 + D)^2 M^2$ of these exist per datapoint.
+However, all of those involving parameters associated with different
+oscillators are zero. The second derivatives are also symmetric, i.e.
+\[
+    \frac{\partial^2 x_{\nonedotsnD}}{\partial \theta_i \partial \theta_j} \equiv
+    \frac{\partial^2 x_{\nonedotsnD}}{\partial \theta_j \partial \theta_i},
+\]
+which further reduces the number of explicit computations that are necessary.
+Finally, the derivatives satisfying $\theta_i = \theta_j = a_m$ are always
+zero as well. The upshot of these features is that the total number of second
+derivatives that need to be computed is reduced to $(2D^2 + 5D + 2)M$ per
+datapoint (see \cref{tab:number-of-derivatives}).
 \begin{table}
     \begin{center}
         \begin{tabular}{ c c c }
@@ -351,7 +291,7 @@ numbers of dimensions.
             $1$ & $4M\None$ & $9M\None$\\
             $2$ & $6M\None\Ntwo$ & $20M\None\Ntwo$\\
             $3$ & $8M\None\Ntwo\Nthree$ & $35M\None\Ntwo\Nthree$\\
-            $D$ &  $2(1 + D)M \mathfrak{N}$ &  $((1 + D)(3 + 2D) - 1)M \mathfrak{N}$\\
+            $D$ &  $2(1 + D)M N_{\text{tot}}$ &  $(2D^2 + 5D + 2) M N_{\text{tot}}$\\
             \bottomrule
         \end{tabular}
     \end{center}
@@ -366,13 +306,13 @@ numbers of dimensions.
 
 \subsection{Approximating the Hessian}
 \label{subsec:hess-approx}
-Despite many of the model second derivatives being $0$, computation of those
+Despite many of the model second derivatives being zero, computation of those
 that are not zero, and subsequently using these the form the Hessian matrix,
-can be an expensive part of the optimisation routine.
-Numerous optimisation problems exist where this is the case, and as such
+is an expensive part of the optimisation routine.
+Numerous optimisation problems exist where this is the case; as such,
 there is considerable precedent for improving the efficiency of optimisation
-algorithms by generating approximations of the Hessian which are demanding to
-compute.
+algorithms by generating approximations of the Hessian which are less demanding
+to compute.
 Examples include the \ac{GN} method and \ac{LM} algorithm,
 which are specifically for \ac{RSS} problems\cite[Chapter
 10]{Nocedal2006}, as well as quasi-Newton methods such as the \ac{BFGS}
@@ -389,20 +329,20 @@ iteration with the following expression:
     \label{eq:hess-approx}
 \end{equation}
 i.e. term \circled{2} in \cref{eq:hess}, which involves the model second
-derivatives, is neglected. All that needs to be generated is the Jacobian
-$\symbf{J} = \nicefrac{\partial \bX}{\partial \bth}$. This can
-bring a very large reduction in the computational cost, as no extra
-derivatives need to be computed for the Hessian at all, since the Jacobian is
-already required for generating the gradient vector.
+derivatives, is neglected. All that needs to be generated is the \emph{Jacobian}
+$\nicefrac{\partial \bX}{\partial \bth}$. This can
+bring a very large reduction in the computational cost; no extra
+derivatives need to be computed for the Hessian at all since the Jacobian is
+already required to generate the gradient vector.
 In situations where the residuals between the data and model are small, term
 \circled{1} will tend to dominate term \circled{2}, and as such these methods
 often enjoy a convergence rate which is comparable to that of Newton's method
-when close to local minima. Despite this, by invoking this approximation, the
-rate of convergence, i.e. the number of iterations required to reach
-$\bthstar$, tends to be adversely affected. See \cref{subsec:optim-vis} for an
-example of this phenomenon.
+when close to a local minimum. Despite this, by invoking this approximation, the
+rate of convergence (i.e. the number of iterations required to reach
+$\bthstar$) tends to be adversely affected, as is highlighted by the following
+example.
 
-\subsection{Visualisation of a simple example}
+\subsection{Visualisation of a Simple Example}
 \label{subsec:optim-vis}
 \begin{figure}
     \centering
@@ -418,9 +358,9 @@ example of this phenomenon.
         the time domain and Fourier domain, respectively.
         Black dots: the signal to be estimated $\by$.
         Solid grey line: the model generated
-        using the initial guess $\bx \left( \bthzero \right)$.
-        Dotted grey line: the model generated using the optimised result, $\bx
-        \left( \bthstar \right)$.
+        using the initial guess $\bthzero$.
+        Dotted grey line: the model generated using the optimised result,
+        $\bthstar$.
         \textbf{c.} A contour plot of the fidelity.
         Blue line: the trajectory of the parameter vector with the true
         Hessian matrix used in computing each update.
@@ -434,32 +374,34 @@ to estimate a simulated \ac{1D} \ac{FID} comprising a single signal.
 The FID was constructed using \cref{eq:general-fid} with $M=1$,
 $N = 64$, $\fsw = \qty{5.2}{\hertz}$ ($\Dt \approx
 \qty{0.192}{\second}$), and $\foff = \qty{0}{\hertz}$.
-The signal was parameterised by $\bth \in \mathbb{R}^4$ comprising $a=1$,
-$\phi=\qty{0}{\radian}$, $f=\qty{1}{\hertz}$, $\eta=\qty{0.2}{\per\second}$.
-\ac{AWGN} was added to the \ac{FID} to give it \iac{SNR} of approximately
+It was constructed using the parameters $\bth \in \mathbb{R}^4$ comprising $a=1$,
+$\phi=\qty{0}{\radian}$, $f=\qty{1}{\hertz}$, and $\eta=\qty{0.2}{\per\second}$.
+\ac{AWGN} was added to the \ac{FID} to give it a target \iac{SNR} of
 \qty{10}{\deci\bel}. As the visualisation of 5D space is beyond the scope of
 this work, only two parameters, the frequency and damping factor, were optimised
 from an initial guess $\bthzero$; the amplitude and phase were fixed to
 their true values throughout. The initial guess comprised a frequency of
 \qty{1.1}{\hertz}, and a damping factor of \qty{0.8}{\per\second}, with the
-solid grey lines in panels a \& b denoting the model generated in the time- and
+solid grey lines in Figures \ref{fig:optim-vis}.a and \ref{fig:optim-vis}.b
+denoting the model generated in the time- and
 Fourier-domains, respectively. $\bthzero$ was subjected to \ac{NLP} twice. In
-the first instance, the exact Hessian matrix, given by \cref{eq:hess} was used
+the first instance, the exact Hessian matrix given by \cref{eq:hess} was used
 in order to compute each update step, while in the second the Hessian
 approximation given by \cref{eq:hess-approx} was used. The initial
 radius of the trust region was set to $\nicefrac{1}{10}$ of the gradient norm
 ($\approx 0.3$), which has a precedent in the literature\cite{Gould2005}. The
-trajectories of the parameter vector are denoted by coloured lines in panel c.
+trajectories of the parameter vector are denoted by blue and red lines in
+\cref{fig:optim-vis}.c.
 In both cases, the \ac{NLP} routine successfully converged at a result $\bthstar$
 in agreement with the true frequency and damping factor used to construct the
-\ac{FID}. However, it is clear that using the true Hessian matrix (blue)
+\ac{FID}. However, it is clear that using the true Hessian matrix (blue trajectory)
 led to a far better rate of convergence compared with the
-approximated analogue (red), which exhibited ``zig-zagging''\footnote{
+approximated analogue (red trajectory), which exhibited ``zig-zagging''\footnote{
     This phenomenon is often seen in gradient descent methods, in which each
     update occurs along the opposite direction to the gradient.
 }.
-14 iterations were required to reach the
-convergence criterion $\epsilon \leq \num[print-unity-mantissa=false]{1e-8}$
+14 iterations were required to achieve convergence with the
+criterion $\epsilon = \num[print-unity-mantissa=false]{1e-8}$
 when the true Hessian was used, while 81 were required for the approximated
 case. Despite being an anecdotal example, this highlights that use of the true
 Hessian matrix tends to allow a better rate of convergence. However, for
@@ -499,10 +441,11 @@ the \ac{MPM}, through appropriate regularisation of the \ac{NLP} routine.
 Assuming that the data has been phase corrected\footnote{
     Rather than rely on the data being phase-corrected, one could envisage
     replacing the phase variance with a term which guides the
-    oscillators to adopt a first-order phase relationship. The reason why the
-    phase variance has been chosen is two-fold: (i) Applying phase-correction
+    oscillators to adopt a first-order phase relationship during \ac{NLP}. The
+    reason why the
+    phase variance has been chosen is two-fold. (a) Applying phase-correction
     to \ac{NMR} data is straightforward and can be automated,
-    meaning the user would experience minimal burden. (ii) As will be discussed
+    meaning the user would experience minimal burden. (b) As will be discussed
     in \cref{sec:filtering}, it is beneficial to have a spectrum comprising
     pure absorption-mode Lorentzians in order to produce frequency-filtered
     ``sub-\acp{FID}'' from the original data, so the data being estimated will
@@ -542,9 +485,9 @@ However, with the inclusion of wrapping through application of
 \cref{eq:phase_wrap}, these phases would actually be set to $\bdphi = \left[
     -\pi
 + \delta\:\:\pi - \delta \right]\T$, and the linear phase
-variance would be large. It is therefore apparent that a definition of variance
-which accounts for the periodicity of the phases is needed. The circular
-variance is defined as\cite[Chapter 3]{Fisher1993}
+variance would be large. A definition of variance which accounts for the
+periodicity of the phases is needed. The circular variance is defined
+as\cite[Chapter 3]{Fisher1993}
 \begin{subequations}
     \begin{gather}
         [0, 1] \ni \circvar = 1 - \frac{R}{M},\\
@@ -556,17 +499,16 @@ variance is defined as\cite[Chapter 3]{Fisher1993}
 $R$ is the length of the resultant vector produced by summing $M$ unit vectors
 with angles given by $\bdphi$. In the case that all the vectors have the
 same angle, $R=M$, leading to the variance being $0$ as expected. At the other
-extreme, with $M$ vectors uniformly separated about the unit circle\,---\,such
-that there is an angle of $\nicefrac{2 \pi}{M - 1}$\,\unit{\radian} between all
+extreme, with $M$ vectors uniformly separated about the unit circle\,---\,this leads to there being an angle of $\nicefrac{2 \pi}{M - 1}$\,\unit{\radian} between all
 pairs of adjacent vectors\,---\,the
 vectors will perfectly cancel, leading to $R=0$. In this case, the maximum
-variance of $1$ is obtained.
+possible variance ($1$) is obtained.
 The inclusion of the phase variance into the fidelity is one of the
-motivating reasons for normalising the data prior to estimation (see
-\cref{rem:norm-data}). Since $\circvar$ is constrained to the interval $[0,
-1]$, if the data were not normalised it is likely that $\lVert \bY - \bX
-\rVert^2$ would dominate $\circvar$ in \cref{eq:fidelity-phasevar}, such that
-the influence of the phase variance would be negligible.
+motivating reasons for normalising the data prior to estimation. Since
+$\circvar$ is constrained to the interval $[0, 1]$, if the data were not
+normalised it is likely that $\lVert \bY - \bX \rVert^2$ would dominate
+$\circvar$ in \cref{eq:fidelity-phasevar}, such that the influence of the phase
+variance would be negligible.
 
 The first and second derivatives of the circular variance are required for
 the computation of the gradient vector and Hessian matrix, whose updated forms
@@ -637,7 +579,8 @@ The derivatives of the phase variance are given by:
 The phase variance-regularised fidelity (\cref{eq:fidelity-phasevar}) is
 minimised according the unconstrained \ac{NLP} routine described above. It is
 therefore possible for oscillators to acquire parameters which are unrealistic
-as the optimiser evolves (see \cpageref{pg:param-constraints} for an outline of
+as the optimiser evolves (see the bulleted list on
+\cpageref{pg:param-constraints} for an outline of
 the expected ranges that the parameters reside in). With the inclusion of
 the variance of oscillator phases, there are situations where oscillators
 acquire negative amplitudes. Typically, this occurs when there are

@@ -3,7 +3,7 @@
 \subsection{A Brief History}
 Since its conception almost 80 years ago, \ac{NMR} has become a ubiquitous
 technique in chemistry, biochemistry and numerous other disciplines, thanks to
-the unique insights into the structure and dynamics of chemical species that it
+the unique insights into chemical structure and dynamics that it
 can provide.
 The origins of the subject can be traced back to 1945, when independent work by
 Felix Bloch on water\cite{Bloch1946} and Edward Purcell on
@@ -11,33 +11,40 @@ parrafin\cite{Purcell1946} gave rise to the first illustrations of nuclear
 magnetic resonances in condensed phases. The two hadn't met before their
 respective papers were published with about a month's
 separation\cite{Becker1993}. Both received the Nobel Prize in Physics in 1952
-for their pioneering work in the field. A notable mention should also be given
-to Yevgeny Zavoisky, the father of electron paramagnetic resonance, who
-probably observed NMR as far back as 1941\cite{Eaton1998}. Alas, he dismissed
-his results as irreproducible. In 1949 and 1950, work investigating \ac{NMR}
-spectra from compounds containing Cu, \textsuperscript{31}P,
-\textsuperscript{14}N, and \textsuperscript{19}F nuclei illustrated the concept
-of the chemical shift\cite{Knight1949, Proctor1950, Dickinson1950}, in which
-nuclei in different chemical environments exhibit non-identical resonant
-frequencies.  Chemists regarded these results with great interest, as these
-findings suggested that \ac{NMR} could give insights into molecular structure.
+``for their development of new methods for nuclear magnetic precision
+measurements and discoveries in connection therewith''\cite{Nobel1952}. A
+notable mention should also be given
+to Yevgeny Zavoisky, the father of the related field of electron paramagnetic
+resonance, who probably observed NMR as far back as 1941\cite{Eaton1998}. Alas,
+he dismissed
+his results as irreproducible. A few years subsequently, works investigating
+\ac{NMR} spectra from compounds containing nuclei including \ch{^{63}Cu},
+\ch{^{65}Cu}, \ch{^{31}P}, \ch{^{14}N}, and \ch{^{19}F} nuclei led to an
+understanding of the \emph{chemical shift}, a phenomenon in
+which nuclei from chemical environments exhibit
+non-identical resonant frequencies\cite{Knight1949, Proctor1950,
+Dickinson1950}.  Chemists regarded these findings with great
+interest, as they suggested that \ac{NMR} could give insights into molecular
+structure.
 
-Russel Varian secured the first patent for a commercial \ac{NMR} machine, with
+Russel Varian\,---\,founder of \textsc{Varian Associates} along with his brother
+Sigurd\,---\,
+secured the first patent for a commercial \ac{NMR} machine, with
 a \qty{30}{\mega\hertz} spectrometer following soon after. The first
-spectrometers functioned by slowly sweeping the magnetic field,
+spectrometers functioned by gradually varying the magnetic field strength,
 causing spins to come into resonance at different times, in a process referred
 to as continuous wave spectroscopy. Richard Ernst and
-Weston Anderson, working at Varian Inc. at the time, proposed an alternative
+Weston Anderson, working at \textsc{Varian} at the time, proposed an alternative
 method: pulsed \ac{FT} spectroscopy\cite{Ernst1966}. This was not seen as a
 fruitful endeavour by the company, largely because of the very long time it
 took to digitise the signal, and subsequently compute its FT\cite{Freeman2015}.
 Instead, the first commercial pulsed \ac{FT} spectrometer was produced by
-Bruker Corp. in 1969, which revolutionised NMR. The emergence of the
-Cooley and Tukey's \ac{FFT} algorithm\cite{Cooley1965} led to vast improvements
-in the speed with which experiments could be conducted, which incentivised the
-development of the new pulsed \ac{FT} approach.
+\textsc{Bruker Corp.} in 1969, which revolutionised NMR. The innovation emerged
+shortly after Cooley and Tukey's introduction of the \ac{FFT}
+algorithm\cite{Cooley1965}, which incentivised the development of pulsed
+\ac{FT} approach.
 
-The idea of 2D NMR spectroscopy was proposed by Jean Jeener in
+The concept of \ac{2D} \ac{NMR} spectroscopy was proposed by Jean Jeener in
 1971\cite{Jeener1971, Jeener2016}, which Ernst and co-workers showcased a few
 years later in the form of a \ac{COSY} experiment\cite{Aue1976a}. The use of
 multiple dimensions to spread out signals enabled vastly more complex
@@ -50,7 +57,8 @@ Kay1990}, as well \ac{TROSY} experiments\cite{Pervushin1997} for the study of
 large proteins.
 
 \ac{NMR}'s significance as an analytical tool is evidenced by Nobel Prizes in
-Chemistry being awarded for work in the field on two separate occasions. First,
+Chemistry being awarded for work in the field on two separate occasions, on top
+of the 1952 Physics Prize. First,
 Ernst received the prize in 1991 ``for his contributions to the development of
 the methodology of high resolution \acl{NMR}"\cite{Ernst1992}. In 2002,
 W\"uthrich was recognised ``for his development of \acl{NMR} for determining
@@ -58,13 +66,6 @@ the three-dimensional structure of biological macromolecules in
 solution"\cite{Wuthrich2003}.
 
 \subsection{The Bloch model of \acs{NMR}}
-\begin{remark}
-    In most of this work, vectors are expressed as lower-case
-    bold letters and matrices/multidimensional arrays are expressed as
-    upper-case bold letters. In this section however, notation
-    frequently encountered in the literature is used; certain vector
-    quantities are denoted with upper-case letters.
-\end{remark}
 
 \ac{NMR} relies on an intrinsic property of certain nuclei called \textit{spin}
 which, along with orbital angular momentum, is one of the two sources of
@@ -73,30 +74,38 @@ The angular momentum associated with a nuclear spin is characterised by the
 quantum number $I \in \lbrace 0, \nicefrac{1}{2}, 1, \nicefrac{3}{2}, \cdots
 \rbrace$. Spin-\nicefrac{1}{2}
 nuclei are the most commonly studied in \ac{NMR}, as those with $I >
-\nicefrac{1}{2}$ often have very short-lived excited states, due to electric
+\nicefrac{1}{2}$ often have very short-lived excited states due to electric
 quadrupole effects. A rigorous description of \ac{NMR} requires the application
-of quantum mechanics, with many excellent texts devoted to the
-subject\cite{Abragam1961,Goldman1988,Cavanagh2007}. However, a basic
-appreciation can be gained using the \emph{Bloch model}, a semi-classical description
-of the simplest of possible system to study: a ensemble of isolated, identical
-spin-$\nicefrac{1}{2}$ nuclei\cite[Chapter 1]{Hore2015}.
+of quantum mechanics, with many excellent texts on the subject of differing
+degrees of complexity to suit newcomers and experts alike; these include the
+following citations (in order complexity):
+\cite{Hore2015,Levitt2007,Cavanagh2007,Goldman1988,Abragam1961}.
+However, a basic
+appreciation can be gained using the Bloch (or vector) model, a semi-classical
+description of the simplest of possible system to study: a ensemble of
+isolated, identical spin-$\nicefrac{1}{2}$ nuclei\cite[Chapter 1]{Hore2015}.
 The Bloch model becomes inadequate when more complex spin systems are
 considered, featuring non-identical spins which interact through mechanisms
-such as scalar (J) couplings. However, it provides valuable insights into the
-basic principles of \ac{NMR}, including the form that a typical dataset
-acquired by an experiment takes.
+such as scalar couplings (commonly referred to as J-couplings). However,
+it provides valuable insights into the basic principles of \ac{NMR},
+including the form that a typical dataset acquired by an experiment takes.
 
-The nuclear spin angular momentum $\symbf{I} \in
-\mathbb{R}^3$ is a vector with squared magnitude
+The nuclear spin angular momentum $\symbf{I} \in \mathbb{R}^3$ is a
+vector\footnote{
+    In most of this work, vectors are expressed as lower-case
+    bold letters and matrices/multidimensional arrays are expressed as
+    upper-case bold letters. However, in this section notation
+    frequently encountered in the literature is used, which violates this.
+} with squared magnitude
 \begin{equation}
   \symbf{I}^2 = \symbf{I} \cdot \symbf{I} = \hbar I (I + 1),
   \label{eq:I-squared}
 \end{equation}
 where $\hbar = \nicefrac{h}{2 \pi}$ is the reduced Planck constant. While it
 is not possible to specify multiple components of the angular momentum
-simultaneously due to the uncertainty principle, it is possible to specify one
-of these along with $\symbf{I}^2$. Conventionally, this is chosen to be the
-$z$-component, for which
+simultaneously in accordance with the uncertainty principle, it is possible to
+specify one of these along with $\symbf{I}^2$. Conventionally, this is chosen
+to be the $z$-component, for which
 \begin{equation}
   I_z = \hbar m,
   \label{eq:Iz}
@@ -104,7 +113,11 @@ $z$-component, for which
 with $m \in \lbrace -I, -I+1, \cdots, I - 1, I \rbrace$. \cref{eq:Iz}
 implies that the magnitude of the $z$-component may only adopt certain discrete
 values (i.e. it is quantised). A nucleus with non-zero spin has an associated
-\textit{magnetic moment}, given by:
+\textit{magnetic moment}, given by\footnote{
+    In the context of solution-state \ac{NMR}, $\gamma$ is often replaced with
+    $(1-\sigma)\gamma$, where $\sigma$ is a unitless quantity that accounts for
+    chemical shift.
+}:
 \begin{equation}
   \symbf{\mu} = \gamma \symbf{I} \implies \mu_z = \gamma I_z = \gamma \hbar m.
 \end{equation}
@@ -112,9 +125,7 @@ $\gamma \in \mathbb{R}$ is a proportionality constant called the
 \textit{gyromagnetic ratio}, which is dependent on the nucleus of interest.
 \Cref{tab:nuclei} provides the gyromagnetic ratios for some low-mass
 nuclei commonly encountered in NMR, along with some which are spin-$0$ and
-therefore ``invisible'' in the context of \ac{NMR}. Sadly the most abundant
-isotopes of two of the most prominent atoms in organic chemistry fall into this
-category.
+therefore ``invisible'' in the context of \ac{NMR}.
 
 \begin{table}
     \begin{center}
@@ -122,18 +133,18 @@ category.
             \toprule
             Nucleus & $I$ & $\gamma (\si{\radian \per \tesla \per \second})$ & Relative Abundance (\%) \\
             \midrule
-            \textsuperscript{1}H & \nicefrac{1}{2} & \num{2.6752e8} & 99.9885 \\
-            \textsuperscript{2}H & 1 & \num{4.1066e7} & 0.0115 \\
-            \textsuperscript{6}Li & 1 & \num{3.9371e7} & 7.59 \\
-            \textsuperscript{7}Li & \nicefrac{3}{2} & \num{1.0398e8} & 92.41 \\
-            \textsuperscript{12}C & 0 & - & 98.93 \\
-            \textsuperscript{13}C & \nicefrac{1}{2} & \num{6.7283e7} & 1.07 \\
-            \textsuperscript{14}N & 1 & \num{1.9338e7} & 99.636 \\
-            \textsuperscript{15}N & \nicefrac{1}{2} & \num{-2.7126e7} & 0.364 \\
-            \textsuperscript{16}O & 0 & - & 99.756 \\
-            \textsuperscript{17}O & \nicefrac{5}{2} & \num{-3.6281e7} & 0.038 \\
-            \textsuperscript{19}F & \nicefrac{1}{2} & \num{2.5162e8} & 100 \\
-            \textsuperscript{31}P & \nicefrac{1}{2} & \num{1.0839e8} & 100 \\
+            \ch{^{1}H} & \nicefrac{1}{2} & \num{2.6752e8} & 99.9885 \\
+            \ch{^{2}H} & 1 & \num{4.1066e7} & 0.0115 \\
+            \ch{^{6}Li} & 1 & \num{3.9371e7} & 7.59 \\
+            \ch{^{7}Li} & \nicefrac{3}{2} & \num{1.0398e8} & 92.41 \\
+            \ch{^{12}C} & 0 & - & 98.93 \\
+            \ch{^{13}C} & \nicefrac{1}{2} & \num{6.7283e7} & 1.07 \\
+            \ch{^{14}N} & 1 & \num{1.9338e7} & 99.636 \\
+            \ch{^{15}N} & \nicefrac{1}{2} & \num{-2.7126e7} & 0.364 \\
+            \ch{^{16}O} & 0 & - & 99.756 \\
+            \ch{^{17}O} & \nicefrac{5}{2} & \num{-3.6281e7} & 0.038 \\
+            \ch{^{19}F} & \nicefrac{1}{2} & \num{2.5162e8} & 100 \\
+            \ch{^{31}P} & \nicefrac{1}{2} & \num{1.0839e8} & 100 \\
             \bottomrule
         \end{tabular}
     \end{center}
@@ -144,11 +155,10 @@ category.
     \label{tab:nuclei}
 \end{table}
 
-Without the presence of an external magnetic field, the nuclear spin states of
-different $m$ are degenerate. However, when subjected to such a field, the
-\emph{Zeeman effect} is observed, in which the relative energies of the
-different states diverge. The energy of a given magnetic moment relative to its
-zero-field energy is given by
+Without the presence of an external magnetic field, the different nuclear spin
+states are degenerate. Once subjected to a field, the \emph{Zeeman effect} is
+observed, whereby the relative energies of the different states diverge. The
+energy of a given magnetic moment relative to its zero-field energy is given by
 \begin{equation}
   E = - \symbf{\mu} \cdot \symbf{B}_0,
 \end{equation}
@@ -182,34 +192,34 @@ states are therefore (\cref{fig:energy_levels})
 \ac{NMR} samples comprise a vast ensemble of equivalent spin systems, and it is
 the macroscopic properties of the sample that are observed.
 At thermal equilibrium, the various spin states will be disproportionately
-populated in accordance with the Boltzmann distribution, with lower energy
-states being more heavily populated. For example, an ensemble of
-non-interacting spin-$\nicefrac{1}{2}$ nuclei with $\gamma > 0$ will have a
-more populated $m = +\nicefrac{1}{2}$ (\textalpha) state, relative
-to the $m = -\nicefrac{1}{2}$ (\textbeta) state. Due to the very small relative
-energy difference however, it should be noted that the discrepancy in state
-populations is very small.
-The ensemble acquires a net (bulk) magnetic moment $\symbf{M}$, given by the
-sum of all the individual spin moments:
+populated\,---\,albeit to a meager extent in accordance with the small
+relative energy differences involved\,---\,in accordance with the Boltzmann
+distribution, with lower energy states being more heavily populated. For
+example, an ensemble of
+non-interacting spin-$\nicefrac{1}{2}$ nuclei with $\gamma > 0$, such as
+\ch{^1H}, will have a more populated $m = +\nicefrac{1}{2}$ (\textalpha) state,
+relative to the $m = -\nicefrac{1}{2}$ (\textbeta) state.  The ensemble
+acquires a net (bulk) magnetic moment $\symbf{M}$, given by the sum of all the
+individual spin moments:
 \begin{equation}
     \symbf{M} = \sum\limits_{s=1}^{S} \symbf{\mu}_s,
 \end{equation}
 where $S \gg 1$ is the number of spins in the ensemble.
-At equilibrium, the $x$- and $y$-components of the bulk magnetisation are zero,
-i.e.
+At equilibrium, the $x$- and $y$-components of the bulk magnetisation are zero:
 \begin{equation}
-    \sum_{s=1}^{S} \mu_{x,s} = \sum_{s=1}^{S} \mu_{y,s} = 0.
+    \sum_{s=1}^{S} \mu_{x,s} = \sum_{s=1}^{S} \mu_{y,s} = 0,
 \end{equation}
-Therefore, the bulk magnetisation is collinear with the field direction, with a
-magnitude $M_0$, which is approximately given by\cite[Section 1.1]{Cavanagh2007}.
+such that the bulk magnetisation is collinear with the field direction, with a
+magnitude $M_0$ approximately given by\cite[Section 1.1]{Cavanagh2007}:
 \begin{equation}
     M_0 \approx \frac{S \gamma^2 \hbar^2 B_0 I (I + 1)}{3 k_{\text{B}} T},
 \end{equation}
 where $k_{\text{B}}$ is the Boltzmann constant, and $T$ is the sample
 temperature. To maximise experiment sensitivity, it is desirable to
-utilise nuclei with high natural abundance (affecting $S$), and high
+utilise nuclei with high natural abundance (affecting $S$ for a given sample
+concentration), and high
 gyromagnetic ratio. Along with other favourable attributes such as its ubiquity
-in organic molecules, \proton\ is therefore by far the most popular nucleus to
+in organic molecules, \ch{^1H} is therefore by far the most popular nucleus to
 study using \ac{NMR}, at least in solution-state contexts.
 
 The bulk magnetism experiences a torque induced by the magnetic field, with its
@@ -231,15 +241,15 @@ Whenever the magnetisation vector is not collinear with the field vector\footnot
     fixed when it is aligned with $\symbf{B}$, as is the case at equilibrium.
 }, it
 undergoes \emph{precession} about the field vector. Free precession occurs
-when the magnetisation is aligned away from the $z$-axis, and $\symbf{B}_1 =
+when the magnetisation is aligned away from the $z$-axis and $\symbf{B}_1 =
 \symbf{0}$, such that
 \begin{equation}
   \frac{\mathrm{d}\symbf{M}(t)}{\mathrm{d}t} =
   -\gamma B_0 [M_y \hspace*{5pt} -M_x \hspace{5pt} 0]\T.
 \end{equation}
-Under free precession, the magnetisation precesses around the $z$-axis at the
+Under free precession, the magnetisation rotates about the $z$-axis at the
 \emph{Larmor frequency} $\omega_0 = -\gamma B_0$.\footnote{
-    While the SI base unit of magnetic field strength is the Tesla
+    While the \ac{SI} unit of magnetic field strength is the Tesla
     (\unit{\tesla}), when referring to the field strength that a spectrometer
     operates at, it is common to use \unit{\mega\hertz} instead. This refers to
     the Larmor frequency of a reference \proton\ nucleus at the
@@ -278,10 +288,12 @@ as
         \tilde{\symbf{i}} = \cos(\omega_{\text{RF}}) \symbf{i},\\
         \tilde{\symbf{j}} = \sin(\omega_{\text{RF}}) \symbf{j},\\
         \tilde{\symbf{k}} = \symbf{k}.
-    \end{gather}
-    \label{eq:rot-frame}
-\end{subequations}
-$\Omega = \omega_0 - \omega_{\text{RF}}$ is the \emph{offset} of the spin
+    \end{gather}%
+    \label{eq:rot-frame}%
+\end{subequations}%
+The tilde has been used to distinguish quantities in the rotating frame from
+their static-frame counterparts.
+$\Omega \coloneq \omega_0 - \omega_{\text{RF}}$ is the \emph{offset} of the spin
 magnetisation. When $\Omega = \qty{0}{\radian\per\second}$, the system is said to
 be on-resonance, and at times when an \ac{RF} field is not being applied, the
 magnetisation vector appears to be static in the rotating frame.
@@ -305,7 +317,7 @@ of the $z$-component of the magnetisation to $M_0$ accompanies this.
 \emph{Transverse} (spin-spin) relaxation leads to the $x$- and $y$-components
 of the bulk magnetisation decaying to $0$. These phenomena commonly exhibit
 exponential evolution profiles, and are assigned rates $R_1$ and $R_2$,
-respectively. The corresponding times (inverse rates) are often considered
+respectively. The corresponding times (inverse rates) are often referred to
 instead:
 $T_1 \coloneq \nicefrac{1}{R_1}$,
 $T_2 \coloneq \nicefrac{1}{R_2}$.
@@ -347,7 +359,7 @@ spin-$\nicefrac{1}{2}$ nuclei in the rotating frame:
         0 \\ 0 \\ 1
     \end{bmatrix},
 \end{equation}
-Panel a of \cref{fig:quadrature} depicts the
+\Cref{fig:quadrature}.a depicts the
 evolution of an off-resonance ($\Omega \neq \qty{0}{\radian\per\second}$)
 magnetisation vector after the application of an
 \ac{RF} pulse with $\phi_{\text{RF}} = \nicefrac{\pi}{2}$, and an appropriate
@@ -359,12 +371,15 @@ the magnetisation vector will land on the $x$-axis, and evolve according to
     \begin{gather}
         \tilde{M}_x(t) = M_0 \cos(\Omega t) \exp(-R_2 t),\\
         \tilde{M}_y(t) = M_0 \sin(\Omega t) \exp(-R_2 t),\\
-        \tilde{M}_z(t) = M_0 (1 - \exp(-R_1 t)).
+        \tilde{M}_z(t) = M_0 (1 - \exp(-R_1 t)),
     \end{gather}
 \end{subequations}
+with $t=\qty{0}{\second}$ denoting the time that the magnetisation lands on the
+$x$-axis.
 During acquisition, the transverse components of the bulk magnetisation are
-detected by the spectrometer probe circuitry, such that the resulting signal,
-called the \acfi{FID}, is given by
+detected by the spectrometer probe circuitry
+(Figures \ref{fig:quadrature}.b and \ref{fig:quadrature}.c), such that the
+resulting signal, called the \acfi{FID}, is given by
 \begin{subequations}
     \begin{gather}
         y(t) = c \tilde{M}_+(t),\\
@@ -384,7 +399,7 @@ are used to process the resulting signal from the probe. A brief summary of
 these is now given.
 
 \subsubsection{The Magnet}
-The static $\symbf{B}_0$ field is generated by a magnet, composed of a
+The static $\symbf{B}_0$ field is generated by a magnet is composed of a
 superconducting solenoid immersed in liquid helium. Common materials used for
 the solenoid include Nb-Ti alloy and Nb\textsubscript{3}Sn. To minimise the
 extent of helium evaporation, the dewar containing the helium is lined with
@@ -392,8 +407,8 @@ a thermal radiation shield. The helium dewar is then surrounded by a larger
 dewar containing liquid nitrogen. A bore passes through the $z$-direction of
 the magnet, which is maintained at a user-controlled temperature. Within the
 bore sits the probe as well as the sample. Magnets with high field
-strengths are desirable, as both the resolution ($\propto B_0$) and sensitivity ($\propto
-B_0^{\nicefrac{3}{2}}$) of the data are affected. At the
+strengths are desirable, as both the resolution ($\propto B_0$) and \ac{SNR}
+($\propto B_0^{\nicefrac{3}{2}}$) of the data are affected. At the
 time of writing, commercial spectrometers which operate at and above a
 \proton\ Larmor frequency of \qty{1}{\giga\hertz} (\qty{23.5}{\tesla}) exist,
 though these are uncommon and are employed primarily for the study of large
@@ -413,21 +428,21 @@ specified isotope (typically \textsuperscript{2}H\footnote{
     \ac{NMR} samples. In \proton\ \ac{NMR} experiments, this ensures that an
     extremely intense signal due to the solvent does not dwarf the signals from
     other spins in the sample. This makes \textsuperscript{2}H a suitable
-    nucleus to monitor by the lock, as it is ubiquitous, but rarely directly
-    studied.
+    nucleus to monitor by the lock, as it present in high concentrations, but
+    rarely directly studied.
 }), which monitors the resonance frequency of the isotope over
-time. If the frequency begins to drift, implying that the field strength is
-changing, the current in the ``$Z_0$ coil'' is adjusted to ensure a consistent
-field strength is maintained.
+time. If the frequency begins to drift, the current in the $Z_0$ coil is
+appropriately adjusted, which induces a constant change in field strength
+throughout the sample volume.
 
 \subsubsection{The Probe}
 The probe sits inside the bore of the magnet, and features the coils used to
-pulse the sample with \ac{RF} radiation. The same coils also
-receive the response from the sample. The principle source of noise in
-\ac{NMR} experiments is thermal noise within the probe circuitry. For
-this reason, cryogenic probes\cite{Kovacs2020} have become a prominent
+pulse the sample with \ac{RF} radiation and perturb the magnetic field profile.
+The same coils also receive the response from the sample. The principle source
+of noise in \ac{NMR} experiments is thermal noise within the probe circuitry.
+For this reason, cryogenic probes have become a prominent
 development, in which the coils and other probe electronics are maintained at a
-very low temperature (typically about $\qty{20}{\kelvin}$).
+very low temperature (typically about $\qty{20}{\kelvin}$)\cite{Kovacs2020}.
 
 \subsubsection{The Transmitter}
 The transmitter is responsible for the generation of \ac{RF} pulses
@@ -450,8 +465,7 @@ One of the processes that the receiver is responsible for is \emph{quadrature
 detection}\cite[Section 13.6]{Keeler2010}. Quadrature detection ensures
 \acp{FID} are frequency discriminated, i.e. that they posses the requisite
 information to determine whether a given signal in \ac{FID} has a frequency
-that is above or below the transmitter frequency, which sits in the middle of
-the spectral window.
+that is above or below the transmitter frequency.
 This is achieved by splitting the signal from the probe into two channels. In
 each channel, the signal, which is of a very high frequency
 (\unit{\mega\hertz}), is mixed with a reference signal of frequency
@@ -463,10 +477,10 @@ constitutes a quadrature pair.
 Both signals are then sent through a low-pass filter to remove
 the high frequency component produced through mixing. Finally, an analogue to
 digital converter translates the signal to the real and imaginary components of
-a binary dataset which is stored in memory.
+a binary dataset which constitutes the \ac{FID}.
 
 \subsection{The structure of the \acs{FID}}
-The result of running an \ac{NMR} experiment is an \ac{FID} $\by \in
+The result of running a \ac{1D} \ac{NMR} experiment is an \ac{FID} $\by \in
 \mathbb{C}^N$ which is sampled at equally spaced points in time, with
 consecutive samples separated by time $\Dt$:
 \begin{equation}
@@ -480,8 +494,10 @@ consecutive samples separated by time $\Dt$:
       \end{bmatrix}\T,
     \end{gathered}
 \end{equation}
-where $y(t)$ is the (continuous) variation of the generated signal with time,
-and $N$ is the number of points sampled. The inverse of the sampling rate,
+where $y(t)$ is the (continuous) variation of the generated signal as a
+function of time,
+and $N$ (often a power of 2) is the number of points sampled. The inverse of
+the sampling rate,
 $\nicefrac{1}{\Dt}$ is the \emph{sweep width} $\fsw$ which
 defines how wide the range of samplable frequencies is, in accordance with the
 Nyquist theorem\cite{Shannon1949}.
@@ -549,8 +565,9 @@ the \ac{FID}:
     \end{gather}
     \label{eq:x-alpha-z}%
 \end{subequations}
-The respective influences of the four parameters on a time-domain signal are
-depicted in panels a1 to d1 in \cref{fig:amp-phase-freq-damp}.
+The respective influences of the four parameters on a signal in the time-domain
+are depicted in Figures \ref{fig:amp-phase-freq-damp}.a1 to
+\ref{fig:amp-phase-freq-damp}.d1.
 \begin{figure}
     \centering
     \includegraphics{amp_phase_freq_damp/amp_phase_freq_damp.pdf}
@@ -559,8 +576,8 @@ depicted in panels a1 to d1 in \cref{fig:amp-phase-freq-damp}.
         with a signal in both the time-domain and the Fourier-domain.
     ]{
         An illustration of the influence of the four parameters associated
-        with a signal in both the time-domain (panels \textbf{a1.} --
-        \textbf{d1.}) and Fourier-domain (panels \textbf{a2.} -- \textbf{d2.}).
+        with a signal in both the time-domain (a1 to d1) and Fourier-domain
+        (a2 to d2).
         The red signal is generated with the same parameters across all panels:
         $a = a_{\text{red}}$, $\phi = 0\,\unit{\radian}$, $f = f_{\text{red}}$,  $\eta =
         \eta_{\text{red}}$.  The blue and yellow signals were produced by
@@ -609,15 +626,15 @@ actively acquired (direct) dimension, and $\lbrace \bdfone, \cdots,
 $\lbrace \bdetaone, \cdots, \bdetaDminusone \rbrace$ are those for the indirect
 dimension(s).
 Indirect dimensions can exhibit different forms of evolution, depending on
-the precise nature of the pulse sequence. Two common functional
-forms exist\cite[Section 4.3.4]{Cavanagh2007}. Signals of the form $\cos(2 \pi
-f t)$ and $\sin(2 \pi f t)$ modulate the amplitude of the direct
-dimension signal across increments, while those of the form $\exp(2 \pi \iu f
+the precise nature of the pulse sequence, of which two are very
+common\cite[Section 4.3.4]{Cavanagh2007}. Signals that take the form $\cos(2
+\pi f t)$ or $\sin(2 \pi f t)$ for each signal modulate the amplitude of the
+direct dimension across increments, while those of the form $\exp(2 \pi \iu f
 t)$ and $\exp(-2 \pi \iu f t)$ modulate the phase instead.
 For experiments which produce amplitude-modulated \acp{FID}, it is desirable to
 generate both the cosine and sine forms, as this enables that spectra with
-desirable properties can be generated. The same is true for the ``positive''
-and ``negative'' forms when phase-modulated \acp{FID} are acquired (\emph{vide
+desirable properties can be generated. The same is true for the positive
+and negative forms when phase-modulated \acp{FID} are acquired (\emph{vide
 infra}). In general, a $D$-dimensional \ac{FID} $\bY \in \mathbb{C}^{\None
 \times \cdots \times \ND}$ can be expressed as
 \begin{subequations}
@@ -651,16 +668,16 @@ of their time separation:
         \end{gathered}
     \end{gather}
 \end{subequations}
-The extent by which a signal is corrupted by noise is given by the \ac{SNR},
+The extent by which \iac{FID} is corrupted by noise is given by its \ac{SNR},
 the ratio of signal power and noise power:
 \begin{equation}
     \SNR\left(\bY\right) \coloneq
-        \frac{1}{2 \mathfrak{N} \sigma^2}
+        \frac{1}{2 N_{\text{tot}} \sigma^2}
         \sum_{\none=0}^{\None-1} \cdots \sum_{\nd=0}^{\ND-1}
         \left \lvert \xnonenD \right \rvert^2,
 \end{equation}
-where $\mathfrak{N} \coloneq \None \times \cdots \times \ND$ is the total
-number of points the signal comprises. Due to the large dynamic range of the
+where $N_{\text{tot}} \coloneq \None \times \cdots \times \ND$ is the total
+number of points the \ac{FID} comprises. Due to the large dynamic range of the
 \ac{SNR} across datasets, it is common to express it using a logarithmic scale
 instead, in units of decibels (\unit{\deci\bel}):
 \begin{equation}
