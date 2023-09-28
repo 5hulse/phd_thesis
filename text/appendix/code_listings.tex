@@ -1,24 +1,25 @@
-\chapter{Python Listings}
+\chapter{\textsc{Python} Listings}
 \label{chap:code-listings}
 
-Presented here are a number of \Python implementations for
-the routines described in this text. These can be thought of bare-bones
-versions of functions present in \ac{EsPy} package. These listings require
+Presented here are listings of \Python implementations for a number of
+the routines described in this text. These can be thought of minimalist
+versions of code present in \ac{EsPy} package. These listings require
 \Python version 3.8 or higher, and also require the \texttt{numpy} and
-\texttt{scipy} packages to be installed from the \Python Package Index.
+\texttt{scipy} packages to be installed from the \ac{PyPI}. As a preliminary,
+\cref{lst:imports} outlines all the necessary imports for the subsequent
+listings in this chapter.
 
 \mylisting{python3}{code_listings/imports.py}{%
 Required imports for the subsequent \Python listings.
 }{
     Required imports for the subsequent listings in this chapter.
-    The \mintinline{python3}{product} function is employed in the \acs{MMEMPM}
-    routine (\cref{lst:mmempm}).
+    The \mintinline{python3}{itertools.product} function is used in the
+    \acs{MMEMPM} routine (\cref{lst:mmempm}).
     The imports from the \mintinline{python3}{typing} module are used to
-    annotate what the expected types are for each argument, and what the return
-    type is.
+    annotate what the expected argument- and return-types are.
     The \mintinline{python3}{numpy} and \mintinline{python3}{scipy} modules are
-    ubiquitous in the listings, providing access to efficient routines for
-    numerical computations.
+    ubiquitous, providing access to efficient routines for numerical
+    computations.
 }{lst:imports}
 
 \section{\Aclp{MPM}}
@@ -30,9 +31,8 @@ of a \acs{1D} \acs{FID}.
 }{%
 The \acs{MDL} for estimation of the model order of a \acs{1D} \acs{FID}.
 The first relative minimum in \mintinline{python}{mdl_vec} is determined to be
-the estimate of $M$, rather than the global minimum (Line \ref{ln:argmin}),
-since the presence of very small singular values when \mintinline{python3}{k}
-is large can lead to errors involving floating-point arithmetic.
+the estimate of $M$, rather than the global minimum (Line \ref{ln:argmin}; see
+\cref{fn:argrelmin} in \cref{subsec:model-order}).
 }{lst:mdl}
 
 \subsection{\acs{MPM}}
@@ -40,7 +40,7 @@ is large can lead to errors involving floating-point arithmetic.
     \Python implementation of the \acs{MPM} for estimation of a \acs{1D} \acs{FID}.
 }{
     The \acs{MPM} for estimation of a \acs{1D} \acs{FID}, with the option of
-    estimating the model order using the \acs{MDL}.
+    predicting the model order using the \acs{MDL}.
 }{lst:mpm}
 
 \subsection{\acs{MMEMPM}}
@@ -52,7 +52,8 @@ The \acs{MMEMPM} for estimation of a \acs{2D} hypercomplex \acs{FID}. Due
 to the very large size of the Hankel matrix $\symbf{E}_{\bY}$, a truncated
 \acs{SVD} routine is employed, which determines only the first $M$
 components of the decomposition. This is only available to arrays stored in
-sparse form in \textsc{SciPy} (Lines \ref{ln:sparse1}--\ref{ln:sparse2}).
+sparse form in \textsc{SciPy} (Lines \ref{ln:sparse1}--\ref{ln:sparse2}; see
+\cref{fn:sparse-svd} in \cref{subsec:mpm-profiling}).
 }{lst:mmempm}
 
 \section{\ac{NLP}}
@@ -60,10 +61,10 @@ sparse form in \textsc{SciPy} (Lines \ref{ln:sparse1}--\ref{ln:sparse2}).
 \subsection{Trust Region Algorithm}
 
 \mylisting{python3}{code_listings/trust_region.py}{
-\Python implementation of the Steihaug-Toint trust region algorithm.
+\Python implementation of the \acl{ST} trust region algorithm.
 }{
-Steihaug-Toint trust region algorithm. Included is a check for oscillators with
-negative amplitudes, which causes the routine to terminate, in order for said
+\acl{ST} trust region algorithm. Included is a check for oscillators with
+negative amplitudes, which causes the routine to terminate in order for said
 oscillators to be purged (Lines \ref{ln:negamp1}--\ref{ln:negamp2}).
 }{lst:tr}
 
@@ -82,16 +83,16 @@ applied to \ac{1D} estimation, as well as the gradient and
 Hessian. The \mintinline{python3}{FunctionFactory} object accepts a parameter
 set (\mintinline{python3}{theta}) and function (\mintinline{python3}{fun}),
 which computes the objective, gradient and Hessian. The first time a quantity
-is requested from the factory, the function is run, and the objective and its
-derivatives are cached (memoised), such that the next time a quantity is
-requested, the cached result is used, rather than the expensive function being
-re-computed.
+is requested from the factory, the objective and its
+derivatives are computed and cached (memoised), such that the next time a
+quantity is requested, the cached result is returned, rather than requiring the
+expensive function to be re-run.
 \mintinline{python3}{FunctionFactory1D} (Lines
 \ref{ln:ff1}--\ref{ln:ff2}) inherits from the base class, for specific use in
-\ac{1D} estimation, with an approximated Hessian.
-For the equivalent code for both \ac{2D} estimation, and for computing the
-exact Hessian, the reader is directed to \protect\path{nmrespy/nlp/_funcs.py} in the
-\ac{EsPy} package.
+\ac{1D} estimation.
+For the equivalent code for \ac{2D} estimation, and/or for computing the
+approximated Hessian instead, the reader is directed to the
+\protect\path{nlp/_funcs.py} module in the \ac{EsPy} package.
 }{lst:obj-grad-hess}
 
 \subsection{The main routine}

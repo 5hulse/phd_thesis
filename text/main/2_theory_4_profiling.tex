@@ -33,6 +33,7 @@ time-dependent \ac{RAM} usage\cite{MemProf}.
 \end{remark}
 
 \subsection{The \acs{MPM} and \acs{MMEMPM}}
+\label{subsec:mpm-profiling}
 \begin{figure}
     \centering
     \includegraphics{mpm_profiling/mpm_profiling.pdf}
@@ -137,20 +138,21 @@ the following five steps (with the relevant lines in \cref{lst:mmempm} given):
             It was determined that constructing $\EY$ using a
             standard \textsc{NumPy} array before converting it to
             \ac{CSR} format\cite{csr} was optimal.
-        } (Lines \ref{ln:EY-start} to \ref{ln:sparse1}).
+            \label{fn:sparse-svd}
+        } (Lines \ref{ln:EYstart} to \ref{ln:EYend}).
     \item Truncated \ac{SVD} of $\EY$ to generate $\symbf{U}_M$ (Line \ref{ln:sparse2}).
     \item Determining $\bdzone$ and  $\symbf{W}^{(1)}$ by computing the
         eigenvalue decomposition of $\symbf{U}_{M1}^+ \symbf{U}_{M2}^{\vphantom{+}}$ (Lines
-        \ref{ln:poles1-start} to \ref{ln:poles1-end}).
+        \ref{ln:poles1start} to \ref{ln:poles1end}).
     \item Generating the second set of signal poles $\bdztwo$, by
         multiplying $\symbf{U}_M$ by the permutation matrix, and extracting
         the diagonal from matrix $\symbf{G}$, computed using \cref{eq:G} (Lines
-        \ref{ln:poles2-start} to \ref{ln:poles2-end}). N.B. The \acp{FID} were
+        \ref{ln:poles2start} to \ref{ln:poles2end}). N.B. The \acp{FID} were
         constructed such that the signal poles were unique on all occasions, so
         the additional treatment of repeated signal poles was not necessary.
     \item Computation of the complex amplitudes using
-        \cref{eq:complex-amplitudes-2d} (Lines \ref{ln:comp-amps-2d-start} to
-        \ref{ln:comp-amps-2d-end}).
+        \cref{eq:complex-amplitudes-2d} (Lines \ref{ln:compamps2dstart} to
+        \ref{ln:compamps2dend}).
 \end{enumerate}
 A comparison of the relative times to perform these steps for some select
 pairings of $M$ and $\Ntwo$ is provided by \cref{tab:mmempm-steps}. It can be
@@ -250,8 +252,8 @@ with both a variable number of contributing signals: $M \in \lbrace 5k : k \in
 \lbrace 1, 2, \cdots, 16 \rbrace \rbrace$ and datapoints: $N \in \lbrace 1024k
 : k \in \lbrace 1, 2, \cdots, 8 \rbrace \rbrace$. For each \ac{FID}, the Hessian
 was computed using a slight variant of the \texttt{obj\_grad\_hess\_1d}
-function, given by Lines \ref{ln:obj-grad-hess-start} to
-\ref{ln:obj-grad-hess-end} in \cref{lst:obj-grad-hess}\footnote{
+function, given by Lines \ref{ln:objgradhessstart} to
+\ref{ln:objgradhessend} in \cref{lst:obj-grad-hess}\footnote{
     The variant of this function neglected the computation of the objective and
     gradient, and returned only the Hessian.
 }. There are 4 main steps in computing the Hessian matrix:

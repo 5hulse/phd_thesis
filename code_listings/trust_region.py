@@ -8,11 +8,9 @@ def trust_steihaug_toint(
     Parameters
     ----------
     theta0
-        Initial guess, with shape (M, 4).
-
+        Initial guess, with shape (M, 4), assuming a 1D FID.
     function_factory
         Object for computing the objective, gradient and Hessian.
-
     args
         Extra arguments required for computing the objective and its
         derivatives.
@@ -21,10 +19,8 @@ def trust_steihaug_toint(
     -------
     theta
         Parameter vector at termination.
-
     errors
         Errors associated with parameter vector.
-
     negative_amps
         Flag indicating whether or not termination occurred because
         negative amplitudes were detected.
@@ -33,20 +29,21 @@ def trust_steihaug_toint(
     M = theta.shape[0] // 4
     factory = function_factory(theta, *args)
 
-    # === Define relevent parameters ===
+    # Define relevent parameters
     # These have been hard-coded, though in NMR-EsPy they are all
     # configurable.
     eta = 0.15,
     initial_trust_radius = 0.1 * factory.gradient_norm
     max_trust_radius = 16 * initial_trust_radius
-    epsilon: float = 1.e-8,
-    max_iterations: int = 200,
-    check_neg_amps_every: int = 25,
+    epsilon = 1.e-8,
+    max_iterations = 200,
+    check_neg_amps_every = 25,
 
     k = 0
     while True:
         # === Steihaug-Toint ===
-        epsi = min(0.5, np.sqrt(factory.gradient_norm)) * factory.gradient_norm
+        epsi = min(0.5, np.sqrt(factory.gradient_norm)) * \
+                factory.gradient_norm
         z = np.zeros_like(theta)
         r = factory.gradient
         d = -r
@@ -80,7 +77,7 @@ def trust_steihaug_toint(
             r = r_next
             d = d_next
 
-        # === Assess effectiveness of update ===
+        # Assess effectiveness of update
         predicted_value = factory.model(p)
         theta_proposed = theta + p
         factory_proposed = function_factory(theta_proposed, *args)
@@ -98,19 +95,18 @@ def trust_steihaug_toint(
             # Quadratic model perfomring well: increase TR
             trust_radius = min(2 * trust_radius, max_trust_radius)
         if rho > eta:
-            # Accept update: new iteration
+            # Accept update and increment iteration count
             theta = theta_proposed
             factory = factory_proposed
             k += 1
 
-        # === Check for termination criteria ===
-        if (k % check_neg_amps_every == 0):  !\label{ln:negamp1}!
+        # Check for termination criteria  $\label{ln:negamp1}$
+        if (k % check_neg_amps_every == 0):
             neg_amps = np.where(theta[amp_slice] <= 0)[0]
-            print(neg_amps)
             if neg_amps.size > 0:
-                # Negative amps found: this run in order to purge
+                # Negative amps found
                 negative_amps = True
-                break  !\label{ln:negamp2}!
+                break  |\label{ln:negamp2}|
 
         if factory.gradient_norm < epsilon:
             # Convergence

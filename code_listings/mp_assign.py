@@ -9,7 +9,6 @@ def predict_multiplets(
         Estimated parameter array with shape (M, 6) such that each row
         provides the parameters of a particular oscillator, in the order
         [a, φ, f1, f2, η1, η2].
-
     thold
         Frequency threshold ε > 0.
 

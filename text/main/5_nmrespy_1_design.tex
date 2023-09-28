@@ -9,7 +9,7 @@ language for \ac{EsPy}:
     \item The \textsc{SciPy} ecosystem\cite{Virtanen2020}, including the packages
         \textsc{NumPy}\cite{Harris2020} and
         \textsc{Matplotlib}\cite{Hunter2007} enables
-        high-performance scientific computation and visualisation in
+        high-performance scientific computation and data visualisation in
         \textsc{Python}, despite the language's reputation for slow speed.
     \item Being a scripting language with user-friendly syntax makes
         \textsc{Python} ideal for exploring datasets in a step-by-step fashion.
@@ -17,7 +17,7 @@ language for \ac{EsPy}:
         (a) inspect and pre-process the data of interest,
         (b) determine the regions they wish to estimate and set up the
         estimation routine,
-        (c) output and inspect the result.
+        and (c) output and inspect the result.
         This can be achieved easily by ``hacking'' and re-running
         \textsc{Python} scripts or by using notebook environments, such as
         \textsc{Jupyter}.
@@ -25,8 +25,9 @@ language for \ac{EsPy}:
         computing platforms such as \textsc{Matlab} and \textsc{Mathematica}.
     \item \textsc{Python} supports sophisticated object-oriented programming
         features, including multiple levels of inheritance. This is exploited in
-        \ac{EsPy} in order to create numerous objects designed with specific
-    \ac{NMR} data types in mind (see \ref{subsec:estimator-objects}).
+        \ac{EsPy} to facilitate the creation of numerous objects designed with
+        specific \ac{NMR} data types in mind (see
+        \cref{subsec:estimator-objects}).
 \end{itemize}
 
 Probably the largest disadvantage in using \textsc{Python} is its slow performance;
@@ -35,17 +36,19 @@ runtime overheads\footnote{
     \Python is interpreted rather than compiled, dynamically typed rather
     than statically typed, and it relies on garbage collection for memory
     management, rather than requiring the programmer to do this manually. All
-    of these features are slower than the alternatives which are mentioned.
+    of these features are slower than the alternatives which are mentioned;
+    these alternatives are present in low-level languages like C, C++ and
+    \textsc{Rust}.
 }. While \textsc{NumPy} provides
 interfaces to run fast computations with pre-compiled C-code, a significant
 performance benefit would likely be realised if a low-level compiled language
 like C, C++, or \textsc{Rust} were used instead (this is discussed more in
 \cref{sec:future-work}). While this may be so, the
-development time in writing programs with these lower-level languages is
-typically a lot greater than with a language with a higher level of abstraction
+development time in writing programs with these higher-performance languages is
+typically a lot greater those with a higher level of abstraction
 like \textsc{Python}.
 
-\subsection{Estimator objects}
+\subsection{Estimator Objects}
 \label{subsec:estimator-objects}
 \begin{figure}
     \centering
@@ -60,9 +63,9 @@ like \textsc{Python}.
     }
     \label{fig:inheritance}
 \end{figure}
-The fundamental user-facing objects (or classes) that \ac{EsPy} provides are
-\emph{estimators}.
-Instances of these estimator objects contain relevant piece of data called
+The fundamental user-facing objects (classes) that \ac{EsPy} provides are
+called \emph{estimators}.
+Instances of these estimator objects contain relevant pieces of data called
 \emph{attributes} (e.g. the \ac{FID} and experiment parameters including the sweep
 width and transmitter offset), as well as \emph{methods} which perform useful
 routines like estimation and result figure generation.
@@ -73,20 +76,22 @@ the type of \ac{NMR} data being considered. As an example, only the
 \texttt{Estimator2DJ} object possesses a method called \texttt{cupid\_spectrum},
 which returns the \ac{FT} of the \ang{-45} signal.
 \Cref{fig:inheritance} provides an inheritance
-diagram for the different estimator classes in \ac{EsPy}. Basic overviews of
-each class are as follows:
+diagram, outlining the relationship between different estimator classes in
+\ac{EsPy}. Basic overviews of each class are as follows:
 \begin{itemize}
-    \item \textbf{\textbf{\texttt{ExpInfo}}} stores the parameters used for a
-        particular \ac{NMR} experiment. \texttt{ExpInfo} also has methods for
-        the generation of the timepoints/chemical shifts sampled based on these
-        parameters, and for producing synthetic \acp{FID}.
+    \item \textbf{\textbf{\texttt{ExpInfo}}} stores the parameters that were
+        used to run a particular \ac{NMR} experiment. \texttt{ExpInfo} also has
+        methods for the generation of the timepoints/chemical shifts sampled
+        based on these parameters, and for producing synthetic \acp{FID} if a
+        set of signal parameters are provided.
     \item \textbf{\texttt{\_Estimator}} inherits experimental parameters from
         \texttt{ExpInfo}, but also possess the \ac{NMR} dataset itself.
         This class is designed to contain the functionality which can be
         generalised across all \ac{NMR} data types supported by \ac{EsPy}. It
         does not possess all the features necessary to useful as a standalone
         object, and as such the user is not permitted to use it directly (such
-        an object is often referred to as an abstract class). For child
+        an object is often referred to as an abstract class; this is emphasised
+        by starting the object's name with an underscore). For child
         classes of \texttt{\_Estimator}, the main feature that requires methods
         to be defined is the means by which the data is imported into the class.
     \item \textbf{\texttt{Estimator1D}} handles conventional \ac{1D} datasets,
@@ -96,13 +101,13 @@ each class are as follows:
         described in \cref{sec:seq}. Analysis of a given dataset varies depending on
         the type of experiment considered, since the function used for
         fitting amplitudes (\cref{tab:seq-equations}), and the means by
-        which that data should be imported/generated varies. As such, this is not
+        which that data should be imported varies. As such, this is not
         designed for direct use; one of the classes which inherit it should be
         used instead. Under the hood, \texttt{\_EstimatorSeqAmp} stores a
-        number of \texttt{Estimator1D} objects, with each object containing one
+        number of \texttt{Estimator1D} objects; each of these contains one
         of the \acp{FID} in the sequential dataset. Estimation simply comprises
-        looping through these estimators, giving the parameter estimate of the
-        previous estimator to next as its initial guess.
+        iterating through these estimators, giving the parameter estimate of
+        the previous estimator to next as its initial guess for \ac{NLP}.
     \item \textbf{\texttt{EstimatorInvRec}} is for the estimation of inversion
         recovery datasets.
     \item \textbf{\texttt{EstimatorDiffusion}} is for the estimation of
@@ -110,36 +115,39 @@ each class are as follows:
     \item \textbf{\texttt{EstimatorChirp}} is for the estimation of \acp{FID}
         acquired using single-chirp excitation, as described in \cref{sec:bbqchili}.
     \item \textbf{\texttt{Estimator2DJ}} is for the estimation of \ac{2DJ} data.
-        This class also provides features to generate pure shift spectra and
+        This class provides features to generate pure shift spectra and
         assign multiplet structures using \ac{CUPID}, as described in
         \cref{chap:cupid}.
 \end{itemize}
 
 Other estimator objects which are yet to be implemented, but are potential
 future additions to the package are also depicted in the inheritance diagram.
-\texttt{EstimatorCPMG} would enable the analysis of \ac{CPMG} datasets,
+\texttt{EstimatorCPMG} would enable the analysis of \ac{CPMG}/\ac{PROJECT} datasets,
 while \texttt{Estimator2D} and \texttt{Estimator3D} would be
 for the estimation of datasets comprising sets of \ac{2D} or \ac{3D} amplitude-
 or phase-modulated \acp{FID}, respectively. A discussion of the feasibility of
-implementing \ac{2D} and \ac{3D} estimators is given in \cref{sec:future-work}.
+implementing the \ac{2D} and \ac{3D} estimators is given in
+\cref{sec:future-work}.
 
-\subsection{Example usage}
+\subsection{Example Usage}
 \mylisting{python3}{code_listings/cupid_example.py}{%
     An example script which makes use of \acs{EsPy}.
 }{
-    An example script which makes use of \acs{EsPy} in order to make use of the
-    \ac{CUPID}.
+    An example script which makes use of the \acs{EsPy} package for the
+    consideration of a \ac{2DJ} dataset using \ac{CUPID}.
 }{lst:espy-example}
 \cref{lst:espy-example} provides an example of \ac{EsPy} being used for the
 consideration of \ac{2DJ} data; it is the script which was to generate the
 camphor result presented in \cref{fig:camphor-cupid}.
-The script carries out the following
+The script carries out the following:
 \begin{enumerate}
     \item An \texttt{Estimator2DJ} object is initialised to import and store
-        the dataset, stored in \textsc{Bruker} format at the path
+        the \textsc{Bruker}-formatted dataset, located at the path
         \path{$HOME/data/camphor/1}\footnote{
             \path{$HOME} denotes the current user's home directory on a
-            UNIX-based system.
+            UNIX-based system. In many scenarios, the tilde symbol
+            (\mintinline{text}{~})
+            can be used to denote the home directory as well.
         }
         (Line \ref{ln:newbruker}).
     \item The \ac{2DJ} \ac{FID} is pre-processed to ensure it is phased and
@@ -157,14 +165,14 @@ The script carries out the following
         truncate the sub-\ac{FID} in the direct dimension, to reduce the
         computational burden on the \ac{NLP} routine.
     \item After estimation is complete, the estimator object is saved to a byte
-        stream using \Python's ``pickling'' protocol\cite{pickle} (Line
-        \ref{ln:pickle}).
+        stream using \textsc{Python}'s ``pickling'' protocol\cite{pickle}, such
+        as \textsc{TopSpin} (Line \ref{ln:pickle}).
         This enables the estimator to be recovered at a later time.
     \item A pure shift spectrum is produced via the \ang{-45} signal, and
         stored to the path \path{$HOME/data/camphor/2} in a format that enables
         it to be read by software that supports \textsc{Bruker} datasets (Line
         \ref{ln:writecupid}).
-    \item Finally, a PDF figure depicting the estimation result is produced and
+    \item Finally, a figure depicting the estimation result is produced and
         saved (Lines \ref{ln:makefig} and \ref{ln:savefig}). The form the
         figure takes is reminiscent of \cref{fig:camphor-cupid}, though many
         customisations have been applied to the latter.

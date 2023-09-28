@@ -1,9 +1,8 @@
 class FunctionFactory:
     """Object which computes and memoises the objective, gradient and
-    hessian for a given set of parameters."""
+    Hessian for a given set of parameters."""
     def __init__(self, theta: np.ndarray, fun: callable, *args) -> None:
         self.theta = theta
-        self._new_theta = True
         self.fun = fun
         self.obj = None
         self.grad = None
@@ -38,12 +37,12 @@ class FunctionFactory:
         return self.hess
 
 
-class FunctionFactory1D(FunctionFactory):  !\label{ln:ff1}!
+class FunctionFactory1D(FunctionFactory):  |\label{ln:ff1}|
     def __init__(self, theta: np.ndarray, *args) -> None:
-        super().__init__(theta, obj_grad_hess_1d, *args)  !\label{ln:ff2}!
+        super().__init__(theta, obj_grad_hess_1d, *args)  |\label{ln:ff2}|
 
 
-def obj_grad_hess_1d(  # $\label{ln:obj-grad-hess-start}$
+def obj_grad_hess_1d(   |\label{ln:objgradhessstart}|
     theta: np.ndarray, *args: Tuple[int, int, np.ndarray],
 ) -> Tuple[float, np.ndarray, np.ndarray]:
     Y, tp = args  # Unpack args: FID, timepoints
@@ -53,7 +52,7 @@ def obj_grad_hess_1d(  # $\label{ln:obj-grad-hess-start}$
         np.outer(tp, (2j * np.pi * theta[2 * M : 3 * M] - theta[3 * M :]))
     ) * (theta[:M] * np.exp(1j * theta[M : 2 * M]))
 
-    # === First partial derivatives ===
+    # First partial derivatives
     d1 = np.zeros((N, 4 * M), dtype="complex")
     d1[:, :M] = X_per_osc / theta[:M]  # $\nicefrac{\partial x}{\partial a_m}$
     d1[:, M : 2 * M] = 1j * X_per_osc  # $\nicefrac{\partial x}{\partial \phi_m}$
@@ -61,7 +60,7 @@ def obj_grad_hess_1d(  # $\label{ln:obj-grad-hess-start}$
         np.einsum("ij,i->ij", X_per_osc, 2j * np.pi * tp)
     d1[:, 3 * M :] = np.einsum("ij,i->ij", X_per_osc, -tp)  # $\nicefrac{\partial x}{\partial \eta_m}$
 
-    # === Second partial derivatives ===
+    # Second partial derivatives
     d2 = np.zeros((N, 10 * M), dtype="complex")
     # Note $\nicefrac{\partial^2 x}{\partial a_m^2} = 0$ always.
     d2[:, M : 2 * M] = 1j * d1[:, M : 2 * M]  # $\nicefrac{\partial^2 x}{\partial \phi_m^2}$
@@ -79,13 +78,13 @@ def obj_grad_hess_1d(  # $\label{ln:obj-grad-hess-start}$
     X = np.einsum("ij->i", X_per_osc)
     Y_minus_X = Y - X
 
-    # === Objective ===
+    # Objective
     obj = np.real(Y_minus_X.conj().T @ Y_minus_X)
 
-    # === Gradient ===
+    # Gradient
     grad = -2 * np.real(Y_minus_X.conj().T @ d1)
 
-    # === Hessian ===
+    # Hessian
     hess = np.zeros((4 * M, 4 * M))
     # Compute non-zero elements of term $\text{\circled{2}}$ of the Hessian,
     # and assign to upper right triangle.
@@ -107,7 +106,7 @@ def obj_grad_hess_1d(  # $\label{ln:obj-grad-hess-start}$
     hess_term_1 = 2 * np.real(np.einsum("ki,kj->ij", d1.conj(), d1))
     hess += hess_term_1
 
-    # === Phase variance and derivatives ===
+    # Phase variance and derivatives
     phi = theta[M : 2 * M]
     cos_phi = np.cos(phi)
     cos_sum = np.sum(cos_phi)
@@ -128,7 +127,7 @@ def obj_grad_hess_1d(  # $\label{ln:obj-grad-hess-start}$
     grad[M : 2 * M] += pv_grad  # $\nabla\mathcal{F}_{\phi}\left(\symbf{\theta}\right)$
     hess[M : 2 * M, M : 2 * M] += pv_hess  # $\nabla^2\mathcal{F}_{\phi}\left(\symbf{\theta}\right)$
 
-    return obj, grad, hess  # $\label{ln:obj-grad-hess-end}$
+    return obj, grad, hess  |\label{ln:objgradhessend}|
 
 
 def _diag_idx(size: int, disp: int) -> Tuple[np.ndarray, np.ndarray]:
@@ -138,7 +137,6 @@ def _diag_idx(size: int, disp: int) -> Tuple[np.ndarray, np.ndarray]:
     ----------
     size
         The size of the sqaure matrix.
-
     disp
         Displacement from the main diagonal.
 
@@ -146,7 +144,6 @@ def _diag_idx(size: int, disp: int) -> Tuple[np.ndarray, np.ndarray]:
     -------
     rows
         0-axis coordinates of indices.
-
     cols
         1-axis coordinates of indices.
     """

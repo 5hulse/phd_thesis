@@ -1,8 +1,3 @@
-# nlp.py
-# Simon Hulse
-# simon.hulse@chem.ox.ac.uk
-# Last Edited: Thu 22 Jun 2023 15:00:14 BST
-
 from typing import Any, Iterable, Optional, Tuple, Union
 import numpy as np
 import scipy as sp

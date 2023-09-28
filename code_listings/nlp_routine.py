@@ -1,5 +1,5 @@
 def nlp(
-    Y: np.ndarray,
+    y: np.ndarray,
     sw: float,
     offset: float,
     theta0: np.ndarray,
@@ -8,15 +8,12 @@ def nlp(
 
     Parameters
     ----------
-    Y
+    y
         FID.
-
     sw
         Sweep width (Hz).
-
     offset
         Tranmitter offset (Hz).
-
     theta0
         Initial guess, of shape (M, 4)
 
@@ -24,13 +21,12 @@ def nlp(
     -------
     theta
         Parameter estimate.
-
     errors
         Errors associated with theta.
     """
-    norm = np.linalg.norm(Y)
-    Y /= norm
-    N = Y.shape[0]
+    norm = np.linalg.norm(y)
+    y /= norm
+    N = y.shape[0]
     M = theta0.shape[0]
     # Flatten parameter array: Fortran (column-wise) ordering
     theta0_vec = theta0.flatten(order="F")
@@ -40,7 +36,7 @@ def nlp(
 
     # Extra arguments needed to compute the objective, grad, and Hessian:
     # FID and timepoints sampled
-    opt_args = [Y, np.linspace(0, float(N - 1) / sw, N)]
+    opt_args = [y, np.linspace(0, float(N - 1) / sw, N)]
 
     while True:
         theta_vec, errors_vec, negative_amps = trust_ncg(

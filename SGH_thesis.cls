@@ -171,7 +171,7 @@
 [0pt]
 {\vspace{15pt}\large}
 {\bfseries\contentslabel{0pt}\hspace{20pt}}
-{}
+{\bfseries\contentslabel{0pt}}
 {\hfill\upshape\bfseries\contentspage}
 []
 

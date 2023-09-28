@@ -30,8 +30,9 @@ provided in \cref{fig:gui}.
 The \ac{GUI} comprises two primary windows; the first enables the estimation
 routine to be set up (Figures \ref{fig:gui}.a1 and \ref{fig:gui}.b1), while the
 second is for inspecting the result and exporting result information to desired
-formats (Figures \ref{fig:gui}.a2 and \ref{fig:gui}.b2). The set-up window
-allows the following actions are carried out:
+formats (Figures \ref{fig:gui}.a2 and \ref{fig:gui}.b2).
+
+The set-up window allows the following actions are carried out:
 \begin{itemize}
     \item The \emph{Pre-Processing} tab facilitates phase correction,
         application of exponential line-broadening\footnote{
@@ -54,9 +55,10 @@ allows the following actions are carried out:
     \item The regions of interest and the noise region are
         defined with the \emph{Region Selection} tab. Examples of the
         appearance of the \ac{GUI} after a number of regions have been defined
-        by the user are given in the figure; regions interest are denoted by
-        various colours, while the noise region is grey.
-    \item \emph{Additional Settings} allows features related to the estimation
+        by the user are given in Figures \ref{fig:gui}.a1 and \ref{fig:gui}.b1;
+        regions interest are denoted by various colours, while the noise region
+        is grey.
+    \item \emph{Additional Settings} allows features related of the estimation
         routine to be customised, including whether to approximate the Hessian
         matrix or compute its exact form, whether to predict the model order
         using the \ac{MDL} or to manually specify a value, and setting a
@@ -81,4 +83,5 @@ estimation routine with a table of all the estimated parameters.
 The final stage in using the \ac{GUI} involves specifying the formats to output
 the result to. Figures and parameter tables summarising the result can be
 exported to various formats, as well as simulated signals constructed using the
-parameter estimate (e.g. the pure shift spectrum produced by \ac{CUPID}).
+parameter estimate (e.g. the pure shift spectrum and individual multiplets
+structures produced by \ac{CUPID}).
