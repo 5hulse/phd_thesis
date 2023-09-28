@@ -39,11 +39,12 @@ frequencies given by
 \begin{subequations}
     \begin{gather}
         2 \pi \fonem = \Updelta \omega_m,\\
-        2 \pi \ftwom = \omega_{0,s} + \Updelta \omega_m,
-    \end{gather}
-    \label{eq:f1-f2-2dj}
+        2 \pi \ftwom = \omega_{0,s} + \Updelta \omega_m,\\
+        \forall m \in G_s\notag,
+    \end{gather}%
+    \label{eq:f1-f2-2dj}%
 \end{subequations}
-$\forall m \in G_s$, where $\omega_{0,s}$ is the Larmor frequency of
+where $\omega_{0,s}$ is the Larmor frequency of
 the spin, and $\Updelta \omega_m$ is the displacement
 of the signal from $\omega_{0,s}$, as a result of J-couplings\footnote{
     $\Updelta \omega_m$ will be a linear combination of all the J-couplings
@@ -51,7 +52,7 @@ of the signal from $\omega_{0,s}$, as a result of J-couplings\footnote{
     \nicefrac{1}{2}$.
 }. Due to this relationship, all peaks in the Fourier domain which are part of
 the same multiplet will lie along a line which bisects the $\Fone$ and $\Ftwo$
-axes, as depicted in panel a of \cref{fig:jres-spectrum}.
+axes, as depicted in \cref{fig:jres-spectrum}.a.
 \begin{figure}%
     \centering%
     \includegraphics{jres_spectrum/jres_spectrum_new.pdf}%
@@ -64,7 +65,7 @@ axes, as depicted in panel a of \cref{fig:jres-spectrum}.
         procedures. Below: contour plots of the spectrum.
         Black contours have positive values; grey contours have negative
         values.
-        Above: the projection of the spectrum onto the indirect ($\Fone$) axis.
+        Above: the projection of the spectrum onto the direct axis ($\Ftwo$).
         \textbf{a.} Spectrum produced by applying sine-bell apodisation
         followed by \ac{FT} in both dimensions.
         Coloured lines denote \ang{45} cross-sections along which first-order
@@ -83,15 +84,15 @@ One limitation of the \ac{2DJ} experiment is the fact that peaks comprising
 pure absorption Lorentzian character cannot be produced. This is since, due
 to the absence of a mixing period, it is not possible to acquire a
 complementary pair of phase-modulated \acp{FID}; such a pair could be processed
-in so as to nullify the dispersive contributions (see \cref{subsec:multidim}).
+so as to nullify the dispersive contributions (see \cref{subsec:multidim}).
 The FT of a \ac{2DJ} \ac{FID} produces a spectrum with phase-twist
-peaks; an example is provided in panel a of \cref{fig:jres-spectrum}. As with
+peaks; an example is provided in \cref{fig:jres-spectrum}.a. As with
 other experiments which produce hypercomplex signals, such as \ac{COSY}, the
 data is conventionally displayed in \emph{magnitude-mode}
-(panel b) in which the absolute value of each complex point in the spectrum is
-plotted.
+(\cref{fig:jres-spectrum}.b) in which the absolute value of each complex point
+in the spectrum is plotted.
 
-\subsubsection{The shear and projection approach}
+\subsubsection{The Shear and Projection Approach}
 A pure shift spectrum can be acquired from a \ac{2DJ} spectrum by performing a
 \ang{45} shear on the spectrum array; each direct-dimension vector in the
 spectrum is subjected to a right circular rotation according to
@@ -117,15 +118,15 @@ In the limit of continuous sampling, this achieves the relationship
 By performing a \ang{45} shear, chemical shifts and scalar couplings are
 separated onto orthogonal axes,
 such that the peaks of the sheared spectrum which arise from a given spin all
-reside at the same value of $\Ftwo$ (panel c). The
+reside at the same value of $\Ftwo$ (\cref{fig:jres-spectrum}.c). The
 effectiveness of the shear is maximised when both $\nicefrac{\fswtwo}{\fswone}$
 and $\nicefrac{\Ntwo}{\None}$ are integers. After shearing, projecting the
-spectrum onto $\Fone$ (i.e. summing along the indirect-dimension) leads
+spectrum onto $\Ftwo$ (i.e. summing along the indirect dimension) leads
 to the \ac{1D} pure shift spectrum.
 If the spectrum wasn't converted to magnitude-mode prior to shearing and
 projecting, the absorptive and dispersive components of the spectrum would
 cancel each other out, such that a vector devoid of any signal would be
-obtained (panel a).
+obtained (\cref{fig:jres-spectrum}.a).
 With a magnitude-mode spectrum, the process leads to undesirable pure shift
 spectra with broad ``wings'' on account of the presence of dispersive
 character, and non-linearities. These effects can be suppressed by appropriate
@@ -134,14 +135,14 @@ sine-bell apodisation and pseudo-echo reshaping\cite{Bax1981} are common methods
 However, these both cause a significant reduction in sensitivity being
 incurred, along with distortions in relative peak amplitudes such that the data is
 rendered unsuitable for quantitative applications. Examples of experimental
-pure shift spectra produced via sine-bell apodisation can be found in panel a
-in both \cref{fig:quinine-cupid} and \cref{fig:camphor-cupid}, where severe
-discrepancies in peak integrals are present.
+pure shift spectra produced via sine-bell apodisation can be found in
+in Figures \ref{fig:quinine-cupid}.a and \ref{fig:camphor-cupid}.a, where
+severe discrepancies in peak integrals exist.
 
 When present, another feature which limits the effectiveness of the \ac{2DJ}
 experiment are \emph{strong coupling artefacts}\footnote{
     As stressed in \cite{Thrippleton2005}, these are not strictly artefacts,
-    but rather genuine signals, which are expected to be present in the
+    but rather genuine signals which are expected to be present in the
     \ac{2DJ} dataset. Despite this, the term is widespread in the literature,
     most likely as the term emphasises that the signals hinder analysis of the data.
 }, which arise due to mixing effects induced by the \ang{180}
@@ -152,12 +153,12 @@ frequencies which match those of the conventional, \emph{first order}\footnote{
     coupling regime\cite[Section 2.5.2]{Cavanagh2007}.
 } signals, though they do not lie along the same \ang{45} cross sections as
 these. As a result, the final spectrum produced by shearing and projecting onto
-$\Fone$ will feature additional low-intensity ``nuisance'' signals that
+$\Ftwo$ will feature additional low-intensity nuisance signals that
 compound the task of interpreting the spectrum (see peaks marked with asterisks
 in Figures \ref{fig:jres-spectrum}.c, \ref{fig:quinine-cupid}.a, and
 \ref{fig:camphor-cupid}.a.
 
-\subsubsection{Pure shift spectra from 2DJ estimation}
+\subsubsection{Pure Shift Spectra from 2DJ Estimation}
 Beyond the shearing and projection method, procedures based on the estimation
 of \ac{2DJ} datasets have also been developed to achieve broadband
 homodecoupling. Nuzillard introduced
@@ -179,7 +180,7 @@ $-\tone$, producing a ``full-echo'':
     \begin{split}
         y^{\text{full}}_{\none,\ntwo} = \sum_{m=1}^{M}
             a_{\ntwo,m}
-            \exp(\iu \phi_{\ntwo,m})
+            \exp\left(\iu \phi_{\ntwo,m}\right)
             \exp\left(\left(2 \pi \iu f_{\ntwo,m} \none
             -\eta_{\ntwo,m}  \left\lvert \none \right\rvert \right)\Dtone\right), \\
         \forall \none \in \lbrace -\None + 1, \cdots, 0, \cdots, \None - 1 \rbrace,\ \forall \ntwo \lbrace 0, \cdots, \Ntwo - 1 \rbrace.
@@ -187,7 +188,7 @@ $-\tone$, producing a ``full-echo'':
     \label{eq:full-echo}
 \end{equation}
 \ac{FT} of \cref{eq:full-echo} generates a spectrum whose real component
-comprises absorption-mode
+comprises absorption
 Lorentzian character in both dimensions. This opens up the means of producing
 pure-shift spectra from the \ac{2DJ} experiment with sharp lineshapes and
 without signal loss. A similar approach proposed by Mutzenhardt et al.
@@ -204,13 +205,13 @@ A popular set of experimental techniques for pure shift \ac{NMR} comprise
 \ac{FID} at each increment is retained\cite{Adams2014}. The acquired chunks are
 subsequently concatenated to yield a \ac{1D} pure shift signal.  All of the
 sequences are designed such that they refocus the effects J-couplings at a
-specific time point, with this time being incremented to acquire
+different points in time; this time is incremented to acquire
 different chunks of the pure shift \ac{FID}. It is impossible to refocus the
 couplings associated with all spins in a sample simultaneously. Instead, the
 chunking methods operate by ensuring that J-refocussing is achieved for a
 subset of the spins (the \emph{active spins}) while the rest (the \emph{passive
-spins}) are manipulated to ensure J-refocussing occurs, but do not contribute
-to the final \ac{FID}.
+spins}) are manipulated to ensure J-refocussing of the active spins occurs, but
+do not contribute to the final \ac{FID}.
 
 \begin{figure}
     \centering
@@ -259,8 +260,8 @@ J-refocussing element used, a significant reduction is sensitivity is incurred,
 since only a subset of the magnetisation present in the sample contributes to
 the detected signal. However, since they are able to produce clean
 spectra with absorption lineshapes, these methods have largely superseded the
-original \ac{2DJ} processing approach. A summary of some of the most prominent
-J-refocussing elements is now provided.
+original \ac{2DJ} shear and project approach. A summary of some of the most
+prominent J-refocussing elements is now provided.
 
 \subsubsection{\ac{ZS}}
 \label{subsec:ZS}
@@ -276,11 +277,11 @@ frequency must be at or very close to the Larmor frequency.
 For spins with different resonance frequencies, the sample region where
 excitation occurs differs since their Larmor frequencies must be perturbed by
 different extents for resonance.
-The net effect of the \ac{ZS} element is to excite a particular spin in only a
-narrow range of heights in the sample; the spins which are excited belong to
+The net effect of the \ac{ZS} element is to invert a particular spin in only a
+narrow range of heights in the sample; the spins which are inverted belong to
 the pool of active spins, while the remainder are the passive spins.
-In order to achieve effective decoupling of a pair of spins, it is required
-that the bandwidth of the selective \ang{180}-pulse is smaller than the
+In order to achieve effective decoupling of a given pair of spins, it is required
+that the bandwidth of the selective \ang{180} pulse is smaller than the
 difference in their Larmor frequencies. However, with more selective pulses,
 a smaller proportion of the spins will be in the active subset, and hence the
 \ac{FID}'s sensitivity will be diminished\footnote{
@@ -297,12 +298,13 @@ reason. It possible to incorporate \ac{ZS} element into the \ac{2DJ} pulse
 sequence, enabling the generation of \ac{2DJ} datasets comprising
 phase-modulated pairs\cite{Pell2007}. With this approach, pure
 shift spectra with far more desirable lineshapes can be generated via the
-\ang{45} shear approach relative to using the magnitude-mode spectrum.
+\ang{45} shear approach relative to using a magnitude-mode spectrum.
 
-\subsubsection{\Ac{BIRD}}
+\subsubsection{Bilinear Rotation Decoupling (BIRD)}
+\acused{BIRD}
 The \ac{BIRD} element acts to invert spins bound to a low-abundance
-heteronucleus, while the remaining spins bound to a high-abundance inert nucleus are
-unaffected\cite{Garbow1982,Bax1983}.
+heteronuclear isotope, while the remaining spins bound to a high-abundance
+isotope are unaffected\cite{Garbow1982,Bax1983}.
 The two most common heteronuclei exploited when using \ac{BIRD} are \ch{^{13}C}
 (1.1\% abundance) and \ch{^{15}N} (0.37\% abundance). The loss of sensitivity
 is therefore known and constant across samples. In scenarios where strong
@@ -317,21 +319,34 @@ geminal protons cannot be decoupled from each other, since such protons are
 always in the same active/passive subset. Doublets rather than singlets will
 arise in such cases.
 
-\subsubsection{\Ac{PSYCHE}}
+\subsubsection{Pure Shift Yielded by Chirp Excitation (PSYCHE)}
 \label{subsec:psyche}
+\acused{PSYCHE}
 The most recent major development in pure shift spectroscopy is the \ac{PSYCHE}
-experiment\cite{Foroozandeh2014,Foroozandeh2018}.
-\note{Description... Element, How it works (very simple), Effectiveness}
-
-With \ac{PSYCHE}, the proportion of active and passive spins is
-dependent on the flip angle of the chirp pulses; for a
-\ac{PSYCHE} element featuring chirp pulses with flip angles $\beta$, the
-proportions of are $\cos^2 \beta$ and $\sin^2 \beta$, respectively.
+experiment\cite{Foroozandeh2014,Foroozandeh2018}, which has been hailed for its
+ability to generate clean pure shift with better sensitivity relative to
+alternative methods. \ac{PSYCHE} is inspired by
+the anti z-\ac{COSY} experiment\cite{Thrippleton2003}, and involves the application
+of two low flip-angle ($\beta \ll \ang{90}$) pulses to achieve active/passive
+subset creation via coherence selection. The pair of low flip-angle pulses
+are usually either chirp pulses, with the sweep direction of the second being
+the opposite of the first, or \emph{saltire} pulses, which are a superposition
+of low-to-high and high-to-low chirp pulses. When applied in the presence of a
+\ac{PFG}, it has been illustrated that this pair of pulses is very effective at
+achieving J-refocussing of the active set of spins, while simultaneously
+refocussing other undesired (i.e. non-single quantum) coherences.
+The proportion of active and passive spins is dependent on the flip angle of
+the chirp pulses; these are $\sin^2 \beta$ and $\cos^2 \beta$,
+respectively. With larger flip angles, more signal from unwanted
+coherences is present in the final dataset. As with the \ac{ZS} element, this
+means there is a compromise that needs to be addressed in order to produce
+pure shift spectra that have both acceptable sensitivity and that feature
+minimal artefacts. A common choice is for $\beta$ to be set to \ang{20}.
 
 The \ac{PSYCHE} element has also been employed in conjunction with the \ac{2DJ}
 experiment in order to produce spectra which already feature orthogonal
 separation of the chemical shifts and couplings along the two frequency
-axes\cite{Foroozandeh2015,Kiraly2017}. Being a 3D experiment, the
-\ac{PSYCHE}-\ac{2DJ} requires long experiment times (typically tens of hours)
-in order to produce a spectrum with well-resolved multiplet structures in the
-indirect dimension.
+axes\cite{Foroozandeh2015,Kiraly2017}. Involving a \ac{3D} pulse sequence, the
+\ac{PSYCHE}-\ac{2DJ} experiment requires long experiment times (typically tens
+of hours) in order to produce a spectrum with well-resolved multiplet
+structures in the indirect dimension.

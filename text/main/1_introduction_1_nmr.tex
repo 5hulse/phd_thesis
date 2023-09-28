@@ -675,13 +675,13 @@ the ratio of signal power and noise power:
         \frac{1}{2 N_{\text{tot}} \sigma^2}
         \sum_{\none=0}^{\None-1} \cdots \sum_{\nd=0}^{\ND-1}
         \left \lvert \xnonenD \right \rvert^2,
+        \label{eq:snr}
 \end{equation}
 where $N_{\text{tot}} \coloneq \None \times \cdots \times \ND$ is the total
 number of points the \ac{FID} comprises. Due to the large dynamic range of the
 \ac{SNR} across datasets, it is common to express it using a logarithmic scale
 instead, in units of decibels (\unit{\deci\bel}):
 \begin{equation}
-    \begin{split}
-        \SNR_{\unit{\deci\bel}} &\coloneq 10 \log_{10} \left(\SNR\right).
-    \end{split}
+    \SNR_{\unit{\deci\bel}} \coloneq 10 \log_{10} \left(\SNR\right).
+    \label{eq:snr-db}
 \end{equation}

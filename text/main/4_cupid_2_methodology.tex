@@ -1,16 +1,17 @@
 \section{Methodology}
-The method developed as part of this work, \ac{CUPID}, fits into the category
+\ac{CUPID}, the method developed as part of this work, fits into the category
 of techniques which aim to generate pure shift spectra by utilising the result of
 parametric estimation applied to \ac{2DJ} data.
-In this section, a description of the method is given.
+In this section, a description of it is given.
 
 \subsection{The estimation routine}
-Recall that it is assumed that a \ac{2DJ} \ac{FID} take the function form given
+Recall that it is assumed a \ac{2DJ} \ac{FID} takes the functional form given
 by \cref{eq:jres-fid}. The primary steps involved in estimating a \ac{2DJ}
 dataset, for each spectral region of interest, are:
 \begin{enumerate}
     \item Generation of frequency-filtered sub-\ac{FID} corresponding to
-        the region of interest (\cref{subsec:jres-filtering}).
+        the region of interest (\textit{vide infra}:
+        \cref{subsec:jres-filtering}).
     \item Prediction of the sub-\ac{FID}'s model order, either by applying the
         \ac{MDL} on the first increment in the direct dimension\footnote{
             The first increment of a \ac{2DJ} experiment, for which $\tone =
@@ -21,15 +22,17 @@ dataset, for each spectral region of interest, are:
         value.
     \item Generation of an initial parameter estimate using the \ac{MMEMPM}
         (\cref{subsec:mmempm}).
-    \item Subjection of the initial parameter estimate to phase variance
-        constrained \ac{NLP} (\cref{sec:nlp}).
+    \item Subjection of the initial parameter estimate to phase
+        variance-regularised \ac{NLP} (\cref{sec:nlp}).
 \end{enumerate}
 Instead of estimating successive \ac{1D} \acp{FID}, as proposed by
 Nuzillard and Mutzenhardt et al., \ac{2DJ} sub-\acp{FID} are estimated
-holistically. By doing this, a number of benefits are realised.
+holistically in this technique. By doing this, a number of benefits are
+realised.
 First, multiplet structures which heavily overlap in a
-conventional \ac{1D} dataset become separated in the \ac{2DJ} dataset, assuming
-that the Larmor frequencies of the relevant spins are sufficiently different.
+conventional \ac{1D} dataset can become separated in the \ac{2DJ} dataset,
+assuming that the Larmor frequencies of the relevant spins are sufficiently
+different.
 Accurate resolution of the \ac{FID}'s constituent signals in more crowded spectral
 regions is far more likely to be successful with a full \ac{2D} estimation as a
 result.
@@ -38,13 +41,14 @@ estimation of \emph{direct} dimension \acp{FID}. Due to the presence of a spin
 echo during $\tone$, signal damping effects caused by field inhomogeneities are
 nullified, such that damping is dictated solely by transverse relaxation
 ($T_2^{\vphantom{*}}$). During $\ttwo$ however, the influence of field inhomogeneities are not
-corrected, such that damping occurs at a faster rate, characterised by $T_2^*$.
+corrected, such that damping occurs at a faster rate, characterised by $T_2^*$
+(see \cref{fn:t2-star} in \cref{sec:seq}).
 As such, multiplet structures in the indirect dimension exhibit better
 resolution (assuming $\nicefrac{\fswone}{\None}$ and
 $\nicefrac{\fswtwo}{\Ntwo}$ are comparable).
 
-A further benefit comes with having access to the frequencies of each
-signal in \emph{both} dimensions, since this opens up the opportunity to group
+A further benefit comes with having access to the frequencies of
+signals in \emph{both} dimensions, since this opens up the opportunity to group
 together those which belong to the same multiplet, as will be discussed in
 \cref{subsec:mp-selection}.
 Similar information can be obtained
@@ -58,9 +62,9 @@ sequences, and with reduced sensitivity relative to a conventional \ac{2DJ}
 experiment.
 
 As was mentioned in \cref{subsec:model-order}, application of the
-\ac{MDL} to a \ac{2D} \ac{FID} is not desirable, since a full \ac{SVD} would
-need to be computed on the typically very large block-Hankel matrix
-$\symbf{E}_{\symbf{Y}}$.
+\ac{MDL} to a \ac{2D} \ac{FID} is not desirable, since a complete \ac{SVD}
+computation would need to be undertaken on the typically very large
+block-Hankel matrix $\symbf{E}_{\symbf{Y}}$.
 Assuming that the spectral region being considered is not too
 crowded, applying the \ac{MDL} on the first direct-dimension \ac{FID} can
 return reasonable estimates of $M$ at a far smaller computational cost. For
@@ -73,12 +77,13 @@ As described above, the presence of strong coupling artefacts results in
 additional nuisance peaks featuring in spectra produced by shearing and
 projection. Exactly the
 same phenomenon would occur when parametric estimation is employed, assuming
-that the strong coupling artefacts signals are quantified. However, since the
+that the strong coupling artefacts are incorporated into the parameter
+set. However, since the
 artefacts have direct-dimension frequencies which are identical to those of
-first-order signals in the dataset, it is virtually impossible to resolve these
-using the \ac{1D} \ac{MDL} approach. Therefore, the \ac{MDL} is often found to
-generate a model order which agrees with the number of first-order signals,
-rather than the \emph{true} number of signals in the \ac{FID}. As the
+first-order signals in the dataset, it is incredibly challenging to resolve
+these using the \ac{1D} \ac{MDL} approach. Therefore, the \ac{MDL} is often
+found to generate a model order which agrees with the number of first-order
+signals, rather than the \emph{true} number of signals in the \ac{FID}. As the
 \ac{MMEMPM} generates a parameter estimate based on the first $M$ significant
 components of the dataset, the more intense first-order signals are quantified,
 whereas the weaker strong coupling artefacts are not included. It should be
@@ -112,7 +117,7 @@ or certain artefacts possess particularly large amplitudes.
         $\ttwo$ axis, yields an \ac{FID} $\by_{\ang{-45}}$  which is
         homodecoupled. Note that there is a slight discrepancy
         between \cref{eq:neg-45} and this description, in that the
-        indirect-dimension damping factors $\bdetaone$ are neglected in the
+        indirect dimension damping factors $\bdetaone$ are neglected in the
         former case.
     }
     \label{fig:neg-45}
@@ -141,7 +146,7 @@ except that the frequency of each oscillator, which would be $\ftwo_m$ in a
 pulse-acquire experiment,
 is replaced with $\ftwo_m - \fone_m$. Oscillators belonging to the same
 multiplet $s$ will all provide a contribution to the \ac{FID} with the
-frequency $\omega_{0,s}$.
+angular frequency $\omega_{0,s}$.
 Assuming that the parameters associated with the \ac{2DJ}
 \ac{FID} are accurately determined, a pure shift spectrum with sharp
 absorption-mode lineshapes and no loss of signal can be generated by
@@ -154,19 +159,18 @@ Unlike the direct-dimension, which can often comprise sparsely distributed
 peaks in the Fourier domain, the indirect dimension of \ac{2DJ} datasets tends
 to be densely populated since all multiplet structures are centered at
 \qty{0}{\hertz}, and rarely span beyond $\pm \qty{50}{\hertz}$. As such,
-the generation of frequency-filtered sub-\acp{FID} is limited to consideration of
+the generation of frequency-filtered sub-\acp{FID} to
 the direct dimension.
 The filtering procedure applied to \ac{2DJ} data is an extension of that
 for \ac{1D} data described in \cref{sec:filtering}, and is
 depicted in \cref{fig:jres-filtering}:
 \begin{enumerate}
-    \item The array $\symbf{Y}_{\text{ve}} \in \mathbb{C}^{\None \times 2
-        \Ntwo}$, is constructed, which comprises the virtual echo of each
-        direct-dimension \ac{FID}. Each row of the array $\by_{\text{ve},\none}\
-        \forall n^{(1)} \in
-        \lbrace 0, \cdots, N^{(1)} - 1 \rbrace$ is given by
+    \item The array $\symbf{Y}_{\text{VE}} \in \mathbb{C}^{\None \times 2
+        \Ntwo}$, is constructed, which contains the virtual echo of each
+        direct-dimension \ac{FID}. Each row of the array is given by
         \begin{equation}
-            \by_{\text{ve},\none} =
+            \begin{split}
+            \by_{\text{VE},\none} =
                 \begin{bmatrix}
                     \Re\left(y_{n^{(1)}, 0}^{\vphantom{*}}\right) &
                     y_{n^{(1)}, 1}^{\vphantom{*}} &
@@ -176,10 +180,12 @@ depicted in \cref{fig:jres-filtering}:
                     y_{n^{(1)}, \Ntwo - 1}^* &
                     \cdots &
                     y_{n^{(1)}, 1}^*
-                \end{bmatrix}.
+                \end{bmatrix},\\
+                \forall n^{(1)} \in \lbrace 0, \cdots, N^{(1)} - 1 \rbrace.
+            \end{split}
         \end{equation}
-    \item $\symbf{Y}_{\text{ve}}$ is subjected to \ac{FT} along the direct
-        dimension to produce the spectrum  $\symbf{S}_{\text{ve}}$
+    \item $\symbf{Y}_{\text{VE}}$ is subjected to \ac{FT} along the direct
+        dimension to produce the spectrum  $\symbf{S}_{\text{VE}}$
         (\cref{fig:jres-filtering}.a). This has an imaginary component of
         zero.
     \item A super-Gaussian $\symbf{G} \in \mathbb{R}^{\None \times 2 \Ntwo}$ is
@@ -192,16 +198,16 @@ depicted in \cref{fig:jres-filtering}:
         $\symbf{g}^{(2)} \in \mathbb{R}^{2\Ntwo}$ is a super-Gaussian vector
         given by \cref{eq:super-Gaussian-onedim}.
     \item A matrix of additive noise is generated by extracting the variance
-        $\sigma^2$ of a direct-dimension strip of $\symbf{S}_{\text{ve}}$ which
+        $\sigma^2$ of a direct-dimension strip of $\symbf{S}_{\text{VE}}$ which
         is devoid of peaks, and generating an array $\symbf{W}_{\sigma^2} \in
         \mathbb{R}^{\None \times 2 \Ntwo}$ with values independently sampled
         from $\mathcal{N}(0, \sigma^2)$ (\cref{fig:jres-filtering}.c).
     \item The spectrum is filtered (\cref{fig:jres-filtering}.d):
         \begin{equation}
-            \widetilde{\symbf{S}}_{\text{ve}} = \symbf{S}_{\text{ve}} \odot
+            \widetilde{\symbf{S}}_{\text{VE}} = \symbf{S}_{\text{VE}} \odot
             \symbf{G} + \symbf{W}_{\sigma^2} \odot (\symbf{1} - \symbf{G}).
         \end{equation}
-    \item $\widetilde{\symbf{S}}_{\text{ve}}$ is subjected to \ac{IFT} and is
+    \item $\widetilde{\symbf{S}}_{\text{VE}}$ is subjected to \ac{IFT} and is
         sliced in half in the direct dimension, yeilding the final filtered
         signal $\widetilde{\symbf{Y}}$.
 \end{enumerate}
@@ -217,15 +223,16 @@ the filtered sub-\ac{FID}.
     ]
     {
         An illustration of the filtering procedure for \ac{2DJ} data.
-        For each panel is a heat-map of the full \ac{2D} signal, as well as a
-        plot underneath of the first slice of the signal in the direct
-        dimension.
-        \textbf{a.} The spectrum $\symbf{S}_{\text{ve}}$,
+        Each panel consists of a heat-map of the complete \ac{2D} array, as well as
+        a plot of the first slice of the array in the direct dimension ($x$-axis).
+        \textbf{a.} The spectrum $\symbf{S}_{\text{VE}}$,
         \textbf{b.} Super-Gaussian filter $\symbf{G}$,
         \textbf{c.} Additive noise, attenuated by the super-Gaussian, $\symbf{W}_{\sigma^2} \odot (\symbf{1} - \symbf{G})$,
-        \textbf{d.} Filtered spectrum $\widetilde{\symbf{S}}_{\text{ve}}$
-        Panels \textbf{a.}--\textbf{d.} are analogous to panels \textbf{b.}--
-        \textbf{e.} in \cref{fig:filtering} for the \ac{1D} case.
+        \textbf{d.} Filtered spectrum $\widetilde{\symbf{S}}_{\text{VE}}$
+        Figures \ref{fig:jres-filtering}.a to \ref{fig:jres-filtering}.d
+        are analogous to
+        Figures \ref{fig:jres-filtering}.b to \ref{fig:jres-filtering}.e
+        for the \ac{1D} case.
     }
     \label{fig:jres-filtering}
 \end{figure}
@@ -252,9 +259,9 @@ the estimation result. A lower bound on $\epsilon$ is the separation between
 adjacent points in the better-resolved dimension of the spectrum, i.e.
 $\min\left(\nicefrac{\fswone}{\None},
 \nicefrac{\fswtwo}{\Ntwo}\right)$.  However, limitations in resolution due to
-relaxation-induces signal damping and field inhomogeneities can require
+relaxation-induced signal damping and field inhomogeneities can require
 $\epsilon$ to be increased beyond this for effective assignments
-to be achieved. Listing \cref{lst:mp-assign} provides a \Python routine that
+to be achieved. \Cref{lst:mp-assign} provides a \Python routine that
 can be used for multiplet prediction.
 
 There are certain circumstances where it is safe to assume that a
@@ -268,8 +275,9 @@ following:
     \item The magnitude of the indirect dimension frequency of the oscillator
         is appreciably greater than \qty{0}{\hertz}.
 \end{enumerate}
-If the signal is the only
+If a first-order signal is the only
 member of a multiplet grouping, it must be a singlet, and as such it will have
 an indirect-dimension frequency of \qty{0}{\hertz}. Oscillators which do agree
 with the two points above can be assumed to be related to either strong
-coupling artefacts or noise, and can be automatically discarded.
+coupling artefacts or noise, and can be automatically discarded from the final
+parameter estimate.
