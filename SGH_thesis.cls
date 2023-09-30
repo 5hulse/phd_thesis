@@ -253,12 +253,17 @@
 \newenvironment{dedication}{%
     \cleardoublepage
     \thispagestyle{empty}
+    \vspace*{1in}
     \begin{center}
-    \vspace*{1.5cm}
+        \psvectorian[width=.3\textwidth,height=0.3\baselineskip]{82}
     \end{center}
-    \vspace{0.5cm}
-    \begin{verse}\begin{center}}%
-    {\end{center}\end{verse}}
+    \centering
+}%
+{
+    \begin{center}
+        \psvectorian[width=.3\textwidth,height=0.3\baselineskip]{82}
+    \end{center}
+}
 
 \newenvironment{frontmattersection}[1]{%
     \cleardoublepage
