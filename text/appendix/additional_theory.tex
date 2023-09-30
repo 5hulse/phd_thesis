@@ -3,83 +3,106 @@
 
 \section{Mathematical definitions}
 
-Descriptions of linear algebra and statics concepts that are referred to in
+Descriptions of linear algebra and statistics concepts that are referred to in
 this thesis are provided here. More detail can be found in numerous relevant
 texts\cite{Strang2018,Pawitan2001}.
 
 \subsection{Linear algebra}
 \label{subsec:linear-algebra}
 
-\note{TODO: null space, rank, range}
+\subsubsection{Matrix Rank}
+The rank of a matrix is defined as the dimension of the vector space spanned by
+its rows; this is identical to the dimension of the vector space spanned by
+its columns. Equivalently, rank can be thought of as the number of linearly
+independent row/column vectors present in the matrix. For a matrix $\symbf{X}
+\in \mathbb{F}^{m \times n}$, the largest possible rank\,---\,often referred to
+as ``full rank''\,---\,is $\min(m, n)$.
 
-\subsubsection{\Acl{SVD}}
-\ac{SVD} is a generalisation of eigendecomposition for a matrix of any shape.
-Given a matrix $\symbf{A} \in \mathbb{C}^{m \times n}$, the \ac{SVD} is a
-factorisation given by
+\subsubsection{\Acf{SVD}}
+\ac{SVD} is a generalisation of eigendecomposition\,---\,applicable only to
+square, diagonalisable matrices\,---\,for any general matrix $\symbf{X} \in
+\mathbb{C}^{m \times n}$. The \ac{SVD} is a factorisation given by
 \begin{equation}
-    \symbf{A} = \symbf{U} \symbf{\Sigma} \symbf{V}^{\dagger}.
+    \symbf{X} = \symbf{U} \symbf{\Sigma} \symbf{V}^{\dagger}.
 \end{equation}
-The matrices that make up the decomposition are as follows
-\begin{itemize}[label={}]
+The matrices that make up the factorisation are as follows
+\begin{itemize}
     \item $\symbf{\Sigma} \in \mathbb{C}^{m \times n}$ is a rectangular
         diagonal matrix with diagonal elements comprising the \emph{singular
-        values} in descending order of magnitude. The singular values are the
-        square roots of the non-zero eigenvalues of both
-        $\symbf{A}^{\dagger}\symbf{A}$ and
-        $\symbf{A}\symbf{A}^{\dagger}$.
+        values} of $\symbf{X}$ in descending order of magnitude. The singular
+        values are the square roots of the non-zero eigenvalues of both
+        $\symbf{X}^{\dagger}\symbf{X}$ and $\symbf{X}\symbf{X}^{\dagger}$.
     \item $\symbf{U} \in \mathbb{C}^{m \times m}$ is a unitary matrix whose columns
-        comprise the \emph{left singular vectors}. The left singular vectors
-        are the eigenvectors of the matrix $\symbf{A}\symbf{A}^{\dagger}$.
+        comprise the \emph{left singular vectors} of $\symbf{X}$. The left
+        singular vectors are the eigenvectors of the matrix
+        $\symbf{X}\symbf{X}^{\dagger}$.
     \item $\symbf{V} \in \mathbb{C}^{n \times n}$ is a unitary matrix whose columns
-        comprise the \emph{right singular vectors}. The right singular vectors
-        are the eigenvectors of the matrix $\symbf{A}^{\dagger}\symbf{A}$.
+        comprise the \emph{right singular vectors} or $\symbf{X}$. These
+        are the eigenvectors of the matrix $\symbf{X}^{\dagger}\symbf{X}$.
 \end{itemize}
 One fundamental property of the \ac{SVD} is that the number of non-zero
 singular values is equivalent to the rank of the matrix. As the \ac{EYM}
 theorem highlights, the \ac{SVD} is valuable in constructing low-rank
 approximations of matrices, with applications in various fields such as signal
-processing, (see \cref{subsec:mpm}) and data compression.
+processing, (see \cref{subsec:mpm}) and data compression\cite{Jaradat2021}.
 
 \subsubsection{Special matrices}
-A \emph{Hankel matrix} is a matrix in which each ascending diagonal from left to right
-possesses identical elements. While Hankel matrices are often defined to be square, in
-this work such a restriction is not applied. Given a matrix $\symbf{X} \in
-\mathbb{F}^{M \times N}$, the matrix is Hankel if
+A \emph{Hankel matrix} is a matrix in which each \emph{ascending} diagonal from
+left to right possesses identical elements. While Hankel matrices are often
+defined to be square, in this work such a restriction is not applied. Given a
+matrix $\symbf{X} \in \mathbb{F}^{M \times N}$, the matrix is Hankel if
 \begin{equation}
-    x_{m,n} = x_{m+1,n-1}
+    x_{m,n} = x_{m+1,n-1}\quad
+    \forall m \in \lbrace 1, \cdots, M-1 \rbrace,
+    \ \forall n \in \lbrace 2, \cdots, N \rbrace.
 \end{equation}
-$\forall m \in \lbrace 1, \cdots, M-1 \rbrace
-\ \forall n \in \lbrace 2, \cdots, N \rbrace$.
-Similarly, a \emph{Toeplitz matrix} is a matrix in which every descending
+Similarly, a \emph{Toeplitz matrix} is a matrix in which every \emph{descending}
 diagonal from left to right possesses identical elements, i.e.
 \begin{equation}
-    x_{m,n} = x_{m+1,n+1}
+    x_{m,n} = x_{m+1,n+1}\quad
+    \forall m \in \lbrace 1, \cdots, M-1 \rbrace,
+    \ \forall n \in \lbrace 1, \cdots N-1 \rbrace.
 \end{equation}
-$\forall m \in \lbrace 1, \cdots, M-1 \rbrace\ \forall n
-\in \lbrace 1, \cdots N-1, \rbrace$.
+A \emph{Vandermonde matrix} is a matrix with rows that feature a geometric
+progression, i.e.
+\begin{equation}
+    x^{\vphantom{n}}_{m,n\vphantom{1}} = x_{m,1}^n\quad
+    \forall m \in \lbrace 1, \cdots, M \rbrace,
+    \ \forall n \in \lbrace 1, \cdots N \rbrace.
+\end{equation}
 
-\subsection{Statistics and probability}
+\subsection{Statistics and Probability}
 
-\note{TODO: Likelihood function, MLE}
-
-\subsubsection{\Acl{pdf}}
-The \ac{pdf} $p(x) : \mathbb{R} \rightarrow \mathbb{R}$ is a function over a
+\subsubsection{Probability Density Function (\acs{PDF})}
+The \ac{PDF} $p(x) : \mathbb{R} \rightarrow \mathbb{R}$ is a function over a
 continuous sample space which provides relative likelihoods between potential
-values of $x$.  The probability that a random sample obeying a known
-distribution lies withing the range $[x_a, x_b]$ is given by the integral
+values of $x$.  The probability $P \in [0, 1]$ that a random sample obeying a
+known distribution lies withing the range $[x_a, x_b]$ is given by the integral
 \begin{equation}
     P(x_a \leq x \leq x_b) = \int_{x_a}^{x_b} p(x) \mathrm{d}x.
 \end{equation}
 The integral of $p(x)$ over the entire sample space is defined to be
-unity. Also, the \ac{pdf} of a specific value is always $0$, since the width of
-the region of integration is $0$.
+unity. The probability of a specific value $P(x)$ is always $0$ by definition,
+since the width of the region of integration is $0$. The \ac{PDF} can be
+extended for the consideration of multiple variables; in this case
+$p(\symbf{x}): \mathbb{R}^n \rightarrow \mathbb{R}$ is commonly referred to as
+a \emph{multivariate} \ac{PDF}.
 
-\subsubsection{Likelihood function}
+\subsubsection{Likelihood Function and Maximum Likelihood Estimate (\acs{MLE})}
+The likelihood function $\mathcal{L}(\bdthY)$ is the probability density of
+some observed data, when viewed from the perspective of the parameters of a
+model (i.e. the data is taken as a fixed parameter, and the model parameters
+are taken as variables). The \ac{MLE} is the set of parameters which maximises
+the likelihood function:
+\begin{equation}
+    \bthstar = \argmax_{\bth} \mathcal{L}(\bdthY).
+\end{equation}
 
-\section{NLP Derivatives}
+\section{Further Information about \acs{NLP}}
+\subsection{Model Derivatives}
 \label{sec:derivatives}
 The complete set of first and second derivatives of a particular element of the
-model $x \coloneq \xnonenD$, given by \cref{eq:x}, is as follows
+model $x \coloneq \xnonenD$ (\cref{eq:x}) is as follows
 $\forall m \in \lbrace 1, \cdots, M \rbrace$,
 $\forall d, d^{\prime} \in \lbrace 1, \cdots, D \rbrace$:
 \paragraph{First derivatives}
@@ -144,7 +167,7 @@ $\forall d, d^{\prime} \in \lbrace 1, \cdots, D \rbrace$:
     \label{eq:second-derivs}
 \end{subequations}
 
-\section{Estimation Errors}
+\subsection{Estimation Errors}
 \label{subsec:errors}
 A measure of the degree of uncertainty in the parameter estimates can be obtained
 by computing the \emph{standard errors} associated with the \ac{NLP} routine.
@@ -242,9 +265,14 @@ noise neglected)
         \xi^{\vphantom{(1)}}_{\none,\ntwo} =
             \sum_m a_m \exp\left(-\etaonem \none \Dtone -\etatwom \ntwo \Dttwo\right),\\
         (c/s)^{(1/2)}_{\none,\ntwo} =
-            \sum_m \cos / \sin \left(2 \pi f^{(1/2)} n^{(1/2)} \Updelta^{(1/2)}\right).
+            \sum_m \cos / \sin \left(2 \pi f^{(1/2)} n^{(1/2)} \Updelta^{(1/2)}\right),\\
+        \forall M \in \lbrace 1, \cdots M \rbrace,
+        \ \forall \none \in \lbrace 0, \cdots \None - 1 \rbrace,
+        \ \forall \ntwo \in \lbrace 0, \cdots \Ntwo - 1 \rbrace,\notag
     \end{gather}
 \end{subequations}
+where, as with the \ac{1D} case in the main text, it has been assumed the data
+is phased, such that $\phi_m = 0\ \forall m$.
 Four matrices $\symbf{\psi}_{\pm\pm}$ are then constructed of the form
 \begin{equation}
     \begin{gathered}
@@ -290,7 +318,7 @@ from which the matrices $\symbf{T}_{1 \rightarrow 4} \in \mathbb{C}^{2 \None
         \end{bmatrix}^{\circlearrowright (1,2)}.
     \end{gather}
 \end{subequations}
-The virtual echo is then given by $\symbf{Y}_{\text{ve}} = \sum_{i=1}^4
+The virtual echo is then given by $\symbf{Y}_{\text{VE}} = \sum_{i=1}^4
 \symbf{T}_i$, with the first row and column divided by two. For a full outline
 of the 2D filtering procedure, see \cref{alg:filter-2d}.
 
@@ -302,19 +330,21 @@ phase-modulated signals too, which for the \ac{2D} case would be $\lbrace
 \begin{subequations}
     \begin{gather}
         \symbf{Y}^{\text{cos}} = \frac{\symbf{Y}^{\text{pos}} + \symbf{Y}^{\text{neg}}}{2},\\
-        \symbf{Y}^{\text{sin}} = \frac{\symbf{Y}^{\text{pos}} - \symbf{Y}^{\text{neg}}}{2\iu}.
+        \symbf{Y}^{\text{sin}} = \frac{\symbf{Y}^{\text{pos}} - \symbf{Y}^{\text{neg}}}{2\iu},
     \end{gather}
 \end{subequations}
+which can then be processed as described above to form $\bY_{\text{VE}}$.
 
+\clearpage
 \section{Additional algorithms}
-\note{Last minute edit: manually rearrange algorithms so a masses of white space aren't present}
 \label{sec:algs}
 \begin{algorithm}[h!]
     \caption[
         The \acs{MMEMPM}.
     ]{
         The \acs{MMEMPM}. \textsc{TruncatedSVD} is a routine which computes the
-        first $M$ \ac{SVD} components of a matrix.
+        first $M$ \ac{SVD} components of a matrix, using some iterative
+        approach such as the Rayleigh-Ritz method.
     }
     \label{alg:mmempm}
     \begin{algorithmic}[1]
@@ -383,7 +413,7 @@ phase-modulated signals too, which for the \ac{2D} case would be $\lbrace
         \Comment{Last/First $L^{(1)}$ rows deleted}
         \State $
             \symbf{G} \gets
-                \left[\symbf{W}^{(1)}\right]^{-1}
+                {\symbf{W}^{(1)}}^{-1}
                 \symbf{U}_{M\text{P}1}^{+}
                 \symbf{U}_{M\text{P}2}^{\vphantom{+}}
                 \symbf{W}^{(1)}
@@ -416,7 +446,7 @@ phase-modulated signals too, which for the \ac{2D} case would be $\lbrace
     as whether it is or not is dependent on the ordering of the rows and
     columns in the matrix. A more explicit depiction of how $\symbf{G}_r$ can
     be extracted from $\symbf{G}$ is provided by \cref{lst:mmempm} (Lines
-    \ref{ln:similar-f-start} to \ref{ln:similar-f-end}).
+    \ref{ln:similarfstart} to \ref{ln:similarfend}).
 }
 \begin{algorithm}
     \begin{algorithmic}
@@ -483,7 +513,6 @@ phase-modulated signals too, which for the \ac{2D} case would be $\lbrace
     \EndProcedure
     \end{algorithmic}
 \end{algorithm}
-\vfill\null
 
 \begin{algorithm}
     \caption[
@@ -559,59 +588,47 @@ phase-modulated signals too, which for the \ac{2D} case would be $\lbrace
     \end{algorithmic}
 \end{algorithm}
 
-
-
 \begin{algorithm}[h!]
     \begin{algorithmic}[1]
-        \caption{Filtering procedure for 2D data.}
+        \caption[
+            Filtering procedure for 2D data.
+        ]{
+            Filtering procedure for 2D data. The arguments
+            $l/r_{\text{I/N}}^{(1/2)}$ denote the left ($l$)/right ($r$) bound
+            of the region of interest (I)/noise region (N) in dimension 1/2.
+            These arguments should be members of the set $\lbrace 0, \cdots,
+            \None - 1/\Ntwo - 1\rbrace$.
+        }
         \label{alg:filter-2d}
-        \Procedure{Filter$2$D}{$\bY_{\cos} \in \mathbb{C}^{\None \times \Ntwo}, \bY_{\sin} \in \mathbb{C}^{\None \times \Ntwo}, \symbf{R}_{\text{interest}} \in \mathbb{N}_0^{2 \times 2}, \symbf{R}_{\text{noise}} \in \mathbb{N}_0^{2 \times 2}$}
-            \State $\bY_{\text{ve}} \gets \textsc{VirtualEcho$2$D}\left(\bY_{\cos}, \bY_{\sin}\right)$;
-            \State $\symbf{S}_{\text{ve}} \gets \FT\left(\bY_{\text{ve}}\right)$;
-            \State $
-                l^{(1)}_{\text{idx}},
-                r^{(1)}_{\text{idx}},
-                l^{(2)}_{\text{idx}},
-                r^{(2)}_{\text{idx}}
-                \gets
-                \symbf{R}_{\text{interest}}[0,0],
-                \symbf{R}_{\text{interest}}[0,1],
-                \symbf{R}_{\text{interest}}[1,0],
-                \symbf{R}_{\text{interest}}[1,1]
-                $;
-            \For{$d = 1, 2$}
-                \State $c_{\text{idx}}^{(d)} \gets \nicefrac{\left(l_{\text{idx}}^{(d)} + r_{\text{idx}}^{(d)}\right)}{2}$;
-                \State $b_{\text{idx}}^{(d)} \gets r_{\text{idx}}^{(d)} - l_{\text{idx}}^{(d)}$;
-                \State $\symbf{g}^{(d)} \gets \textsc{SuperGaussian$1$D}\left( 2\Nd_{\vphantom{\text{idx}}}, c_{\text{idx}}^{(d)}, b_{\text{idx}}^{(d)} \right)$;
+        \Procedure{Filter$2$D}{$\bY_{\cos} \in \mathbb{C}^{\None \times \Ntwo}, \bY_{\sin} \in \mathbb{C}^{\None \times \Ntwo},
+            l_{\text{I}}^{(1)}, r_{\text{I}}^{(1)}, l_{\text{I}}^{(2)}, r_{\text{I}}^{(2)},
+            l_{\text{N}}^{(1)}, r_{\text{N}}^{(1)}, l_{\text{N}}^{(2)}, r_{\text{N}}^{(2)}
+        $}
+            \State $\bY_{\text{VE}} \gets \textsc{VirtualEcho$2$D}\left(\bY_{\cos}, \bY_{\sin}\right)$;
+            \State $\symbf{S}_{\text{VE}} \gets \FT\left(\bY_{\text{VE}}\right)$;
+           \For{$d = 1, 2$}
+                \State $c^{(d)} \gets \nicefrac{\left(l_{\text{I}}^{(d)} + r_{\text{I}}^{(d)}\right)}{2}$;
+                \State $b^{(d)} \gets r_{\text{I}}^{(d)} - l_{\text{I}}^{(d)}$;
+                \State $\symbf{g}^{(d)} \gets \textsc{SuperGaussian$1$D}\left( 2\Nd_{\vphantom{\text{idx}}}, c^{(d)}, b^{(d)} \right)$;
+                \Comment{See \cref{alg:filter-1d}.}
                 \State $\symbf{G} \gets  \symbf{g}^{(1)} \otimes \symbf{g}^{(2)}$;
             \EndFor
-            \State $
-                l^{(1)}_{\text{idx,noise}},
-                r^{(1)}_{\text{idx,noise}},
-                l^{(2)}_{\text{idx,noise}},
-                r^{(2)}_{\text{idx,noise}}
-                \gets
-                \symbf{R}_{\text{noise}}[0,0],
-                \symbf{R}_{\text{noise}}[0,1],
-                \symbf{R}_{\text{noise}}[1,0],
-                \symbf{R}_{\text{noise}}[1,1]
-                $;
-            \State $\symbf{S}_{\text{noise}} \gets \symbf{S}_{\text{ve}} \left[
-                    l^{(1)}_{\text{idx,noise}} :
-                    r^{(1)}_{\text{idx,noise}} + 1,
-                    l^{(2)}_{\text{idx,noise}} :
-                    r^{(2)}_{\text{idx,noise}} + 1
+            \State $\symbf{S}_{\text{N}} \gets \symbf{S}_{\text{VE}} \left[
+                    l^{(1)}_{\text{N}} :
+                    r^{(1)}_{\text{N}} + 1,
+                    l^{(2)}_{\text{N}} :
+                    r^{(2)}_{\text{N}} + 1
                 \right] $
-            \State $\sigma^2 \gets \Var\left(\symbf{S}_{\text{noise}}\right)$;
+            \State $\sigma^2 \gets \Var\left(\symbf{S}_{\text{N}}\right)$;
             \State $\symbf{W}_{\sigma^2} \gets \symbf{0} \in \mathbb{R}^{2\None \times 2\Ntwo}$;
             \For {$\none = 0, \cdots, 2\None - 1$}
                 \For {$\ntwo = 0, \cdots, 2\Ntwo - 1$}
-                    \State $\symbf{W}_{\sigma^2}\left[ \none, \ntwo \right] \gets \textsc{RandomSample}\left(\mathcal{N}\left(0, \sigma^2\right)\right)$;
+                \State $w_{\sigma^2, \none, \ntwo} \gets \textsc{RandomSample}\left(\mathcal{N}\left(0, \sigma^2\right)\right)$;
                 \EndFor
             \EndFor
-            \State $\widetilde{\symbf{S}}_{\text{ve}} \gets \symbf{S}_{\text{ve}} \odot \symbf{G} + \symbf{W}_{\sigma^2} \odot \left(\symbf{1} - \symbf{G}\right)$;
-            \State $\widetilde{\symbf{Y}}_{\text{ve}} \gets \IFT \left( \widetilde{\symbf{S}}_{\text{ve}} \right)$;
-            \State $\widetilde{\symbf{Y}} \gets \widetilde{\symbf{Y}}_{\text{ve}}\left[ :\None, :\Ntwo \right]$;
+            \State $\widetilde{\symbf{S}}_{\text{VE}} \gets \symbf{S}_{\text{VE}} \odot \symbf{G} + \symbf{W}_{\sigma^2} \odot \left(\symbf{1} - \symbf{G}\right)$;
+            \State $\widetilde{\symbf{Y}}_{\text{VE}} \gets \IFT \left( \widetilde{\symbf{S}}_{\text{VE}} \right)$;
+            \State $\widetilde{\symbf{Y}} \gets \widetilde{\symbf{Y}}_{\text{VE}}\left[ :\None, :\Ntwo \right]$;
             \State \textbf{return} $\widetilde{\symbf{Y}}$;
         \EndProcedure
         \Statex
@@ -669,58 +686,58 @@ phase-modulated signals too, which for the \ac{2D} case would be $\lbrace
                     \symbf{Z} & \symbf{\Psi}_{--}^{\leftrightsquigarrow (1,2)}
                 \end{bmatrix}^{\circlearrowright (1,2)}
             $;
-            \State $\bY_{\text{ve}} \gets \symbf{T}_1 + \symbf{T}_2 + \symbf{T}_3 + \symbf{T}_4$;
+            \State $\bY_{\text{VE}} \gets \symbf{T}_1 + \symbf{T}_2 + \symbf{T}_3 + \symbf{T}_4$;
             \For{$\none = 0, \cdots, 2 \None - 1$}
-                \State $\bY_{\text{ve}}\left[\none, 0\right] \gets
-                    \nicefrac{\bY_{\text{ve}}\left[\none, 0\right]}{2}
+                \State $y_{\text{VE}, \none, 0} \gets
+                    \nicefrac{\by_{\text{VE},\none, 0}}{2}
                 $;
             \EndFor
             \For{$\ntwo = 0, \cdots, 2 \Ntwo - 1$}
-                \State $\bY_{\text{ve}}\left[0, \ntwo \right] \gets
-                    \nicefrac{\bY_{\text{ve}}\left[0,\hspace*{1pt} \ntwo \right]}{2}
+                \State $y_{\text{VE}, \ntwo, 0} \gets
+                    \nicefrac{\by_{\text{VE},\ntwo, 0}}{2}
                 $;
             \EndFor
-            \State \textbf{return} $\bY_{\text{ve}}$;
+            \State \textbf{return} $\bY_{\text{VE}}$;
         \EndProcedure
     \end{algorithmic}
 \end{algorithm}
 
-\begin{algorithm}[h!]
-    \begin{algorithmic}[1]
-        \caption{Filtering procedure for 2DJ data.}
-        \label{alg:filter-2dj}
-        \Procedure{Filter$2$DJ}{
-            $\bY \in \mathbb{C}^{\None \times \Ntwo},
-            \symbf{r}_{\text{interest}} \in \mathbb{N}_0^2,
-            \symbf{r}_{\text{noise}} \in \mathbb{N}_0^2$
-        }
-            \State $\bY_{\text{ve}} \gets \symbf{0} \in \mathbb{C}^{\None \times 2 \Ntwo}$;
-            \For{$\none = 0, \cdots, \None - 1$}
-                \State $\bY_{\text{ve}}\left[\none, :\right] \gets \textsc{VirtualEcho$1$D}\left(\bY\left[\none, :\right]\right)$;
-            \EndFor
-            \State $\symbf{S}_{\text{ve}} \gets \FT^{(2)}\left(\bY_{\text{ve}}\right)$;
-            \State $l^{(2)}_{\text{idx}}, r^{(2)}_{\text{idx}} \gets \symbf{r}_{\text{interest}}[0], \symbf{r}_{\text{interest}}[1]$;
-            \State $l^{(2)}_{\text{idx,noise}}, r^{(2)}_{\text{idx,noise}} \gets \symbf{r}_{\text{noise}}[0], \symbf{r}_{\text{noise}}[1]$;
-            \State $c_{\text{idx}}^{(2)} \gets \nicefrac{\left(l_{\text{idx}}^{(2)} + r_{\text{idx}}^{(2)}\right)}{2}$;
-            \State $b_{\text{idx}}^{(2)} \gets r_{\text{idx}}^{(2)} - l_{\text{idx}}^{(2)}$;
-            \State $\symbf{g}^{(1)} \gets \symbf{1} \in \mathbb{R}^{\None}$;
-            \State $\symbf{g}^{(2)} \gets \textsc{SuperGaussian$1$D}\left(\Ntwo_{\vphantom{\text{idx}}}, c_{\text{idx}}^{(2)}, b_{\text{idx}}^{(2)}\right)$;
-            \State $\symbf{G} \gets \symbf{g}^{(1)} \otimes \symbf{g}^{(2)}$;
-            \State $\symbf{S}_{\text{noise}} \gets \symbf{S}_{\text{ve}} \left[
-                :, l^{(2)}_{\text{idx,noise}} : r^{(2)}_{\text{idx,noise}} + 1
-            \right]
-            $;
-            \State $\sigma^2 \gets \Var\left(\symbf{S}_{\text{noise}}\right)$;
-            \State $\symbf{W}_{\sigma^2} \gets \symbf{0} \in \mathbb{R}^{\None \times 2 \Ntwo}$;
-            \For {$\none = 0, \cdots, \None - 1$}
-                \For {$\ntwo = 0, \cdots, 2\Ntwo - 1$}
-                    \State $\symbf{W}_{\sigma^2}\left[ \none, \ntwo \right] \gets \textsc{RandomSample}\left(\mathcal{N}\left(0, \sigma^2\right)\right)$;
-                \EndFor
-            \EndFor
-            \State $\widetilde{\symbf{S}}_{\text{ve}} \gets \symbf{S}_{\text{ve}} \odot \symbf{G} + \symbf{W}_{\sigma^2} \odot \left(\symbf{1} - \symbf{G}\right)$;
-            \State $\widetilde{\symbf{Y}}_{\text{ve}} \gets \IFT^{(2)} \left( \widetilde{\symbf{S}}_{\text{ve}} \right)$;
-            \State $\widetilde{\symbf{Y}} \gets \widetilde{\symbf{Y}}_{\text{ve}}\left[ :, :\Ntwo \right]$;
-            \State \textbf{return} $\widetilde{\symbf{Y}}$;
-        \EndProcedure
-    \end{algorithmic}
-\end{algorithm}
+% \begin{algorithm}[h!]
+%     \begin{algorithmic}[1]
+%         \caption{Filtering procedure for 2DJ data.}
+%         \label{alg:filter-2dj}
+%         \Procedure{Filter$2$DJ}{
+%             $\bY \in \mathbb{C}^{\None \times \Ntwo},
+%             \symbf{r}_{\text{interest}} \in \mathbb{N}_0^2,
+%             \symbf{r}_{\text{noise}} \in \mathbb{N}_0^2$
+%         }
+%             \State $\bY_{\text{VE}} \gets \symbf{0} \in \mathbb{C}^{\None \times 2 \Ntwo}$;
+%             \For{$\none = 0, \cdots, \None - 1$}
+%                 \State $\bY_{\text{VE}}\left[\none, :\right] \gets \textsc{VirtualEcho$1$D}\left(\bY\left[\none, :\right]\right)$;
+%             \EndFor
+%             \State $\symbf{S}_{\text{VE}} \gets \FT^{(2)}\left(\bY_{\text{VE}}\right)$;
+%             \State $l^{(2)}_{\text{idx}}, r^{(2)}_{\text{idx}} \gets \symbf{r}_{\text{interest}}[0], \symbf{r}_{\text{interest}}[1]$;
+%             \State $l^{(2)}_{\text{idx,noise}}, r^{(2)}_{\text{idx,noise}} \gets \symbf{r}_{\text{noise}}[0], \symbf{r}_{\text{noise}}[1]$;
+%             \State $c_{\text{idx}}^{(2)} \gets \nicefrac{\left(l_{\text{idx}}^{(2)} + r_{\text{idx}}^{(2)}\right)}{2}$;
+%             \State $b_{\text{idx}}^{(2)} \gets r_{\text{idx}}^{(2)} - l_{\text{idx}}^{(2)}$;
+%             \State $\symbf{g}^{(1)} \gets \symbf{1} \in \mathbb{R}^{\None}$;
+%             \State $\symbf{g}^{(2)} \gets \textsc{SuperGaussian$1$D}\left(\Ntwo_{\vphantom{\text{idx}}}, c_{\text{idx}}^{(2)}, b_{\text{idx}}^{(2)}\right)$;
+%             \State $\symbf{G} \gets \symbf{g}^{(1)} \otimes \symbf{g}^{(2)}$;
+%             \State $\symbf{S}_{\text{noise}} \gets \symbf{S}_{\text{VE}} \left[
+%                 :, l^{(2)}_{\text{idx,noise}} : r^{(2)}_{\text{idx,noise}} + 1
+%             \right]
+%             $;
+%             \State $\sigma^2 \gets \Var\left(\symbf{S}_{\text{noise}}\right)$;
+%             \State $\symbf{W}_{\sigma^2} \gets \symbf{0} \in \mathbb{R}^{\None \times 2 \Ntwo}$;
+%             \For {$\none = 0, \cdots, \None - 1$}
+%                 \For {$\ntwo = 0, \cdots, 2\Ntwo - 1$}
+%                     \State $\symbf{W}_{\sigma^2}\left[ \none, \ntwo \right] \gets \textsc{RandomSample}\left(\mathcal{N}\left(0, \sigma^2\right)\right)$;
+%                 \EndFor
+%             \EndFor
+%             \State $\widetilde{\symbf{S}}_{\text{VE}} \gets \symbf{S}_{\text{VE}} \odot \symbf{G} + \symbf{W}_{\sigma^2} \odot \left(\symbf{1} - \symbf{G}\right)$;
+%             \State $\widetilde{\symbf{Y}}_{\text{VE}} \gets \IFT^{(2)} \left( \widetilde{\symbf{S}}_{\text{VE}} \right)$;
+%             \State $\widetilde{\symbf{Y}} \gets \widetilde{\symbf{Y}}_{\text{VE}}\left[ :, :\Ntwo \right]$;
+%             \State \textbf{return} $\widetilde{\symbf{Y}}$;
+%         \EndProcedure
+%     \end{algorithmic}
+% \end{algorithm}

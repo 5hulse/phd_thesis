@@ -81,7 +81,7 @@ def mmempm(
     G = np.linalg.inv(W1) @ np.linalg.pinv(UMP1) @ UMP2 @ W1
     z2 = np.diag(G).copy()  # Provisional signal poles $\symbf{z}^{(2)}$ $\label{ln:poles2end}$
 
-    # Check for and deal with similar values in $\symbf{f}^{(1)}$
+    # Check for and deal with similar values in $\symbf{f}^{(1)}$ $\label{ln:similarfstart}$
     freq1 = (0.5 * sw1 / np.pi) * np.imag(np.log(z1)) + off1
     threshold = sw1 / N1  # $\nicefrac{f_{\text{sw}}^{(1)}}{N^{(1)}}$
     groupings = {}

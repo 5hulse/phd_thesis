@@ -1,7 +1,7 @@
 # diff_params.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Mon 04 Sep 2023 16:01:33 BST
+# Last Edited: Thu 28 Sep 2023 19:52:29 BST
 
 import nmrespy as ne
 from utils import RESULT_DIR
@@ -14,7 +14,6 @@ experiments = {
 
 
 table = """
-\\null\\vfill
 \\begin{table}[h!]
 \\centering
 \\begin{tabular}{<TABULAR_CONFIG>}
@@ -34,9 +33,8 @@ table = """
     P1: Duration of $\\nicefrac{\\pi}{2}$ pulse,
     D1: Duration of relaxation delay.
 }
-\\label{tab:onedim_params}
+\\label{tab:diff-params}
 \\end{table}
-\\vfill\\null
 """
 
 table = table.replace("<TABULAR_CONFIG>", "".join((len(experiments) + 1) * ["c"]))

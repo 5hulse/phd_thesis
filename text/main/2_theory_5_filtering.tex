@@ -284,11 +284,10 @@ corrected values can be computed using
         ]
         {
             Filtering procedure for 1D data.
-            $l_{\text{idx}}$ and $r_{\text{idx}}$ are indices of the left and
-            right bounds of the region of interest.
-            $l_{\text{idx,noise}}$ and $r_{\text{idx,noise}}$ are the analogous
-            bounds for the noise region. All of these values should be $\in
-            \lbrace 0, \cdots, 2N - 1 \rbrace$.
+            $l/r_{\text{I/N}}$ denotes the left ($l$)/right ($r$) bound of the
+            region of interest (R)/noise region (N), as a vector index.
+            All of these values should be members of the set $\lbrace 0,
+            \cdots, 2N - 1 \rbrace$.
             These would typically be provided in units of \unit{\hertz} or
             \unit{\partspermillion} by a user; conversion to indices can
             be carried out using \cref{eq:fidx}.
@@ -296,22 +295,22 @@ corrected values can be computed using
         \label{alg:filter-1d}
         \Procedure{Filter$1$D}{
             $\by \in \mathbb{C}^{N},
-            l_{\text{idx}},
-            r_{\text{idx}},
-            l_{\text{idx,noise}},
-            r_{\text{idx,noise}},
+            l_{\text{I}},
+            r_{\text{I}},
+            l_{\text{N}},
+            r_{\text{N}},
             \chi \in \mathbb{R}: \chi > 1
             $}
             \State $\by_{\text{VE}} \gets \textsc{VirtualEcho$1$D}\left(\by\right)$;
             \State $\symbf{s}_{\text{VE}} \gets \FT\left(\by_{\text{VE}}\right)$;
-            \State $c_{\text{idx}} \gets \nicefrac{\left(l_{\text{idx}} + r_{\text{idx}}\right)}{2}$;
-            \State $b_{\text{idx}} \gets r_{\text{idx}} - l_{\text{idx}}$;
-            \State $\symbf{g} \gets \textsc{SuperGaussian$1$D}\left(2N, c_{\text{idx}}, b_{\text{idx}}\right)$;
+            \State $c \gets \nicefrac{\left(l_{\text{I}} + r_{\text{I}}\right)}{2}$;
+            \State $b \gets r_{\text{I}} - l_{\text{I}}$;
+            \State $\symbf{g} \gets \textsc{SuperGaussian$1$D}\left(2N, c, b\right)$;
             \State $\symbf{s}_{\text{noise}} \gets \symbf{s}_{\text{VE}} \left[
-                l_{\text{idx,noise}} : r_{\text{idx,noise}} + 1
+                l_{\text{N}} : r_{\text{N}} + 1
             \right]
             $;
-            \State $\sigma^2 \gets \Var\left(\symbf{s}_{\text{noise}}\right)$;
+            \State $\sigma^2 \gets \Var\left(\symbf{s}_{\text{N}}\right)$;
             \State $\symbf{w}_{\sigma^2} \gets \symbf{0} \in \mathbb{R}^{2N}$;
             \For {$n = 0, \cdots, 2N - 1$}
             \State $w_{\sigma^2,n} \gets \textsc{RandomSample}\left(\mathcal{N}\left(0, \sigma^2\right)\right)$;

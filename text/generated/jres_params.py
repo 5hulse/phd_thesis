@@ -1,7 +1,7 @@
 # jres_params.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Mon 04 Sep 2023 16:02:10 BST
+# Last Edited: Thu 28 Sep 2023 20:08:12 BST
 
 import nmrespy as ne
 from utils import RESULT_DIR
@@ -16,7 +16,6 @@ experiments = {
 
 
 table = """
-\\null\\vfill
 \\begin{table}[h!]
 \\centering
 \\begin{tabular}{<TABULAR_CONFIG>}
@@ -38,7 +37,6 @@ table = """
 }
 \\label{tab:jres_params}
 \\end{table}
-\\vfill\\null
 """
 
 table = table.replace("<TABULAR_CONFIG>", "".join((len(experiments) + 1) * ["c"]))
@@ -53,6 +51,7 @@ for name, path in experiments.items():
             f"{float(x):.5g}" for x in [
                 acqus["BF1"],
                 acqus["O1"],
+                acqus["O1"] / acqus["SFO1"],
                 acqu2s["SW_h"],
                 acqus["SW_h"],
                 acqus["SW"],
@@ -72,6 +71,7 @@ data_table = list(map(list, zip(*data_table)))
 names = [
     "$f_{\\text{bf}}$ (\\unit{\\mega\\hertz})",
     "$\\fofftwo$ (\\unit{\\hertz})",
+    "$\\fofftwo$ (\\unit{\\partspermillion})",
     "$\\fswone$ (\\unit{\\hertz})",
     "$\\fswtwo$ (\\unit{\\hertz})",
     "$\\fswtwo$ (\\unit{\\partspermillion})",

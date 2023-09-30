@@ -1,7 +1,7 @@
 # onedim_params.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Mon 17 Jul 2023 18:24:52 BST
+# Last Edited: Thu 28 Sep 2023 19:52:42 BST
 
 import nmrespy as ne
 from utils import RESULT_DIR
@@ -14,7 +14,6 @@ experiments = {
 
 
 table = """
-\\null\\vfill
 \\begin{table}[h!]
 \\centering
 \\begin{tabular}{<TABULAR_CONFIG>}
@@ -36,9 +35,8 @@ table = """
     N.B. The duration of the pulse used was \\nicefrac{1}{3} that of P1.
     PLW1 for the cyclosporin dataset could not be found.
 }
-\\label{tab:onedim_params}
+\\label{tab:onedim-params}
 \\end{table}
-\\vfill\\null
 """
 
 table = table.replace("<TABULAR_CONFIG>", "".join((len(experiments) + 1) * ["c"]))
