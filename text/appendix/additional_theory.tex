@@ -63,10 +63,13 @@ diagonal from left to right possesses identical elements, i.e.
     \forall m \in \lbrace 1, \cdots, M-1 \rbrace,
     \ \forall n \in \lbrace 1, \cdots N-1 \rbrace.
 \end{equation}
-A \emph{Vandermonde matrix} is a matrix with rows that feature a geometric
-progression, i.e.
+A \emph{Vandermonde matrix} is a matrix with rows or columns that feature a
+geometric progression, i.e.
 \begin{equation}
-    x^{\vphantom{n}}_{m,n\vphantom{1}} = x_{m,1}^n\quad
+    x^{\vphantom{n}}_{m,n\vphantom{1}} = x_{m,1}^n
+    \text{ or }
+    x^{\vphantom{m}}_{m,n\vphantom{1}} = x_{1,n}^m
+    \quad
     \forall m \in \lbrace 1, \cdots, M \rbrace,
     \ \forall n \in \lbrace 1, \cdots N \rbrace.
 \end{equation}
@@ -340,7 +343,7 @@ which can then be processed as described above to form $\bY_{\text{VE}}$.
 \label{sec:algs}
 \begin{algorithm}[h!]
     \caption[
-        The \acs{MMEMPM}.
+        The \acl{MMEMPM}.
     ]{
         The \acs{MMEMPM}. \textsc{TruncatedSVD} is a routine which computes the
         first $M$ \ac{SVD} components of a matrix, using some iterative
@@ -516,9 +519,9 @@ which can then be processed as described above to form $\bY_{\text{VE}}$.
 
 \begin{algorithm}
     \caption[
-        \acs{ST} method for determining an update in \acs{NLP}.
+        The \acl{ST} method for determining an update in \acl{NLP}.
     ]{
-        \ac{ST} method for determining an update in \ac{NLP}.
+        The \ac{ST} method for determining an update in \ac{NLP}.
         This is equivalent to Algorithm 7.2 in \cite{Nocedal2006}.
     }
     \label{alg:steihaug-toint}
@@ -591,9 +594,9 @@ which can then be processed as described above to form $\bY_{\text{VE}}$.
 \begin{algorithm}[h!]
     \begin{algorithmic}[1]
         \caption[
-            Filtering procedure for 2D data.
+            The filtering procedure for 2D data.
         ]{
-            Filtering procedure for 2D data. The arguments
+            The filtering procedure for 2D data. The arguments
             $l/r_{\text{I/N}}^{(1/2)}$ denote the left ($l$)/right ($r$) bound
             of the region of interest (I)/noise region (N) in dimension 1/2.
             These arguments should be members of the set $\lbrace 0, \cdots,

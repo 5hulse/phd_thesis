@@ -1,39 +1,41 @@
 \begin{abstract}
     \Ac{NMR} is an analytical technique employed in many scientific
     disciplines that is able to provide insights into the structures and
-    dynamics of chemical species. To maximise the utility of \ac{NMR}
-    experiments, appropriate data treatment and analysis is necessary. The
+    dynamics of chemical species. To maximise the utility of \ac{NMR},
+    appropriate data treatment and analysis is necessary. The
     conventional route to extracting quantitative information from the raw
     experimental data\,---\,the \ac{FID}\,---\,is to convert it to an
-    \ac{NMR} spectrum, through application of the \ac{FT}. Such spectra provide a
+    \ac{NMR} spectrum, through application of the \ac{FT}. \ac{NMR} spectra
+    provide a
     human-interpretable representation of data, with trained practitioners able
     to rationalise their appearance by mapping peaks in the spectrum to
-    chemical environments in a given sample. However, the \acs{FT} suffers from poor
-    resolution, with peaks of similar frequencies often overlapping.
-    Disentangling the quantitative information associated with such peaks is
-    not feasible using typical methods such as spectrum integration.
-    As an alternative, parametric estimation techniques aim to provide detailed
-    information about each individual signal present in the data. These have
-    been shown to perform effectively even in scenarios where significant
-    signal overlap exists.
+    chemical environments in a given sample. However, the \acs{FT} suffers from
+    poor resolution, with peaks of similar frequencies often overlapping.
+    Disentangling the information associated with such peaks is
+    not feasible using typical methods such as integrating a user-defined
+    region of the spectrum.
+    As an alternative, parametric estimation techniques aim to provide a
+    detailed understanding about each individual signal present in the data.
+    These have been shown to perform effectively even in scenarios where
+    significant signal overlap exists.
 
     This thesis focusses on the development of a parametric estimation method
     for the analysis of \acp{FID} derived from solution-state \ac{NMR}
-    experiments. The guiding principle behind the method is that is should
-    require as little user input as possible, yet be able to provide
-    accurate predictions of the parameters which describe an \ac{FID}'s
-    contributing signals.
+    experiments. The guiding principle behind the method is that it should
+    require as little user input as possible, while being able to provide
+    accurate and reliable predictions of the parameters which describe
+    \iac{FID}'s constituent signals.
     Beyond simply providing a breakdown of individual signal components,
     many useful applications may be realised when estimation techniques are
     employed. The initial motivation for this work was to develop a procedure
-    for the generation of pure shift \ac{NMR} spectra with desirable properties
-    from \ac{2DJ} datasets. Furthermore, a means of
-    analysing \acs{2D} datasets such as those from inversion recovery ($T_1$),
+    for the generation of broadband homodecoupled (pure shift) \ac{NMR} spectra
+    with desirable properties from \ac{2DJ} datasets. Furthermore, a means of
+    analysing datasets such as those from inversion recovery ($T_1$),
     \ac{CPMG} ($T_2$), and diffusion experiments, in which each \ac{FID}
     exhibits a variation in its amplitude, is presented.
     The last application described is a means of producing phased,
     ultra-broadband \ac{NMR} spectra from an experiment comprising a single
-    \ac{FS} (chirp) excitation pulse.
+    \acl{FS} (chirp) excitation pulse.
     The methods presented in this thesis are incorporated into a software
     package written in the \Python programming language, called \ac{EsPy}.
 \end{abstract}

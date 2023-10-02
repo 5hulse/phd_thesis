@@ -3,7 +3,7 @@
 By applying the theory of \ac{NMR}, one can
 rationalise how a particular spin system, subjected to a given pulse sequence,
 is mapped to a final \ac{FID}. This is an example of a \emph{forward problem},
-in which one wishes to determine how a set of parameters is leads to a
+in which one wishes to determine how a set of parameters leads to an
 observed dataset.
 The chemical shifts, J-couplings, dipolar couplings, etc. of the spin system
 may be recast as a list of signal amplitudes, phases, frequencies and
@@ -17,10 +17,10 @@ satisfies the following properties:
     \item The solution is unique.
     \item The solution's behaviour changes continuously with the parameters
         provided. For example, continuously changing the chemical shift of a
-        given spin will lead to the position of its signal(s) in the resulting
-        spectrum to continuously vary. Other phenomena such as strong coupling
-        effects may manifest as a given spin's chemical shift changes;
-        these will also evolve in a continuous fashion as well.
+        given spin will lead to the position(s) of the signal(s) arising from
+        it in the resulting spectrum to continuously vary. Other phenomena such
+        as strong coupling effects may manifest as a given spin's chemical
+        shift changes; these will evolve in a continuous fashion as well.
 \end{enumerate}
 The parametric estimation of \acp{FID} is an example of an \emph{inverse problem};
 given an acquired dataset, one seeks to determine the set of parameters which
@@ -29,7 +29,8 @@ Parametric estimation, as with many inverse problems, is
 \emph{ill-posed}\cite{Kabanikhin2008}. These problems do not satisfy at least
 one of the three properties above. For example, given \iac{FID}, it is possible
 to conceive of numerous signal parameter specifications which would lead to a
-faithful representation of the data in a least squares sense.
+faithful representation of the data in a least squares sense, especially when
+considering \acp{FID} corrupted with noise.
 Therefore, determining the ``optimal'' parameter set is a rather difficult
 challenge.
 
@@ -138,7 +139,7 @@ derivatives, such a routine attempts to find a minimum in the function, and
 terminates once this has been achieved. While derivative-free approaches to
 \ac{NLP} do exist\cite{Nelder1965,Kirkpatrick1983,Powell2009},
 in scenarios where the function under consideration has well-defined,
-computationally tractable derivatives, the use of these can be valuable to
+computationally tractable derivatives, the use of these can be valuable when
 solving optimisation problems; the problem outlined in
 \cref{eq:argmin_y-x} is such an example.
 

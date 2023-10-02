@@ -1,4 +1,4 @@
-ls text/generated/*.py | xargs -L1 python &
+# ls text/generated/*.py | xargs -L1 python &
 cp ~/Documents/DPhil/papers/cupid/main_angew.pdf cupid-draft.pdf
 xelatex --shell-escape thesis &&
 biber thesis &&

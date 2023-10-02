@@ -10,9 +10,10 @@ versions of code present in \ac{EsPy} package. These listings require
 listings in this chapter.
 
 \mylisting{python3}{code_listings/imports.py}{%
-Required imports for the subsequent \Python listings.
+    The required imports for the subsequent \Python listings in
+    \cref{chap:code-listings}.
 }{
-    Required imports for the subsequent listings in this chapter.
+    The required imports for the subsequent listings in this chapter.
     The \mintinline{python3}{itertools.product} function is used in the
     \acs{MMEMPM} routine (\cref{lst:mmempm}).
     The imports from the \mintinline{python3}{typing} module are used to
@@ -26,7 +27,7 @@ Required imports for the subsequent \Python listings.
 
 \subsection{\acs{MDL}}
 \mylisting{python3}{code_listings/mdl.py}{%
-\Python implementation of the \acs{MDL} for estimation of the model order
+A \Python implementation of the \acl{MDL} for estimating of the model order
 of a \acs{1D} \acs{FID}.
 }{%
 The \acs{MDL} for estimation of the model order of a \acs{1D} \acs{FID}.
@@ -37,18 +38,18 @@ the estimate of $M$, rather than the global minimum (Line \ref{ln:argmin}; see
 
 \subsection{\acs{MPM}}
 \mylisting{python3}{code_listings/mpm.py}{
-    \Python implementation of the \acs{MPM} for estimation of a \acs{1D} \acs{FID}.
+A \Python implementation of the \acl{MPM} for \acs{1D} \acs{FID} estimation.
 }{
-    The \acs{MPM} for estimation of a \acs{1D} \acs{FID}, with the option of
-    predicting the model order using the \acs{MDL}.
+The \acs{MPM} for \acs{1D} \ac{FID} estimation, with the option of
+predicting the model order using the \acs{MDL}.
 }{lst:mpm}
 
 \subsection{\acs{MMEMPM}}
 \mylisting{python3}{code_listings/mmempm.py}{
-\Python implementation of the \acs{MMEMPM} for estimation of a \acs{2D}
-hypercomplex \acs{FID}.
+A \Python implementation of the \acl{MMEMPM} for \acs{2D} hypercomplex
+\acs{FID} estimation.
 }{
-The \acs{MMEMPM} for estimation of a \acs{2D} hypercomplex \acs{FID}. Due
+The \acs{MMEMPM} for \acs{2D} hypercomplex \acs{FID} estimation. Due
 to the very large size of the Hankel matrix $\symbf{E}_{\bY}$, a truncated
 \acs{SVD} routine is employed, which determines only the first $M$
 components of the decomposition. This is only available to arrays stored in
@@ -61,9 +62,9 @@ sparse form in \textsc{SciPy} (Lines \ref{ln:sparse1}--\ref{ln:sparse2}; see
 \subsection{Trust Region Algorithm}
 
 \mylisting{python3}{code_listings/trust_region.py}{
-\Python implementation of the \acl{ST} trust region algorithm.
+A \Python implementation of the \acl{ST} trust region algorithm.
 }{
-\acl{ST} trust region algorithm. Included is a check for oscillators with
+The \acl{ST} trust region algorithm. Included is a check for oscillators with
 negative amplitudes, which causes the routine to terminate in order for said
 oscillators to be purged (Lines \ref{ln:negamp1}--\ref{ln:negamp2}).
 }{lst:tr}
@@ -75,12 +76,12 @@ oscillators to be purged (Lines \ref{ln:negamp1}--\ref{ln:negamp2}).
 }
 
 \mylisting{python3}{code_listings/obj_grad_hess.py}{
-\Python implementation for the generation of the fidelity for \ac{NLP}
-applied to \ac{1D} estimation, as well as the gradient and Hessian.
+A \Python implementation for generating the fidelity, and its gradient and
+Hessian, as part of the \acl{NLP} routine.
 }{
-Code for the generation of the fidelity for \ac{NLP}
-applied to \ac{1D} estimation, as well as the gradient and
-Hessian. The \mintinline{python3}{FunctionFactory} object accepts a parameter
+Code for generating the fidelity, gradient and Hessian as
+part of the \acl{NLP} routine for \ac{1D} \acp{FID}.
+The \mintinline{python3}{FunctionFactory} object accepts a parameter
 set (\mintinline{python3}{theta}) and function (\mintinline{python3}{fun}),
 which computes the objective, gradient and Hessian. The first time a quantity
 is requested from the factory, the objective and its
@@ -98,10 +99,9 @@ approximated Hessian instead, the reader is directed to the
 \subsection{The Main Routine}
 
 \mylisting{python3}{code_listings/nlp_routine.py}{
-    \Python implementation for running the \acs{NLP} routine for \acs{FID}
-    estimation.
+    A \Python implementation for running the \acl{NLP} routine.
 }{
-    Code for running the \acs{NLP} routine for \acs{FID} estimation. The
+    Code which runs the \acs{NLP} routine for \acs{FID} estimation. The
     routine consists of running the \ac{ST} algorithm (\cref{lst:tr})
     until it returns a parameter array without negative amplitudes. If negative
     amplitudes are present, the corresponding oscillators are removed, and the
@@ -113,8 +113,8 @@ approximated Hessian instead, the reader is directed to the
 \subsection{Assigning Multiplet Structures}
 
 \mylisting{python3}{code_listings/mp_assign.py}{
-    \Python implementation for performing multiplet assignment as part of
-    \acs{CUPID}.
+A \Python implementation which performs multiplet assignment as part of
+\acs{CUPID}.
 }{
-    Code for performing multiplet assignment as part of \acs{CUPID}.
+    Code which performs multiplet assignment as part of \acs{CUPID}.
 }{lst:mp-assign}

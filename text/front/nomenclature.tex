@@ -1,30 +1,40 @@
-%%% Hack has been applied in a couple of cases:
-%%% Set of integers (C,05)
-%%% Cross product (E,11)
-%%% Descriptions have \newpage tacked onto the end.
-%%% This prevents a section title being at the bottom of the page (not very aesthetic)
 \renewcommand\nomgroup[1]{%
     \item[\bfseries
     \ifstrequal{#1}{A}{General Mathematics}{%
-    \ifstrequal{#1}{B}{Complex Numbers}{%
-    \ifstrequal{#1}{C}{Number sets}{%
-    \ifstrequal{#1}{D}{Probability}{%
-    \ifstrequal{#1}{E}{Vectors, Matrices, and Arrays}{%
+    \ifstrequal{#1}{B}{Number sets}{%
+    \ifstrequal{#1}{C}{Complex Numbers}{%
+    \ifstrequal{#1}{D}{Vectors, Matrices, and Arrays}{%
+    \ifstrequal{#1}{E}{Probability}{%
     \ifstrequal{#1}{F}{Calculus}{%
-    \ifstrequal{#1}{O}{Other symbols}{}}}}}}}%
+    {}}}}}}}%
 ]}
 
 %%% General maths
-\nomenclature[A,01]{$\mathcal{A} \coloneq \mathcal{B}$}{$\mathcal{A}$ is defined to be equal to $\mathcal{B}$}
-\nomenclature[A,02]{$\lfloor a \rfloor$}{The nearest integer to $a$, such that $\lfloor a \rfloor \leq a$}
-\nomenclature[A,03]{$\lceil a \rceil$}{The nearest integer to $a$, such that $\lceil a \rceil \geq a$}
-\nomenclature[A,04]{$\lfloor a \rceil$}{The nearest integer to $a$}
-\nomenclature[A,05]{$a \bmod b$}{$a$ modulo $b$, given by \[a \bmod b = a - \left\lfloor \frac{a}{b} \right\rfloor\]}
+\nomenclature[A,01]{$x \coloneq y$}{$x$ is by definition equal to $y$}
+\nomenclature[A,02]{$x \approx y$}{$x$ is approximately equal to $y$}
+\nomenclature[A,03]{$x \propto y$}{$x$ proportional to $y$}
+\nomenclature[A,04]{$\lfloor a \rfloor$}{The nearest integer to $a$, such that $\lfloor a \rfloor \leq a$}
+\nomenclature[A,05]{$\lceil a \rceil$}{The nearest integer to $a$, such that $\lceil a \rceil \geq a$}
+\nomenclature[A,06]{$\lfloor a \rceil$}{The nearest integer to $a$}
+\nomenclature[A,07]{$a \bmod b$}{$a$ modulo $b$, given by \[a \bmod b = a - \left\lfloor \frac{a}{b} \right\rfloor\]}
+
+%%% Number Sets
+\nomenclature[B,01]{$\mathbb{C}$}{The set of complex numbers}%
+\nomenclature[B,02]{$\mathbb{N}$}{The set of natural numbers with zero excluded}%
+\nomenclature[B,03]{$\mathbb{N}_0$}{The set of natural numbers with zero included}%
+\nomenclature[B,04]{$\mathbb{R}$}{The set of real numbers}%
+\nomenclature[B,05]{$\mathbb{R}_{>0}$}{The set of positive real numbers}%
+
 %%% Complex numbers
-\nomenclature[B,01]{$\iu$}{The imaginary unit, $\iu \coloneq \sqrt{-1}$}
-\nomenclature[B,02]{$\Re(z)$}{The real component of $z$}%
-\nomenclature[B,03]{$\Im(z)$}{The imaginary component of $z$}%
-\nomenclature[B,04]{$\left\lvert z \right\rvert$}{
+\nomenclature[C,01]{$\iu$}{The imaginary unit, $\iu \coloneq \sqrt{-1}$}
+\nomenclature[C,02]{$\Re(z)$}{The real component of $z$}%
+\nomenclature[C,03]{$\Im(z)$}{The imaginary component of $z$}%
+\nomenclature[C,04]{$z^*$}{The complex conjugate of $z$, given by
+    \[
+        z^* = \Re(z) - \iu \Im(z)
+    \]
+}
+\nomenclature[C,05]{$\left\lvert z \right\rvert$}{
     The absolute value of $z$, given by
     \[
         \left\lvert z \right\rvert =
@@ -33,22 +43,93 @@
             }
     \]
 }
+
 %%% Arrays
-\nomenclature[E,01]{$\symbf{x}$, $\symbf{X}, x_n$}{
-    Vectors are denoted with bold italic lower-case letters. Matrices, array with
-    $>2$ dimensions, and
-    generic arrays with variable numbers of dimensions are denoted with bold
-    italic capital letters. Individual elements of such objects are denoted by
-    italic letters with subscripts denoting their index. E.g. The element located
-    at the second row and third column of a matrix $\symbf{Y}$ would be denoted
-    $y_{2,3}$. In some circumstances where it is more appropriate, indexing begins at
-    0 rather than 1.
+\nomenclature[D,01]{$\symbf{x}$, $\symbf{X}, x_n$}{
+    Vectors are denoted with bold italic lower-case letters. Matrices, arrays with
+    $>2$ dimensions, and generic arrays which may comprise any number of
+    dimensions are denoted with bold italic capital letters. Individual
+    elements of such objects are denoted by lower-case italic letters with
+    subscripts indicating their index. E.g. The element located at the second
+    row and third column of a matrix $\symbf{Y}$ would be denoted $y_{2,3}$. In
+    some circumstances where it is more appropriate, indexing begins at 0
+    rather than 1.
 }
-\nomenclature[E,01]{$\symbf{X}^{\mathrm{T}}$}{Transpose}%
-\nomenclature[E,02]{$\symbf{X}^{\dagger}$}{Conjugate transpose}
-\nomenclature[E,03]{$\symbf{X}^{-1}$}{Inverse of a square, non-singular matrix}
-\nomenclature[E,04]{$\symbf{X}^+$}{Moore-Penrose pseudo-inverse of a matrix.}
-\nomenclature[E,05]{$\symbf{X}^{\circlearrowright (d)}$}{Right circular rotation along axis $d$ of an array by one element.
+\nomenclature[D,01]{$\symbf{x}\T,\symbf{X}\T$}{Vector/matrix Transpose}
+\nomenclature[D,02]{$\symbf{x}^{\dagger},\symbf{X}^{\dagger}$}{Vector/matrix conjugate transpose}
+\nomenclature[D,03]{$\symbf{X}^{-1}$}{Inverse of a square, non-singular matrix.}
+\nomenclature[D,04]{$\symbf{X}^+$}{Moore-Penrose pseudo-inverse of a matrix.
+    Given the \acl{SVD} (see \cref{subsec:linear-algebra}) of $\symbf{X}$:
+    \[
+        \symbf{X} = \symbf{U}
+        \begin{bmatrix}
+            \symbf{\Sigma}_1 & \symbf{0} \\
+            \symbf{0} & \symbf{0}
+        \end{bmatrix}
+        \symbf{V}^{\dagger},
+    \]
+    where $\symbf{\Sigma_1}$ as a square invertible matrix of the singular
+    values, the Moore-Penrose pseudo-inverse is given by
+    \[
+        \symbf{X}^+ = \symbf{V} \symbf{\Sigma_1}^{-1} \symbf{U}^{\dagger}.
+    \]
+}
+\nomenclature[D,05]{$\symbf{x} \times \symbf{y}$}{
+    Cross product of two vectors $\symbf{x} \in \mathbb{R}^3$ and $\symbf{y}
+    \in \mathbb{R}^3$, given by
+    \[
+        \symbf{x} \times \symbf{y} = \lVert \symbf{x} \rVert \lVert \symbf{y} \rVert \sin(\theta) \symbf{n},
+    \]
+    where $\theta$ is the angle between  $\symbf{x}$ and $\symbf{y}$, in the
+    plane containing them, and $\symbf{n}$ is the unit vector perpendicular to
+    said plane. N.B. the times symbol is occasionally used to denote scalar
+    multiplication as well.
+}
+\nomenclature[D,06]{$\langle \symbf{X}, \symbf{Y} \rangle$}{
+    Euclidean inner product of two arrays with identical shapes. Given $\symbf{X}$ and
+    $\symbf{Y}$, two $D$-dimensional arrays $\in
+    \mathbb{C}^{N_1 \times \cdots \times N_D}$:
+\[
+    \langle \symbf{X}, \symbf{Y}\rangle =
+    \sum_{n_1 = 1}^{N_1} \cdots
+    \sum_{n_D = 1}^{N_D}
+        x_{n_1, \cdots, n_D}^*
+        y_{n_1, \cdots, n_D}
+\]
+}
+\nomenclature[D,07]{$\lVert \symbf{X} \rVert$}{Norm, given by
+    \[
+        \lVert \symbf{X} \rVert = \sqrt{\langle \symbf{X}, \symbf{X} \rangle}
+    \]
+}
+\nomenclature[D,08]{$\symbf{x} \cdot \symbf{y}$}{
+    Dot product of $\symbf{x} \in \mathbb{F}^N$ and $\symbf{y} \in
+    \mathbb{F}^N$, which generates a scalar $a$ such that
+    \[
+        a = \sum_{n=1}^N x_n y_n
+    \]
+}
+\nomenclature[D,09]{$\symbf{x} \otimes \symbf{y}$}{
+    Outer product of $\symbf{x} \in \mathbb{F}^M$ and $\symbf{y} \in
+    \mathbb{F}^N$, which generates a matrix $\symbf{A} \in \mathbb{F}^{M \times
+    N}$, such that
+    \[
+        a_{m,n} = x_m y_n
+    \]
+}
+\nomenclature[D,10]{$\diag(\symbf{x})$}{
+    Given a vector $\symbf{x} \in \mathbb{F}^N$, $\diag(\symbf{x})$ is a matrix
+    $\in \mathbb{F}^{N \times N}$ of the form
+    \[
+        \begin{bmatrix}
+            x_{1} & 0 & \cdots & 0 \\
+            0 & x_{2} & \cdots & 0 \\
+            \vdots & \vdots & \ddots & \vdots\\
+            0 & 0 & \cdots & x_{N}
+        \end{bmatrix}
+    \]
+}
+\nomenclature[D,11]{$\symbf{X}^{\circlearrowright (d)}$}{Right circular rotation along axis $d$ of an array by one element.
     As an example, for a 2D matrix $\symbf{X} \in \mathbb{F}^{M \times N}$, $\symbf{X}^{\circlearrowright (1)}$ is given by
     \[
         \begin{bmatrix}
@@ -92,7 +173,7 @@
         \end{bmatrix}.
     \]
 }
-\nomenclature[E,06]{$\symbf{X}^{\leftrightsquigarrow (d)}$}{
+\nomenclature[D,12]{$\symbf{X}^{\leftrightsquigarrow (d)}$}{
     Reversal of elements along axis $d$ of an array.
     As an example, for a 2D matrix $\symbf{X} \in \mathbb{F}^{M \times N}$,
     $\symbf{X}^{\leftrightsquigarrow (1)}$ is given by
@@ -121,58 +202,31 @@
         \end{bmatrix},
     \]
 }
-\nomenclature[E,07]{$\diag(\symbf{x})$}{
-    Given a vector $\symbf{x} \in \mathbb{F}^N$, $\diag(\symbf{x})$ is a matrix
-    $\in \mathbb{F}^{N \times N}$ of the form
-    \[
-        \begin{bmatrix}
-            x_{1} & 0 & \cdots & 0 \\
-            0 & x_{2} & \cdots & 0 \\
-            \vdots & \vdots & \ddots & \vdots\\
-            0 & 0 & \cdots & x_{N}
-        \end{bmatrix}
-    \]
-}
-\nomenclature[E,11]{$\symbf{x} \times \symbf{y}$}{
-    Cross product of two vectors $\symbf{x} \in \mathbb{R}^3$ and $\symbf{y}
-    \in \mathbb{R}^3$, given by
-    \[
-        \symbf{x} \times \symbf{y} = \lVert \symbf{x} \rVert \lVert \symbf{y} \rVert \sin(\theta) \symbf{n},
-    \]
-    where $\theta$ is the angle between  $\symbf{x}$ and $\symbf{y}$, in the
-    plane containing them, and $\symbf{n}$ is the unit vector perpendicular to
-    said plane. N.B. the times symbol is occasionally used to denote scalar
-    multiplication as well.
-}
-\nomenclature[E,08]{$\langle \symbf{X}, \symbf{Y} \rangle$}{
-    Inner product of two arrays with identical shapes. Given $\symbf{X}$ and
-    $\symbf{Y}$, two $D$-dimensional arrays $\in
-    \mathbb{C}^{N_1 \times \cdots \times N_D}$:
-\[
-    \langle \symbf{X}, \symbf{Y}\rangle =
-    \sum_{n_1 = 1}^{N_1} \cdots
-    \sum_{n_D = 1}^{N_D}
-        x_{n_1, \cdots, n_D}^*
-        y_{n_1, \cdots, n_D}
-\]
-}
-\nomenclature[E,09]{$\lVert \symbf{X} \rVert$}{Norm, equivalent to $\sqrt{\langle \symbf{X}, \symbf{X} \rangle}$.}
-\nomenclature[E,10]{$\symbf{x} \cdot \symbf{y}$}{
-    Dot product of $\symbf{x} \in \mathbb{F}^N$ and $\symbf{y} \in
-    \mathbb{F}^N$, which generates a scalar $a$ such that
-    \[
-        a = \sum_{n=1}^N x_n y_n
-    \]
-}
-\nomenclature[E,11]{$\symbf{x} \otimes \symbf{y}$}{
-    Outer product of $\symbf{x} \in \mathbb{F}^M$ and $\symbf{y} \in
-    \mathbb{F}^N$, which generates a matrix $\symbf{A} \in \mathbb{F}^{M \times
-    N}$, such that
-    \[
-        a_{m,n} = x_m y_n
-    \]
-}
 
+%%% Probability
+\nomenclature[E,01]{$x \sim \mathcal{X}$}{$x$ behaves according to distribution $\mathcal{X}$}
+\nomenclature[E,02]{$x \upmodels y$}{$x$ and $y$ are conditionally independent}
+\nomenclature[E,04]{$\mathcal{U}\left(l, r\right)$}{
+    Uniform distribution with bounds $l$ and  $r$:
+    \[
+        \mathcal{U}(x \hspace*{2pt} \vert \hspace*{2pt} l, r) =
+            \begin{cases}
+                \frac{1}{r - l} & l \leq x \leq r \\
+                0 & \text{otherwise} \\
+            \end{cases}
+    \]
+}
+\nomenclature[E,03]{$\mathcal{N}\left(\mu, \sigma^2\right)$}{
+    Normal (Gaussian) distribution with mean $\mu$ and variance $\sigma^2$:
+    \[
+        \mathcal{N}\left(x \hspace*{2pt} \vert \hspace*{2pt}\mu, \sigma^2\right) =
+            \frac{1}{\sqrt{2\pi \sigma^2}}
+            \exp\left( -\frac{(x - \mu)^2}{2\sigma^2}\right)
+    \]
+}
+\nomenclature[E,04]{$\mathcal{N_C}\left(\mu, \sigma^2\right)$}{Complex normal distribution with mean $\mu$ and variance $\nicefrac{\sigma^2}{2}$}%
+
+%%% Calculus
 \nomenclature[F,01]{$\nabla f(\symbf{x})$}{
     Gradient vector of a differentiable, scalar value function $f(\symbf{x}):
     \mathbb{R}^{N} \rightarrow \mathbb{R}$:
@@ -233,38 +287,5 @@
         \end{bmatrix}
     \]
 }
-\nomenclature[D,01]{$x \sim \mathcal{X}$}{$x$ behaves according to distribution $\mathcal{X}$}
-\nomenclature[D,02]{$A \upmodels B$}{$A$ and $B$ are conditionally independent}
-\nomenclature[D,04]{$\mathcal{U}\left(l, r\right)$}{
-    Uniform distribution with bounds $l$ and  $r$:
-    \[
-        \mathcal{U}(x \hspace*{2pt} \vert \hspace*{2pt} l, r) =
-            \begin{cases}
-                \frac{1}{r - l} & l \leq x \leq r \\
-                0 & \text{otherwise} \\
-            \end{cases}
-    \]
-}
-\nomenclature[D,03]{$\mathcal{N}\left(\mu, \sigma^2\right)$}{
-    Normal (Gaussian) distribution with mean $\mu$ and variance $\sigma^2$:
-    \[
-        \mathcal{N}\left(x \hspace*{2pt} \vert \hspace*{2pt}\mu, \sigma^2\right) =
-            \frac{1}{\sqrt{2\pi \sigma^2}}
-            \exp\left( -\frac{(x - \mu)^2}{2\sigma^2}\right)
-    \]
-}
-\nomenclature[D,04]{$\mathcal{N_C}\left(\mu, \sigma^2\right)$}{Complex normal distribution with mean $\mu$ and variance $\nicefrac{\sigma^2}{2}$}%
-% %%% Other symbols
-% \nomenclature[O,01]{$\cdot^{(d)}$}{Data dimension index}
-% \nomenclature[O,02]{$\cdot_{m}$}{Oscillator index}
-% \nomenclature[O,03]{$\foff$}{Transmitter offset}
-% \nomenclature[O,04]{$\fsw$}{Sweep width (spectral window)}
-% \nomenclature[O,05]{$\Dt$}{Sampling rate}
-%%% Sets
-\nomenclature[C,01]{$\mathbb{C}$}{The set of complex numbers}%
-\nomenclature[C,02]{$\mathbb{N}$}{The set of natural numbers with zero excluded}%
-\nomenclature[C,03]{$\mathbb{N}_0$}{The set of natural numbers with zero included}%
-\nomenclature[C,04]{$\mathbb{R}$}{The set of real numbers}%
-\nomenclature[C,05]{$\mathbb{R}_{>0}$}{The set of positive real numbers}%
-\nomenclature[C,05]{$\mathbb{Z}$}{The set of integers\newpage}%
+
 \printnomenclature[2cm]\label{chap:nomenclature}

@@ -21,22 +21,23 @@ converted back to the time-domain using \ac{IFT} prior to estimation.
     \centering
     \includegraphics{mpm_vs_nlp/mpm_vs_nlp.pdf}
     \caption[
-        The result of estimating a series of 5 simulated signals comprising 20
-        signals, using solely the \acs{MPM} and also with phase
-        variance-regularised \acs{NLP} afterwards.
+        The result of estimating a series of 5 simulated \acsp{FID}
+        using both the \acs{MPM} in isolation, and also with phase
+        variance-regularised \acs{NLP} used afterwards.
     ]{
-        The result of estimating a series of 5 simulated signals comprising 20
-        signals. See the main text for details on how the datasets were constructed.
-        \textbf{a.} Spectra of the datasets generated.
+        The result of estimating a series of 5 simulated \acp{FID} comprising
+        20 signals. See the main text for details on how the \acp{FID} were
+        constructed.
+        \textbf{a.} Spectra of the \acp{FID} generated.
         \textbf{b.} Spectral lines corresponding to the set of signals
-        used to generate each dataset.
+        used to generate each \ac{FID}.
         \textbf{c.} Plots of peaks for each oscillator generated using
         the \acs{MPM}.
         \textbf{d.} An equivalent plot for the result after applying phase
         variance-regularised \acs{NLP}, using the \acs{MPM} result as an
-        initial guess.  Also included in c. and d. is the
-        residual between the data and the sum of the oscillator peaks (grey
-        line). The colouring of the oscillators in c. and d. is described
+        initial guess.  Also included in c and d are the
+        residual between the data and the estimated model (grey
+        line). The colouring of the oscillators in c and d is described
         in the main text.
     }
     \label{fig:mpm_vs_nlp}
@@ -158,10 +159,10 @@ negative amplitude during \ac{NLP}.
     \centering
     \includegraphics{andrographolide_onedim/andrographolide_onedim.pdf}
     \caption[
-        Result of applying the estimation routine to selected regions of a
+        The result of applying the estimation routine to selected regions of a
         pulse-acquire dataset of andrographolide.
     ]{
-        Result of applying the estimation routine to selected regions of a
+        The result of applying the estimation routine to selected regions of a
         pulse-acquire dataset of andrographolide in \acs{DMSOd6}.
         \textbf{a.} Spectral regions considered.
         \textbf{b.} The result of applying the \acs{MPM} to the regions, with
@@ -238,11 +239,10 @@ Spin  & Coupling partners & Multiplet structure \\
 \hline
 \end{tabular}
 \caption[
-    Major coupling partners associated with spins in andrographolide and
-    cyclosporin, considered in \cref{fig:andro-onedim,fig:cyclosporin}
-    respectively, along with the multiplet structures that arise.
+    The major coupling partners associated with spins in andrographolide and
+    cyclosporin, along with the multiplet structures that arise.
 ]{
-    Major coupling partners associated with spins in andrographolide and
+    The major coupling partners associated with spins in andrographolide and
     cyclosporin, considered in \cref{fig:andro-onedim,fig:cyclosporin}
     respectively, along with the multiplet structures that arise.
     For andrographolide, coupling partners are labelled as follows:
@@ -337,10 +337,10 @@ effective estimation results are achievable.
 \begin{figure}
     \includegraphics{cyclosporin/cyclosporin.pdf}
     \caption[
-        Result of applying the estimation routine to selected regions of a
+        The result of applying the estimation routine to selected regions of a
         pulse-acquire dataset of cyclosporin A.
     ]{
-        Result of applying the estimation routine to selected regions of a
+        The result of applying the estimation routine to selected regions of a
         pulse-acquire dataset of cyclosporin A in benzene-d\textsubscript{6}.
         The figure is of a similar layout to \cref{fig:andro-onedim}.
         Coloured peaks correspond to oscillators which have been assigned
