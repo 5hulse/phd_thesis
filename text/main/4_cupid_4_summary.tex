@@ -25,16 +25,17 @@ methods, albeit with the requirement of a complex post-processing procedure.
 Through a number of examples, it has been shown that by employing parametric
 estimation, a simple \ac{2DJ} experiment can be harnessed to generate pure
 shift spectra with sharp absorption Lorentzian peaks which retain the same
-signal intensity as the \ac{2DJ} experiment. It it is able to perform
+signal intensity as the \ac{2DJ} experiment. \ac{CUPID} is able to perform
 admirably even when state of the art techniques like \ac{PSYCHE} produce
 spectra with such low \acp{SNR} as to render them unusable. Frequently, \ac{CUPID}
 is able to automatically discard oscillators present in the model which either
 correspond to strong coupling artefacts or noise, leading to simplified spectra
 which appear to adhere to the weak coupling regime. There are cases where
 strong coupling artefacts do end up in the estimation result. It has been shown
-that these can be manually neglected from the parameter set so they don't have
-an unwanted influence on final pure shift spectrum, though this requires manual
-intervention from a knowledgeable user.
+that there are circumstances where these can be manually neglected from the
+parameter set to prevent them from having an unwanted influence on final pure
+shift spectrum, though this requires manual intervention from a knowledgeable
+user.
 
 Simultaneously, \ac{CUPID} can assign multiplet structures,
 by grouping oscillators which lie along a specific \ang{45} cross section in
@@ -51,9 +52,9 @@ valuable insights into the sample being studied.
 
 \ac{CUPID} is limited by the complexity of the dataset of interest. The reasons
 for this are two-fold. First, for datasets comprising progressively more peaks
-in a given spectral region, the difficulty in generating effective parameter
+in a given spectral region, the difficulty in generating accurate parameter
 estimates becomes harder. Second, with an increased model order required to
-estimate the dataset, the time required for computation increases drastically.
+estimate the dataset, the computation time increases drastically.
 This feature is most clearly observed when comparing the times required in
 estimating the different regions considered in the estradiol example. As a rule
 of thumb, it is anticipated that \ac{CUPID} will perform admirably on datasets

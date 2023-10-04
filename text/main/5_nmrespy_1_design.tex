@@ -26,8 +26,7 @@ language for \ac{EsPy}:
     \item \textsc{Python} supports sophisticated object-oriented programming
         features, including multiple levels of inheritance. This is exploited in
         \ac{EsPy} to facilitate the creation of numerous objects designed with
-        specific \ac{NMR} data types in mind (see
-        \cref{subsec:estimator-objects}).
+        specific \ac{NMR} data types in mind (\textit{vide infra}).
 \end{itemize}
 
 Probably the largest disadvantage in using \textsc{Python} is its slow performance;
@@ -37,7 +36,7 @@ runtime overheads\footnote{
     than statically typed, and it relies on garbage collection for memory
     management, rather than requiring the programmer to do this manually. All
     of these features are slower than the alternatives which are mentioned;
-    these alternatives are present in low-level languages like C, C++ and
+    these alternatives feature in low-level languages like C, C++, and
     \textsc{Rust}.
 }. While \textsc{NumPy} provides
 interfaces to run fast computations with pre-compiled C-code, a significant
@@ -63,12 +62,12 @@ like \textsc{Python}.
     }
     \label{fig:inheritance}
 \end{figure}
-The fundamental user-facing objects (classes) that \ac{EsPy} provides are
+The fundamental user-facing objects (\emph{classes}) that \ac{EsPy} provides are
 called \emph{estimators}.
-Instances of these estimator objects contain relevant pieces of data called
+Instances of these estimator classes contain relevant pieces of data called
 \emph{attributes} (e.g. the \ac{FID} and experiment parameters including the sweep
-width and transmitter offset), as well as \emph{methods} which perform useful
-routines like estimation and result figure generation.
+width and transmitter offset), as well as \emph{methods} which perform
+routine applicable to the class like estimation and result figure generation.
 Thanks to \textsc{Python}'s support for multiple levels of inheritance, it is
 possible to build numerous objects with certain shared attributes and methods,
 but which also possess bespoke features that are solely of relevance to
@@ -76,12 +75,12 @@ the type of \ac{NMR} data being considered. As an example, only the
 \texttt{Estimator2DJ} object possesses a method called \texttt{cupid\_spectrum},
 which returns the \ac{FT} of the \ang{-45} signal.
 \Cref{fig:inheritance} provides an inheritance
-diagram, outlining the relationship between different estimator classes in
-\ac{EsPy}. Basic overviews of each class are as follows:
+diagram, outlining the relationship between different estimators in
+\ac{EsPy}. Basic overviews of each of these are as follows:
 \begin{itemize}
     \item \textbf{\textbf{\texttt{ExpInfo}}} stores the parameters that were
         used to run a particular \ac{NMR} experiment. \texttt{ExpInfo} also has
-        methods for the generation of the timepoints/chemical shifts sampled
+        methods for the generation of the timepoints and chemical shifts sampled
         based on these parameters, and for producing synthetic \acp{FID} if a
         set of signal parameters are provided.
     \item \textbf{\texttt{\_Estimator}} inherits experimental parameters from
@@ -89,18 +88,16 @@ diagram, outlining the relationship between different estimator classes in
         This class is designed to contain the functionality which can be
         generalised across all \ac{NMR} data types supported by \ac{EsPy}. It
         does not possess all the features necessary to useful as a standalone
-        object, and as such the user is not permitted to use it directly (such
+        object, and as such the user is not supposed to use it directly (such
         an object is often referred to as an abstract class; this is emphasised
-        by starting the object's name with an underscore). For child
-        classes of \texttt{\_Estimator}, the main feature that requires methods
-        to be defined is the means by which the data is imported into the class.
+        by starting the object's name with an underscore).
     \item \textbf{\texttt{Estimator1D}} handles conventional \ac{1D} datasets,
         such as those in \cref{sec:evaluation}.
     \item \textbf{\texttt{\_EstimatorSeqAmp}} is an abstract class
         which enables the estimation of sequential \ac{1D} datasets such as those
         described in \cref{sec:seq}. Analysis of a given dataset varies depending on
         the type of experiment considered, since the function used for
-        fitting amplitudes (\cref{tab:seq-equations}), and the means by
+        fitting amplitudes (\cref{tab:seq-equations}) and the means by
         which that data should be imported varies. As such, this is not
         designed for direct use; one of the classes which inherit it should be
         used instead. Under the hood, \texttt{\_EstimatorSeqAmp} stores a
@@ -137,12 +134,12 @@ implementing the \ac{2D} and \ac{3D} estimators is given in
     consideration of a \ac{2DJ} dataset using \ac{CUPID}.
 }{lst:espy-example}
 \cref{lst:espy-example} provides an example of \ac{EsPy} being used for the
-consideration of \ac{2DJ} data; it is the script which was to generate the
-camphor result presented in \cref{fig:camphor-cupid}.
-The script carries out the following:
+consideration of \ac{2DJ} data; it is similar to the script which was to
+generate the camphor result presented in \cref{fig:camphor-cupid}.  The script
+carries out the following:
 \begin{enumerate}
-    \item An \texttt{Estimator2DJ} object is initialised to import and store
-        the \textsc{Bruker}-formatted dataset, located at the path
+    \item An \texttt{Estimator2DJ} object is initialised, which imports and stores
+        the \textsc{Bruker}-formatted camphor dataset, located at the path
         \path{$HOME/data/camphor/1}\footnote{
             \path{$HOME} denotes the current user's home directory on a
             UNIX-based system. In many scenarios, the tilde symbol
@@ -159,21 +156,23 @@ The script carries out the following:
         containing its left- and right-boundaries.
     \item For each region, parameter estimates are determined using the
         \mintinline{python}{Estimator2D.estimate} method, which constructs a filtered
-        sub-\ac{FID}, and subsequently estimates it (Lines
+        sub-\ac{FID}, and subsequently analyses it (Lines
         \ref{ln:estimatestart} to \ref{ln:estimateend}). Most arguments given
         are self-explanatory; \mintinline{python}{nlp_trim} can be set to
         truncate the sub-\ac{FID} in the direct dimension, to reduce the
-        computational burden on the \ac{NLP} routine.
+        computational burden on the \ac{NLP} routine. By default
+        the \ac{MDL} is used for model order selection.
     \item After estimation is complete, the estimator object is saved to a byte
-        stream using \textsc{Python}'s ``pickling'' protocol\cite{pickle}, such
-        as \textsc{TopSpin} (Line \ref{ln:pickle}).
+        stream using \textsc{Python}'s ``pickling'' protocol\cite{pickle} (Line
+        \ref{ln:pickle}).
         This enables the estimator to be recovered at a later time.
     \item A pure shift spectrum is produced via the \ang{-45} signal, and
         stored to the path \path{$HOME/data/camphor/2} in a format that enables
-        it to be read by software that supports \textsc{Bruker} datasets (Line
-        \ref{ln:writecupid}).
-    \item Finally, a figure depicting the estimation result is produced and
-        saved (Lines \ref{ln:makefig} and \ref{ln:savefig}). The form the
-        figure takes is reminiscent of \cref{fig:camphor-cupid}, though many
-        customisations have been applied to the latter.
+        it to be read by software that supports \textsc{Bruker} datasets,
+        such as \textsc{TopSpin} (Line \ref{ln:writecupid}).
+    \item Finally, a figure depicting the estimation result is produced (making
+        use \textsc{Matplotlib}) and saved (Lines \ref{ln:makefig} and
+        \ref{ln:savefig}). The form the figure takes is reminiscent of
+        \cref{fig:camphor-cupid}, though a lot of customisation has been applied
+        to the latter.
 \end{enumerate}

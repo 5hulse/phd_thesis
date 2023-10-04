@@ -9,13 +9,16 @@
 \newif\ifelectronicversion
 \electronicversiontrue
 
+\RequirePackage{xcolor}
+\definecolor{mycolor}{HTML}{003c71}
+
 \DeclareOption{bindversion}{\electronicversionfalse}
+
+\DeclareOption{black}{\definecolor{mycolor}{HTML}{000000}}
+\DeclareOption{blue}{\definecolor{mycolor}{HTML}{003c71}}
+\DeclareOption{green}{\definecolor{mycolor}{HTML}{003c71}}
 \DeclareOption*{\PassOptionsToClass{\CurrentOption}{report}}
 \ProcessOptions\relax
-
-%%% colours
-\RequirePackage{xcolor}
-\definecolor{boxcolor}{HTML}{000000}
 
 
 %%% font configuration
@@ -88,10 +91,9 @@
   ]{geometry}
 \fi
 
-%%% Headers
+%%% Headers ----------------
 \RequirePackage{fancyhdr}
 \pagestyle{fancy}
-
 \renewcommand{\chaptermark}[1]{\markboth{{\bfseries \thechapter}\hspace{10pt}#1}{}}
 \renewcommand{\sectionmark}[1]{\markright{{\bfseries \thesection}\hspace{10pt}#1}}
 
@@ -100,26 +102,26 @@
     \fancyhf{}%
     \fancyhead[LE]{%
     \makebox[0pt][r]{%
-    \colorbox{boxcolor}{\makebox[\textwidth][r]{\textcolor{white}{\thepage}\enskip}}\hspace*{1em}}%
+    \colorbox{mycolor}{\makebox[\textwidth][r]{\textcolor{white}{\thepage}\enskip}}\hspace*{1em}}%
   }
     \fancyhead[RO]{%
     \makebox[0pt][l]{%
-      \hspace*{1em}\colorbox{boxcolor}{\makebox[\textwidth][l]{\enskip\textcolor{white}{\thepage}}}}%
+      \hspace*{1em}\colorbox{mycolor}{\makebox[\textwidth][l]{\enskip\textcolor{white}{\thepage}}}}%
     }
-}%
+}
 
 % Headers and footers for "typical" pages.
 \fancypagestyle{fancy}{%
     \fancyhf{}%
     \fancyhead[LE]{%
     \makebox[0pt][r]{%
-      \colorbox{boxcolor}{\makebox[\textwidth][r]{\fontseries{sb}\selectfont\textcolor{white}{\thepage}\enskip}}\hspace*{1em}}%
+      \colorbox{mycolor}{\makebox[\textwidth][r]{\fontseries{sb}\selectfont\textcolor{white}{\thepage}\enskip}}\hspace*{1em}}%
     \headrulefill\hspace*{1em}{\leftmark}\hspace*{1em}\headrulefill%
     }%
     \fancyhead[RO]{%
     \mbox{}\headrulefill \hspace*{1em}{\rightmark}\hspace*{1em}\headrulefill%
     \makebox[0pt][l]{%
-      \hspace*{1em}\colorbox{boxcolor}{\makebox[\textwidth][l]{\enskip \fontseries{sb}\selectfont\textcolor{white}{\thepage}}}}%
+      \hspace*{1em}\colorbox{mycolor}{\makebox[\textwidth][l]{\enskip \fontseries{sb}\selectfont\textcolor{white}{\thepage}}}}%
     }
 }
 
@@ -134,46 +136,47 @@
   {\pagestyle{empty}\origdoublepage}%
 }
 \let\cleardoublepage\clearemptydoublepage
+%%% ----------------------
 
-%%% Paragraph skip
 \RequirePackage{parskip}
-%%% Chapter and Section titles
 \RequirePackage[explicit]{titlesec}
 \RequirePackage{anyfontsize}
 \RequirePackage{setspace}
 
+%%% Numbered chapter titles
 \titleformat{\chapter}[hang]{}{%
   \thispagestyle{empty}
   \parbox{0.8\textwidth}{
-      \raggedright\bfseries\fontsize{28}{36}\selectfont#1
+      \raggedright\bfseries\fontsize{28}{36}\textcolor{mycolor}{\selectfont#1}
   }
   \hspace*{3em}
-  \colorbox{boxcolor}{%
+  \colorbox{mycolor}{%
     \begin{minipage}[c][4em][c]{.5\textwidth}
       {\hspace*{1em}\fontsize{50}{48}\selectfont\bfseries\textcolor{white}{\thechapter}}
     \end{minipage}
 }}{0pt}{}[\vspace*{4em}]
 
-\renewcommand*\contentsname{Table of Contents}
+%%% Numberless chapter format
 \titleformat{name=\chapter,numberless}[display]
     {}
     {}
     {-80pt}
-    {\centering{\bfseries\fontsize{28}{36}\selectfont #1}}
+    {\centering{\bfseries\fontsize{28}{36}\selectfont\textcolor{mycolor}{#1}}}
 \titlespacing{name=\chapter,numberless}{0pt}{20pt}{1cm}{}
+
+%%% Paragraph format
+\titleformat{\paragraph}[runin]{\itshape}{}{0pt}{#1}[]
+\titlespacing{\paragraph}{0pt}{10pt}{10pt}[]
 
 %%% ToC formatting
 \RequirePackage{titletoc}
-% \tocless will be used to make summary not present in ToC
-\newcommand{\nocontentsline}[3]{}
-\newcommand{\tocless}[2]{\bgroup\let\addcontentsline=\nocontentsline#1{#2}\egroup}
 
 \titlecontents{chapter}
 [0pt]
-{\vspace{15pt}\large}
-{\bfseries\contentslabel{0pt}\hspace{20pt}}
-{\bfseries\contentslabel{0pt}}
-{\hfill\upshape\bfseries\contentspage}
+{\vspace{15pt}\large\bfseries}
+{\contentslabel{0pt}\hspace{20pt}}
+{\contentslabel{0pt}}
+{\hfill\contentspage}
 []
 
 \titlecontents{section}
@@ -200,8 +203,6 @@
 {\titlerule*[.5pc]{.}\contentspage}
 []
 
-\titleformat{\paragraph}[runin]{\itshape}{}{0pt}{#1}[]
-\titlespacing{\paragraph}{0pt}{10pt}{10pt}[]
 
 %% Caption formatting
 \RequirePackage[%
@@ -210,6 +211,7 @@
     textfont=small,%
 ]{caption}
 
+%%% Titlepage
 \renewcommand*{\maketitle}{%
 \begin{titlepage}
   \AddToShipoutPictureBG*{%
@@ -238,6 +240,7 @@
 \end{titlepage}
 }
 
+%%% Quotations
 \makeatletter
 \newenvironment{chapterquote}[1]
     {%

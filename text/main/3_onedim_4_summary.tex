@@ -2,27 +2,29 @@
 
 In this chapter, numerous results have been presented, all of which feature
 \ac{1D} \ac{FID} estimation.
-In \cref{sec:evaluation}, it was illustrated that extending the \ac{MPM} through the
-incorporation of the added step of \ac{NLP} with a phase variance constraint can
-aid in the generation of parameter estimates which agree with the underlying
-assumptions of the data structure. Oscillators in the \ac{MPM} often possess
-spurious phases; this feature can frequently be rectified though the \ac{NLP}
-method. Beyond simply providing a description of the signals which make up
-a dataset, it has been shown that parametric estimation can be applied to
-further useful ends; two such examples have been presented in
+In \cref{sec:evaluation}, it was illustrated that extending the \ac{MPM}, with
+the added step of a phase variance-regularised \ac{NLP} routine, can
+aid in the generation of parameter estimates which can agree better with the
+underlying assumptions of the data structure. Oscillators in the \ac{MPM} often
+possess spurious phases; this feature can frequently be rectified by the
+\ac{NLP} method. Beyond simply providing a description of the signals which
+make up a dataset, it has been shown that parametric estimation can be applied
+to further useful ends; two such examples have been presented in
 \cref{sec:seq,sec:bbqchili}, respectively.
 
-While there are scenarios in which \ac{1D} estimation can perform admirably,
-enhancing the information accessible to a spectroscopist, ironically \ac{1D}
-data is probably the most challenging type of \ac{NMR} data to estimate from a
-complexity perspective; with all information about a sample being
-distilled into a single dimension, it is very common (particularly with
-\ch{^{1}H} datasets) for the data to be so densely
+There are scenarios in which \ac{1D} estimation can perform admirably,
+enhancing the information accessible to a spectroscopist. However,
+\ac{1D} datasets are typically the most challenging form of \ac{NMR} data to
+estimate due to their inherent complexity; with all information about a
+sample being distilled into a single data dimension, it is very common
+(particularly with \ch{^{1}H} datasets) for \acp{FID} to be so densely
 populated with signals that extracting meaningful information at
 the per-signal level is futile. It should therefore be appreciated that
-there is a limited scope where estimation methods which rely minimally on
-user-provided information can find use. Through the separation of signals into
-more than one detection dimension, multidimensional experiments can yield
-datasets which have sufficiently well-resolved signals for estimation to be
-applicable. The \ac{2DJ} experiment is such an example, and estimation of
-datasets acquired using it is the focus of the next chapter.
+there is a limited scope for when estimation methods which rely minimally on
+user-provided information can find use.
+
+Through the separation of signals into more than one detection dimension,
+multidimensional experiments can yield datasets which have sufficiently
+well-resolved signals for estimation to be applicable for a wider range of
+samples. The \ac{2DJ} experiment is such an example, and estimation of datasets
+acquired using it is the focus of the next chapter.
