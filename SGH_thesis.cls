@@ -4,7 +4,7 @@
 \NeedsTeXFormat{LaTeX2e}
 \ProvidesClass{SGH_thesis}[2021/01/14 Custom thesis class by Simon Hulse]
 
-\LoadClass[openright,twoside,12pt,a4paper]{report}
+\LoadClass[openany,twoside,12pt,a4paper]{report}
 
 \newif\ifelectronicversion
 \electronicversiontrue
@@ -160,6 +160,7 @@
     {}
     {-80pt}
     {\centering{\bfseries\fontsize{28}{36}\selectfont #1}}
+\titlespacing{name=\chapter,numberless}{0pt}{20pt}{1cm}{}
 
 %%% ToC formatting
 \RequirePackage{titletoc}
@@ -255,30 +256,28 @@
     \thispagestyle{empty}
     \vspace*{1in}
     \begin{center}
-        \psvectorian[width=.3\textwidth,height=0.3\baselineskip]{82}
-    \end{center}
-    \centering
 }%
 {
-    \begin{center}
-        \psvectorian[width=.3\textwidth,height=0.3\baselineskip]{82}
     \end{center}
 }
 
-\newenvironment{frontmattersection}[1]{%
-    \cleardoublepage
-    \newpage
-    \begin{center}
-    {\bfseries\fontsize{28}{36}\selectfont #1\\\vspace{1.5em}}
-    \end{center}}%
-    {}
+\newenvironment{frontmattersection}[1]
+{
+\chapter*{#1}
+\phantomsection
+\addcontentsline{toc}{chapter}{#1}
+}{}
 
 \renewenvironment{abstract}
 {\begin{frontmattersection}{Abstract}}
 {\end{frontmattersection}}
 
 \newenvironment{acknowledgements}
-{\begin{frontmattersection}{Acknowldegements}}
+{\begin{frontmattersection}{Acknowledgements}}
+{\end{frontmattersection}}
+
+\newenvironment{declaration}
+{\begin{frontmattersection}{Declaration of Authorship}}
 {\end{frontmattersection}}
 
 \newenvironment{acronyms}

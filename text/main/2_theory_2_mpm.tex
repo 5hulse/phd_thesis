@@ -1,9 +1,10 @@
 \section{Matrix Pencil Methods}
 \label{sec:mpm}
-In this section, a description of the \ac{MPM} is provided. This work is
-limited to the consideration of \ac{1D} and \ac{2D} \ac{NMR} data, and so both
-the original \ac{1D} \ac{MPM} and its \ac{2D} analogue, the \ac{MMEMPM} are
-discussed.
+In this section, a description the \ac{MPM}\,---\,also referred to as the
+generalized pencil-of-function method\cite{Hua1989}\,---\,is provided. This
+work is limited to the consideration of \ac{1D} and \ac{2D} \ac{NMR} data, and
+so both the original \ac{1D} \ac{MPM} and its \ac{2D} analogue, the \ac{MMEMPM}
+are discussed.
 
 \subsection{The 1D MPM}
 \label{subsec:mpm}
@@ -96,7 +97,7 @@ The \emph{matrix pencil} $\Hxtwo - \lambda\Hxone$, with $\lambda \in
 where $\symbf{I}_M \in \mathbb{C}^{M \times M}$ is the identity matrix.
 Assuming that the condition $M \leq L \leq N - M$ is met\,---\,this ensures
 that both the number of rows and columns of the matrix pencil are at least
-$M$\,---\,the rank of the matrix pencil will be $M$.
+$M$\,---\,the \underline{rank} of the matrix pencil will be $M$.
 Now consider the case when the scalar $\lambda$ is
 equal to one of the signal poles i.e.  $\lambda = z_m\ \forall m \in
 \lbrace 1, \cdots, M \rbrace$: the element $[\symbf{Z}_{\text{D}} -
@@ -130,7 +131,7 @@ $\rank(\Hy) = \min(N - L, L + 1)$. To minimise the influence of noise on
 the estimated signal poles, it is necessary to
 generate a rank-reduced matrix $\Hytilde$. By employing the \ac{EYM}
 theorem\cite[Section~2.2]{Golub2013}, an appropriate matrix can be obtained
-through \ac{SVD} (see \cref{subsec:linear-algebra}):%
+through \ac{SVD}:%
 \begin{subequations}%
     \begin{gather}%
     \Hytilde =
@@ -167,11 +168,11 @@ of rank $M$ to $\Hy$ in a Frobenius norm sense, i.e.
     \Hytilde = \argmin_{\symbf{A}:\ \rank(\symbf{A}) = M} \left \lVert \symbf{A} - \Hy \right \rVert.
 \end{equation}
 The intention behind applying the \ac{SVD} in the \ac{MPM} and other
-\ac{SVD}-based methods is to discard components in the Hankel matrix that are
-associated with noise. Assuming the \ac{SNR} of \iac{FID} is sufficiently high,
-a clear distinction is often found between the singular values associated with
-true signal components and those associated with noise (see \cref{fig:mdl}.b
-for an example of this).
+methods like \ac{LPSVD} and \ac{HSVD} is to discard components in the data
+matrix which are associated with noise. Assuming the \ac{SNR} of \iac{FID} is
+sufficiently high, a clear distinction is often found between the magnitudes of
+singular values associated with true signal components and those associated
+with noise (see \cref{fig:mdl}.b for an example of this).
 
 The signal poles are finally extracted by computing the eigenvalues of
 $\Hytildeone^+ \Hytildetwo^{\vphantom{+}}$, where
@@ -214,7 +215,7 @@ burden of the method is at a maximum when $L = \nicefrac{N}{2}$\footnote{
         \acs{MDL} if $M$ is set to $0$.
     }\label{alg:mpm}
     \begin{algorithmic}[1]
-        \Procedure{MPM}{$\by \in \mathbb{C}^{N}, \fsw \in \mathbb{R}_{>0}, \foff \in \mathbb{R}, M \in \mathbb{N}$}
+        \Procedure{MPM}{$\by \in \mathbb{C}^{N}, \fsw \in \mathbb{R}_{>0}, \foff \in \mathbb{R}, M \in \mathbb{N}_0$}
             \State $L \gets \left\lfloor \nicefrac{N}{3} \right\rfloor$;
             \State $\symbf{H}_{\symbf{y}} \gets
                 \begin{bmatrix}
@@ -247,7 +248,6 @@ burden of the method is at a maximum when $L = \nicefrac{N}{2}$\footnote{
                     -\fsw \Re \left( \ln \symbf{z} \right)
                 $;
             \If {$\symbf{\eta}$ contains negative values}
-            \Comment{Purge any oscillators with negative damping}
                 \State Remove these from $\symbf{\eta}$, and remove the
                 corresponding values from
                 $\symbf{a}$, $\symbf{\phi}$, and $\symbf{f}$;
@@ -400,7 +400,7 @@ To extract the signal poles in the other dimension, $\bdztwo$, the permutation
 matrix $\symbf{P} \in \mathbb{R}^{\Lone \Ltwo \times \Lone \Ltwo}$ is defined:
 \begin{equation}
     \symbf{P} =
-    {\small
+    {\footnotesize
     \begin{bmatrix}
         \symbf{e}\left(1\right) \\
         \symbf{e}\left(1 + \Ltwo\right) \\
@@ -499,13 +499,13 @@ $\bdzone$\footnote{
         \symbf{W}^{(1)},
         \label{eq:G}%
 \end{equation}
-such that the second dimension signal poles can be extracted from the main
+such that the second-dimension signal poles can be extracted from the main
 diagonal of $\symbf{G}$ (see Figures \ref{fig:mmempm-poles}.a1 and
 \ref{fig:mmempm-poles}.a2).
 If some values in $\bdzone$ are repeated, the matrix $\symbf{G}$ is
 no longer diagonal, but instead and can be expressed as block-diagonal;
 assuming there are $R < M$ unique signal poles $\symbf{G}$ may be expressed in
-the following form, allowing for reorganisation of rows and columns:
+the following form, allowing for a shuffling of rows and columns:
 \begin{equation}
     \symbf{G} =
     \begin{bmatrix}
@@ -565,7 +565,7 @@ will increase in size, as a model with more parameters will be able to fit a
 given dataset more accurately. However, as the model order increases, there will
 become a point where practically all of the deterministic part of the signal
 has been incorporated into the model, and increasing the model order further
-leads to the model which also features noise components. The penalising
+leads to a model which also features noise components. The penalising
 term $\mathcal{P}(k)$, which always increases with $k$, is introduced in order to
 obtain a parsimonious model order estimate. Wax and Kailath derived an
 expression for the likelihood at the \ac{MLE} for models comprising a summation
@@ -620,7 +620,7 @@ applications, and is employed in this work\footnote{
     ]{%
         A visualisation of the behaviour of the \acs{MDL} for three different
         \acsp{FID} comprising the same deterministic component ($\bx$) but
-        with different noise instances of differing variances. The model used
+        with noise instances of differing variances. The model used
         to construct the \acp{FID} features 7
         signals. The three \acsp{SNR} used were
         \qty{7}{\deci\bel} (red), \qty{12}{\deci\bel} (blue), and
@@ -633,13 +633,13 @@ applications, and is employed in this work\footnote{
         85$.
         \textbf{c.} Square points with dotted lines: The negative log-likeliood
         at the \ac{MLE}, i.e. the first term of \cref{eq:mdl}.
-        Grey line: the penalty component of the \ac{MDL}, given by the second
+        Grey line: the penalty component of the \ac{MDL}, i.e. the second
         term in \cref{eq:mdl}.
         Circular points with solid lines: the \ac{MDL}.
         Stars denote the minimum of the \ac{MDL} for a given \ac{FID}. The
         \qty{20}{\deci\bel}
         signal is correctly deemed to have a model order of 7, while the other
-        two are underestimated (predicted models orders are 5 and 3 for the
+        two are underestimated (predicted model orders are 5 and 3 for the
         \qty{12}{\deci\bel} and \qty{7}{\deci\bel} \acsp{FID}, respectively).
     }%
     \label{fig:mdl}%

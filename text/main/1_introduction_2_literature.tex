@@ -427,9 +427,9 @@ providing an efficient means of solving the
 equations\cite{Levinson1946,Durbin1960}.
 
 \subsubsection{\acs{SVD}-based methods}
-Some of the most prevalent methods for \ac{NMR} estimation involve \acfi{SVD}
+Some of the most prevalent methods for \ac{NMR} estimation involve \underline{\acfi{SVD}}
 as a key component (\cref{subsec:linear-algebra}). For each of these methods,
-\ac{SVD} is applied to a Hankel or Toeplitz matrix containing the \ac{FID}.
+\ac{SVD} is applied to a \underline{Hankel} or \underline{Toeplitz matrix} containing the \ac{FID}.
 Above a certain \ac{SNR} threshold, it is found that the singular values in the
 data matrix are larger than those related to noise, and
 as such forming a low-rank approximation of the data matrix nullifies
@@ -440,7 +440,7 @@ be supplied, or determined by some appropriate metric. All the \ac{SVD}-based
 techniques determine the non-linear parameters (frequencies and
 damping factors, incorporated in the signal poles) associated with the dataset.
 Subsequently, the amplitudes and phases can be computed by solving a linear
-least-squares problem involving a Vandermonde matrix of the signal poles:
+least-squares problem involving a \underline{Vandermonde matrix} of the signal poles:
 \begin{subequations}
     \begin{gather}
         \symbf{\alpha} = \symbf{Z}^+ \symbf{y},\\

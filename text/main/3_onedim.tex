@@ -7,20 +7,19 @@ which the \ac{1D} estimation procedure can be harnessed as part of
 specific applications are presented:
 \begin{itemize}
     \item \Cref{sec:evaluation} provides some examples of how the estimation
-        routine performs on \ac{1D} \ac{NMR} datasets acquired using a standard
-        pulse-acquire experiment.
+        routine performs in analysing \ac{1D} \ac{NMR} datasets acquired using
+        a standard pulse-acquire experiment.
     \item \Cref{sec:seq} illustrates how the basic \ac{1D} estimation routine can be
         extended to enable the consideration of datasets comprising a series of
         \acp{FID} which feature attenuations in signal amplitudes across increments,
-        including those from inversion recovery and diffusion experiments.
+        including those from inversion recovery, \ac{CPMG}, and diffusion experiments.
     \item Finally,
         \cref{sec:bbqchili} describes a protocol to generate ultra-broadband spectra
         through application of a single \ang{90} \acl{FS} pulse, which are devoid of
         quadratic phase dependencies and baseline distortions.
 \end{itemize}
 
-All the results presented were produced on the same workstation
-(\cref{rem:workstation}) via use of the \ac{EsPy} package,
+All the results presented were generated using the \ac{EsPy} package,
 described in \cref{chap:nmrespy}. Details about the datasets generated are
 provided in \cref{chap:datasets}.
 

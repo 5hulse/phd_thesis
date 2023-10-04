@@ -1,7 +1,7 @@
 \section{Profiling the Method}
 \label{sec:profiling}
 The routine described for \ac{FID} estimation involves operations which can be
-computationally demanding, with the burden on computational resources
+computationally demanding, with the burden on resources
 increasing with the number of points in the \ac{FID}, as well as the number of
 oscillators in the model. This is the case both in terms of the amount of work
 done by the \ac{CPU}, and the amount of \ac{RAM} needed to store all the
@@ -118,7 +118,7 @@ The \ac{MMEMPM} was repeated 5 times for each \ac{FID}, and the mean run
 times for each $\Ntwo$ and $M$ considered is plotted in
 \cref{fig:mpm-profiling}.b1.
 Results are only presented in cases where the \ac{MMEMPM} was able to yield a
-satisfactory estimation result, in close agreement with the model used to
+satisfactory estimation result in close agreement with the model used to
 generate the \ac{FID}; for certain \acp{FID} with low
 $\Ntwo$ and high $M$, appropriate estimation results could not be obtained as
 the constituent signals were too poorly resolved.
@@ -127,8 +127,9 @@ on the number of points, the \ac{MMEMPM} can be seen to have an approximately
 quadratic complexity regarding $\Ntwo$.
 For all combinations of $\Ntwo$ and $M$,
 the truncated \ac{SVD} was the most time consuming aspect of the routine,
-however other steps have notable run times too. Most of the run time is due to
-the following five steps (with the relevant lines in \cref{lst:mmempm} given):
+however other steps have notable run times too. The \ac{MMEMPM} can be broken
+down into the following 5 steps, with the relevant lines in \cref{lst:mmempm}
+given:
 \begin{enumerate}
     \item Construction of $\EY$. This involves building the Hankel matrices
         $\lbrace \symbf{H}_{\symbf{y},\none} : \none \in \lbrace 0, \cdots, 63
@@ -149,7 +150,7 @@ the following five steps (with the relevant lines in \cref{lst:mmempm} given):
         eigenvalue decomposition of $\symbf{U}_{M1}^+ \symbf{U}_{M2}^{\vphantom{+}}$ (Lines
         \ref{ln:poles1start} to \ref{ln:poles1end}).
     \item Generating the second set of signal poles $\bdztwo$, by
-        multiplying $\symbf{U}_M$ by the permutation matrix, and extracting
+        multiplying $\symbf{U}_M$ with the permutation matrix, and extracting
         the diagonal from matrix $\symbf{G}$, computed using \cref{eq:G} (Lines
         \ref{ln:poles2start} to \ref{ln:poles2end}). N.B. The \acp{FID} were
         constructed such that the signal poles were unique on all occasions, so
@@ -178,8 +179,8 @@ exact form of the function which
 describes them are different; both sets of points have been fit to curves of
 the form $a\Ntwo^2 + b$. After $\Ntwo$ becomes larger than
 roughly $200$, the \ac{SVD} run time appears to enter a new regime in which
-a slower rate of increase is observed. The reason for this probably
-lies in the implementation of the \ac{SVD} but was not explicitly ascertained.
+a slower rate of increase is observed. The exact reason for why this is
+observed was not ascertained.
 
 The peak \ac{RAM} usage for the $M=40$ \acp{FID} as a function of $\Ntwo$ is
 plotted in \cref{fig:mpm-profiling}.b3, where a quadratic complexity is
@@ -267,9 +268,9 @@ function, given by Lines \ref{ln:objgradhessstart} to
     \item Generation of all the non-trivially zero second partial
         derivatives (\cref{eq:second-derivs}), which are stored in a $10M
         \times N$ array.
-    \item Computing the non-zero elements of term \circled{2} in
+    \item Computation of the non-zero elements of term \circled{2} in
         \cref{eq:hess}.
-    \item Computing term \circled{1} in \cref{eq:hess}.
+    \item Computation term \circled{1} in \cref{eq:hess}.
 \end{enumerate}
 These steps produce an exact Hessian. Neglecting steps 2 and 3 leads to the
 formation of the approximated Hessian as described in
@@ -336,8 +337,9 @@ time is taken up by the first three steps in comparison; computing the
 $6M\None\Ntwo$ first derivatives, $21M\None\Ntwo$ second derivatives, and
 forming term \circled{2} all scale linearly with $M$, $\None$, and $\Ntwo$. The
 relative times spent performing steps 2 and 3 compared with 1 and 4 imply that for
-the \ac{2D} case especially, a large saving in computational time is likely to be
-achieved when the Hessian approximation is utilised over the exact form.
+the \ac{2D} case (and for signals more more than 2 dimensions), a large saving
+in computational time is typically achieved when the Hessian approximation
+is utilised over the exact form.
 
 Both the time- and space-complexity of computing the Hessian is found to be
 roughly linear with both $M$ and the number of datapoints in each dimension

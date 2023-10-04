@@ -11,9 +11,9 @@ As well as realising vast improvements in computational speed, filtering also
 enables a user to focus solely on spectral regions that are of interest.
 It is common for certain spectral regions to be so densely populated
 that it is futile to attempt to extract meaningful quantitative information at
-the per-signal level, especially with \ac{1D} \ac{NMR} data. Through data filtration,
-all focus can be devoted to those frequency regions which can realistically be
-studied and are of interest in the first place.
+the per-signal level, especially with \ac{1D} \ac{NMR} data.
+Through data filtration, all focus can be devoted to those frequency regions
+which can realistically be studied and are of interest in the first place.
 
 % The concept of estimating \ac{NMR} through the consideration of ``subbands''
 % has existed for a long time, and can be traced back to Tang and Norris's
@@ -42,11 +42,11 @@ Due to their narrower linewidths relative to dispersion Lorentzians, a phased
 spectrum solely comprising absorption Lorentzians is therefore desired.
 The \ac{VE} has been employed here, which has found application in the field of
 compressed sensing NMR\cite{Mayzel2014,Golowicz2020,Luo2020}. The \ac{VE} is a
-signal with double the size as the original \ac{FID}, with the key
+signal with double the size of the original \ac{FID}, with the key
 characteristic that its \ac{FT} has an imaginary component of zeros. The
 \ac{VE} concept can be applied to data of any number of dimensions. However,
-discussion here will be limited to \ac{1D} \acp{VE}.
-An account of the \ac{2D} \ac{VE} is provided in \cref{sec:multidim-ve}.
+discussion in this section will be limited to \ac{1D} \acp{VE};
+an account of the \ac{2D} \ac{VE} is provided in \cref{sec:multidim-ve}.
 
 Assuming that a \ac{1D} \ac{FID} $\by \in \mathbb{C}^N$ is phased, such that
 $\bdphi = \symbf{0} \in \mathbb{R}^M$, it can be described by
@@ -118,16 +118,16 @@ The central index and bandwidth of the super-Gaussian filter function are given
 by the following expressions:
 \begin{subequations}
     \begin{gather}
-        c = \tfrac{1}{2} \left(l_{\text{idx}} + r_{\text{idx}}\right), \\
-        b = r_{\text{idx}} - l_{\text{idx}},
+        c = \tfrac{1}{2} \left(l_{\text{I}} + r_{\text{I}}\right), \\
+        b = r_{\text{I}} - l_{\text{I}},
     \end{gather}
 \end{subequations}
-where $l_{\text{idx}}, r_{\text{idx}} \in \lbrace 0, \cdots, 2N-1 \rbrace,
-r_{\text{idx}} > l_{\text{idx}}$ denote the left and right
-boundaries of the region of interest, defined by the user, expressed as vector
+where $l_{\text{I}}, r_{\text{I}} \in \lbrace 0, \cdots, 2N-1 \rbrace,
+r_{\text{I}} > l_{\text{I}}$ denote the left and right
+boundaries of the region of interest defined by the user, expressed as vector
 indices.
-The vector indices can be obtained from the corresponding spectral frequencies
-$f_{\unit{\hertz}}$ via
+The vector indices $f_{\text{idx}}$ can be obtained from the corresponding
+spectral frequencies $f_{\unit{\hertz}}$ via
 \begin{equation}
     \begin{gathered}
         f_{\text{idx}} =
@@ -153,18 +153,19 @@ is the frequency expressed as a chemical shift.
 Application of the
 super-Gaussian filter to $\symbf{s}_{\text{VE}}$
 would lead to large sections of the filtered spectrum being $0$. This has an
-undesired impact on the \ac{MDL}, as noise that resides within the filter
-region will now seem to resemble true signal,
+undesired impact on model order prediction using the \ac{MDL}, as noise that
+resides within the filter region will now seem to resemble true signal,
 as its amplitude is infinitely greater than the zeroed regions. A massive
 over-estimation of model order results from this.
 In order to obtain better predictions from model order selection, an array of
 synthetic \ac{AWGN} is
 added to the filtered spectrum. To achieve this, a region in
-$\symbf{s}_{\text{VE}}$ is specified by the user which contains no discernible
-signal peaks (referred to as the \emph{noise region}). The variance of this region
-$\sigma^2$ is determined, and used to construct a vector of values sampled from
-a normal distribution with mean $0$ and variance $\sigma^2$,
-$\symbf{w}_{\sigma^2} \in \mathbb{R}^{2N}$.
+$\symbf{s}_{\text{VE}}$ is specified by the user (defined by the indices
+$l_{\text{N}}$ and  $r_{\text{N}}$) which contains no discernible
+signal peaks; this is referred to as the \emph{noise region}. The variance of
+the noise region $\sigma^2$ is determined, and used to construct a vector of
+values sampled from a normal distribution with mean $0$ and variance
+$\sigma^2$, $\symbf{w}_{\sigma^2} \in \mathbb{R}^{2N}$.
 The filtered spectrum is then given by
 \begin{equation}
     \widetilde{\symbf{s}}_{\text{VE}} = \symbf{s}_{\text{VE}} \odot \symbf{g} + \symbf{w}_{\sigma^2} \odot \left(\symbf{1} - \symbf{g} \right).
@@ -182,8 +183,8 @@ time-domain by \ac{IFT}, defined for a generic frequency-domain vector $\symbf{s
         \quad \forall n \in \lbrace 0, \cdots, N-1 \rbrace.
 \end{equation}
 The \ac{IFT} of a real-valued spectrum generates a
-conjugate-symmetric signal, which is also a \ac{VE}. This is sliced so as to
-retain the first half, which is the final filtered sub-FID $\widetilde{\by} \in
+conjugate-symmetric signal (another \ac{VE}). This is sliced so as to
+retain the first half, the final filtered sub-FID $\widetilde{\by} \in
 \mathbb{C}^{N}$.
 A depiction of the key elements involved in the filtering process is provided
 by \cref{fig:filtering}, while a pseudo-code description is provided by
@@ -285,7 +286,7 @@ corrected values can be computed using
         {
             The filtering procedure for 1D data.
             $l/r_{\text{I/N}}$ denotes the left ($l$)/right ($r$) bound of the
-            region of interest (R)/noise region (N), as a vector index.
+            region of interest (I)/noise region (N), as a vector index.
             All of these values should be members of the set $\lbrace 0,
             \cdots, 2N - 1 \rbrace$.
             These would typically be provided in units of \unit{\hertz} or
@@ -299,14 +300,14 @@ corrected values can be computed using
             r_{\text{I}},
             l_{\text{N}},
             r_{\text{N}},
-            \chi \in \mathbb{R}: \chi > 1
+            \chi \in \mathbb{R}_{>1}
             $}
             \State $\by_{\text{VE}} \gets \textsc{VirtualEcho$1$D}\left(\by\right)$;
             \State $\symbf{s}_{\text{VE}} \gets \FT\left(\by_{\text{VE}}\right)$;
             \State $c \gets \nicefrac{\left(l_{\text{I}} + r_{\text{I}}\right)}{2}$;
             \State $b \gets r_{\text{I}} - l_{\text{I}}$;
             \State $\symbf{g} \gets \textsc{SuperGaussian$1$D}\left(2N, c, b\right)$;
-            \State $\symbf{s}_{\text{noise}} \gets \symbf{s}_{\text{VE}} \left[
+            \State $\symbf{s}_{\text{N}} \gets \symbf{s}_{\text{VE}} \left[
                 l_{\text{N}} : r_{\text{N}} + 1
             \right]
             $;
@@ -335,7 +336,7 @@ corrected values can be computed using
             $
         \EndProcedure
         \Statex
-        \Procedure{SuperGaussian$1$D}{$N \in \mathbb{N}, c_{\text{idx}}, b_{\text{idx}}$}
+        \Procedure{SuperGaussian$1$D}{$N \in \mathbb{N}, c \in \mathbb{N}_0, b \in \mathbb{N}_0$}
             \State $\symbf{g} \gets \symbf{0} \in \mathbb{R}^{N}$;
             \For {$n = 0, \cdots, N - 1$}
                 \State $g_n \gets \exp\left(

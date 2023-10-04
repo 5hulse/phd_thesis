@@ -1,12 +1,17 @@
 \section{Non-Linear Programming}
 \label{sec:nlp}
+In the devised estimation routine, the result generated using the \ac{MPM},
+with optional model order selection, is subsequently subjected to an \ac{NLP}
+routine to yield the final parameter estimate. In this section, the theory
+behind the \ac{NLP} routine is provided, along with motivation for why it
+is employed.
 
 \subsection{An Overview of \ac{NLP}}
 \label{subsec:nlp-overview}
 In an optimisation problem, the goal is to determine the minimum\footnote{
     In certain applications, the interest could actually be to find the maximum of
     a function. However, it is trivial to transform a maximisation problem into
-    a minimisation problem by finding the minimum of negative of the function.
+    a minimisation problem by finding the minimum of the negative of the fidelity.
 }
 of a function $\Fth: \mathbb{R}^n \rightarrow \mathbb{R}, n \in \mathbb{N}$, often
 called the \emph{cost function} or \emph{fidelity}.
@@ -87,8 +92,9 @@ The convergence threshold $\epsilon > 0$ can be tuned based on the desired
 accuracy of the result.
 \Cref{eq:newton-update} tends not to be used as the update formula in real
 optimisation problems; one of the major downsides of the Newton update is the
-possibility that is not a minimising update if the Hessian is not positive
-definite. Two primary strategies have emerged which are typically used instead:
+possibility that it does not lead to a decrease in the fidelity if the Hessian
+is not positive definite. Two primary strategies have emerged which are
+typically used instead:
 \begin{itemize}
     \item \emph{Line search methods}\cite[Chapter 3]{Nocedal2006} determine an
         appropriate direction $\symbf{p}^{(k)}$ along which the updated
@@ -265,10 +271,11 @@ respect to the elements in $\bth$:
     \label{eq:fidelity-grad-hess}%
 \end{subequations}
 Computing these requires the generation of a large number of first and second
-partial derivatives. The complete set of these are given in
-\cref{sec:derivatives}.
+partial derivatives; the complete set of these are given in
+\cref{sec:derivatives}, and a \Python implementation to compute them is given
+in \cref{lst:obj-grad-hess}.
 Fortunately, fewer second partial derivatives need to be computed than one
-might initially suspect. $4(1 + D)^2 M^2$ of these exist per datapoint.
+might initially suspect; $4(1 + D)^2 M^2$ of these exist per datapoint.
 However, all of those involving parameters associated with different
 oscillators are zero. The second derivatives are also symmetric, i.e.
 \[
@@ -279,7 +286,8 @@ which further reduces the number of explicit computations that are necessary.
 Finally, the derivatives satisfying $\theta_i = \theta_j = a_m$ are always
 zero as well. The upshot of these features is that the total number of second
 derivatives that need to be computed is reduced to $(2D^2 + 5D + 2)M$ per
-datapoint (see \cref{tab:number-of-derivatives}).
+datapoint (see \cref{tab:number-of-derivatives}). This is still rather large,
+especially when $D>1$, as will be evidenced in \cref{sec:profiling}.
 \begin{table}
     \begin{center}
         \begin{tabular}{ c c c }
@@ -354,12 +362,12 @@ example.
     {
         A visualisation of the trajectory of a 2-parameter optimisation
         involving a simulated \acs{FID} comprising a single signal.
-        \textbf{a.} \& \textbf{b.} Representations of the signal in
+        \textbf{a.} and \textbf{b.} Representations of the signal in
         the time domain and Fourier domain, respectively.
-        Black dots: the signal to be estimated $\by$.
+        Black dots: the \ac{FID} to be estimated.
         Solid grey line: the model generated
         using the initial guess $\bthzero$.
-        Dotted grey line: the model generated using the optimised result,
+        Dotted grey line: the model generated using the optimised result
         $\bthstar$.
         \textbf{c.} A contour plot of the fidelity.
         Blue line: the trajectory of the parameter vector with the true
@@ -396,10 +404,10 @@ In both cases, the \ac{NLP} routine successfully converged at a result $\bthstar
 in agreement with the true frequency and damping factor used to construct the
 \ac{FID}. However, it is clear that using the true Hessian matrix (blue trajectory)
 led to a far better rate of convergence compared with the
-approximated analogue (red trajectory), which exhibited ``zig-zagging''\footnote{
-    This phenomenon is often seen in gradient descent methods, in which each
-    update occurs along the opposite direction to the gradient.
-}.
+approximated analogue (red trajectory), which exhibited behaviour commonly
+referred to as ``zig-zagging''; this is often seen in gradient
+descent methods, in which each update occurs along the opposite direction to
+the gradient, and leads to the minimum being reached in an inefficient manner.
 14 iterations were required to achieve convergence with the
 criterion $\epsilon = \num[print-unity-mantissa=false]{1e-8}$
 when the true Hessian was used, while 81 were required for the approximated
@@ -415,9 +423,10 @@ often requires a shorter time to converge overall, especially for \ac{2D}
 $\bX$ and the observed data $\bY$ is well-suited to produce an accurate
 holistic
 representation of the data, assuming a sufficiently large
-model order is used. However, as has already been discussed, this is not
-necessarily sufficient due to the ill-posed nature of the estimation problem.
-It is desirable to produce an estimate which not only achieves a good fit to
+model order is used. However, as has already been discussed, this does not
+necessarily lead to a satisfactory result due to the ill-posed nature of the
+estimation problem;
+it is desirable to produce an estimate which not only achieves a good fit to
 the data in \iac{RSS} sense, but which is also in agreement with the process
 underpinning the observation. It is for this reason that iterative procedures
 typically require significant quantities of prior knowledge, beyond basic
@@ -429,19 +438,21 @@ information is not exploited.
 
 While the \ac{MPM} is often able to generate seemingly reasonable parameter
 estimates,
-one particular feature has been noticed in many of its results:
-often, oscillators in the result exhibit spurious phase behaviour.
-As has been discussed (\cref{subsec:nmr-proc}),
+one particular feature of these has been noticed on many occasions;
+oscillators in the result often exhibit ``spurious phase behaviour''.
+As has been discussed (see the description of phase correction,
+\cref{subsec:nmr-proc}),
 \ac{NMR} datasets for most experiments comprise signals whose phases
-depend on their resonance frequencies to first order. This is routinely
+depend on their frequencies to first order. This is routinely
 corrected in conventional \ac{NMR} spectral processing, such that all signals
-are adjusted to acquire a phase of \qty{0}{\radian}. This feature of the
-dataset can be exploited in order to overcome the aforementioned shortcoming of
+are adjusted to acquire a phase of \qty{0}{\radian}. This feature
+can be exploited in order to overcome the aforementioned shortcoming of
 the \ac{MPM}, through appropriate regularisation of the \ac{NLP} routine.
 Assuming that the data has been phase corrected\footnote{
     Rather than rely on the data being phase-corrected, one could envisage
     replacing the phase variance with a term which guides the
-    oscillators to adopt a first-order phase relationship during \ac{NLP}. The
+    oscillators to adopt a first-order phase relationship during \ac{NLP}, thus
+    removing the need to apply phase correction in the first place. The
     reason why the
     phase variance has been chosen is two-fold. (a) Applying phase-correction
     to \ac{NMR} data is straightforward and can be automated,
@@ -486,7 +497,7 @@ However, with the inclusion of wrapping through application of
     -\pi
 + \delta\:\:\pi - \delta \right]\T$, and the linear phase
 variance would be large. A definition of variance which accounts for the
-periodicity of the phases is needed. The circular variance is defined
+periodicity of the phases is needed; the circular variance is defined
 as\cite[Chapter 3]{Fisher1993}
 \begin{subequations}
     \begin{gather}
@@ -580,24 +591,28 @@ The phase variance-regularised fidelity (\cref{eq:fidelity-phasevar}) is
 minimised according the unconstrained \ac{NLP} routine described above. It is
 therefore possible for oscillators to acquire parameters which are unrealistic
 as the optimiser evolves (see the bulleted list on
-\cpageref{pg:param-constraints} for an outline of
+\cpageref{pg:param-constraints} for a summary of
 the expected ranges that the parameters reside in). With the inclusion of
 the variance of oscillator phases, there are situations where oscillators
-acquire negative amplitudes. Typically, this occurs when there are
-oscillators in the \ac{MPM} result which start out with phases that are far from \qty{0}{\radian}. By acquiring a negative amplitude and a phase close to
-\qty{0}{\radian}\,---\,the expected phase of most oscillators in the parameter
-set\,---\,little change to the \ac{RSS} term is made, while
+acquire negative amplitudes during the \ac{NLP} routine. Typically, this occurs
+when there are oscillators in the \ac{MPM} result with phases
+that are far from \qty{0}{\radian}. By acquiring a negative amplitude and a
+phase close to
+\qty{0}{\radian} (the expected phase of most oscillators in the parameter set
+if phase correction has been applied to the data)
+little change to the \ac{RSS} term is made, while
 $\circvar$ will be reduced. The presence of such oscillators is
 undesirable, as they are spurious in the context of phased data. As a
 result, the \ac{NLP} routine periodically checks for negative-amplitude oscillators
 (\crefrange{state:neg-amp-start}{state:neg-amp-end} in \cref{alg:nlp}). After a
 given number of iterations ($25$ is the value given in \cref{alg:nlp})
 if any oscillators have acquired negative
-amplitudes, these are removed from the model, and the routine continues with a reduced number
+amplitudes, they are removed from the model, and the routine continues with a reduced number
 of oscillators. While not infallible, this can help to to get rid of excessive oscillators in the
 model which do not correspond to true signals in the data. For example, in
-scenarios where an overestimate of model order has occurred, noise components
-will be incorporated into the \ac{MPM} result. These typically have greater
-variability in their phases; often, such oscillators gain negative amplitudes
-as the \ac{NLP} routine evolves, leading to unwanted signals being removed and
-a more parsimonious result being obtained.
+scenarios where an overestimate of model order has occurred, either by the
+\ac{MDL} or from human error in inspecting the number of spectral peaks, noise
+components will be incorporated into the \ac{MPM} result. These typically have
+greater variability in their phases; often, such oscillators gain negative
+amplitudes as the \ac{NLP} routine evolves, leading to unwanted signals being
+removed and a more parsimonious result being obtained.

@@ -2,13 +2,13 @@
 \label{sec:theory-outline}
 By applying the theory of \ac{NMR}, one can
 rationalise how a particular spin system, subjected to a given pulse sequence,
-is mapped to a final \ac{FID}. This is an example of a \emph{forward problem},
+is mapped to \iac{FID}. This is an example of a \emph{forward problem},
 in which one wishes to determine how a set of parameters leads to an
 observed dataset.
 The chemical shifts, J-couplings, dipolar couplings, etc. of the spin system
 may be recast as a list of signal amplitudes, phases, frequencies and
-damping factors, which define the form of the \ac{FID}.
-Many sophisticated pieces of software such as \textsc{Spinach}\cite{Hogben2011}
+damping factors, which define the form that the \ac{FID} is expected to take.
+Sophisticated pieces of software such as \textsc{Spinach}\cite{Hogben2011}
 solve this forward problem, yielding \ac{NMR} experiment simulations.
 Simulating an \ac{NMR} experiment is a \emph{well-posed} problem, since it
 satisfies the following properties:
@@ -22,17 +22,17 @@ satisfies the following properties:
         as strong coupling effects may manifest as a given spin's chemical
         shift changes; these will evolve in a continuous fashion as well.
 \end{enumerate}
-The parametric estimation of \acp{FID} is an example of an \emph{inverse problem};
-given an acquired dataset, one seeks to determine the set of parameters which
-went into constructing it.
-Parametric estimation, as with many inverse problems, is
-\emph{ill-posed}\cite{Kabanikhin2008}. These problems do not satisfy at least
+The estimation of \acp{FID} is an example of an \emph{inverse problem};
+given an acquired dataset, the objective is to determine the set of parameters
+which went into constructing it.
+As with many inverse problems, \ac{FID} estimation is
+\emph{ill-posed}\cite{Kabanikhin2008}; such problems do not satisfy at least
 one of the three properties above. For example, given \iac{FID}, it is possible
 to conceive of numerous signal parameter specifications which would lead to a
 faithful representation of the data in a least squares sense, especially when
-considering \acp{FID} corrupted with noise.
-Therefore, determining the ``optimal'' parameter set is a rather difficult
-challenge.
+considering \acp{FID} corrupted with noise which comprise signals of similar
+frequencies. Therefore, determining the ``optimal'' parameter set is a rather
+difficult challenge.
 
 For the purposes of this work, it is always assumed that an \ac{FID} to be
 estimated
@@ -54,21 +54,8 @@ is hypercomplex in form, meaning that it obeys
     \label{eq:hypercomplex-fid}%
 \end{subequations}%
 where $\Dtd = \nicefrac{1}{\fswd}$.
-Under this model, it is assumed that
-\iac{FID} consists of a summation of $M$ damped complex sinusoids in the
-presence in \ac{AWGN}.
-It should be noted that, prior to estimating the dataset, it is normalised
-such that the signal actually under consideration is $\nicefrac{\bY}{\lVert \bY
-\rVert}$.
-To make the final result reflect the unnormalised dataset, the estimated
-amplitudes can be multiplied by $\lVert \symbf{Y} \rVert$.
-
-It is the goal of parametric estimation to establish the
-identity of all the quantities which describe the model component $\bX$, which
-are distilled into the vector $\bth \in \mathbb{R}^{2(D + 1)M}$, given by
-\cref{eq:theta}.
-\Cref{eq:x} can be expressed in terms of complex amplitudes and signals poles
-as follows:
+Alternatively, \cref{eq:x} may be expressed in terms of complex amplitudes and
+signals poles as follows:
 \begin{subequations}%
     \begin{gather}%
         \xnonenD(\bth) = \sumM \alpha_m \prodD {z^{(d)}_m}^{\nd},\\
@@ -79,16 +66,29 @@ as follows:
     \end{gather}%
     \label{eq:x-alpha-z}%
 \end{subequations}%
-Due to the assumed \ac{AWGN} nature of the noise array, the \acf{PDF} of an
-individual noise component is
+Under this model, it is assumed that
+\iac{FID} consists of a summation of $M$ damped complex sinusoids in the
+presence in \ac{AWGN}.
+It should be noted that, prior to estimating the dataset, it is normalised
+such that the signal actually under consideration is $\nicefrac{\bY}{\lVert \bY
+\rVert}$.
+To make the final result reflect the unnormalised dataset, the estimated
+amplitudes can be multiplied by $\lVert \symbf{Y} \rVert$.
+
+It is the goal of parametric estimation to establish the
+identity of all the quantities that describe the model component $\bX$, which
+are distilled into the vector $\bth \in \mathbb{R}^{2(D + 1)M}$, given by
+\cref{eq:theta}.
+Due to the assumed \ac{AWGN} nature of the noise array, the
+\underline{\acf{PDF}} of an individual noise component is
 \begin{equation}
     p(\wnonenD) =
         \frac{1}{2\pi \sigma^2}
         \exp\left( -\frac{\left\lvert \wnonenD \right\rvert^2}{2\sigma^2}\right).
 \end{equation}
-As the elements are independent and identically distributed, the joint \ac{PDF}
-describing the entire noise array is given by the product of all the elements'
-\acp{PDF}:
+As the components are assumed to be independent and identically distributed, the
+joint \ac{PDF} describing the entire noise array is given by the product of the
+\acp{PDF} of all the components:
 \begin{equation}
     \begin{split}
         p\left(\bW\right) &=
@@ -105,7 +105,7 @@ describing the entire noise array is given by the product of all the elements'
     \end{split}
 \end{equation}
 As the noise array is the difference between the data and model, the
-likelihood function of $\bth$ given the \ac{FID} $\bY$ is
+\underline{likelihood function} of $\bth$ given the \ac{FID} $\bY$ is
 \begin{equation}
     \mathcal{L}(\bth \vert \bY) =
     \frac{1}{\left(2\pi \sigma^2\right)^{N_{\text{tot}}}}
