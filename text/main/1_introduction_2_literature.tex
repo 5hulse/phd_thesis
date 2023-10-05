@@ -427,12 +427,14 @@ providing an efficient means of solving the
 equations\cite{Levinson1946,Durbin1960}.
 
 \subsubsection{\acs{SVD}-based methods}
-Some of the most prevalent methods for \ac{NMR} estimation involve \underline{\acfi{SVD}}
-as a key component (\cref{subsec:linear-algebra}). For each of these methods,
-\ac{SVD} is applied to a \underline{Hankel} or \underline{Toeplitz matrix} containing the \ac{FID}.
+\acused{SVD}
+Some of the most prevalent methods for \ac{NMR} estimation involve
+\ul{\emph{singular value decomposition} (SVD)}
+as a key component. For each of these methods,
+\ac{SVD} is applied to a \ul{Hankel} or \ul{Toeplitz matrix} containing the \ac{FID}.
 Above a certain \ac{SNR} threshold, it is found that the singular values in the
 data matrix are larger than those related to noise, and
-as such forming a low-rank approximation of the data matrix nullifies
+as such forming a low-\ul{rank} approximation of the data matrix nullifies
 contributions from noise in the parameter estimate. The degree of truncation
 required is dependent on the suspected \emph{model order} (i.e. the number of
 contributing signals, $M$) of the dataset, which must
@@ -440,7 +442,7 @@ be supplied, or determined by some appropriate metric. All the \ac{SVD}-based
 techniques determine the non-linear parameters (frequencies and
 damping factors, incorporated in the signal poles) associated with the dataset.
 Subsequently, the amplitudes and phases can be computed by solving a linear
-least-squares problem involving a \underline{Vandermonde matrix} of the signal poles:
+least-squares problem involving a \ul{Vandermonde matrix} of the signal poles:
 \begin{subequations}
     \begin{gather}
         \symbf{\alpha} = \symbf{Z}^+ \symbf{y},\\
@@ -597,7 +599,8 @@ relies on determining the following quantity, an example of a \ac{RSS} problem:
         \argmin_{\symbf{\theta} \in \mathbb{R}^{4M}} \left \lVert \symbf{y} - \symbf{Z}\symbf{\alpha} \right \rVert^2,
 \end{equation}
 where $\bthstar$ is the optimal set of parameters which describe the data,
-often referred to as the \ac{MLE}.
+often referred to as the \ul{\emph{maximum likelihood estimate} (MLE)}.
+\acused{MLE}
 The linear parameters, residing in the vector of complex amplitudes, can be
 expressed as $\symbf{Z}^+\symbf{y}$ (see \cref{eq:complex-amplitudes}). By doing
 this, it becomes possible to recast the optimisation problem to only solve for

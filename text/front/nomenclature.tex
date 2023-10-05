@@ -1,7 +1,7 @@
 \renewcommand\nomgroup[1]{%
     \item[\bfseries
     \ifstrequal{#1}{A}{General Mathematics}{%
-    \ifstrequal{#1}{B}{Number sets}{%
+    \ifstrequal{#1}{B}{Sets}{%
     \ifstrequal{#1}{C}{Complex Numbers}{%
     \ifstrequal{#1}{D}{Vectors, Matrices, and Arrays}{%
     \ifstrequal{#1}{E}{Probability}{%
@@ -18,12 +18,22 @@
 \nomenclature[A,06]{$\lfloor a \rceil$}{The nearest integer to $a$}
 \nomenclature[A,07]{$a \bmod b$}{$a$ modulo $b$, given by \[a \bmod b = a - \left\lfloor \frac{a}{b} \right\rfloor\]}
 
-%%% Number Sets
-\nomenclature[B,01]{$\mathbb{C}$}{The set of complex numbers}%
-\nomenclature[B,02]{$\mathbb{N}$}{The set of natural numbers with zero excluded}%
-\nomenclature[B,03]{$\mathbb{N}_0$}{The set of natural numbers with zero included}%
-\nomenclature[B,04]{$\mathbb{R}$}{The set of real numbers}%
-\nomenclature[B,05]{$\mathbb{R}_{>0}$}{The set of positive real numbers}%
+%%% Sets
+\nomenclature[B,01]{$x \in X$}{$x$ is a member of the set $X$}
+\nomenclature[B,02]{$X \subset Y$}{The set $X$ is a subset of the set $Y$}
+\nomenclature[B,03]{$\mathbb{C}$}{The set of complex numbers}%
+\nomenclature[B,04]{$\mathbb{N}$}{The set of natural numbers with zero excluded}%
+\nomenclature[B,05]{$\mathbb{N}_0$}{The set of natural numbers with zero included}%
+\nomenclature[B,06]{$\mathbb{R}$}{The set of real numbers}%
+\nomenclature[B,07]{$\mathbb{R}_{>0}$}{The set of positive real numbers}%
+\nomenclature[B,08]{$\mathbb{R}_{>1}$}{The set of real numbers greater than one}%
+\nomenclature[B,09]{$\lbrace x, \cdots, y \rbrace$}{The set of consecutive
+integers from $x \in \mathbb{Z}$ to $y \in \mathbb{Z}$ (included)}
+\nomenclature[B,10]{$(x, y)$}{The range of numbers from $x \in \mathbb{R}$ to $y \in \mathbb{R}$ (excluded)}
+\nomenclature[B,11]{$[x, y]$}{The range of numbers from $x \in \mathbb{R}$ to
+$y \in \mathbb{R}$ (included).}
+\nomenclature[B,12]{$(x, y]$}{The range of numbers from $x \in \mathbb{R}$
+(excluded) to $y \in \mathbb{R}$ (included).}
 
 %%% Complex numbers
 \nomenclature[C,01]{$\iu$}{The imaginary unit, $\iu \coloneq \sqrt{-1}$}
@@ -58,23 +68,7 @@
 \nomenclature[D,01]{$\symbf{x}\T,\symbf{X}\T$}{Vector/matrix Transpose}
 \nomenclature[D,02]{$\symbf{x}^{\dagger},\symbf{X}^{\dagger}$}{Vector/matrix conjugate transpose}
 \nomenclature[D,03]{$\symbf{X}^{-1}$}{Inverse of a square, non-singular matrix.}
-\nomenclature[D,04]{$\symbf{X}^+$}{Moore-Penrose pseudo-inverse of a matrix.
-    Given the \acl{SVD} (see \cref{subsec:linear-algebra}) of $\symbf{X}$:
-    \[
-        \symbf{X} = \symbf{U}
-        \begin{bmatrix}
-            \symbf{\Sigma}_1 & \symbf{0} \\
-            \symbf{0} & \symbf{0}
-        \end{bmatrix}
-        \symbf{V}^{\dagger},
-    \]
-    where $\symbf{\Sigma}_1$ as a square invertible matrix of the non-zero
-    singular values of $\symbf{X}$, the Moore-Penrose pseudo-inverse is given
-    by
-    \[
-        \symbf{X}^+ = \symbf{V} \symbf{\Sigma}_1^{-1} \symbf{U}^{\dagger}.
-    \]
-}
+\nomenclature[D,04]{$\symbf{X}^+$}{Moore-Penrose pseudo-inverse of a matrix.}
 \nomenclature[D,05]{$\symbf{X} \odot \symbf{Y}$ }{
     Hadamard (element-wise) product of the arrays $\symbf{X}, \symbf{Y} \in
     \mathbb{F}^{N_1 \times \cdots \times N_D}$, yielding the array
@@ -138,6 +132,20 @@
             0 & 0 & \cdots & x_{N}
         \end{bmatrix}
     \]
+}
+
+\nomenclature[D,11]{$\symbf{x}[a:b]$}{
+    Slicing notation, following the
+    convention used by \textsc{NumPy}\footnote{
+        \url{https://numpy.org/doc/stable/user/basics.indexing.html}
+    }. For $\symbf{x} \in \mathbb{F}^N$, $a \in
+    \lbrace 0, \cdots, N \rbrace$, and $b \in \lbrace 0, \cdots, N \rbrace$,
+    the slice $\symbf{x}[a:b]$ produces a vector $\in \mathbb{F}^{b-a}$ comprising
+    the consecutive elements of $\symbf{x}$ from the ($a +
+    1$)\textsuperscript{th} to the $b$\textsuperscript{th}. This can be
+    extended for an array of any dimension, e.g. $\symbf{X}[a_r : b_r, a_c :
+    b_c]$ denotes the slice of a 2D matrix, with the row slice denoted first,
+    followed by the column slice.
 }
 \nomenclature[D,11]{$\symbf{X}^{\circlearrowright (d)}$}{Right circular rotation along axis $d$ of an array by one element.
     As an example, for a 2D matrix $\symbf{X} \in \mathbb{F}^{M \times N}$, $\symbf{X}^{\circlearrowright (1)}$ is given by

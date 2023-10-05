@@ -147,7 +147,7 @@
 \titleformat{\chapter}[hang]{}{%
   \thispagestyle{empty}
   \parbox{0.8\textwidth}{
-      \raggedright\bfseries\fontsize{28}{36}\textcolor{mycolor}{\selectfont#1}
+      \raggedright\bfseries\fontsize{28}{36}\selectfont\color{mycolor}#1
   }
   \hspace*{3em}
   \colorbox{mycolor}{%
@@ -218,11 +218,11 @@
   	\AtTextCenter{\makebox(0,0){\includegraphics[width=\textwidth]{theme_figures/beltcrest_grey.pdf}}%
   }}
 	\begin{center}
-  	\begin{minipage}[t][17.2cm][b]{\textwidth}
+  	\begin{minipage}[t][18.2cm][b]{\textwidth}
     	\begin{center}
         \huge
         \@title\\[1cm]
-      	\bfseries\LARGE{\@author}\\[0.5cm]
+        {\color{mycolor}\bfseries\LARGE{\@author}}\\[0.5cm]
       	\large\mdseries\upshape
       	\@college\\
       	University of Oxford\\[1cm]
@@ -307,7 +307,8 @@
     url=false,
     eprint=false,
     sorting=none,
-    style=numeric-comp,
+    style=chem-angew,
+    citestyle=numeric,
     giveninits=true,
     maxbibnames=20,
 ]{biblatex}

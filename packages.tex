@@ -16,6 +16,7 @@
 
 \usepackage{datetime}
 \dmyyyydate
+\usepackage{soul}  % Breakable underlines
 \usepackage{nicefrac} % Nicely formatted fractions which take up less space when inline
 \usepackage{pdflscape} % Landscape pages for CUPID metrics table
 \usepackage{upgreek} % For upright capital delta
@@ -62,4 +63,5 @@
 \newcommand*\circled[1]{{\scriptsize\tikz[baseline=(char.base)]{
             \node[shape=circle,draw,inner sep=1pt] (char) {#1};}}}
 
-\usepackage{bibentry}  % To insert references in main text
+\DeclareBibliographyCategory{fullcited}
+\newcommand{\mybibexclude}[1]{\addtocategory{fullcited}{#1}}

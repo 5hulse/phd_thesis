@@ -80,7 +80,8 @@ identity of all the quantities that describe the model component $\bX$, which
 are distilled into the vector $\bth \in \mathbb{R}^{2(D + 1)M}$, given by
 \cref{eq:theta}.
 Due to the assumed \ac{AWGN} nature of the noise array, the
-\underline{\acf{PDF}} of an individual noise component is
+\ul{probability density function (PDF)}\acused{PDF} of an individual noise
+component is
 \begin{equation}
     p(\wnonenD) =
         \frac{1}{2\pi \sigma^2}
@@ -105,7 +106,7 @@ joint \ac{PDF} describing the entire noise array is given by the product of the
     \end{split}
 \end{equation}
 As the noise array is the difference between the data and model, the
-\underline{likelihood function} of $\bth$ given the \ac{FID} $\bY$ is
+\ul{likelihood function} of $\bth$ given the \ac{FID} $\bY$ is
 \begin{equation}
     \mathcal{L}(\bth \vert \bY) =
     \frac{1}{\left(2\pi \sigma^2\right)^{N_{\text{tot}}}}
