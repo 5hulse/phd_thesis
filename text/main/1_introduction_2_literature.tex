@@ -154,7 +154,7 @@ lineshape for two key reasons:
         at large frequency offsets (i.e. when $\lvert F - f_m \rvert$ is
         notably greater than \qty{0}{\hertz}) absorption Lorentzians decay at
         a rate $\propto \nicefrac{1}{(f_m - F)}^2$, while dispersive
-        Lorentzians decay at a rate $\propto \nicefrac{1}{(f_m - F)}$.
+        Lorentzians decay at a rate $\propto \nicefrac{1}{\lvert f_m - F \rvert}$.
 \end{enumerate}
 Generating a spectrum whose real component comprises peaks which all possess
 absorption Lorentzians is therefore desired, which is possible if all signals
@@ -174,7 +174,7 @@ frequencies, i.e.
 \begin{equation}
     \phi_m = \Phi_0 + \Phi_1 f_m,
 \end{equation}
-where $\Phi_0, \in (-\pi, \pi]$ and $\Phi_1 \in \mathbb{R}$ are zero- and
+where $\Phi_0 \in (-\pi, \pi]$ and $\Phi_1 \in \mathbb{R}$ are zero- and
 first-order phase terms.
 Phase correction refers to the process in which $\Phi_0$ and $\Phi_1$ are
 determined by inspecting the appearance of the spectrum
@@ -367,7 +367,7 @@ to estimate the optimal set of parameters $\bth$ which describe them\footnote{
     here as it is a misnomer; deconvolution is simply the inverse operation of
     convolution, and has nothing to do with estimating the parameters which
     describe a dataset. Equivalently, \emph{convolution} is not the process of
-    generating an \ac{NMR} signal by the process of summing a number of complex
+    generating an \ac{NMR} dataset by summing a number of complex
     sinusoids, though it is often described as so in the literature.
 }.
 Here, a summary of some of the most prominent methods for quantifying \ac{NMR}
@@ -433,7 +433,7 @@ Some of the most prevalent methods for \ac{NMR} estimation involve
 as a key component. For each of these methods,
 \ac{SVD} is applied to a \ul{Hankel} or \ul{Toeplitz matrix} containing the \ac{FID}.
 Above a certain \ac{SNR} threshold, it is found that the singular values in the
-data matrix are larger than those related to noise, and
+data matrix corresponding to signal are larger than those related to noise, and
 as such forming a low-\ul{rank} approximation of the data matrix nullifies
 contributions from noise in the parameter estimate. The degree of truncation
 required is dependent on the suspected \emph{model order} (i.e. the number of
