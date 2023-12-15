@@ -27,12 +27,13 @@
 \nomenclature[B,06]{$\mathbb{R}$}{The set of real numbers}%
 \nomenclature[B,07]{$\mathbb{R}_{>0}$}{The set of positive real numbers}%
 \nomenclature[B,08]{$\mathbb{R}_{>1}$}{The set of real numbers greater than one}%
-\nomenclature[B,09]{$\lbrace x, \cdots, y \rbrace$}{The set of consecutive
-integers from $x \in \mathbb{Z}$ to $y \in \mathbb{Z}$ (included)}
-\nomenclature[B,10]{$(x, y)$}{The range of numbers from $x \in \mathbb{R}$ to $y \in \mathbb{R}$ (excluded)}
-\nomenclature[B,11]{$[x, y]$}{The range of numbers from $x \in \mathbb{R}$ to
-$y \in \mathbb{R}$ (included).}
-\nomenclature[B,12]{$(x, y]$}{The range of numbers from $x \in \mathbb{R}$
+\nomenclature[B,09]{$\mathbb{F}$}{A field (i.e. $\mathbb{R}$, $\mathbb{C}$, etc.)}
+\nomenclature[B,10]{$\lbrace x, \cdots, y \rbrace$}{The set of consecutive
+integers from $x \in \mathbb{Z}$ to $y \in \mathbb{Z}$ (both included)}
+\nomenclature[B,11]{$(x, y)$}{The range of numbers from $x \in \mathbb{R}$ to $y \in \mathbb{R}$ (both excluded)}
+\nomenclature[B,12]{$[x, y]$}{The range of numbers from $x \in \mathbb{R}$ to
+$y \in \mathbb{R}$ (both included).}
+\nomenclature[B,13]{$(x, y]$}{The range of numbers from $x \in \mathbb{R}$
 (excluded) to $y \in \mathbb{R}$ (included).}
 
 %%% Complex numbers
@@ -62,7 +63,7 @@ $y \in \mathbb{R}$ (included).}
     elements of such objects are denoted by lower-case italic letters with
     subscripts indicating their index. E.g. The element located at the second
     row and third column of a matrix $\symbf{Y}$ would be denoted $y_{2,3}$. In
-    some circumstances where it is more appropriate, indexing begins at 0
+    some circumstances where it is appropriate, indexing begins at 0
     rather than 1.
 }
 \nomenclature[D,01]{$\symbf{x}\T,\symbf{X}\T$}{Vector/matrix Transpose}
@@ -139,7 +140,7 @@ $y \in \mathbb{R}$ (included).}
     convention used by \textsc{NumPy}\footnote{
         \url{https://numpy.org/doc/stable/user/basics.indexing.html}
     }. For $\symbf{x} \in \mathbb{F}^N$, $a \in
-    \lbrace 0, \cdots, N \rbrace$, and $b \in \lbrace 0, \cdots, N \rbrace$,
+    \lbrace 0, \cdots, N-1 \rbrace$, and $b \in \lbrace a+1, \cdots, N \rbrace$,
     the slice $\symbf{x}[a:b]$ produces a vector $\in \mathbb{F}^{b-a}$ comprising
     the consecutive elements of $\symbf{x}$ from the ($a +
     1$)\textsuperscript{th} to the $b$\textsuperscript{th}. This can be
@@ -246,7 +247,7 @@ $y \in \mathbb{R}$ (included).}
 
 %%% Calculus
 \nomenclature[F,01]{$\nabla f(\symbf{x})$}{
-    Gradient vector of a differentiable, scalar value function $f(\symbf{x}):
+    Gradient vector of a differentiable, scalar function $f(\symbf{x}):
     \mathbb{R}^{N} \rightarrow \mathbb{R}$:
     \[
         \nabla f(\symbf{x}) =
@@ -259,7 +260,7 @@ $y \in \mathbb{R}$ (included).}
     \]
 }
 \nomenclature[F,02]{$\nabla^2 f(\symbf{x})$}{
-    Hessian matrix of a twice-differentiable, scalar value function
+    Hessian matrix of a twice-differentiable, scalar function
     $f(\symbf{x}): \mathbb{R}^{N} \rightarrow \mathbb{R}$:
     \[
         \nabla^2 f(\symbf{x}) =

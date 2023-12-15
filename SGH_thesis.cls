@@ -421,6 +421,6 @@
     }
 }
 \renewcommand{\contentsname}{Contents}
-\renewcommand{\listfigurename}{Figures}
-\renewcommand{\listtablename}{Tables}
-\renewcommand{\listalgorithmname}{Algorithms}
+\renewcommand{\listfigurename}{List of Figures}
+\renewcommand{\listtablename}{List of Tables}
+\renewcommand{\listalgorithmname}{List of Algorithms}

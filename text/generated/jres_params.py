@@ -1,7 +1,7 @@
 # jres_params.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Thu 28 Sep 2023 20:08:12 BST
+# Last Edited: Thu 14 Dec 2023 08:03:37 PM EST
 
 import nmrespy as ne
 from utils import RESULT_DIR
@@ -26,9 +26,9 @@ table = """
 \\hline
 \\end{tabular}
 \\caption[
-    Noteworthy experiment parameters for the 2D J-Reolved and PSYCHE experiments used.
+    Noteworthy experiment parameters used for the \\acs{2DJ} and \\acs{PSYCHE} experiments.
 ]{
-    Noteworthy experiment parameters for the 2D J-Reolved and PSYCHE experiments used.
+    Noteworthy experiment parameters used for the \\ac{2DJ} and \\acs{PSYCHE} experiments.
     NS: Number of scans,
     DS: Number of dummy scans,
     PLW1: Hard pulse power (\\unit{\\watt}),
@@ -89,6 +89,5 @@ for row, name in zip(data_table, names):
     data += " & ".join(row) + "\\\\\n"
 table = table.replace("<DATA>", data)
 
-print(table)
 with open("text/generated/jres_params.tex", "w") as fh:
     fh.write(table)
