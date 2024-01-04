@@ -2,7 +2,7 @@
 % Generates version suitable for constructing a bound version (asymmetrical
 % margins)
 
-\documentclass{SGH_thesis}
+\documentclass[black]{SGH_thesis}
 % asymmetrical margin for bound version
 
 \input{packages}
@@ -64,9 +64,11 @@ Prof. Timothy Claridge,\\
 \cleardoublepage
 \phantomsection
 \addcontentsline{toc}{chapter}{Bibliography}
+\pagestyle{plain}
 \printbibliography[notcategory=fullcited]
 \appendix
-% \input{text/appendix/nmr-glossary}
+\clearpage
+\pagestyle{fancy}
 \input{text/appendix/additional_theory}
 \cleardoublepage
 \input{text/appendix/code_listings.tex}

@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Tue 25 Jul 2023 11:39:07 BST
+# Last Edited: Thu 04 Jan 2024 00:17:43 GMT
 
 from pathlib import Path
 
@@ -41,8 +41,8 @@ mp_colors = [
 ]
 fig, axs = estimator.plot_result(
     axes_right=0.99,
-    axes_bottom=0.09,
-    axes_top=0.975,
+    axes_bottom=0.07,
+    axes_top=0.98,
     axes_left=0.05,
     multiplet_thold=thold,
     region_unit="ppm",
@@ -64,14 +64,16 @@ fig, axs = estimator.plot_result(
         (4, (1.68, 1.64)),
         (5, (1.36, 1.32, 1.28, 1.24)),
     ],
-    ratio_1d_2d=(3., 1.),
-    figsize=(6, 3),
+    ratio_1d_2d=(2.2, 1.),
+    figsize=(6, 4.5),
 )
 fig.texts[0].set_fontsize(8)
 axs[1, 0].set_yticks([-20, -10, 0, 10, 20])
 
 fix_linewidths(axs, 0.8)
-panel_labels(fig, 0.055, (0.94, 0.69, 0.46, 0.365, 0.28))
+panel_labels(fig, 0.055, (1., 0.95, 0.72, 0.49, 0.41, 0.32))
+del fig.texts[1]
+print(fig.texts)
 
 _, shifts = estimator.get_shifts(unit="ppm", meshgrid=False)
 

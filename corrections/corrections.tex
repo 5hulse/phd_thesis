@@ -1,0 +1,71 @@
+\documentclass[12pt]{article}
+
+\usepackage{xr}
+\externaldocument{../thesis}
+\usepackage{datetime}
+\dmyyyydate
+\usepackage{xcolor}
+%%% font configuration
+\usepackage{fontspec}
+\setmainfont{EBGaramond}[%
+    Path           = ../fonts/EBGaramond/,%
+    Extension      = .otf,%
+    UprightFont    = *-Regular,%
+    BoldFont       = *-SemiBold,%
+    ItalicFont     = *-Italic,%
+    BoldItalicFont = *-BoldItalic,%
+    FontFace       = {sb}{n}{*-SemiBold},%
+]
+\setmonofont{FiraMono}[%
+    Scale       = MatchLowercase,%
+    Path        = ../fonts/FiraMono/,%
+    Extension   = .ttf,%
+    UprightFont = *-Regular,%
+    BoldFont    = *-Bold,%
+]
+
+\usepackage{acronym}
+\usepackage{varioref}
+\usepackage[capitalize,noabbrev]{cleveref}
+\crefformat{equation}{Equation~#2#1#3}
+\Crefformat{equation}{Equation~#2#1#3}
+\crefrangeformat{equation}{Equations~(#3#1#4) to~(#5#2#6)}
+\Crefrangeformat{equation}{Equations~(#3#1#4) to~(#5#2#6)}
+\crefmultiformat{equation}{Equations~#2#1#3}%
+{ and~#2#1#3}{, #2#1#3}{ and~#2#1#3}
+\Crefmultiformat{equation}{Equations~#2#1#3}%
+{ and~#2#1#3}{, #2#1#3}{ and~#2#1#3}
+
+\author{Simon Hulse}
+\title{Notes on Thesis Corrections}
+\date{\today}
+
+\newcommand{\figref}[1]{\cref{#1} on \cpageref{#1}}
+
+\begin{document}
+    \maketitle
+    \subsubsection*{\figref{fig:mpm_vs_nlp}}
+    Replaced landscape figure with portrait version. Included a description of
+    the different peak colours in the caption.
+
+    \subsubsection*{\figref{fig:andro-onedim}}
+    \textbf{TODO}
+
+    \subsubsection*{\figref{fig:cyclosporin}}
+    Added structure of cyclosporin, and edited the caption accordingly.
+
+    \subsubsection*{\figref{fig:diffusion_sequences}}
+    Tweaked the relative widths of pulses and gradients.
+
+    \subsubsection*{\figref{fig:gluc_val_thre}}
+    Added structures of valine, threonine and major anomeric forms of glucose.
+
+    \subsubsection*{\figref{fig:quinine-cupid}}
+    Added structure of quinine.
+
+    \subsubsection*{\figref{fig:camphor-cupid}}
+    Added structure of camphor.
+
+    \subsubsection*{\figref{fig:estradiol-cupid}}
+    Added structure of estradiol.
+\end{document}

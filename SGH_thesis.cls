@@ -52,8 +52,6 @@
     BoldFont    = *-Bold,%
 ]
 
-
-\RequirePackage{eso-pic}
 \RequirePackage{graphicx}
 
 % 1.5 line spacing
@@ -97,32 +95,12 @@
 \renewcommand{\chaptermark}[1]{\markboth{{\bfseries \thechapter}\hspace{10pt}#1}{}}
 \renewcommand{\sectionmark}[1]{\markright{{\bfseries \thesection}\hspace{10pt}#1}}
 
-% Headers and footers for "plain" pages: essentially chapter title pages.
-\fancypagestyle{plain}{%
-    \fancyhf{}%
-    \fancyhead[LE]{%
-    \makebox[0pt][r]{%
-    \colorbox{mycolor}{\makebox[\textwidth][r]{\textcolor{white}{\thepage}\enskip}}\hspace*{1em}}%
-  }
-    \fancyhead[RO]{%
-    \makebox[0pt][l]{%
-      \hspace*{1em}\colorbox{mycolor}{\makebox[\textwidth][l]{\enskip\textcolor{white}{\thepage}}}}%
-    }
-}
-
 % Headers and footers for "typical" pages.
 \fancypagestyle{fancy}{%
     \fancyhf{}%
-    \fancyhead[LE]{%
-    \makebox[0pt][r]{%
-      \colorbox{mycolor}{\makebox[\textwidth][r]{\fontseries{sb}\selectfont\textcolor{white}{\thepage}\enskip}}\hspace*{1em}}%
-    \headrulefill\hspace*{1em}{\leftmark}\hspace*{1em}\headrulefill%
-    }%
-    \fancyhead[RO]{%
-    \mbox{}\headrulefill \hspace*{1em}{\rightmark}\hspace*{1em}\headrulefill%
-    \makebox[0pt][l]{%
-      \hspace*{1em}\colorbox{mycolor}{\makebox[\textwidth][l]{\enskip \fontseries{sb}\selectfont\textcolor{white}{\thepage}}}}%
-    }
+    \fancyhead[LE]{\headrulefill\hspace*{1em}{\leftmark}\hspace*{1em}\headrulefill}
+    \fancyhead[RO]{\headrulefill\hspace*{1em}{\rightmark}\hspace*{1em}\headrulefill}
+    \fancyfoot[CO,CE]{\thepage}
 }
 
 \renewcommand\headrulewidth{0pt}
@@ -144,17 +122,11 @@
 \RequirePackage{setspace}
 
 %%% Numbered chapter titles
-\titleformat{\chapter}[hang]{}{%
-  \thispagestyle{empty}
-  \parbox{0.8\textwidth}{
-      \raggedright\bfseries\fontsize{28}{36}\selectfont\color{mycolor}#1
-  }
-  \hspace*{3em}
-  \colorbox{mycolor}{%
-    \begin{minipage}[c][4em][c]{.5\textwidth}
-      {\hspace*{1em}\fontsize{50}{48}\selectfont\bfseries\textcolor{white}{\thechapter}}
-    \end{minipage}
-}}{0pt}{}[\vspace*{4em}]
+\titleformat{\chapter}[display]
+    {\bfseries\Large\filcenter}
+    {\scshape{\chaptertitlename} \thechapter}
+    {0pt}
+    {\fontsize{28}{36}\selectfont{#1}}
 
 %%% Numberless chapter format
 \titleformat{name=\chapter,numberless}[display]
@@ -214,11 +186,8 @@
 %%% Titlepage
 \renewcommand*{\maketitle}{%
 \begin{titlepage}
-  \AddToShipoutPictureBG*{%
-  	\AtTextCenter{\makebox(0,0){\includegraphics[width=\textwidth]{theme_figures/beltcrest_grey.pdf}}%
-  }}
 	\begin{center}
-  	\begin{minipage}[t][18.2cm][b]{\textwidth}
+  	\begin{minipage}[t][21cm][b]{\textwidth}
     	\begin{center}
         \huge
         \@title\\[1cm]
@@ -226,12 +195,12 @@
       	\large\mdseries\upshape
       	\@college\\
       	University of Oxford\\[1cm]
+        \includegraphics{theme_figures/beltcrest_black.pdf}\\[1cm]
         A thesis submitted for the degree of\\
         \@degree\\
         \@degreedate\\[1cm]
         \ifsupervisors
-      	  Supervisors:\\
-          \itshape
+        \textbf{Supervisors}\\
           \@supervisors
         \fi
     	\end{center}
@@ -373,7 +342,7 @@
 %%% Code listing configuration
 \RequirePackage{minted,tcolorbox,listings}
 \tcbuselibrary{listings,minted,breakable,skins}
-\definecolor{code_bg}{HTML}{f0f0f0}
+\definecolor{code_bg}{HTML}{ffffff}
 \renewcommand{\theFancyVerbLine}{\ttfamily\textbf{\small
     \textcolor{black}{\arabic{FancyVerbLine}}}}
 \newtcbinputlisting[
@@ -412,7 +381,7 @@
         mathescape,
         escapeinside=||,
         numbersep=2.2mm,
-        xleftmargin=3mm
+        xleftmargin=4mm
     },
     overlay = {
     \begin{tcbclipinterior}

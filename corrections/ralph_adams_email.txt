@@ -1,0 +1,51 @@
+P1: (NMR) should be placed between resonance and spectroscopy
+
+P1: Sp. parrafin
+
+P2: Sp. Russel
+
+P2: Sp. Wutrich
+
+Table 1 requires a reference
+
+P7: Expand the explanation of relaxation
+
+P9: high magnetic fields are also useful for solid state NMR of materials, not just in biology
+
+P11: Sweep width is a deprecated term, spectral width is preferred
+
+P15: When discussing Lorentzan and Gaussian signals, ‘sharper’ is a poor choice of words as it doesn’t reflect the narrower base and wider top of a Gaussian signal relative to a Lorentzian signal
+
+P16: Kramers-Kronig needs a reference
+
+P24: iterative fitting is used routinely in metabolomics – 13C fingerprinting for example
+
+P25: The final sentence would benefit from rewording to make its meaning clear.
+
+P67 and elsewhere: consider reformatting, or at least rotating in the PDF version, the landscape pages.
+
+P67: Avoid referring to text in the figure caption without explicitly stating where in the text. It’s better to include all relevant descriptions in the caption.
+
+P69: a comment on how the fitting might behave in the presence of intermediate chemical exchange would be informative.
+
+P69: Consider replacing ‘incredibly’ with a more precise description.
+
+P70: Add molecular structures to figures.
+
+P76: Explicity state that both chemical shift and scalar coupling lead to distortions in line shape for the 90-tau-t1 experiment. Only the chemical shift evolution can be compensated for with phase correction.
+
+P77: The diffusion time starts at the beginning of one field gradient pulse and finishes at the start of the next. This is correct in the figures but not in the descriptions.
+
+P78: The relative durations of the elements of the pulse sequences in the figures should be adjusted slightly to show that a 180° hard pulse does not have the same duration as a selective or gradient pulse.
+
+P80: The use of singular and plural in 3.2.3-1 is confusing. The series … is processed … .
+
+P87: Explain the projection, or use a more standard one, in the figure 3.5d
+
+P95 and elsewhere: you could avoid the use of an acronym and just use ‘noise’, after explaining that you mean AWGN.
+
+P95: check the sample description.
+
+P106: not all 2DJ PSYCHE experiments are 10 hours. Expand your description to explain that the long duration is due to the 3D nature of the experiment and the 2DJ PSYCHE (based on the Thrippleton/Keeler method) is much quicker as it is a 2D experiment.
+
+P118: Explain why you chose a sample that gives such poor signal to noise ratio for the PSYCHE.

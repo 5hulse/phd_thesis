@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Wed 06 Sep 2023 15:24:54 BST
+# Last Edited: Wed 03 Jan 2024 18:18:54 GMT
 
 from pathlib import Path
 import pickle
@@ -14,7 +14,7 @@ from utils import transfer
 
 COLORS = mpl.rcParams["axes.prop_cycle"].by_key()["color"]
 COLORS[0], COLORS[1], COLORS[2], COLORS[4] = COLORS[1], COLORS[4], COLORS[0], COLORS[2]
-
+FORMAT = "portrait"
 
 def remove_noise_coomponents(result):
     damp_thold = 0.7
@@ -28,7 +28,6 @@ def remove_noise_coomponents(result):
 
 def get_colors(idxs):
     return [COLORS[i] for i in idxs]
-
 
 
 offset = 250.
@@ -50,20 +49,74 @@ ax_heights = [data_h, osc_h, osc_h, osc_h]
 ax_height_sum = sum(ax_heights)
 height_ratios = [h / ax_height_sum for h in ax_heights]
 
-fig, axs = plt.subplots(
-    nrows=4,
-    ncols=5,
-    gridspec_kw={
-        "left": 0.005,
-        "right": 0.995,
-        "bottom": 0.05,
-        "top": 0.99,
-        "hspace": 0.0,
-        "wspace": 0.04,
-        "height_ratios": height_ratios
-    },
-    figsize=(9, 5),
-)
+# New format: 3 runs on top, 2 runs on bottom, for portrait view
+if FORMAT == "portrait":
+    figsize = (6, 6.7)
+    left = 0.01
+    right = 0.99
+    top = 0.995
+    bottom = 0.04
+    wspace = 0.01
+    hspace = 0.03
+
+    width = (1. - left - (1. - right) - 2 * wspace) / 3.
+    height = (1. - bottom - (1. - top) - hspace) / 2.
+    run_ax_heights = [height * ratio for ratio in height_ratios]
+
+    top_left = left
+    top_right = right
+    top_bottom = bottom + height + hspace
+    top_top = top
+
+    bottom_extra = (width + wspace) / 2.
+    bottom_left = left + bottom_extra
+    bottom_right = right - bottom_extra
+    bottom_bottom = bottom
+    bottom_top = bottom + height
+
+    rectangles = np.zeros((4, 5, 4))
+
+    # Create top axes rectangles
+    for i in range(3):
+        l = top_left + i * (width + wspace)
+        for j in range(4):
+            b = top_bottom + sum(run_ax_heights[j + 1:])
+            rectangles[j, i] = np.array([l, b, width, run_ax_heights[j]])
+
+    # Create bottom axes rectangles
+    for i in range(2):
+        l = bottom_left + i * (width + wspace)
+        for j in range(4):
+            b = bottom_bottom + sum(run_ax_heights[j + 1:])
+            rectangles[j, 3 + i] = np.array([l, b, width, run_ax_heights[j]])
+
+    axs = np.empty((4, 5), dtype=mpl.axes.Axes)
+    fig = plt.figure(figsize=figsize)
+    for j in range(3, -1, -1):
+        for i in range(5):
+            axs[j, i] = fig.add_axes(rectangles[j, i])
+
+
+# Old format: all 5 runs alongside each other, for landscape view
+elif FORMAT == "landscape":
+    fig, axs = plt.subplots(
+        nrows=4,
+        ncols=5,
+        gridspec_kw={
+            "left": 0.005,
+            "right": 0.995,
+            "bottom": 0.05,
+            "top": 0.99,
+            "hspace": 0.0,
+            "wspace": 0.04,
+            "height_ratios": height_ratios
+        },
+        figsize=(9, 5),
+    )
+
+else:
+    print("FORMAT must be \"landscape\" or \"portrait\"")
+    exit()
 
 kwargs = {
     "xaxis_unit": "hz",
@@ -166,11 +219,12 @@ for i, (
             ax.set_xticklabels([])
 
 
+y = 0.88 if FORMAT == "landscape" else 0.84
 for i, ax in enumerate(axs.T[0]):
-    ax.text(0.02, 0.88, f"\\textbf{{{chr(97 + i)}.}}", transform=ax.transAxes)
+    ax.text(0.02, y, f"\\textbf{{{chr(97 + i)}.}}", transform=ax.transAxes)
 for i, ax in enumerate(axs[0]):
     ax.text(
-        0.98, 0.88, f"\\textbf{{Run {i + 1}}}", transform=ax.transAxes, ha="right",
+        0.98, y, f"\\textbf{{Run {i + 1}}}", transform=ax.transAxes, ha="right",
         bbox={"facecolor": "w", "pad": 0., "edgecolor": "none"},
     )
 fig.text(0.5, 0.005, "Hz", transform=fig.transFigure, ha="center", fontsize=8)
@@ -181,4 +235,4 @@ for ax in axs[1]:
     for line in ax.lines:
         if line.get_color() == "#808080":
             line.remove()
-fig.savefig("figures/mpm_vs_nlp/mpm_vs_nlp.pdf")
+fig.savefig(f"figures/mpm_vs_nlp/mpm_vs_nlp_{FORMAT}.pdf")

@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Wed 20 Sep 2023 19:16:28 BST
+# Last Edited: Wed 03 Jan 2024 20:16:20 GMT
 
 from dataclasses import dataclass
 import matplotlib as mpl
@@ -112,7 +112,7 @@ class PGSE:
         self.post_grad_delay /= 2
 
 
-pgse_widths = PGSE(*normalise_widths([1., 2., 1., 2., 29., 4., 0.5, 0.5]))
+pgse_widths = PGSE(*normalise_widths([0.12, 0.24, 1., 2., 29., 4., 0.5, 0.5]))
 
 left = pgse_widths.left_pad
 
@@ -333,7 +333,7 @@ class PGSTE:
         self.post_grad_outer_delay /= 2
 
 
-pgste_widths = PGSTE(2., 2., 2., 10., 19., 4., 0.5, 0.5)
+pgste_widths = PGSTE(0.4, 2., 2., 10., 19., 4., 0.5, 0.5)
 
 left = pgste_widths.left_pad
 # 90
@@ -593,7 +593,8 @@ class PGSTEBP:
 
 
 # PGSETBP and Oneshot
-pgstebp_widths = PGSTEBP(2., 3., 3., 3., 15., 9., 4., 0.5, 0.5)
+arrow_pad = 0.01
+pgstebp_widths = PGSTEBP(0.4, 0.6, 3., 5., 15., 9., 4., 0.5, 0.5)
 for i, ax in enumerate(axs[2:]):
     if i == 0:
         scale_up, scale_down = 0, 0
@@ -664,8 +665,8 @@ for i, ax in enumerate(axs[2:]):
         elif i == 1:
             arrowstyle = "<-"
         arrow = FancyArrowPatch(
-            (left + pgse_widths.grad + 0.0025, 0.5),
-            (left + pgse_widths.grad + 0.0025, 0.5 + h),
+            (left + pgse_widths.grad + arrow_pad, 0.5),
+            (left + pgse_widths.grad + arrow_pad, 0.5 + h),
             arrowstyle=arrowstyle,
             mutation_scale=5,
             lw=0.8,
@@ -676,7 +677,7 @@ for i, ax in enumerate(axs[2:]):
         )
         ax.add_patch(arrow)
     ax.text(
-        left + pgse_widths.grad + 0.0075,
+        left + pgse_widths.grad + arrow_pad + 0.005,
         (0.5 + 0.5 + (0.1 + scale_up) * 3) / 2,
         label_up,
         va="center",
@@ -759,8 +760,8 @@ for i, ax in enumerate(axs[2:]):
         elif i == 1:
             arrowstyle = "<-"
         arrow = FancyArrowPatch(
-            (left + pgse_widths.grad + 0.0025, 0.5),
-            (left + pgse_widths.grad + 0.0025, 0.5 - h),
+            (left + pgse_widths.grad + arrow_pad, 0.5),
+            (left + pgse_widths.grad + arrow_pad, 0.5 - h),
             arrowstyle=arrowstyle,
             mutation_scale=5,
             lw=0.8,
@@ -771,7 +772,7 @@ for i, ax in enumerate(axs[2:]):
         )
         ax.add_patch(arrow)
     ax.text(
-        left + pgse_widths.grad + 0.0075,
+        left + pgse_widths.grad + arrow_pad + 0.005,
         (0.5 + 0.5 - (0.1 + scale_down) * 3) / 2,
         label_down,
         va="center",
@@ -866,8 +867,8 @@ for i, ax in enumerate(axs[2:]):
         elif i == 1:
             arrowstyle = "<-"
         arrow = FancyArrowPatch(
-            (left + pgse_widths.grad + 0.0025, 0.5),
-            (left + pgse_widths.grad + 0.0025, 0.5 + h),
+            (left + pgse_widths.grad + arrow_pad, 0.5),
+            (left + pgse_widths.grad + arrow_pad, 0.5 + h),
             arrowstyle=arrowstyle,
             mutation_scale=5,
             lw=0.8,
@@ -878,7 +879,7 @@ for i, ax in enumerate(axs[2:]):
         )
         ax.add_patch(arrow)
     ax.text(
-        left + pgse_widths.grad + 0.0075,
+        left + pgse_widths.grad + arrow_pad + 0.005,
         (0.5 + 0.5 + (0.1 + scale_up) * 3) / 2,
         label_up,
         va="center",
@@ -963,8 +964,8 @@ for i, ax in enumerate(axs[2:]):
         elif i == 1:
             arrowstyle = "<-"
         arrow = FancyArrowPatch(
-            (left + pgse_widths.grad + 0.0025, 0.5),
-            (left + pgse_widths.grad + 0.0025, 0.5 - h),
+            (left + pgse_widths.grad + arrow_pad, 0.5),
+            (left + pgse_widths.grad + arrow_pad, 0.5 - h),
             arrowstyle=arrowstyle,
             mutation_scale=5,
             lw=0.8,
@@ -975,7 +976,7 @@ for i, ax in enumerate(axs[2:]):
         )
         ax.add_patch(arrow)
     ax.text(
-        left + pgse_widths.grad + 0.0075,
+        left + pgse_widths.grad + arrow_pad + 0.005,
         (0.5 + 0.5 - (0.1 + scale_down) * 3) / 2,
         label_down,
         va="center",
