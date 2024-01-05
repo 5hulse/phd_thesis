@@ -16,7 +16,8 @@
 
 \usepackage{datetime}
 \dmyyyydate
-\usepackage{soul}  % Breakable underlines
+\usepackage{color}
+\usepackage{soul}  % Breakable underlines and highlighting
 \usepackage{nicefrac} % Nicely formatted fractions which take up less space when inline
 \usepackage{pdflscape} % Landscape pages for CUPID metrics table
 \usepackage{upgreek} % For upright capital delta
@@ -67,6 +68,6 @@
 \newcommand{\mybibexclude}[1]{\addtocategory{fullcited}{#1}}
 
 %%% Correction annotations
-% To highlight addititions to satisfy minor corrections, set this color to red.
-% For the final copy, set this to black
-\definecolor{CorrectionColor}{RGB}{255,0,0}
+% To highlight minor corrections, set this color to red.
+% For the final copy, set this to black.
+\definecolor{CorrectionColor}{HTML}{ff0000}

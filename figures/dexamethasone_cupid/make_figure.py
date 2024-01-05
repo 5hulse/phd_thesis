@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Thu 04 Jan 2024 01:09:44 GMT
+# Last Edited: Fri 05 Jan 2024 16:12:50 GMT
 
 from pathlib import Path
 
@@ -37,6 +37,8 @@ mp_cols = [
         0, -1, -1, 1, 2, -1, 3, 4, 5, 0,
     ]
 ]
+
+# Old format: landscape
 fig, axs = estimator.plot_result(
     multiplet_thold=thold,
     region_unit="ppm",
@@ -49,13 +51,14 @@ fig, axs = estimator.plot_result(
     marker_size=3.,
     multiplet_show_45=False,
     multiplet_show_center_freq=True,
-    axes_bottom=0.067,
-    axes_left=0.033,
-    axes_right=0.995,
+    axes_bottom=0.085,
+    axes_left=0.025,
+    axes_right=0.998,
     axes_top=0.985,
+    axes_region_separation=0.03,
     xaxis_label_height=0.01,
     jres_sinebell=True,
-    ratio_1d_2d=(3.5, 1.),
+    ratio_1d_2d=(2.5, 1.),
     xaxis_ticks=[
         (0, (7.4, 7.3, 7.2)),
         (1, (6.3, 6.2, 6.1, 6.0)),
@@ -69,8 +72,9 @@ fig, axs = estimator.plot_result(
         (9, (1.6, 1.5, 1.4, 1.3)),
         (10, (1.1, 1.0, 0.9, 0.8, 0.7)),
     ],
-    figsize=(9., 4.),
+    figsize=(11.78, 3.),
 )
+
 fig.texts[0].set_fontsize(8)
 
 for ax in axs[1]:
@@ -139,7 +143,7 @@ for i, ax in enumerate(axs[0]):
         zorder=58,
     )
 
-    ax.set_ylim(top=1.47e6)
+    ax.set_ylim(top=1.5e6)
 
     breaklines = [
         line for line in ax.get_lines()
@@ -160,7 +164,7 @@ fig.text(
     zorder=100,
 )
 
-panel_labels(fig, 0.036, (0.96, 0.635, 0.45, 0.355, 0.28))
+panel_labels(fig, 0.028, (0.85, 0.94, 0.66, 0.48, 0.41, 0.33))
 
 axs[1][0].set_yticks([20, 10, 0, -10, -20])
 
@@ -298,5 +302,4 @@ for i, (ax_idx, x, color) in enumerate(zip(breaks["ax"], breaks["x"], breaks["co
         zorder=1000,
     )
 
-
-fig.savefig("figures/dexamethasone_cupid/dexamethasone_cupid.pdf")
+fig.savefig("figures/dexamethasone_cupid/dexamethasone_cupid_new.pdf")

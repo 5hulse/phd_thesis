@@ -1,7 +1,7 @@
 # shifts_and_couplings.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Wed 20 Sep 2023 15:13:23 BST
+# Last Edited: Thu 04 Jan 2024 16:01:31 GMT
 
 from pathlib import Path
 import pickle
@@ -100,19 +100,31 @@ table = table.replace("\n<SUCROSE>", "")
 # If suucrose used, uncomment this line
 # table = table.replace("<SUCROSE>", sucrose_tabular)
 
-# STRYCHININE INVREC
+# STRYCHININE CUPID
 strychinine_shifts = pickle_load(RESULT_DIR / "invrec/strychinine/shifts.pkl")
 strychinine_couplings = get_coupling_info(pickle_load(RESULT_DIR / "invrec/strychinine/couplings.pkl"))
-strychinine_t1s = pickle_load(RESULT_DIR / "invrec/strychinine/t1s.pkl")
-strychinine_t2s = pickle_load(RESULT_DIR / "invrec/strychinine/t2s.pkl")
 strychinine_tabular = (
     "\\hline\n"
     "\\multicolumn{5}{c}{\\textbf{Strychinine}}\\\\\n"
     "\\hline\n"
 )
+
+# Re-order
+order = [i[0] for i in reversed(sorted(enumerate(strychinine_shifts), key=lambda x: x[1]))]
+strychinine_shifts = [strychinine_shifts[i] for i in order]
+strychinine_couplings_new = {}
+for i, j in enumerate(order):
+    old_key = j + 1
+    new_key = i + 1
+    new_value = []
+    for (old_spin, coupling) in strychinine_couplings[old_key]:
+        new_spin = order.index(old_spin - 1) + 1
+        new_value.append((new_spin, coupling))
+    strychinine_couplings_new[new_key] = new_value
+
 strychinine_tabular += make_tabular(
     strychinine_shifts,
-    strychinine_couplings,
+    strychinine_couplings_new,
     500.,
     None,
     # strychinine_t1s,
@@ -195,7 +207,6 @@ five_mp_tabular = get_info_from_file(
     shift=1.4,
 )
 table = table.replace("<FIVE-MP>", five_mp_tabular)
-print(five_mp_tabular)
 
 with open("text/generated/shifts_and_couplings.tex", "w") as fh:
     fh.write(table)

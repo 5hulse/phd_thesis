@@ -29,14 +29,14 @@
      inkscape:pageopacity="0.0"
      inkscape:pagecheckerboard="0"
      inkscape:deskcolor="#d1d1d1"
-     inkscape:zoom="1.4142136"
-     inkscape:cx="239.35565"
-     inkscape:cy="538.46181"
-     inkscape:window-width="1528"
-     inkscape:window-height="1035"
-     inkscape:window-x="2304"
-     inkscape:window-y="1064"
-     inkscape:window-maximized="1"
+     inkscape:zoom="3.1022129"
+     inkscape:cx="470.30943"
+     inkscape:cy="512.8597"
+     inkscape:window-width="1878"
+     inkscape:window-height="2096"
+     inkscape:window-x="1962"
+     inkscape:window-y="27"
+     inkscape:window-maximized="0"
      inkscape:current-layer="svg572"
      inkscape:document-units="in"
      showgrid="false" />
@@ -561,877 +561,6 @@
      fill="#000000"
      d="m 125.69254,515.97454 0.53088,-0.41228 0.53088,0.41228 0.0282,15.90373 h -1.11823 z"
      id="path108"
-     style="stroke-width:0.0999998" />
-  <text
-     x="318.146"
-     y="544.87347"
-     stroke="none"
-     fill="#000000"
-     font-style="normal"
-     font-weight="normal"
-     font-size="9.03621px"
-     font-family="'EB Garamond'"
-     id="text108"
-     style="stroke-width:0.0999998">O</text>
-  <text
-     x="491.31476"
-     y="488.24243"
-     stroke="none"
-     fill="#000000"
-     font-style="normal"
-     font-weight="normal"
-     font-size="9.03621px"
-     font-family="'EB Garamond'"
-     id="text109"
-     style="stroke-width:0.0999998">C(Y)</text>
-  <text
-     x="508.64621"
-     y="491.74396"
-     stroke="none"
-     fill="#000000"
-     font-style="normal"
-     font-weight="normal"
-     font-size="6.77716px"
-     font-family="'EB Garamond'"
-     id="text110"
-     style="stroke-width:0.0999998">3</text>
-  <text
-     x="440.38049"
-     y="442.62878"
-     stroke="none"
-     fill="#000000"
-     font-style="normal"
-     font-weight="normal"
-     font-size="9.03621px"
-     font-family="'EB Garamond'"
-     id="text111"
-     style="stroke-width:0.0999998">(E)O</text>
-  <text
-     x="467.47046"
-     y="434.10989"
-     stroke="none"
-     fill="#000000"
-     font-style="normal"
-     font-weight="normal"
-     font-size="9.03621px"
-     font-family="'EB Garamond'"
-     id="text112"
-     style="stroke-width:0.0999998">O</text>
-  <text
-     x="432.24026"
-     y="456.24295"
-     stroke="none"
-     fill="#000000"
-     font-style="normal"
-     font-weight="normal"
-     font-size="9.03621px"
-     font-family="'EB Garamond'"
-     id="text113"
-     style="stroke-width:0.0999998">C(X)</text>
-  <text
-     x="450.73737"
-     y="459.74448"
-     stroke="none"
-     fill="#000000"
-     font-style="normal"
-     font-weight="normal"
-     font-size="6.77716px"
-     font-family="'EB Garamond'"
-     id="text114"
-     style="stroke-width:0.0999998">3</text>
-  <text
-     x="363.69638"
-     y="466.66058"
-     stroke="none"
-     fill="#000000"
-     font-style="normal"
-     font-weight="normal"
-     font-size="9.03621px"
-     font-family="'EB Garamond'"
-     id="text115"
-     style="stroke-width:0.0999998">(D)O</text>
-  <text
-     x="396.68192"
-     y="522.53143"
-     stroke="none"
-     fill="#000000"
-     font-style="normal"
-     font-weight="normal"
-     font-size="9.03621px"
-     font-family="'EB Garamond'"
-     id="text116"
-     style="stroke-width:0.0999998">F</text>
-  <text
-     x="376.44196"
-     y="489.00488"
-     stroke="none"
-     fill="#000000"
-     font-style="normal"
-     font-weight="normal"
-     font-size="9.03621px"
-     font-family="'EB Garamond'"
-     id="text117"
-     style="stroke-width:0.0999998">C(T)</text>
-  <text
-     x="394.60474"
-     y="492.50641"
-     stroke="none"
-     fill="#000000"
-     font-style="normal"
-     font-weight="normal"
-     font-size="6.77716px"
-     font-family="'EB Garamond'"
-     id="text118"
-     style="stroke-width:0.0999998">3</text>
-  <text
-     x="411.92603"
-     y="489.00488"
-     stroke="none"
-     fill="#000000"
-     font-style="normal"
-     font-weight="normal"
-     font-size="9.03621px"
-     font-family="'EB Garamond'"
-     id="text119"
-     style="stroke-width:0.0999998">(N/O)</text>
-  <text
-     x="428.44449"
-     y="522.53143"
-     stroke="none"
-     fill="#000000"
-     font-style="normal"
-     font-weight="normal"
-     font-size="9.03621px"
-     font-family="'EB Garamond'"
-     id="text120"
-     style="stroke-width:0.0999998">(P/Q)</text>
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 341.48227,530.62449 -1.11879,0.64383 0.0316,-22.37591 0.54387,-0.31062 0.5433,0.31627 z"
-     id="path120"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 341.48227,508.89806 -0.5433,-0.31627 -0.004,-0.62688 18.82298,-10.86604 0.53653,0.32191 v 0.62689 z"
-     id="path121"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 344.0141,510.68271 -0.55911,-0.97139 16.55998,-9.55579 0.55911,0.96574 z"
-     id="path122"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 342.0572,531.25703 0.55912,0.97139 -15.17462,8.76512 -0.55912,-0.97139 z"
-     id="path123"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 340.65941,528.83984 0.55912,0.96575 -15.17462,8.76512 -0.55968,-0.97139 z"
-     id="path124"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 340.36348,531.26832 1.11879,-0.64383 18.81226,10.85475 v 0.62688 l -0.53709,0.32192 z"
-     id="path125"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 360.83162,542.42804 -0.53709,-0.32192 v -0.62688 l 18.81225,-10.85475 0.5433,0.31062 v 0.62689 z"
-     id="path126"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 360.57408,539.36702 -0.55911,-0.97139 16.55998,-9.55579 0.55912,0.96575 z"
-     id="path127"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 379.65008,531.562 v -0.62689 l 0.54331,-0.31062 18.80209,10.85475 v 0.62688 l -0.26827,0.49135 z"
-     id="path128"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 399.61954,542.37156 -0.62406,-0.26544 v -0.62688 l 18.81225,-10.85475 0.5433,0.31062 -0.0892,0.67207 z"
-     id="path129"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 418.91015,530.94076 -0.55912,-0.006 -0.5433,-0.31062 v -21.72608 l 0.5433,-0.31627 0.54331,0.31627 z"
-     id="path130"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 418.89434,508.89806 -0.54331,-0.31627 0.35637,-0.80761 18.46605,-10.67967 0.54331,0.31627 0.0621,0.593 z"
-     id="path131"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 437.77888,498.00378 -0.0621,-0.593 0.53935,-0.39533 20.50089,6.66985 0.20614,0.63818 -0.4552,0.42357 z"
-     id="path132"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 458.96314,504.32348 -0.20614,-0.63818 12.67328,-17.44553 h 0.66699 l 0.18581,0.65512 -10.8299,14.93799 -2.48891,2.4906 z"
-     id="path133"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 475.15603,486.69158 -0.0378,-1.11823 1.11032,-0.25415 0.0525,1.5531 z"
-     id="path134"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 478.48982,487.23375 -0.0824,-2.42283 1.11032,-0.25979 0.0971,2.86335 z"
-     id="path135"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 481.82362,487.77028 -0.12651,-3.72179 1.10976,-0.25979 0.14176,4.1623 z"
-     id="path136"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 485.15741,488.31245 -0.17112,-5.03204 1.11032,-0.25414 0.18581,5.4669 z"
-     id="path137"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 488.49121,488.84897 -0.21574,-6.33099 1.11032,-0.25979 0.23043,6.77151 z"
-     id="path138"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 472.59257,485.96303 -0.4953,0.27674 h -0.66699 l -12.67328,-17.44553 0.20614,-0.63254 0.68111,0.0226 z"
-     id="path139"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 458.96879,465.07245 -1.10016,0.20332 -0.35015,-1.07305 1.40004,-0.25415 z"
-     id="path140"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 458.82195,461.77424 -1.9778,0.36144 -0.35072,-1.07305 2.27826,-0.41227 z"
-     id="path141"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 458.67511,458.48167 -2.856,0.51958 -0.35072,-1.07305 3.15646,-0.57606 z"
-     id="path142"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 458.52771,455.18345 -3.73365,0.67772 -0.35015,-1.07305 4.03353,-0.73419 z"
-     id="path143"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 458.38087,451.88524 -4.61129,0.84149 -0.35072,-1.07305 4.91175,-0.89797 z"
-     id="path144"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 458.23403,448.58702 -5.48949,0.99963 -0.35016,-1.07305 5.78939,-1.05046 z"
-     id="path145"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 458.08719,445.2888 -6.36713,1.16342 -0.35072,-1.07305 6.66759,-1.21424 z"
-     id="path146"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 459.64425,468.1843 -0.68111,-0.0226 -0.21179,-0.51393 13.38658,-15.47451 8.59965,1.73947 z"
-     id="path147"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 474.91148,454.17253 -1.09394,0.23155 -3.81949,-17.97641 1.09394,-0.23155 z"
-     id="path148"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 477.5653,453.21243 -1.09394,0.23155 -3.73873,-17.59801 1.09394,-0.23156 z"
-     id="path149"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 480.73758,453.91273 -8.59965,-1.73947 23.67656,2.1574 0.26375,0.56476 -0.0599,0.55912 z"
-     id="path150"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 458.75135,467.64777 0.21179,0.51393 -0.20614,0.63254 -20.50089,6.6642 -0.53935,-0.39533 0.38799,-0.68336 z"
-     id="path151"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 438.25611,497.01545 -0.53935,0.39533 -0.54331,-0.31627 v -21.71513 l 0.54331,-0.31627 0.53935,0.39533 z"
-     id="path152"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 438.10475,474.37975 -0.38799,0.68336 -0.35637,-0.80761 -3.03221,-14.96057 h 6.77715 z"
-     id="path153"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 437.36039,474.2555 0.35637,0.80761 -0.54331,0.31627 -18.82242,-10.8604 v -0.62688 l 0.57324,-0.29368 z"
-     id="path154"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 417.94215,463.49111 0.40888,0.40099 v 0.62688 l -18.81225,10.8604 -0.5433,-0.31627 -0.0695,-0.58735 z"
-     id="path155"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 398.92601,474.47576 0.0695,0.58735 -0.54726,0.2372 -16.1302,-5.9526 3.38915,-5.86789 z"
-     id="path156"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 398.44822,475.30031 0.54726,-0.2372 0.5433,0.31627 v 21.71513 l -0.5433,0.31627 -0.54331,-0.31627 z"
-     id="path157"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 398.43636,500.4605 h 1.11823 l 0.23438,1.11823 h -1.58699 z"
-     id="path158"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 397.78745,503.54975 h 2.41605 l 0.23438,1.11824 h -2.88481 z"
-     id="path159"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 397.1391,506.64466 h 3.71275 l 0.23494,1.11823 h -4.18263 z"
-     id="path160"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 396.49019,509.73956 h 5.01057 l 0.23438,1.11823 h -5.47933 z"
-     id="path161"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 395.84127,512.83446 h 6.30841 l 0.23437,1.11823 h -6.77715 z"
-     id="path162"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 417.99467,507.77418 0.35636,0.80761 -0.5433,0.31627 -18.81225,-10.86039 v -0.62689 l 0.5433,-0.31627 z"
-     id="path163"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 398.45217,497.09451 0.54331,0.31627 v 0.62689 l -18.80209,10.86039 -0.54331,-0.31627 0.35637,-0.80761 z"
-     id="path164"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 360.29453,498.03767 v -0.62689 l 0.53652,-0.32191 18.46267,10.68531 0.35636,0.80761 -0.5433,0.31627 z"
-     id="path165"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 380.19339,530.62449 -0.54331,0.31062 -0.5433,-0.31062 v -21.72643 l 0.5433,-0.31627 0.54331,0.31627 z"
-     id="path166"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 380.00645,507.77418 -0.35637,0.80761 -0.35636,-0.80761 -3.03221,-14.96622 h 6.77715 z"
-     id="path167"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 418.7074,507.77418 -0.35637,0.80761 -0.35636,-0.80761 -3.03221,-14.96622 h 6.77715 z"
-     id="path168"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 437.15764,500.45485 h 1.11823 l 0.24172,1.11823 h -1.60167 z"
-     id="path169"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 436.29525,504.44773 h 2.84302 l 0.24171,1.11823 h -3.32645 z"
-     id="path170"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 435.43229,508.4406 h 4.56893 l 0.24172,1.11823 h -5.05237 z"
-     id="path171"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 434.5699,512.43348 h 6.29372 l 0.24171,1.11823 h -6.77715 z"
-     id="path172"
-     style="stroke-width:0.0999998" />
-  <text
-     x="354.32187"
-     y="477.8327"
-     stroke="none"
-     fill="#000000"
-     font-style="normal"
-     font-weight="normal"
-     font-size="9.03621px"
-     font-family="'EB Garamond'"
-     id="text172"
-     style="stroke-width:0.0999998">(A)</text>
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 360.83105,497.08887 -0.53652,0.32191 -0.53653,-0.32191 -0.0226,-15.45192 h 1.11823 z"
-     id="path173"
-     style="stroke-width:0.0999998" />
-  <text
-     x="312.01944"
-     y="500.177"
-     stroke="none"
-     fill="#000000"
-     font-style="normal"
-     font-weight="normal"
-     font-size="9.03621px"
-     font-family="'EB Garamond'"
-     id="text173"
-     style="stroke-width:0.0999998">(B)</text>
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 340.93502,507.95491 0.004,0.62688 -0.54387,0.31062 -15.62981,-9.00797 0.55911,-0.96574 z"
-     id="path174"
-     style="stroke-width:0.0999998" />
-  <text
-     x="354.24057"
-     y="567.22113"
-     stroke="none"
-     fill="#000000"
-     font-style="normal"
-     font-weight="normal"
-     font-size="9.03621px"
-     font-family="'EB Garamond'"
-     id="text174"
-     style="stroke-width:0.0999998">(C)</text>
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 359.75744,542.42804 0.53709,-0.32192 0.53709,0.32192 0.022,15.80772 h -1.11823 z"
-     id="path175"
-     style="stroke-width:0.0999998" />
-  <text
-     x="505.35815"
-     y="439.29443"
-     stroke="none"
-     fill="#000000"
-     font-style="normal"
-     font-weight="normal"
-     font-size="9.03621px"
-     font-family="'EB Garamond'"
-     id="text175"
-     style="stroke-width:0.0999998">O(F)</text>
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 496.78758,454.79941 -0.70934,0.096 -0.26375,-0.56476 9.74047,-14.09084 0.91887,0.63254 z"
-     id="path176"
-     style="stroke-width:0.0999998" />
-  <text
-     x="514.00012"
-     y="468.84619"
-     stroke="none"
-     fill="#000000"
-     font-style="normal"
-     font-weight="normal"
-     font-size="9.03621px"
-     font-family="'EB Garamond'"
-     id="text176"
-     style="stroke-width:0.0999998">(G)</text>
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 496.01837,455.45454 0.0599,-0.55912 0.70934,-0.096 16.96887,6.40441 -3.3914,5.86224 z"
-     id="path177"
-     style="stroke-width:0.0999998" />
-  <text
-     x="495.93903"
-     y="479.25592"
-     stroke="none"
-     fill="#000000"
-     font-style="normal"
-     font-weight="normal"
-     font-size="9.03621px"
-     font-family="'EB Garamond'"
-     id="text177"
-     style="stroke-width:0.0999998">(K)</text>
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 496.3256,457.97903 1.07983,-0.28803 0.53935,1.01092 -1.58021,0.42358 z"
-     id="path178"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 496.4555,461.77988 2.73571,-0.73419 0.53935,1.01093 -3.23553,0.86973 z"
-     id="path179"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 496.58596,465.57509 4.39103,-1.17471 0.53935,1.01093 -4.89085,1.31025 z"
-     id="path180"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 496.71642,469.37595 6.04635,-1.62087 0.53935,1.01092 -6.54673,1.75641 z"
-     id="path181"
-     style="stroke-width:0.0999998" />
-  <text
-     x="394.61264"
-     y="455.48843"
-     stroke="none"
-     fill="#000000"
-     font-style="normal"
-     font-weight="normal"
-     font-size="9.03621px"
-     font-family="'EB Garamond'"
-     id="text181"
-     style="stroke-width:0.0999998">(J)</text>
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 399.55459,472.02468 h -1.11823 l -0.2485,-1.11823 h 1.61523 z"
-     id="path182"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 400.41473,468.15041 h -2.8385 l -0.2485,-1.11823 h 3.33549 z"
-     id="path183"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 401.27542,464.28178 h -4.55989 l -0.2485,-1.11823 h 5.05689 z"
-     id="path184"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 402.13556,460.41316 h -6.28017 l -0.24849,-1.11823 h 6.77715 z"
-     id="path185"
-     style="stroke-width:0.0999998" />
-  <text
-     x="489.34824"
-     y="501.36639"
-     stroke="none"
-     fill="#000000"
-     font-style="normal"
-     font-weight="normal"
-     font-size="9.03621px"
-     font-family="'EB Garamond'"
-     id="text185"
-     style="stroke-width:0.0999998">(L)</text>
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 472.28308,486.89489 -0.18581,-0.65512 0.4953,-0.27674 16.68366,7.58477 -3.74043,5.64763 z"
-     id="path186"
-     style="stroke-width:0.0999998" />
-  <text
-     x="403.26028"
-     y="564.22229"
-     stroke="none"
-     fill="#000000"
-     font-style="normal"
-     font-weight="normal"
-     font-size="9.03621px"
-     font-family="'EB Garamond'"
-     id="text186"
-     style="stroke-width:0.0999998">(M)</text>
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 398.72721,542.59747 0.26827,-0.49135 0.62406,0.26544 9.42363,10.34646 -5.86732,3.39423 z"
-     id="path187"
-     style="stroke-width:0.0999998" />
-  <text
-     x="370.89822"
-     y="564.22229"
-     stroke="none"
-     fill="#000000"
-     font-style="normal"
-     font-weight="normal"
-     font-size="9.03621px"
-     font-family="'EB Garamond'"
-     id="text187"
-     style="stroke-width:0.0999998">(O/N)</text>
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 396.99113,544.46119 0.96857,0.55911 -0.32304,1.10694 -1.44071,-0.83585 z"
-     id="path188"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 394.5073,547.0591 2.4443,1.4119 -0.32305,1.10129 -2.917,-1.68299 z"
-     id="path189"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 392.02291,549.65701 3.92059,2.2647 -0.32305,1.10128 -4.39272,-2.53578 z"
-     id="path190"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 389.53908,552.25492 5.39631,3.11184 -0.32304,1.10694 -5.86902,-3.38858 z"
-     id="path191"
-     style="stroke-width:0.0999998" />
-  <text
-     x="416.37665"
-     y="441.02258"
-     stroke="none"
-     fill="#000000"
-     font-style="normal"
-     font-weight="normal"
-     font-size="9.03621px"
-     font-family="'EB Garamond'"
-     id="text191"
-     style="stroke-width:0.0999998">(P/Q)</text>
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 418.92427,463.59842 -0.57324,0.29368 -0.40888,-0.40099 2.51263,-19.15676 6.51228,1.87502 z"
-     id="path192"
-     style="stroke-width:0.0999998" />
-  <text
-     x="402.25839"
-     y="442.03918"
-     stroke="none"
-     fill="#000000"
-     font-style="normal"
-     font-weight="normal"
-     font-size="9.03621px"
-     font-family="'EB Garamond'"
-     id="text192"
-     style="stroke-width:0.0999998">(U)</text>
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 417.73488,460.86497 -1.03747,0.41792 -0.6043,-0.9601 1.41134,-0.57041 z"
-     id="path193"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 416.98205,457.23354 -2.25623,0.90927 -0.6043,-0.9601 2.62954,-1.06175 z"
-     id="path194"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 416.22922,453.60776 -3.47555,1.39497 -0.6043,-0.9601 3.84886,-1.54745 z"
-     id="path195"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 415.47583,449.97634 -4.69375,1.89195 -0.60486,-0.96574 5.06818,-2.0388 z"
-     id="path196"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 414.723,446.34491 -5.91307,2.3833 -0.6043,-0.96574 6.28694,-2.53014 z"
-     id="path197"
-     style="stroke-width:0.0999998" />
-  <text
-     x="423.45508"
-     y="553.05127"
-     stroke="none"
-     fill="#000000"
-     font-style="normal"
-     font-weight="normal"
-     font-size="9.03621px"
-     font-family="'EB Garamond'"
-     id="text197"
-     style="stroke-width:0.0999998">(R)</text>
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 418.2618,531.60718 0.0892,-0.67207 0.55912,0.006 9.69472,10.97335 -5.86845,3.38857 z"
-     id="path198"
-     style="stroke-width:0.0999998" />
-  <text
-     x="439.27185"
-     y="533.70245"
-     stroke="none"
-     fill="#000000"
-     font-style="normal"
-     font-weight="normal"
-     font-size="9.03621px"
-     font-family="'EB Garamond'"
-     id="text198"
-     style="stroke-width:0.0999998">(V)</text>
-  <path
-     stroke="none"
-     fill="#000000"
-     d="M 421.39172,531.49423 V 530.376 l 1.11823,-0.19767 v 1.51356 z"
-     id="path199"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 425.11351,532.155 v -2.43413 l 1.11823,-0.19767 v 2.82947 z"
-     id="path200"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 428.83529,532.81013 v -3.75003 l 1.11823,-0.19767 v 4.14536 z"
-     id="path201"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 432.55708,533.4709 v -5.06593 l 1.11823,-0.19766 v 5.46126 z"
-     id="path202"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 436.27887,534.12602 v -6.38182 l 1.11823,-0.19767 v 6.77716 z"
-     id="path203"
-     style="stroke-width:0.0999998" />
-  <text
-     x="454.01553"
-     y="529.43286"
-     stroke="none"
-     fill="#000000"
-     font-style="normal"
-     font-weight="normal"
-     font-size="9.03621px"
-     font-family="'EB Garamond'"
-     id="text203"
-     style="stroke-width:0.0999998">(S)</text>
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 458.50794,504.74705 0.4552,-0.42357 h 10e-4 l -0.46423,0.46311 z"
-     id="path204"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 462.35172,520.45311 h -6.77716 l 2.60243,-13.93835 2.13593,2.76169 z"
-     id="path205"
-     style="stroke-width:0.0999998" />
-  <text
-     x="475.54318"
-     y="523.89252"
-     stroke="none"
-     fill="#000000"
-     font-style="normal"
-     font-weight="normal"
-     font-size="9.03621px"
-     font-family="'EB Garamond'"
-     id="text205"
-     style="stroke-width:0.0999998">(W)</text>
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 460.77377,505.72409 0.79067,-0.79067 0.91717,0.66642 -1.04368,1.03917 z"
-     id="path206"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 462.74592,508.44625 1.54011,-1.5418 0.91718,0.66642 -1.79313,1.7903 z"
-     id="path207"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 464.71751,511.16841 2.29068,-2.29294 0.91661,0.66642 -2.54256,2.54143 z"
-     id="path208"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 466.68966,513.89057 3.04012,-3.03843 0.91718,0.66077 -3.29257,3.29257 z"
-     id="path209"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 468.66182,516.61272 3.78956,-3.78956 0.91717,0.66078 -4.04257,4.0437 z"
-     id="path210"
-     style="stroke-width:0.0999998" />
-  <path
-     stroke="none"
-     fill="#000000"
-     d="m 470.63397,519.33488 4.53956,-4.54069 0.91661,0.66642 -4.79201,4.78919 z"
-     id="path211"
      style="stroke-width:0.0999998" />
   <path
      stroke="none"
@@ -5014,17 +4143,891 @@
      font-family="'EB Garamond'"
      id="text570"
      style="font-size:12px;stroke-width:0.0999998">g.</text>
-  <text
-     x="312.34756"
-     y="442.91116"
-     stroke="none"
-     fill="#000000"
-     font-style="normal"
-     font-weight="bold"
-     font-size="10.1657px"
-     font-family="'EB Garamond'"
-     id="text571"
-     style="font-size:12px;stroke-width:0.0999998">h.</text>
+  <g
+     id="g1">
+    <text
+       x="318.146"
+       y="544.87347"
+       stroke="none"
+       fill="#000000"
+       font-style="normal"
+       font-weight="normal"
+       font-size="9.03621px"
+       font-family="'EB Garamond'"
+       id="text108"
+       style="stroke-width:0.0999998">O</text>
+    <text
+       x="491.31476"
+       y="488.24243"
+       stroke="none"
+       fill="#000000"
+       font-style="normal"
+       font-weight="normal"
+       font-size="9.03621px"
+       font-family="'EB Garamond'"
+       id="text109"
+       style="stroke-width:0.0999998">C(Y)</text>
+    <text
+       x="508.64621"
+       y="491.74396"
+       stroke="none"
+       fill="#000000"
+       font-style="normal"
+       font-weight="normal"
+       font-size="6.77716px"
+       font-family="'EB Garamond'"
+       id="text110"
+       style="stroke-width:0.0999998">3</text>
+    <text
+       x="440.38049"
+       y="442.62878"
+       stroke="none"
+       fill="#000000"
+       font-style="normal"
+       font-weight="normal"
+       font-size="9.03621px"
+       font-family="'EB Garamond'"
+       id="text111"
+       style="stroke-width:0.0999998">(E)O</text>
+    <text
+       x="467.47046"
+       y="434.10989"
+       stroke="none"
+       fill="#000000"
+       font-style="normal"
+       font-weight="normal"
+       font-size="9.03621px"
+       font-family="'EB Garamond'"
+       id="text112"
+       style="stroke-width:0.0999998">O</text>
+    <text
+       x="432.24026"
+       y="456.24295"
+       stroke="none"
+       fill="#000000"
+       font-style="normal"
+       font-weight="normal"
+       font-size="9.03621px"
+       font-family="'EB Garamond'"
+       id="text113"
+       style="stroke-width:0.0999998">C(X)</text>
+    <text
+       x="450.73737"
+       y="459.74448"
+       stroke="none"
+       fill="#000000"
+       font-style="normal"
+       font-weight="normal"
+       font-size="6.77716px"
+       font-family="'EB Garamond'"
+       id="text114"
+       style="stroke-width:0.0999998">3</text>
+    <text
+       x="363.69638"
+       y="466.66058"
+       stroke="none"
+       fill="#000000"
+       font-style="normal"
+       font-weight="normal"
+       font-size="9.03621px"
+       font-family="'EB Garamond'"
+       id="text115"
+       style="stroke-width:0.0999998">(D)O</text>
+    <text
+       x="396.68192"
+       y="522.53143"
+       stroke="none"
+       fill="#000000"
+       font-style="normal"
+       font-weight="normal"
+       font-size="9.03621px"
+       font-family="'EB Garamond'"
+       id="text116"
+       style="stroke-width:0.0999998">F</text>
+    <text
+       x="376.44196"
+       y="489.00488"
+       stroke="none"
+       fill="#000000"
+       font-style="normal"
+       font-weight="normal"
+       font-size="9.03621px"
+       font-family="'EB Garamond'"
+       id="text117"
+       style="stroke-width:0.0999998">C(T)</text>
+    <text
+       x="394.60474"
+       y="492.50641"
+       stroke="none"
+       fill="#000000"
+       font-style="normal"
+       font-weight="normal"
+       font-size="6.77716px"
+       font-family="'EB Garamond'"
+       id="text118"
+       style="stroke-width:0.0999998">3</text>
+    <text
+       x="411.92603"
+       y="489.00488"
+       stroke="none"
+       fill="#000000"
+       font-style="normal"
+       font-weight="normal"
+       font-size="9.03621px"
+       font-family="'EB Garamond'"
+       id="text119"
+       style="stroke-width:0.0999998">(N/O)</text>
+    <text
+       x="428.44449"
+       y="522.53143"
+       stroke="none"
+       fill="#000000"
+       font-style="normal"
+       font-weight="normal"
+       font-size="9.03621px"
+       font-family="'EB Garamond'"
+       id="text120"
+       style="stroke-width:0.0999998">(P/Q)</text>
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 341.48227,530.62449 -1.11879,0.64383 0.0316,-22.37591 0.54387,-0.31062 0.5433,0.31627 z"
+       id="path120"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 341.48227,508.89806 -0.5433,-0.31627 -0.004,-0.62688 18.82298,-10.86604 0.53653,0.32191 v 0.62689 z"
+       id="path121"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 344.0141,510.68271 -0.55911,-0.97139 16.55998,-9.55579 0.55911,0.96574 z"
+       id="path122"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 342.0572,531.25703 0.55912,0.97139 -15.17462,8.76512 -0.55912,-0.97139 z"
+       id="path123"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 340.65941,528.83984 0.55912,0.96575 -15.17462,8.76512 -0.55968,-0.97139 z"
+       id="path124"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 340.36348,531.26832 1.11879,-0.64383 18.81226,10.85475 v 0.62688 l -0.53709,0.32192 z"
+       id="path125"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 360.83162,542.42804 -0.53709,-0.32192 v -0.62688 l 18.81225,-10.85475 0.5433,0.31062 v 0.62689 z"
+       id="path126"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 360.57408,539.36702 -0.55911,-0.97139 16.55998,-9.55579 0.55912,0.96575 z"
+       id="path127"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 379.65008,531.562 v -0.62689 l 0.54331,-0.31062 18.80209,10.85475 v 0.62688 l -0.26827,0.49135 z"
+       id="path128"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 399.61954,542.37156 -0.62406,-0.26544 v -0.62688 l 18.81225,-10.85475 0.5433,0.31062 -0.0892,0.67207 z"
+       id="path129"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 418.91015,530.94076 -0.55912,-0.006 -0.5433,-0.31062 v -21.72608 l 0.5433,-0.31627 0.54331,0.31627 z"
+       id="path130"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 418.89434,508.89806 -0.54331,-0.31627 0.35637,-0.80761 18.46605,-10.67967 0.54331,0.31627 0.0621,0.593 z"
+       id="path131"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 437.77888,498.00378 -0.0621,-0.593 0.53935,-0.39533 20.50089,6.66985 0.20614,0.63818 -0.4552,0.42357 z"
+       id="path132"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 458.96314,504.32348 -0.20614,-0.63818 12.67328,-17.44553 h 0.66699 l 0.18581,0.65512 -10.8299,14.93799 -2.48891,2.4906 z"
+       id="path133"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 475.15603,486.69158 -0.0378,-1.11823 1.11032,-0.25415 0.0525,1.5531 z"
+       id="path134"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 478.48982,487.23375 -0.0824,-2.42283 1.11032,-0.25979 0.0971,2.86335 z"
+       id="path135"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 481.82362,487.77028 -0.12651,-3.72179 1.10976,-0.25979 0.14176,4.1623 z"
+       id="path136"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 485.15741,488.31245 -0.17112,-5.03204 1.11032,-0.25414 0.18581,5.4669 z"
+       id="path137"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 488.49121,488.84897 -0.21574,-6.33099 1.11032,-0.25979 0.23043,6.77151 z"
+       id="path138"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 472.59257,485.96303 -0.4953,0.27674 h -0.66699 l -12.67328,-17.44553 0.20614,-0.63254 0.68111,0.0226 z"
+       id="path139"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 458.96879,465.07245 -1.10016,0.20332 -0.35015,-1.07305 1.40004,-0.25415 z"
+       id="path140"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 458.82195,461.77424 -1.9778,0.36144 -0.35072,-1.07305 2.27826,-0.41227 z"
+       id="path141"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 458.67511,458.48167 -2.856,0.51958 -0.35072,-1.07305 3.15646,-0.57606 z"
+       id="path142"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 458.52771,455.18345 -3.73365,0.67772 -0.35015,-1.07305 4.03353,-0.73419 z"
+       id="path143"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 458.38087,451.88524 -4.61129,0.84149 -0.35072,-1.07305 4.91175,-0.89797 z"
+       id="path144"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 458.23403,448.58702 -5.48949,0.99963 -0.35016,-1.07305 5.78939,-1.05046 z"
+       id="path145"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 458.08719,445.2888 -6.36713,1.16342 -0.35072,-1.07305 6.66759,-1.21424 z"
+       id="path146"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 459.64425,468.1843 -0.68111,-0.0226 -0.21179,-0.51393 13.38658,-15.47451 8.59965,1.73947 z"
+       id="path147"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 474.91148,454.17253 -1.09394,0.23155 -3.81949,-17.97641 1.09394,-0.23155 z"
+       id="path148"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 477.5653,453.21243 -1.09394,0.23155 -3.73873,-17.59801 1.09394,-0.23156 z"
+       id="path149"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 480.73758,453.91273 -8.59965,-1.73947 23.67656,2.1574 0.26375,0.56476 -0.0599,0.55912 z"
+       id="path150"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 458.75135,467.64777 0.21179,0.51393 -0.20614,0.63254 -20.50089,6.6642 -0.53935,-0.39533 0.38799,-0.68336 z"
+       id="path151"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 438.25611,497.01545 -0.53935,0.39533 -0.54331,-0.31627 v -21.71513 l 0.54331,-0.31627 0.53935,0.39533 z"
+       id="path152"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 438.10475,474.37975 -0.38799,0.68336 -0.35637,-0.80761 -3.03221,-14.96057 h 6.77715 z"
+       id="path153"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 437.36039,474.2555 0.35637,0.80761 -0.54331,0.31627 -18.82242,-10.8604 v -0.62688 l 0.57324,-0.29368 z"
+       id="path154"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 417.94215,463.49111 0.40888,0.40099 v 0.62688 l -18.81225,10.8604 -0.5433,-0.31627 -0.0695,-0.58735 z"
+       id="path155"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 398.92601,474.47576 0.0695,0.58735 -0.54726,0.2372 -16.1302,-5.9526 3.38915,-5.86789 z"
+       id="path156"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 398.44822,475.30031 0.54726,-0.2372 0.5433,0.31627 v 21.71513 l -0.5433,0.31627 -0.54331,-0.31627 z"
+       id="path157"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 398.43636,500.4605 h 1.11823 l 0.23438,1.11823 h -1.58699 z"
+       id="path158"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 397.78745,503.54975 h 2.41605 l 0.23438,1.11824 h -2.88481 z"
+       id="path159"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 397.1391,506.64466 h 3.71275 l 0.23494,1.11823 h -4.18263 z"
+       id="path160"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 396.49019,509.73956 h 5.01057 l 0.23438,1.11823 h -5.47933 z"
+       id="path161"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 395.84127,512.83446 h 6.30841 l 0.23437,1.11823 h -6.77715 z"
+       id="path162"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 417.99467,507.77418 0.35636,0.80761 -0.5433,0.31627 -18.81225,-10.86039 v -0.62689 l 0.5433,-0.31627 z"
+       id="path163"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 398.45217,497.09451 0.54331,0.31627 v 0.62689 l -18.80209,10.86039 -0.54331,-0.31627 0.35637,-0.80761 z"
+       id="path164"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 360.29453,498.03767 v -0.62689 l 0.53652,-0.32191 18.46267,10.68531 0.35636,0.80761 -0.5433,0.31627 z"
+       id="path165"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 380.19339,530.62449 -0.54331,0.31062 -0.5433,-0.31062 v -21.72643 l 0.5433,-0.31627 0.54331,0.31627 z"
+       id="path166"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 380.00645,507.77418 -0.35637,0.80761 -0.35636,-0.80761 -3.03221,-14.96622 h 6.77715 z"
+       id="path167"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 418.7074,507.77418 -0.35637,0.80761 -0.35636,-0.80761 -3.03221,-14.96622 h 6.77715 z"
+       id="path168"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 437.15764,500.45485 h 1.11823 l 0.24172,1.11823 h -1.60167 z"
+       id="path169"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 436.29525,504.44773 h 2.84302 l 0.24171,1.11823 h -3.32645 z"
+       id="path170"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 435.43229,508.4406 h 4.56893 l 0.24172,1.11823 h -5.05237 z"
+       id="path171"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 434.5699,512.43348 h 6.29372 l 0.24171,1.11823 h -6.77715 z"
+       id="path172"
+       style="stroke-width:0.0999998" />
+    <text
+       x="354.32187"
+       y="477.8327"
+       stroke="none"
+       fill="#000000"
+       font-style="normal"
+       font-weight="normal"
+       font-size="9.03621px"
+       font-family="'EB Garamond'"
+       id="text172"
+       style="stroke-width:0.0999998">(A)</text>
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 360.83105,497.08887 -0.53652,0.32191 -0.53653,-0.32191 -0.0226,-15.45192 h 1.11823 z"
+       id="path173"
+       style="stroke-width:0.0999998" />
+    <text
+       x="312.01944"
+       y="500.177"
+       stroke="none"
+       fill="#000000"
+       font-style="normal"
+       font-weight="normal"
+       font-size="9.03621px"
+       font-family="'EB Garamond'"
+       id="text173"
+       style="stroke-width:0.0999998">(B)</text>
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 340.93502,507.95491 0.004,0.62688 -0.54387,0.31062 -15.62981,-9.00797 0.55911,-0.96574 z"
+       id="path174"
+       style="stroke-width:0.0999998" />
+    <text
+       x="354.24057"
+       y="567.22113"
+       stroke="none"
+       fill="#000000"
+       font-style="normal"
+       font-weight="normal"
+       font-size="9.03621px"
+       font-family="'EB Garamond'"
+       id="text174"
+       style="stroke-width:0.0999998">(C)</text>
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 359.75744,542.42804 0.53709,-0.32192 0.53709,0.32192 0.022,15.80772 h -1.11823 z"
+       id="path175"
+       style="stroke-width:0.0999998" />
+    <text
+       x="505.35815"
+       y="439.29443"
+       stroke="none"
+       fill="#000000"
+       font-style="normal"
+       font-weight="normal"
+       font-size="9.03621px"
+       font-family="'EB Garamond'"
+       id="text175"
+       style="stroke-width:0.0999998">O(F)</text>
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 496.78758,454.79941 -0.70934,0.096 -0.26375,-0.56476 9.74047,-14.09084 0.91887,0.63254 z"
+       id="path176"
+       style="stroke-width:0.0999998" />
+    <text
+       x="514.00012"
+       y="468.84619"
+       stroke="none"
+       fill="#000000"
+       font-style="normal"
+       font-weight="normal"
+       font-size="9.03621px"
+       font-family="'EB Garamond'"
+       id="text176"
+       style="stroke-width:0.0999998">(G)</text>
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 496.01837,455.45454 0.0599,-0.55912 0.70934,-0.096 16.96887,6.40441 -3.3914,5.86224 z"
+       id="path177"
+       style="stroke-width:0.0999998" />
+    <text
+       x="495.93903"
+       y="479.25592"
+       stroke="none"
+       fill="#000000"
+       font-style="normal"
+       font-weight="normal"
+       font-size="9.03621px"
+       font-family="'EB Garamond'"
+       id="text177"
+       style="stroke-width:0.0999998">(K)</text>
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 496.3256,457.97903 1.07983,-0.28803 0.53935,1.01092 -1.58021,0.42358 z"
+       id="path178"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 496.4555,461.77988 2.73571,-0.73419 0.53935,1.01093 -3.23553,0.86973 z"
+       id="path179"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 496.58596,465.57509 4.39103,-1.17471 0.53935,1.01093 -4.89085,1.31025 z"
+       id="path180"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 496.71642,469.37595 6.04635,-1.62087 0.53935,1.01092 -6.54673,1.75641 z"
+       id="path181"
+       style="stroke-width:0.0999998" />
+    <text
+       x="394.61264"
+       y="455.48843"
+       stroke="none"
+       fill="#000000"
+       font-style="normal"
+       font-weight="normal"
+       font-size="9.03621px"
+       font-family="'EB Garamond'"
+       id="text181"
+       style="stroke-width:0.0999998">(J)</text>
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 399.55459,472.02468 h -1.11823 l -0.2485,-1.11823 h 1.61523 z"
+       id="path182"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 400.41473,468.15041 h -2.8385 l -0.2485,-1.11823 h 3.33549 z"
+       id="path183"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 401.27542,464.28178 h -4.55989 l -0.2485,-1.11823 h 5.05689 z"
+       id="path184"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 402.13556,460.41316 h -6.28017 l -0.24849,-1.11823 h 6.77715 z"
+       id="path185"
+       style="stroke-width:0.0999998" />
+    <text
+       x="489.34824"
+       y="501.36639"
+       stroke="none"
+       fill="#000000"
+       font-style="normal"
+       font-weight="normal"
+       font-size="9.03621px"
+       font-family="'EB Garamond'"
+       id="text185"
+       style="stroke-width:0.0999998">(L)</text>
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 472.28308,486.89489 -0.18581,-0.65512 0.4953,-0.27674 16.68366,7.58477 -3.74043,5.64763 z"
+       id="path186"
+       style="stroke-width:0.0999998" />
+    <text
+       x="403.26028"
+       y="564.22229"
+       stroke="none"
+       fill="#000000"
+       font-style="normal"
+       font-weight="normal"
+       font-size="9.03621px"
+       font-family="'EB Garamond'"
+       id="text186"
+       style="stroke-width:0.0999998">(M)</text>
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 398.72721,542.59747 0.26827,-0.49135 0.62406,0.26544 9.42363,10.34646 -5.86732,3.39423 z"
+       id="path187"
+       style="stroke-width:0.0999998" />
+    <text
+       x="370.89822"
+       y="564.22229"
+       stroke="none"
+       fill="#000000"
+       font-style="normal"
+       font-weight="normal"
+       font-size="9.03621px"
+       font-family="'EB Garamond'"
+       id="text187"
+       style="stroke-width:0.0999998">(O/N)</text>
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 396.99113,544.46119 0.96857,0.55911 -0.32304,1.10694 -1.44071,-0.83585 z"
+       id="path188"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 394.5073,547.0591 2.4443,1.4119 -0.32305,1.10129 -2.917,-1.68299 z"
+       id="path189"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 392.02291,549.65701 3.92059,2.2647 -0.32305,1.10128 -4.39272,-2.53578 z"
+       id="path190"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 389.53908,552.25492 5.39631,3.11184 -0.32304,1.10694 -5.86902,-3.38858 z"
+       id="path191"
+       style="stroke-width:0.0999998" />
+    <text
+       x="416.37665"
+       y="441.02258"
+       stroke="none"
+       fill="#000000"
+       font-style="normal"
+       font-weight="normal"
+       font-size="9.03621px"
+       font-family="'EB Garamond'"
+       id="text191"
+       style="stroke-width:0.0999998">(P/Q)</text>
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 418.92427,463.59842 -0.57324,0.29368 -0.40888,-0.40099 2.51263,-19.15676 6.51228,1.87502 z"
+       id="path192"
+       style="stroke-width:0.0999998" />
+    <text
+       x="402.25839"
+       y="442.03918"
+       stroke="none"
+       fill="#000000"
+       font-style="normal"
+       font-weight="normal"
+       font-size="9.03621px"
+       font-family="'EB Garamond'"
+       id="text192"
+       style="stroke-width:0.0999998">(U)</text>
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 417.73488,460.86497 -1.03747,0.41792 -0.6043,-0.9601 1.41134,-0.57041 z"
+       id="path193"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 416.98205,457.23354 -2.25623,0.90927 -0.6043,-0.9601 2.62954,-1.06175 z"
+       id="path194"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 416.22922,453.60776 -3.47555,1.39497 -0.6043,-0.9601 3.84886,-1.54745 z"
+       id="path195"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 415.47583,449.97634 -4.69375,1.89195 -0.60486,-0.96574 5.06818,-2.0388 z"
+       id="path196"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 414.723,446.34491 -5.91307,2.3833 -0.6043,-0.96574 6.28694,-2.53014 z"
+       id="path197"
+       style="stroke-width:0.0999998" />
+    <text
+       x="423.45508"
+       y="553.05127"
+       stroke="none"
+       fill="#000000"
+       font-style="normal"
+       font-weight="normal"
+       font-size="9.03621px"
+       font-family="'EB Garamond'"
+       id="text197"
+       style="stroke-width:0.0999998">(R)</text>
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 418.2618,531.60718 0.0892,-0.67207 0.55912,0.006 9.69472,10.97335 -5.86845,3.38857 z"
+       id="path198"
+       style="stroke-width:0.0999998" />
+    <text
+       x="439.27185"
+       y="533.70245"
+       stroke="none"
+       fill="#000000"
+       font-style="normal"
+       font-weight="normal"
+       font-size="9.03621px"
+       font-family="'EB Garamond'"
+       id="text198"
+       style="stroke-width:0.0999998">(V)</text>
+    <path
+       stroke="none"
+       fill="#000000"
+       d="M 421.39172,531.49423 V 530.376 l 1.11823,-0.19767 v 1.51356 z"
+       id="path199"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 425.11351,532.155 v -2.43413 l 1.11823,-0.19767 v 2.82947 z"
+       id="path200"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 428.83529,532.81013 v -3.75003 l 1.11823,-0.19767 v 4.14536 z"
+       id="path201"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 432.55708,533.4709 v -5.06593 l 1.11823,-0.19766 v 5.46126 z"
+       id="path202"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 436.27887,534.12602 v -6.38182 l 1.11823,-0.19767 v 6.77716 z"
+       id="path203"
+       style="stroke-width:0.0999998" />
+    <text
+       x="454.01553"
+       y="529.43286"
+       stroke="none"
+       fill="#000000"
+       font-style="normal"
+       font-weight="normal"
+       font-size="9.03621px"
+       font-family="'EB Garamond'"
+       id="text203"
+       style="stroke-width:0.0999998">(S)</text>
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 458.50794,504.74705 0.4552,-0.42357 h 10e-4 l -0.46423,0.46311 z"
+       id="path204"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 462.35172,520.45311 h -6.77716 l 2.60243,-13.93835 2.13593,2.76169 z"
+       id="path205"
+       style="stroke-width:0.0999998" />
+    <text
+       x="475.54318"
+       y="523.89252"
+       stroke="none"
+       fill="#000000"
+       font-style="normal"
+       font-weight="normal"
+       font-size="9.03621px"
+       font-family="'EB Garamond'"
+       id="text205"
+       style="stroke-width:0.0999998">(W)</text>
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 460.77377,505.72409 0.79067,-0.79067 0.91717,0.66642 -1.04368,1.03917 z"
+       id="path206"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 462.74592,508.44625 1.54011,-1.5418 0.91718,0.66642 -1.79313,1.7903 z"
+       id="path207"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 464.71751,511.16841 2.29068,-2.29294 0.91661,0.66642 -2.54256,2.54143 z"
+       id="path208"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 466.68966,513.89057 3.04012,-3.03843 0.91718,0.66077 -3.29257,3.29257 z"
+       id="path209"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 468.66182,516.61272 3.78956,-3.78956 0.91717,0.66078 -4.04257,4.0437 z"
+       id="path210"
+       style="stroke-width:0.0999998" />
+    <path
+       stroke="none"
+       fill="#000000"
+       d="m 470.63397,519.33488 4.53956,-4.54069 0.91661,0.66642 -4.79201,4.78919 z"
+       id="path211"
+       style="stroke-width:0.0999998" />
+    <text
+       x="312.34756"
+       y="442.91116"
+       stroke="none"
+       fill="#000000"
+       font-style="normal"
+       font-weight="bold"
+       font-size="10.1657px"
+       font-family="'EB Garamond'"
+       id="text571"
+       style="font-size:12px;stroke-width:0.0999998">h.</text>
+  </g>
   <text
      x="155.45642"
      y="566.64508"
