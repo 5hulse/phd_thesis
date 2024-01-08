@@ -726,6 +726,7 @@ convergence; more detail on this is provided in \cref{subsec:errors}.
 \label{subsec:seq-results}
 \subsubsection{``Five Multiplets''}
 \begin{figure}
+    \vspace{-10pt}
     \includegraphics{five_multiplets_invrec/five_multiplets_invrec.pdf}
     \caption[
         Three examples of results generated when considering simulated
@@ -795,7 +796,7 @@ with large errors, with examples denoted with an asterisk in
 \cref{fig:five-multiplets-invrec}.c.
 
 \subsubsection{Andrographolide Diffusion}
-\begin{sidewaysfigure}
+\begin{figure}
     \centering
     \includegraphics{andrographolide_dosy/andrographolide_dosy.pdf}
     \caption[
@@ -803,19 +804,21 @@ with large errors, with examples denoted with an asterisk in
     ]{
         The result of estimating a diffusion dataset of andrographolide in
         unfresh \acs{DMSOd6}.
-        \textbf{a.} \ac{1D} spectrum.
-        \textbf{b.} Diffusion profile obtained by projecting the contour plot in
+        \textbf{a.} Structure of andrographolide.
+        \textbf{b.} \ac{1D} spectrum.
+        \textbf{c.} Diffusion profile obtained by projecting the contour plot in
         c onto the $y$-axis.
-        \textbf{c.} Contour plot mapping estimated oscillators to diffusion constants, with
+        \textbf{d.} Contour plot mapping estimated oscillators to diffusion constants, with
         $p_{\text{min}} = \qty{1.5e-10}{\meter\squared\per\second}$,
         $p_{\text{max}} = \qty{4.5e-10}{\meter\squared\per\second}$,
         $c = 2.5$,
         $R=128$.
-        \textbf{d.} Magnified view of the \SIrange{2}{1.6}{\partspermillion}
-        spectral range, with estimated oscillator peaks plotted.
+        \textbf{e.} Magnified view of the \SIrange{2}{1.6}{\partspermillion}
+        spectral range (see the dashed box in panel d) with estimated
+        oscillator peaks plotted.
     }
     \label{fig:andrographolide-dosy}
-\end{sidewaysfigure}
+\end{figure}
 \Cref{fig:andrographolide-dosy} shows the result of applying the
 estimation technique on a oneshot \ac{DOSY} dataset of andrographolide in
 unfresh \acs{DMSOd6} at \qty{298}{\kelvin}. Exposure of the sample to water is

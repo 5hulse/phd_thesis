@@ -1,7 +1,7 @@
 # utils.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Tue 18 Jul 2023 21:40:53 BST
+# Last Edited: Mon 08 Jan 2024 14:05:32 EST
 
 from pathlib import Path
 from typing import Iterable
@@ -94,6 +94,9 @@ def transfer(old_ax, new_ax, new_fig):
                 to_add = True
                 func = new_ax.add_line
             elif isinstance(child, mpl.collections.PathCollection):
+                to_add = True
+                func = new_ax.add_collection
+            elif isinstance(child, mpl.contour.QuadContourSet):
                 to_add = True
                 func = new_ax.add_collection
 

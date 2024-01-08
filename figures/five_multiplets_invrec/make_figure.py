@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Mon 24 Jul 2023 15:20:42 BST
+# Last Edited: Mon 08 Jan 2024 15:01:04 EST
 
 from pathlib import Path
 import re
@@ -24,7 +24,7 @@ def transfer(old_ax, new_ax, new_fig):
             if isinstance(child, mpl.lines.Line2D) and child.get_xdata().shape[0] != 2:
                 to_add = True
                 func = new_ax.add_line
-            elif isinstance(child, mpl.collections.PathCollection):
+            elif isinstance(child, mpl.contour.QuadContourSet):
                 to_add = True
                 func = new_ax.add_collection
 
@@ -118,7 +118,7 @@ colors = [
     for idxs in color_idxs
 ]
 
-fig = plt.figure(figsize=(6, 7))
+fig = plt.figure(figsize=(6, 8))
 bottom = 0.67
 top = 0.995
 left = 0.045
@@ -142,11 +142,11 @@ for i in range(3):
 
 axs.append(
     fig.add_axes(
-        [-0.1, -0.09, 1.2, 0.82],
+        [-0.02, -0.07, 1.08, 0.78],
         projection="3d",
     )
 )
-axs[9].set_box_aspect(aspect=(1, 1.2, 1))
+axs[9].set_box_aspect(aspect=(1, 1.6, 1))
 
 for i, (cols, run_shifts, run_t1s) in enumerate(zip(colors, shifts, t1s)):
     path = estimator_dir / f"estimators/estimator_{i}"
@@ -187,14 +187,17 @@ for i, (cols, run_shifts, run_t1s) in enumerate(zip(colors, shifts, t1s)):
 
     if i == 2:
         fig_tmp, axs_tmp = estimator.plot_result(
-            azim=0.,
-            elev=80.,
+            azim=45.,
+            elev=60.,
             oscillator_colors=cols,
             xaxis_unit="ppm",
             oscillator_line_kwargs={"linewidth": 0.4},
             spectrum_line_kwargs={"linewidth": 0.8},
         )
         transfer(axs_tmp, axs[9], fig)
+        for line in axs[9].get_lines():
+            xdata, ydata, zdata = line.get_data_3d()
+            line.set_data_3d(xdata, ydata, 0.5 * zdata)
 
 for i in (0, 2, 3, 5, 6, 8, 9):
     axs[i].set_xlim(reversed(xlim))
@@ -204,7 +207,7 @@ for i in (4, 7):
 
 axs[9].set_axis_off()
 
-yax = (-0.25, 4)
+yax = (-0.24, 4)
 axs[9].plot([xlim[1], xlim[1]], yax, [0, 0], color="k")
 axs[9].plot([xlim[0], xlim[0]], yax, [0, 0], color="k")
 axs[9].plot(xlim, [yax[0], yax[0]], [0, 0], color="k")
@@ -217,12 +220,12 @@ for i in (2, 5, 8, 9):
 for (x, lab) in zip(axs[9].get_xticks()[:-1], axs[9].get_xticklabels()[:-1]):
     axs[9].plot([x, x], [yax[0] - 0.03, yax[0]], [0, 0], color="k")
     axs[9].plot([x, x], [yax[0], yax[1]], [0, 0], color="k", ls=":", lw=0.9, zorder=-1)
-    axs[9].text(x, yax[0] - 0.12, 0, lab.get_text(), fontsize=7, ha="center")
+    axs[9].text(x, yax[0] - 0.14, 0, lab.get_text(), fontsize=7, ha="center")
 axs[9].text(xlim[1] + 0.11, 2., 0., "$\\tau (\\unit{\\second})$", va="center", fontsize=8)
-axs[9].text((xlim[0] + xlim[1]) / 2, yax[0] - 0.2, 0., "¹H (ppm)", ha="center", va="center", fontsize=8)
+axs[9].text((xlim[0] + xlim[1]) / 2, yax[0] - 0.24, 0., "¹H (ppm)", ha="center", va="center", fontsize=8)
 
-xs = (0.11, 0.05, 0.11, 0.2)
-ys = (0.98, 0.815, 0.815, 0.625)
+xs = (0.11, 0.05, 0.11, 0.05)
+ys = (0.98, 0.815, 0.815, 0.60)
 for i, (x, y) in enumerate(zip(xs, ys)):
     fig.text(x, y, f"\\textbf{{{chr(97 + i)}.}}")
 
@@ -248,6 +251,5 @@ axs[8].text(0.49, 5., "*", ha="center", va="center")
 
 for i in (2, 5, 8):
     axs[i].set_xlabel("")
-
 
 fig.savefig("figures/five_multiplets_invrec/five_multiplets_invrec.pdf")
