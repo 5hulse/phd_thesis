@@ -68,9 +68,9 @@ solution"~\cite{Wuthrich2003}.
 \subsection{The Bloch Model}
 
 \ac{NMR} relies on an intrinsic property of \correction{nuclei with an odd number of
-protons and/or neutrons} called \textit{spin}
+protons and/or neutrons}\label{corr:prot-neut} called \textit{spin}
 which, along with orbital angular momentum \correction{and molecular rotation, is one of
-the sources} of angular momentum in quantum mechanics.
+the sources}\label{corr:mol-rot} of angular momentum in quantum mechanics.
 The angular momentum associated with a nuclear spin is characterised by the
 quantum number $I \in \lbrace 0, \nicefrac{1}{2}, 1, \nicefrac{3}{2}, \cdots
 \rbrace$. Spin-\nicefrac{1}{2}
@@ -116,7 +116,8 @@ to be the $z$-component, for which
 \end{equation}
 \cref{eq:Iz}
 implies that the magnitude of the $z$-component may only adopt certain discrete
-values (i.e. it is quantised). A nucleus \correction{with spin} has an associated
+values (i.e. it is quantised). A nucleus \correction{with
+spin}\label{corr:with-spin} has an associated
 \textit{magnetic moment}, given by\footnote{
     In the context of solution-state \ac{NMR}, $\gamma$ is often replaced with
     $(1-\sigma)\gamma$, where $\sigma$ is a unitless quantity that accounts for
@@ -129,14 +130,14 @@ $\gamma \in \mathbb{R}$ is a proportionality constant called the
 \textit{gyromagnetic ratio}, which is dependent on the nucleus of interest.
 \Cref{tab:nuclei} provides the gyromagnetic ratios for some low-mass
 nuclei commonly encountered in \ac{NMR}, along with some which
-\correction{do not possess spin}
+\correction{do not possess spin}\label{corr:no-spin}
 and are therefore inert in the context of \ac{NMR}.
 
 \begin{table}
     \begin{center}
         \begin{tabular}{ c c c c }
             \toprule
-            Nucleus & $I$ & $\gamma (\si{\radian \per \tesla \per \second})$ & Relative Abundance (\%) \\
+            Nucleus & $I$ & $\gamma (\si{\per \tesla \per \second})$ & Relative Abundance (\%) \\
             \midrule
             \ch{^{1}H} & \nicefrac{1}{2} & \num{2.6752e8} & 99.9885 \\
             \ch{^{2}H} & 1 & \num{4.1066e7} & 0.0115 \\
@@ -229,9 +230,21 @@ At equilibrium, the $x$- and $y$-components of the bulk magnetisation are zero:
     \sum_{s=1}^{S} \mu_{x,s} = \sum_{s=1}^{S} \mu_{y,s} = 0,
 \end{equation}
 such that the bulk magnetisation is collinear with the field direction, with a
-magnitude $M_0$ approximately given by~\cite[Section 1.1]{Cavanagh2007}:
+magnitude $M_0$.
+\correction{By invoking the \emph{high temperature approximation}\footnote{
+        \correction{
+            \cref{eq:M0} is arrived at under the assumption that
+            $\nicefrac{m\hbar\gamma B_0}{k_{\text{B}} T} \ll 1$. Given typical
+            values of $\gamma$ ($\approx\!\!\qty{1e8}{\per\tesla\per\second}$) and
+            $B_0$ ($\approx\!\!\qty{10}{\tesla}$), the implicit requirement for
+            the temperature to be sufficiently large is virtually always
+            adhered to in solution-state \ac{NMR}.
+        }\label{fn:corr-high-temp}
+    }, $M_0$ may be expressed as~\cite[Section 1.1]{Cavanagh2007}:
+}\label{corr:high-temp}
 \begin{equation}
     M_0 \approx \frac{S \gamma^2 \hbar^2 B_0 I (I + 1)}{3 k_{\text{B}} T},
+    \label{eq:M0}
 \end{equation}
 where $k_{\text{B}}$ is the Boltzmann constant
 (\qty{1.381e-23}{\joule\per\kelvin}),
@@ -284,18 +297,35 @@ Under free precession, the magnetisation rotates about the $z$-axis at the
     \label{fn:MHz}
 }
 
-Assuming the \ac{RF} field is linearly polarised along the $x$-axis, it can be
-written to a high degree of accuracy as.
+\correction{The resonant contribution}\footnote{
+        \correction{
+            An \ac{RF} pulse produced by probe coil (\textit{vide infra}) can be
+            thought of as having three components\cite[Section 8.4.2]{Levitt2007}:
+            a longitudinal field, and two transverse fields which rotate in
+            opposite senses at the same frequency. Of the two transverse fields,
+            that which rotates with the same sense as the spin magnetisation is
+            resonant with the magnetisation, while that which rotates in the
+            opposite sense is non-resonant. In most circumstances, the longitudinal
+            and non-resonant components have a negligible influence on the spin
+            dynamics. \Cref{eq:B1} describes the resonant transverse component of
+            the pulse. N.B. $\omega_{\text{RF}}$ is negative for spins with
+            positive $\gamma$, and vice versa.
+            \label{fn:resonant-pulse}
+        }
+    }
+\correction{of an \ac{RF} pulse may be expressed as}\label{corr:rf-pulse}
 \begin{equation}
-    \symbf{B}_1(t) = B_1\left(
-        \cos(\omega_{\text{RF}} t + \phi_{\text{RF}}) \symbf{i} +
-        \sin(\omega_{\text{RF}} t + \phi_{\text{RF}}) \symbf{j}
-    \right),
+    \symbf{B}_1(t) =
+        B_1\left(
+            \cos(\omega_{\text{RF}} t + \phi_{\text{RF}}) \symbf{i} +
+            \sin(\omega_{\text{RF}} t + \phi_{\text{RF}}) \symbf{j}
+        \right),
+        \label{eq:B1}
 \end{equation}
 with $\symbf{i}$, $\symbf{j}$ and $\symbf{k}$ (encountered shortly) being unit
-vectors along the $x$-, $y$-, and $z$-axes, respectively. $B_1$ is the strength
-of the \ac{RF} field, $\omega_{\text{RF}}$ is its angular frequency, and
-$\phi_{\text{RF}}$ is its phase.
+vectors along the laboratory $x$-, $y$-, and $z$-axes, respectively. $B_1$ is
+the strength of the \ac{RF} field, $\omega_{\text{RF}}$ is its angular
+frequency, and $\phi_{\text{RF}}$ is its phase.
 A great simplification to the model is realised by considering a frame
 of reference which, rather than being static, rotates at $\omega_{\text{RF}}$,
 as this makes the \ac{RF} field appear to be time-independent. This is referred
@@ -304,15 +334,21 @@ as
 \begin{subequations}
     \begin{gather}
         \frac{\mathrm{d}\tilde{\symbf{M}}(t)}{\mathrm{d}t} = \tilde{\symbf{M}}(t) \times \gamma \tilde{\symbf{B}}(t),\\
-        \tilde{\symbf{B}} =
+        \tilde{\symbf{B}}(t) =
             B_1 \cos(\phi_{\text{RF}}) \tilde{\symbf{i}} +
             B_1 \sin(\phi_{\text{RF}}) \tilde{\symbf{j}} +
             \Updelta B_0 \tilde{\symbf{k}},\\
         \Updelta B_0 = -\frac{\Omega}{\gamma},\\
         \Omega = -\gamma B_0 - \omega_{\text{RF}},\\
-        \tilde{\symbf{i}} = \cos(\omega_{\text{RF}}) \symbf{i},\\
-        \tilde{\symbf{j}} = \sin(\omega_{\text{RF}}) \symbf{j},\\
-        \tilde{\symbf{k}} = \symbf{k}.
+        \correction{
+            \tilde{\symbf{i}} = \cos(\omega_{\text{RF}} t) \symbf{i} +
+                \sin(\omega_{\text{RF}} t) \symbf{j},
+            }\\
+        \correction{
+                \tilde{\symbf{j}} = \cos(\omega_{\text{RF}} t) \symbf{j}
+                - \sin(\omega_{\text{RF}} t) \symbf{i},
+            }\\
+        \tilde{\symbf{k}} = \symbf{k}
     \end{gather}%
     \label{eq:rot-frame}%
 \end{subequations}%
@@ -328,24 +364,73 @@ is then allowed to undergo free precession. \cref{eq:rot-frame} implies that
 $\tilde{\symbf{M}}$ will rotate indefinitely about the $z$-axis with a
 frequency of $\Omega$. However, in reality the system is driven to re-establish
 its thermal equilibrium state, $\symbf{M}_{\text{eq}} \equiv
-\tilde{\symbf{M}}_{\text{eq}} = [0, 0, M_0]^{\mathrm{T}}$. In the
-Bloch model, two processes are introduced to account for this\footnote{
+\tilde{\symbf{M}}_{\text{eq}} = [0, 0, M_0]^{\mathrm{T}}$. The process by which
+this occurs is called \emph{relaxation}.
+\correction{
+    \label{corr:relaxation}
+    Spin relaxation is driven by the stochastic motion of the molecules in
+    the sample, which give rise to variations in the magnetic fields
+    present in the sample. Crucially:
+    \begin{enumerate}
+        \item The fields induced by molecular motion vary with time, and average to zero.
+        \item In different locations within the sample, the variation in these
+            fields with time is uncorrelated. As a result, these fields are
+            often referred to as \emph{local} fields.
+    \end{enumerate}
+    The presence of time-varying local fields in the sample lead to a number of
+    mechanisms that contribute to relaxation. These mechanisms are often classified
+    based on whether they are associated with an energy transfer:
+    \begin{itemize}
+        \item \emph{Adiabatic interactions} do not require a transfer of energy
+            between a spin system of interest and its surroundings\footnote{
+                The surroundings of a particular spin system of interest is
+                often referred to as the \emph{lattice}, which contains all
+                degrees of freedom in the sample other than those of the spin
+                system itself, including rotational degrees of freedom of all
+                molecules in the system, and the spin energy levels of all
+                other molecules.
+            }. Molecular motion results in the net field in the $z$-direction
+            experienced by a given spin to vary with time.
+            The associated Larmor frequency of the spin is perturbed in
+            accordance with this field variation.
+            On a wider scale, spins in different locations, experiencing
+            differing local $z$-field fluctuations, will gradually lose
+            synchronisation with each other (i.e. become \emph{dephased}) as
+            their instantaneous Larmor frequencies are non-equivalent. The
+            effect of this is for the transverse component of the bulk
+            magnetisation to decay. Hence, adiabatic interactions contribute to
+            \emph{transverse relaxation}, also referred to as \emph{spin-spin
+            relaxation}.
+        \item \emph{Nonadiabatic interactions} involve the transfer of energy
+            between a spin and its surroundings. Molecular motion which leads
+            to varying transverse ($xy-$) magnetisation with a component that
+            fluctuates at the spin's Larmor frequency is able to induce such an
+            energy transfer. This mechanism drives the relative populations of
+            the spin's energy levels towards their equilibrium configuration,
+            restoring the $z$-component of the bulk magnetisation.
+            As such, nonadiabatic interactions contribute towards
+            \emph{longitudinal relaxation}, also referred to as
+            \emph{spin-lattice relaxation}.
+            Furthermore, due to the finite lifetimes of the spin states, there
+            is an uncertainty in their associated energies in accordance with
+            the Heisenberg uncertainty principle. Because of this, nonadiabatic
+            interactions also contribute to the dephasing of spins, and hence
+            transverse relaxation.
+    \end{itemize}
+}
+
+\correction{
+    In the Bloch model, the influence of longitudinal and transverse relaxation are
+    accounted for by the incorporation of two processes, with the respective rate
+    constants $R_1$ and $R_2$. The processes are often expressed in terms of
+    the associated relaxation times instead: $T_i \coloneq \nicefrac{1}{R_i}, i \in \lbrace 1, 2\rbrace$.
     The introduction of relaxation is phenomenological in the Bloch model; the
     reversion of the spin system to equilibrium is included purely to ensure
     the model agrees with observation. More sophisticated theories invoking
     Liouville-space quantum mechanics can account for
-    relaxation~\cite{Goldman2001,Kuprov2007}.
-}. \emph{Longitudinal} (spin-lattice)
-relaxation is responsible for the recovery of the spin states to their
-equilibrium populations, according to the Boltzmann distribution. A reversion
-of the $z$-component of the magnetisation to $M_0$ accompanies this.
-\emph{Transverse} (spin-spin) relaxation leads to the $x$- and $y$-components
-of the bulk magnetisation decaying to $0$. These phenomena commonly exhibit
-exponential evolution profiles, and are assigned rates $R_1$ and $R_2$,
-respectively. The corresponding times (inverse rates) are often referred to
-instead:
-$T_1 \coloneq \nicefrac{1}{R_1}$, and
-$T_2 \coloneq \nicefrac{1}{R_2}$.
+    relaxation however~\parencites[Chapter 5]{Cavanagh2007}{Goldman2001}{Kuprov2007}.
+}
+
 \begin{figure}
     \centering
     \includegraphics{quadrature_detection/quadrature_detection.pdf}
@@ -429,7 +514,9 @@ superconducting solenoid immersed in liquid helium; common materials used for
 the solenoid include Nb-Ti alloy and Nb\textsubscript{3}Sn. To minimise the
 extent of helium evaporation, the dewar containing the helium is lined with
 a thermal radiation shield. The helium dewar is then surrounded by a larger
-dewar containing liquid nitrogen. A bore passes through the $z$-direction of
+dewar containing liquid nitrogen,
+\correction{which is finally encased in a vacuum chamber.\label{corr:vacuum}}
+A bore passes through the $z$-direction of
 the magnet, which is maintained at a user-specified temperature. Within the
 bore sits the probe as well as the sample. Magnets with high field
 strengths are desirable, as both the resolution ($\propto B_0$) and \ac{SNR}
@@ -437,10 +524,12 @@ strengths are desirable, as both the resolution ($\propto B_0$) and \ac{SNR}
 time of writing, commercial spectrometers which operate at and above a
 \proton\ Larmor frequency of \qty{1}{\giga\hertz} (\qty{23.5}{\tesla}) exist,
 though these are uncommon and are employed primarily for the study of large
-biomolecules. For most applications, including the study of small molecules,
-spectrometers with more modest field strengths on the order of
-\qty{100}{\mega\hertz} are typically adequate. Due to their cheap operating
-costs and small size, ``benchtop'' \ac{NMR} spectrometers, which
+biomolecules
+\correction{and solid-state \ac{NMR}\label{corr:solid-state}}.
+For most applications, including
+the study of small molecules, spectrometers with more modest field strengths on
+the order of \qty{100}{\mega\hertz} are typically adequate. Due to their cheap
+operating costs and small size, ``benchtop'' \ac{NMR} spectrometers, which
 comprise permanent magnets and typically operate on the order of
 \qty{10}{\mega\hertz}, have also become popular in educational and
 high-throughput settings~\cite{Giberson2021}.
@@ -449,7 +538,9 @@ To ensure a high spatial field homogeneity (a necessity for data with
 acceptable resolution) a series of coils called \textit{shims} surround the
 sample. Each coil produces a weak magnetic field with a specific spatial
 profile in accordance with a spherical harmonic function; a collection of shims
-can cancel out inhomogeneities inherent to the main magnet.
+can cancel out
+\correction{small\label{corr:small-inhomog}}
+inhomogeneities inherent to the main magnet.
 A field-frequency lock is used to ensure the stability of the
 field. The lock is effectively a small \ac{NMR} spectrometer, tuned to a
 specified isotope (typically \textsuperscript{2}H\footnote{
@@ -465,13 +556,17 @@ appropriately adjusted, which induces a constant change in field strength
 throughout the sample volume.
 
 \subsubsection{The Probe}
-The probe sits inside the bore of the magnet, and features the coils used to
-pulse the sample.
-The same coils also receive the response from the sample. The principle source
-of data corruption in \ac{NMR} experiments is thermal noise within the probe
-circuitry.  For this reason, cryogenic probes have become a popular
-development, in which the coils and other probe electronics are maintained at a
-very low temperature (typically about $\qty{20}{\kelvin}$)~\cite{Kovacs2020}.
+\correction{The probe sits inside the bore of the magnet and has a number of
+responsibilities including holding the sample, regulating the sample temperature,
+and housing the coils used to pulse the sample with \ac{RF}
+radiation as well as coils which are used to generate field
+gradients\cite[Section 4.7]{Levitt2007}.\label{corr:probe}}
+The \ac{RF} coils also receive the response from the sample during detection.
+The principle source of data corruption in \ac{NMR} experiments is thermal
+noise within the probe circuitry.  For this reason, cryogenic probes have
+become a popular development, in which the coils and other probe electronics
+are maintained at a very low temperature (typically about
+$\qty{20}{\kelvin}$)~\cite{Kovacs2020}.
 
 \subsubsection{The Transmitter}
 The transmitter is responsible for the generation of \ac{RF} pulses
@@ -486,15 +581,15 @@ applied at the desired times. Attenuators/amplifiers then adjust the power
 of the pulse, which travels to the probe.
 
 \subsubsection{The Receiver}
-During acquisition, the time-varying current induced in the probe coil by
-the sample magnetisation is
-sent to a receiver, which comprises a series of components designed to convert the
+During detection, the time-varying current induced in the probe coil by
+the sample magnetisation \correction{travels to\label{corr:travel}} a receiver,
+which comprises a series of components designed to convert the
 analogue current to the digital \ac{FID} which is stored in computer memory.
 One of the processes that the receiver is responsible for is \emph{quadrature
 detection}~\cite[Section 13.6]{Keeler2010}, which ensures
-\acp{FID} are frequency discriminated, i.e. that they posses the requisite
-information to determine whether a given component in the \ac{FID} has a frequency
-that is above or below the transmitter frequency.
+\acp{FID} are frequency discriminated, i.e. that they possess the requisite
+information to determine whether a given component in the \ac{FID} has a
+frequency that is above or below the transmitter frequency.
 This is achieved by splitting the signal from the probe into two channels. In
 each channel, the signal, which is of a very high frequency
 (\unit{\mega\hertz}), is mixed with a reference signal of frequency
@@ -527,7 +622,7 @@ where $y(t)$ is the (continuous) variation of the generated signal as a
 function of time,
 and $N$ (often a power of 2) is the number of points sampled. The inverse of
 the sampling rate,
-$\nicefrac{1}{\Dt}$ is the \emph{sweep width} $\fsw$ which
+$\nicefrac{1}{\Dt}$ is the \correction{\emph{spectral width}\label{corr:sw}} $\fsw$ which
 defines how wide the range of samplable frequencies is, in accordance with the
 Nyquist theorem~\cite{Shannon1949}.
 
@@ -554,7 +649,7 @@ therefore takes the form\footnote{
         \sumM \amexpphim \exp\left(
             (2 \pi \iu (f_m - \foff)- \eta_m ) n \Dt
         \right).
-        \label{eq:x}
+        \label{eq:x-1d}
     \end{gather}
     \label{eq:1d}%
 \end{subequations}%
@@ -581,7 +676,7 @@ defined by four parameters:
 where $\bda \in \mathbb{R}^M = [a_1 \hspace{2pt} a_2 \hspace{2pt} \cdots
 \hspace{2pt} a_M]^{\mathrm{T}}$ is a vector of all amplitudes, $\bdphi \in
 \mathbb{R}^M$ is a vector of all phases, etc.
-An alternative, more concise, notation for \cref{eq:x}
+An alternative, more concise, notation for \correction{\cref{eq:x-1d}}
 involves the \emph{complex amplitudes} and \emph{signal poles} associated with
 the \ac{FID}:
 \begin{subequations}
@@ -629,7 +724,7 @@ are depicted in Figures \ref{fig:amp-phase-freq-damp}.a1 to
     \label{fig:amp-phase-freq-damp}%
 \end{figure}
 
-Multidimensional experiments involve incrementing one or more delay within the
+Multidimensional experiments involve incrementing one or more delays within the
 pulse sequence, in order to obtain an array of \ac{1D} \acp{FID}. In a
 $D$-dimensional dataset, each contributing signal is parameterised by an
 amplitude and phase as before, along with $D$ distinct frequencies and damping

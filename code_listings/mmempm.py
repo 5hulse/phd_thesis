@@ -1,3 +1,8 @@
+# mmempm.py
+# Simon Hulse
+# simonhulse@protonmail.com
+# Last Edited: Tue 09 Jan 2024 17:38:53 EST
+
 def mmempm(
     Y: np.ndarray, sw1: float, sw2: float,
     off1: float, off2: float, M: int = 0,
@@ -10,9 +15,9 @@ def mmempm(
     Y
         FID.
     sw1
-        Sweep width in first (indirect) dimension (Hz).
+        Spectral width in first (indirect) dimension (Hz).
     sw2
-        Sweep width in second (direct) dimension (Hz).
+        Spectral width in second (direct) dimension (Hz).
     off1
         Transmitter offset in first dimension (Hz).
     off2

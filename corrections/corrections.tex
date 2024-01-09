@@ -7,6 +7,11 @@
 \usepackage{xcolor}
 %%% font configuration
 \usepackage{fontspec}
+\usepackage[%
+    math-style=ISO,%
+    bold-style=ISO,%
+    nabla=upright,%
+]{unicode-math}
 \setmainfont{EBGaramond}[%
     Path           = ../fonts/EBGaramond/,%
     Extension      = .otf,%
@@ -15,6 +20,11 @@
     ItalicFont     = *-Italic,%
     BoldItalicFont = *-BoldItalic,%
     FontFace       = {sb}{n}{*-SemiBold},%
+]
+\setmathfont{Garamond-Math}[%
+    Path           = ../fonts/,%
+    Extension    = .otf,%
+    StylisticSet = {2,8,9,10},%
 ]
 \setmonofont{FiraMono}[%
     Scale       = MatchLowercase,%
@@ -36,6 +46,9 @@
 \Crefmultiformat{equation}{Equations~#2#1#3}%
 { and~#2#1#3}{, #2#1#3}{ and~#2#1#3}
 
+\usepackage{enumitem}
+\setlist[itemize]{label=\null,leftmargin=*}
+
 \author{Simon Hulse}
 \title{Notes on Thesis Corrections}
 \date{\today}
@@ -45,56 +58,78 @@
 \begin{document}
     \maketitle
 
-    Corrections which aren't simply typo fixes are in red.
-
     \subsubsection*{General}
-    I have made some stylistic changes to the thesis (specifically, the
-    formatting of the title page and chapter titles). Ralph asked about Oxford
-    formatting guidelines. I am unaware of Oxford having specific thesis format
-    guidelines, and haven't been able to find any guidance on this, so I am
-    assuming that my thesis format is acceptable.
-
-    Spaces were added to citations.
-
-    \subsubsection*{\figref{fig:energy_levels}}
-    Mentioned the sign of $\gamma$ for each nucleus in the caption.
-
-    \subsubsection*{\figref{fig:mpm_vs_nlp}}
-    Replaced landscape figure with portrait version. Included a description of
-    the different peak colours in the caption.
-
-    \subsubsection*{\figref{fig:andro-onedim}}
-    Replaced landscape figure with portrait version. Added structure of
-    andrographolide.
-
-    \subsubsection*{\figref{fig:cyclosporin}}
-    Added structure of cyclosporin, and edited the caption accordingly.
-
-    \subsubsection*{\figref{fig:diffusion_sequences}}
-    Tweaked the relative widths of pulses and gradients.
-
-    \subsubsection*{\figref{fig:five-multiplets-invrec}}
-    Edited panel d; changed the aspect ratio and viewing angle.
-
-    \subsubsection*{\figref{fig:andrographolide-dosy}}
-    Replaced landscape figure with portrait version. Added structure of
-    andrographolide.
-
-    \subsubsection*{\figref{fig:gluc_val_thre}}
-    Added structures of valine, threonine and major anomeric forms of glucose.
-
-    \subsubsection*{\figref{fig:strychnine-cupid}}
-    Added structure of strychnine.
-
-    \subsubsection*{\figref{fig:quinine-cupid}}
-    Added structure of quinine.
-
-    \subsubsection*{\figref{fig:camphor-cupid}}
-    Added structure of camphor.
-
-    \subsubsection*{\figref{fig:dexamethasone-cupid}}
-    Replaced landscape figure with portrait version. Added structure of dexamethaone.
-
-    \subsubsection*{\figref{fig:estradiol-cupid}}
-    Added structure of estradiol.
+    \begin{itemize}
+        \item I have made some stylistic changes to the thesis (specifically, the
+            formatting of the title page and chapter titles). Ralph asked about Oxford
+            formatting guidelines. I am unaware of Oxford having specific thesis format
+            guidelines, and haven't been able to find any guidance on this, so I am
+            assuming that my thesis format is acceptable.
+        \item Spaces were added to citations.
+        \item In the corrected thesis, corrections which aren't simply typo fixes are in red.
+    \end{itemize}
+    \subsubsection*{Corrections by page}
+    \begin{itemize}
+        \item \cpageref{corr:prot-neut} -- Specified that only nuclei with odd
+            numbers of protons and/or neutrons possess spin.
+        \item \cpageref{corr:mol-rot} -- Mentioned molecular rotation as
+            an additional source of angular momentum.
+        \item \cpageref{eq:I-squared} -- \cref{eq:I-squared}: Squared the
+            reduced Planck constant.
+        \item \cpageref{corr:with-spin} -- Replaced ``with non-zero spin'' with
+            ``with spin''.
+        \item \cpageref{tab:nuclei} -- \cref{tab:nuclei}: Updated caption to
+            include source of gyromagnetic ratios.
+        \item \cpageref{corr:no-spin} -- Replaced ``which are spin-0'' with ``which
+            do not possess spin''.
+        \item \cpageref{fig:energy_levels} --  \cref{fig:energy_levels}:
+            Mentioned the sign of $\gamma$ for each nucleus in the caption.
+        \item \cpageref{corr:high-temp} --  Mentioned that the high temperature
+            approximation is applied in arriving at \cref{eq:M0}. See also
+            \cref{fn:corr-high-temp}.
+        \item \cpageref{corr:rf-pulse} --  Re-worded description of RF pulse.
+            See also \cref{fn:resonant-pulse}.
+        \item \cpageref{eq:rot-frame} -- \cref{eq:rot-frame}: Corrected the
+            expressions for $\tilde{\symbf{i}}$ and $\tilde{\symbf{j}}$.
+        \item \cpageref{corr:relaxation} -- Included a more detailed
+            qualitative description of relaxation.
+        \item \cpageref{corr:vacuum} -- Explicitly mentioned the presence of a
+            vacuum chamber.
+        \item \cpageref{corr:solid-state} -- Included solid-state NMR as an
+            area that requires very high field strengths.
+        \item \cpageref{corr:small-inhomog} -- ``inhomogeneities''
+            $\rightarrow$ ``small inhomogeneities''.
+        \item \cpageref{corr:probe} -- A few extra details about the probe.
+        \item \cpageref{corr:travel} -- ``is sent to'' $\rightarrow$ ``travels to''.
+        \item \cpageref{corr:sw} -- Replace ``sweep width'' with ``spectral
+            width''. This has been done in numerous places in the thesis.
+        \item \cpageref{eq:x-1d} -- \cref{eq:x-1d}: Correct equation label.
+        \item \cpageref{fig:mpm_vs_nlp} -- \cref{fig:mpm_vs_nlp}: Replaced
+            landscape figure with portrait version. Included a description of the
+            different peak colours in the caption.
+        \item \cpageref{fig:andro-onedim} -- \cref{fig:andro-onedim}: Replaced
+            landscape figure with portrait version. Added structure of andrographolide.
+        \item \cpageref{fig:cyclosporin} -- \cref{fig:cyclosporin}: Added structure of
+            cyclosporin, and edited the caption accordingly.
+        \item \cpageref{fig:diffusion_sequences} -- \cref{fig:diffusion_sequences}:
+            Tweaked the relative widths of pulses and gradients.
+        \item \cpageref{fig:five-multiplets-invrec} -- \cref{fig:five-multiplets-invrec}:
+            Edited panel d; changed the aspect ratio and viewing angle.
+        \item \cpageref{fig:andrographolide-dosy} -- \cref{fig:andrographolide-dosy}:
+            Replaced landscape figure with portrait version. Added structure of
+            andrographolide.
+        \item \cpageref{fig:gluc_val_thre} -- \cref{fig:gluc_val_thre}: Added
+            structures of valine, threonine and major anomeric forms of glucose.
+        \item \cpageref{fig:strychnine-cupid} -- \cref{fig:strychnine-cupid}: Added
+            structure of strychnine.
+        \item \cpageref{fig:quinine-cupid} -- \cref{fig:quinine-cupid}: Added structure
+            of quinine.
+        \item \cpageref{fig:camphor-cupid} -- \cref{fig:camphor-cupid}: Added structure
+            of camphor.
+        \item \cpageref{fig:dexamethasone-cupid} -- \cref{fig:dexamethasone-cupid}:
+            Replaced landscape figure with portrait version. Added structure of
+            dexamethaone.
+        \item \cpageref{fig:estradiol-cupid} -- \cref{fig:estradiol-cupid}: Added
+            structure of estradiol.
+    \end{itemize}
 \end{document}
