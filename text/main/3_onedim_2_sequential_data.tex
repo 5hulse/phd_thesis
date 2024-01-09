@@ -83,11 +83,11 @@ anticipated; the effect of field inhomogeneities is incorporated into the
     where $\Updelta B_0$ is the variation in magnetic field strength across the
     sample volume.
     \label{fn:t2-star}
-}\cite{Chavhan2009}. The effects of
+}~\cite{Chavhan2009}. The effects of
 J-modulation and field inhomogeneity can be nullified if rapid refocussing is
 applied, by subjecting the spin system to a train of spin echoes. The classic
 route to $T_2$ measurement is the \ac{CPMG}
-experiment\cite{Carr1954,Meiboom1958}, comprising $\ang{90}_x \rightarrow
+experiment~\cite{Carr1954,Meiboom1958}, comprising $\ang{90}_x \rightarrow
 \left[ \tau \rightarrow \ang{180}_y \rightarrow \tau \right]_n \rightarrow
 \tone$, where the spin echo duration $\tau$ is short and fixed, and the number
 of cycles $n$ can be varied to alter the total evolution time. The number of
@@ -99,18 +99,18 @@ according to
 where $a_0$ is the intensity where no spin echo cycles were employed, such that
 the pulse sequence is reduced to the standard pulse-acquire experiment. Recent
 enhancements to the \ac{CPMG} approach, including the \ac{PROJECT} pulse
-sequence\cite{Aguilar2012} are also well-suited to $T_2$ determination.
+sequence~\cite{Aguilar2012} are also well-suited to $T_2$ determination.
 
 \subsection{Diffusion Experiments}
 \label{subsec:diffusion_experiments}
 \ac{NMR} is well established as a means of determining the rates of
-translational diffusion of chemical species\cite{Johnson1999,Morris2009b}.
+translational diffusion of chemical species~\cite{Johnson1999,Morris2009b}.
 The rate of translation of a species is given by the translational
-diffusion coefficient, $D$ (\unit{\meter\squared\per\second})\cite[Chapter
+diffusion coefficient, $D$ (\unit{\meter\squared\per\second})~\cite[Chapter
 19]{Atkins2014}.
 The first illustration of the determination of the diffusion coefficient using
 \ac{NMR} came from Stejskal and Tanner, in which they described the \ac{PGSE}
-pulse sequence\cite{Stejskal1965} (\cref{fig:diffusion_sequences}.a).
+pulse sequence~\cite{Stejskal1965} (\cref{fig:diffusion_sequences}.a).
 The \ac{PGSE} sequence consists of a conventional spin-echo ($\ang{90}_x
 \xrightarrow{\tau} \ang{180}_y \xrightarrow{\tau} \text{acquire}$), with
 \acp{PFG} applied after each of the \ac{RF} pulses.
@@ -180,7 +180,7 @@ results for a given increase in $g$.
 
 Through consideration of the Bloch-Torrey equations, which
 extend the classic Bloch equations to account for the effects of diffusion on
-magnetisation\cite{Torrey1956}, the following equation, known as the
+magnetisation~\cite{Torrey1956}, the following equation, known as the
 \emph{Stejskal-Tanner equation}, may be derived:
 \begin{equation}
     a(g) = a_0 \exp \left(- \gamma^2 \delta^2 g^2 D \left(\Updelta -
@@ -204,7 +204,7 @@ and \acp{PFG} with rectangular amplitude profiles are applied\footnote{
 functional form by which $a(g)$ varies.
 
 Tanner introduced a variant of the original \ac{PGSE} experiment called
-\ac{PGSTE}\cite{Tanner1970} (\cref{fig:diffusion_sequences}.b). Instead
+\ac{PGSTE}~\cite{Tanner1970} (\cref{fig:diffusion_sequences}.b). Instead
 of the diffusion period being bisected by a
 \ang{180} pulse, \ac{PGSTE} features two \ang{90} pulses at the beginning and
 end of the diffusion period.
@@ -217,13 +217,13 @@ encoding.
 Experiments also exist which employ
 \emph{bipolar} gradient elements, which consist of a
 \ac{PFG}, followed by a \ang{180} pulse, and then a second \ac{PFG} with the
-opposite polarity to the first\cite{Cotts1989,Wu1995}. The \ac{PGSTEBP} experiment
+opposite polarity to the first~\cite{Cotts1989,Wu1995}. The \ac{PGSTEBP} experiment
 (\cref{fig:diffusion_sequences}.c) can be thought of as the bipolar analogue of
 \ac{PGSTE}.
 Bipolar gradients are useful in circumstances where it is important to purge
 the effects of static gradients in the sample, caused by field inhomogeneities.
 Morris and coworkers have developed the \emph{one-shot}
-experiment\cite{Pelta2002} (\cref{fig:diffusion_sequences}.d), which requires a
+experiment~\cite{Pelta2002} (\cref{fig:diffusion_sequences}.d), which requires a
 single transient per gradient strength (i.e. there is no requirement for a
 phase-cycling scheme).  This is achieved through the use of bipolar gradients
 which comprise asymmetrical \acp{PFG} with relative powers $1 + \alpha : 1 -
@@ -243,7 +243,7 @@ The functional form of $c$ depends on the type of experiment used, as well as
 the amplitude profile (\emph{shape}) of the \acp{PFG}.
 A consideration of the Bloch-Torrey equations for a given experiment is
 necessary, with an extensive overview provided by Sinnaeve for most diffusion
-NMR experiments\cite{Sinnaeve2012}. In general, $c$ is as follows:
+NMR experiments~\cite{Sinnaeve2012}. In general, $c$ is as follows:
 \begin{equation}
     c = \gamma^2 \delta^2 \sigma^2 \Updelta^{\prime}.
     \label{eq:stejskal_tanner_generic}
@@ -339,7 +339,7 @@ the parameter of interest. Distributions taking
 into account the predicted value of interest and the associated uncertainty
 are plotted at each chemical shift.
 In the context of diffusion \ac{NMR}, this form of data analysis is
-referred to as \ac{DOSY}\cite{Morris2009b}.
+referred to as \ac{DOSY}~\cite{Morris2009b}.
 The \ac{DOSY} approach works well in cases where peaks of interest are intense
 and well-resolved. However, when there is considerable peak overlap, accurately
 determining the parameter of interest associated with a given signal becomes
@@ -348,7 +348,7 @@ decay. An aggregated value of the decay rates of the contributing signals
 will be predicted using the above approach.
 In such cases, it is possible to instead fit
 a superposition of functions to the spectral amplitudes, as a means of
-separating out contributions from the overlapping signals\cite{Nilsson2006}.
+separating out contributions from the overlapping signals~\cite{Nilsson2006}.
 However, this process is usually only effective when the data has very high
 \ac{SNR}, and the quantities of interest associated with the overlapping
 signals differ considerably.
@@ -357,9 +357,9 @@ An alternative approach
 is to use a \emph{multivariate} analysis, in which entire spectrum is
 considered holistically, and an attempt is made to decompose the spectrum into
 components with different decay rates. Prominent examples of multivariate methods
-developed for diffusion data analysis are \ac{DECRA}\cite{Windig1998} and
-\emph{speedy} component resolution (\acs{SCORE})\cite{Nilsson2008}, an
-improvement of the original \acs{CORE}\cite{Stilbs1996,Stilbs1996b}.
+developed for diffusion data analysis are \ac{DECRA}~\cite{Windig1998} and
+\emph{speedy} component resolution (\acs{SCORE})~\cite{Nilsson2008}, an
+improvement of the original \acs{CORE}~\cite{Stilbs1996,Stilbs1996b}.
 \acused{SCORE}\acused{CORE}
 Multivariate techniques tend to only be only effective in situations where a
 few (2 or 3) different signal decay rates are present. In diffusion
@@ -774,7 +774,7 @@ For each spin, a $T_1$ value was sampled from $\mathcal{U}(\qty{1}{\second},
 \qty{5}{\second})$, and a $T_2$ value was sampled from
 $\mathcal{U}(\qty{0.2}{\second}, \qty{0.6}{\second})$.
 Relaxation phenomena were modelled using the ``extended $T_1$/$T_2$
-approximation''\cite{SpinachRelax} (see \cref{subsec:invrec-datasets} for more
+approximation''~\cite{SpinachRelax} (see \cref{subsec:invrec-datasets} for more
 information).
 Each \ac{FID} generated dataset was corrupted by \ac{AWGN} with a target
 \ac{SNR} of \qty{40}{\deci\bel}. The \ac{MDL} was used for model order
@@ -828,7 +828,7 @@ of \qty{3.7e-10}{\meter\squared\per\second}. On top of this, the acidic
 hydroxyl protons (B, C, H) of andrographolide show significant line-broadening,
 and their estimated diffusion coefficients are considerably different compared
 with those of the non-hydroxyl protons, due chemical exchange with water in the
-sample\cite{Chen1998}.
+sample~\cite{Chen1998}.
 The diffusion profile generated suggests a diffusion constant of andrographolide of
 \qty{2.07e-10}{\meter\squared\per\second}. The predicted diffusion constant for
 each estimated oscillator, especially those with greater intensity, shows
@@ -903,7 +903,7 @@ complicated by the presence of two major anomeric forms:
     \qty{4.56}{\partspermillion} agree with this ratio.
     A tiny amount of the open-chain form will
     also be present, though in a negligible quantity.
-}\cite[Chapter 3]{Davis2002}.
+}~\cite[Chapter 3]{Davis2002}.
 There is some evidence of separation of these anomers, principally due
 to the downfield doublets at \qty{5.15}{\partspermillion} (\textalpha anomer) and
 \qty{4.56}{\partspermillion} (\textbeta monomer), which have estimated diffusion

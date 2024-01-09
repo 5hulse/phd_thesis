@@ -8,7 +8,7 @@ observed dataset.
 The chemical shifts, J-couplings, dipolar couplings, etc. of the spin system
 may be recast as a list of signal amplitudes, phases, frequencies and
 damping factors, which define the form that the \ac{FID} is expected to take.
-Sophisticated pieces of software such as \textsc{Spinach}\cite{Hogben2011}
+Sophisticated pieces of software such as \textsc{Spinach}~\cite{Hogben2011}
 solve this forward problem, yielding \ac{NMR} experiment simulations.
 Simulating an \ac{NMR} experiment is a \emph{well-posed} problem, since it
 satisfies the following properties:
@@ -26,7 +26,7 @@ The estimation of \acp{FID} is an example of an \emph{inverse problem};
 given an acquired dataset, the objective is to determine the set of parameters
 which went into constructing it.
 As with many inverse problems, \ac{FID} estimation is
-\emph{ill-posed}\cite{Kabanikhin2008}; such problems do not satisfy at least
+\emph{ill-posed}~\cite{Kabanikhin2008}; such problems do not satisfy at least
 one of the three properties above. For example, given \iac{FID}, it is possible
 to conceive of numerous signal parameter specifications which would lead to a
 faithful representation of the data in a least squares sense, especially when
@@ -133,12 +133,12 @@ is that which minimises the \ac{RSS} between the data and the model:
     \label{eq:argmin_y-x}
 \end{equation}
 The application of \ac{NLP} is a well-established approach to solve such a
-problem\cite{Fletcher1987,Nocedal2006}. The basic principle behind \ac{NLP} is
+problem~\cite{Fletcher1987,Nocedal2006}. The basic principle behind \ac{NLP} is
 to iteratively explore, in a methodical way, how a function varies with its
 arguments. By using information about the function and optionally its
 derivatives, such a routine attempts to find a minimum in the function, and
 terminates once this has been achieved. While derivative-free approaches to
-\ac{NLP} do exist\cite{Nelder1965,Kirkpatrick1983,Powell2009},
+\ac{NLP} do exist~\cite{Nelder1965,Kirkpatrick1983,Powell2009},
 in scenarios where the function under consideration has well-defined,
 computationally tractable derivatives, the use of these can be valuable when
 solving optimisation problems; the problem outlined in

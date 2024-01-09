@@ -3,7 +3,7 @@
 
 \subsection{\textsc{\textsc{Spinach}} Simulations}
 Many of the simulated datasets presented in this work were generated using the
-\textsc{Spinach} \textsc{Matlab}\textregistered\ package\cite{Hogben2011}.
+\textsc{Spinach} \textsc{Matlab}\textregistered\ package~\cite{Hogben2011}.
 In each case, the dataset was generated via a call to the \texttt{new\_spinach}
 method associated with the relevant \texttt{Estimator} object in \ac{EsPy}.
 \texttt{new\_spinach} works by instantiating a \href{https://www.mathworks.com/help/matlab/matlab-engine-for-python.html}{\textsc{Matlab}
@@ -18,7 +18,7 @@ simulated data with \textsc{Spinach}. Tables \ref{tab:spinach-jres-params} and
 
 \subsubsection{Sucrose}
 The chemical shifts and couplings for sucrose were extracted from a
-\textsc{Gaussian}\cite{Gaussian03} logfile which ships with \textsc{Spinach} at
+\textsc{Gaussian}~\cite{Gaussian03} logfile which ships with \textsc{Spinach} at
 the path \path{SPINACHROOT/examples/standard_systems/sucrose.log}.
 Isotropic chemical shifts were determined for each spin $i$ via
 \begin{equation}
@@ -31,8 +31,8 @@ shift tensor of spin $i$.
 The strychnine spin system was derived from
 the \textsc{Spinach} function \texttt{<SPINACHROOT>/etc/strychnine.m}, which returns a
 spin system specification using chemical shifts and scalar couplings
-from\cite[Appendix 5]{Berger2004}, and atomic coordinates
-from\cite[Supplementary Material]{Butts2011}. To determine $T_1$ and  $T_2$
+from~\cite[Appendix 5]{Berger2004}, and atomic coordinates
+from~\cite[Supplementary Material]{Butts2011}. To determine $T_1$ and  $T_2$
 values for each spin, the relaxation superoperator $\symbf{R}$ was
 constructed according to Redfield theory, under the assumption
 that the molecule was undergoing spherical isotropic rotation with a rotational

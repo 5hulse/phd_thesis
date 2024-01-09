@@ -9,7 +9,7 @@ required data as the routine runs. For the matrix pencil methods, the most
 demanding aspect is performing \ac{SVD}, while for \ac{NLP}, it
 is generation of the Hessian matrix for each iteration. Detailed accounts of the
 computational complexity of the \ac{MPM} and \ac{MMEMPM} have been
-presented\cite{Hua1992,Chen2007}.  However, it is useful to consider what the
+presented~\cite{Hua1992,Chen2007}.  However, it is useful to consider what the
 actual run times of these routines are on a modern computer; a lot of
 accounts on these are from decades before this work, and so the
 run time will have decreased considerably thanks to
@@ -17,14 +17,14 @@ improvements in processing power. As an example, the account by Pines a
 co-workers from 1997 outlining the \ac{ITMPM} states that a signal comprising
 $1024$ points would take about
 \qty{4.5}{\minute} to be processed by the \ac{MDL} and \ac{MPM}, using a
-\qty{100}{\mega\hertz} \ac{CPU}\cite{Lin1997}. On the system used for all
+\qty{100}{\mega\hertz} \ac{CPU}~\cite{Lin1997}. On the system used for all
 results generated for this work (see \cref{rem:workstation}) an
 equivalent computation takes about \qty{100}{\milli\second}.
 
 To derive the results presented in this section, \Python\ implementations of
 the aforementioned parts of the estimation routine were run, with software used
-to assess both the line-by-line execution times\cite{LineProf}, and the
-time-dependent \ac{RAM} usage\cite{MemProf}.
+to assess both the line-by-line execution times~\cite{LineProf}, and the
+time-dependent \ac{RAM} usage~\cite{MemProf}.
 \begin{remark}
     \label{rem:workstation}
     All results presented in this work were acquired using a workstation
@@ -137,12 +137,12 @@ given:
         correct locations in $\EY$, and finally converting  $\EY$ to a sparse
         matrix\footnote{
             Truncated \ac{SVD} is only available for sparse matrices in
-            \textsc{NumPy}\cite{svds}. Some experimenting was done to determine
+            \textsc{NumPy}~\cite{svds}. Some experimenting was done to determine
             the most efficient means of generating $\EY$ in sparse form, and
             subsequently compute its \ac{SVD}.
             It was determined that constructing $\EY$ using a
             standard \textsc{NumPy} array before converting it to
-            \ac{CSR} format\cite{csr} was optimal.
+            \ac{CSR} format~\cite{csr} was optimal.
             \label{fn:sparse-svd}
         } (Lines \ref{ln:EYstart} to \ref{ln:EYend}).
     \item Truncated \ac{SVD} of $\EY$ to generate $\symbf{U}_M$ (Line \ref{ln:sparse2}).
@@ -164,7 +164,7 @@ pairings of $M$ and $\Ntwo$ is provided by \cref{tab:mmempm-steps}. It can be
 seen that as $M$ increases, the relative amount of time spent performing
 \ac{SVD} increases, while that to generate $\EY$ decreases. This
 reflects the greater number of iterations required by
-the truncated \ac{SVD} routine\cite{svds} to produce the desired number of
+the truncated \ac{SVD} routine~\cite{svds} to produce the desired number of
 components, while the run time to generate $\EY$ remains fixed.
 
 Interestingly, the plots for a given value of $M$ in

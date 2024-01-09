@@ -2,7 +2,7 @@
 In this section, a survey of some of the most prominent procedures for
 producing pure shift spectra are presented.
 \subsection{The \acs{2DJ} Experiment}
-The \ac{2DJ} experiment\cite{Aue1976, Morris2009} provided the first means to
+The \ac{2DJ} experiment~\cite{Aue1976, Morris2009} provided the first means to
 achieve broadband homodecoupling. It has the following simple pulse sequence:
 \[
     \ang{90} \rightarrow \nicefrac{\tone}{2} \rightarrow \ang{180} \rightarrow \nicefrac{\tone}{2} \rightarrow \ttwo.
@@ -133,7 +133,7 @@ spectra with broad ``wings'' on account of the presence of dispersive
 character, as well as non-linearities. These effects can be suppressed by
 appropriate
 processing to make the FID envelope symmetric in both dimensions;
-sine-bell apodisation and pseudo-echo reshaping\cite{Bax1981} are common methods.
+sine-bell apodisation and pseudo-echo reshaping~\cite{Bax1981} are common methods.
 However, these both cause a significant reduction in sensitivity being
 incurred, along with distortions in relative peak amplitudes such that the data is
 rendered unsuitable for quantitative applications. Examples of experimental
@@ -143,16 +143,16 @@ severe discrepancies in peak integrals exist.
 
 When present, another feature which limits the effectiveness of the \ac{2DJ}
 experiment are \emph{strong coupling artefacts}\footnote{
-    As stressed in \cite{Thrippleton2005}, these are not strictly artefacts,
+    As stressed in ~\cite{Thrippleton2005}, these are not strictly artefacts,
     but rather genuine signals which are expected to be present in the
     \ac{2DJ} dataset. Despite this, the term is widespread in the literature,
     most likely as it emphasises that the signals hinder analysis of the data.
 }, which arise due to mixing effects induced by the \ang{180}
-pulse\cite{Wider1983,Thrippleton2005}.
+pulse~\cite{Wider1983,Thrippleton2005}.
 These artefacts always have direct-dimension
 frequencies which match those of conventional, \emph{first order signals}\footnote{
     First order signals are those which arise under the assumption of the weak
-    coupling regime\cite[Section 2.5.2]{Cavanagh2007}.
+    coupling regime~\cite[Section 2.5.2]{Cavanagh2007}.
 }, though they do not lie along the same \ang{45} cross sections as
 these. As a result, the final spectrum produced by shearing and projecting onto
 $\Ftwo$ will feature additional low-intensity nuisance signals that
@@ -164,7 +164,7 @@ in Figures \ref{fig:jres-spectrum}.c, \ref{fig:quinine-cupid}.a, and
 Beyond the shearing and projection method, procedures based on the estimation
 of \ac{2DJ} datasets have also been developed to achieve broadband
 homodecoupling. Nuzillard introduced
-\ac{ALPESTRE}\cite{Nuzillard1996,Martinez2012}, in which the parameters of each
+\ac{ALPESTRE}~\cite{Nuzillard1996,Martinez2012}, in which the parameters of each
 indirect-dimension FID are estimated using \ac{LPSVD}, such that a set of
 parameters $\symbf{\Theta} \in \mathbb{R}^{\Ntwo \times 4M}$ is generated:
 \begin{equation}
@@ -196,15 +196,15 @@ pure-shift spectra from the \ac{2DJ} experiment with sharp lineshapes and
 without signal loss. A similar approach proposed by Mutzenhardt et al.
 instead constructs full echoes via \ac{LP} of each direct-dimension
 \ac{FID}, and generates a full echo by propagating into
-$-\ttwo$\cite{Mutzenhardt1999}. Further to these \ac{LP} based methods,
+$-\ttwo$~\cite{Mutzenhardt1999}. Further to these \ac{LP} based methods,
 Mandelshtam and co-workers has also illustrated how the \ac{FDM} can be applied
 for parametric estimation, followed by pure shift spectrum
-construction\cite{Mandelshtam1997,Mandelshtam1998}.
+construction~\cite{Mandelshtam1997,Mandelshtam1998}.
 
 \subsection{Chunking Methods}
 A popular set of experimental techniques for pure shift \ac{NMR} comprise
 \ac{2D} pulse sequences in which a short initial section (chunk) of the
-\ac{FID} at each increment is retained\cite{Adams2014}. The acquired chunks are
+\ac{FID} at each increment is retained~\cite{Adams2014}. The acquired chunks are
 subsequently concatenated to yield a \ac{1D} pure shift signal.  All of the
 sequences are designed such that they refocus the effects J-couplings at
 certain known point in time;
@@ -270,9 +270,9 @@ prominent J-refocussing elements is now provided.
 \subsubsection{\ac{ZS}}
 \label{subsec:ZS}
 The \ac{ZS} element employs the concept of ``slice-selective excitation'' to
-distinguish between active and passive spins\cite{Zangger1997,Aguilar2010}. It
+distinguish between active and passive spins~\cite{Zangger1997,Aguilar2010}. It
 consists of the simultaneous application of a low \ac{RF} power \ang{180}
-pulse\,---\,conventionally, a r-SNOB pulse is used\cite{Kupce1995}\,---\,and a
+pulse\,---\,conventionally, a r-SNOB pulse is used~\cite{Kupce1995}\,---\,and a
 weak \ac{PFG} along the laboratory $z$-axis.
 The \ac{PFG} induces a change in a given spin's Larmor frequency as a
 function of its position in the sample, as was descibed in
@@ -301,7 +301,7 @@ achieving good sensitivity. When strong coupling is present,
 the \ac{ZS} element tends to perform poorly relative to other options for this
 reason. It possible to incorporate the \ac{ZS} element into the \ac{2DJ} pulse
 sequence, enabling the generation of \ac{2DJ} datasets comprising
-phase-modulated pairs\cite{Pell2007}. With this approach, pure
+phase-modulated pairs~\cite{Pell2007}. With this approach, pure
 shift spectra with far more desirable lineshapes can be generated via the
 \ang{45} shear-and-project approach relative to using a magnitude-mode
 spectrum.
@@ -310,7 +310,7 @@ spectrum.
 \acused{BIRD}
 The \ac{BIRD} element acts to invert spins bound to a low-abundance
 heteronuclear isotope, while the remaining spins bound to a high-abundance
-isotope are unaffected\cite{Garbow1982,Bax1983}.
+isotope are unaffected~\cite{Garbow1982,Bax1983}.
 The two most common heteronuclei exploited when using \ac{BIRD} are \ch{^{13}C}
 (1.1\% abundance) and \ch{^{15}N} (0.37\% abundance). The loss of sensitivity
 is therefore known and constant across samples. In scenarios where strong
@@ -320,7 +320,7 @@ discussed above.
 The \ac{BIRD} method is particularly attractive in scenarios where the
 sensitivity penalty due to the involvement of a low-abundance nucleus has
 already been paid, for example in sequences where an \ac{INEPT} element is
-present\cite{Paudel2013}. One of \ac{BIRD}'s primary drawbacks is the fact that
+present~\cite{Paudel2013}. One of \ac{BIRD}'s primary drawbacks is the fact that
 geminal protons cannot be decoupled from each other, since such protons are
 always in the same active/passive subset. Doublets rather than singlets will
 arise in such cases.
@@ -329,10 +329,10 @@ arise in such cases.
 \label{subsec:psyche}
 \acused{PSYCHE}
 The most recent major development in pure shift spectroscopy is the \ac{PSYCHE}
-experiment\cite{Foroozandeh2014,Foroozandeh2018}, which has been hailed for its
+experiment~\cite{Foroozandeh2014,Foroozandeh2018}, which has been hailed for its
 ability to generate clean pure shift with better sensitivity relative to
 alternative methods. \ac{PSYCHE} is inspired by
-the anti z-\ac{COSY} experiment\cite{Thrippleton2003}, and involves the application
+the anti z-\ac{COSY} experiment~\cite{Thrippleton2003}, and involves the application
 of two low flip-angle ($\beta \ll \ang{90}$) pulses to achieve active/passive
 subset creation via coherence selection. The pair of low flip-angle pulses
 are usually either chirp pulses, with the sweep direction of the second being
@@ -353,7 +353,7 @@ when $\beta \approx \ang{20}$.
 The \ac{PSYCHE} element has also been employed in conjunction with the \ac{2DJ}
 experiment in order to produce spectra which already feature orthogonal
 separation of the chemical shifts and couplings along the two frequency
-axes\cite{Foroozandeh2015,Kiraly2017}. Involving a \ac{3D} pulse sequence, the
+axes~\cite{Foroozandeh2015,Kiraly2017}. Involving a \ac{3D} pulse sequence, the
 \ac{PSYCHE}-\ac{2DJ} experiment requires long experiment times (typically tens
 of hours) in order to produce a spectrum with well-resolved multiplet
 structures in the indirect dimension.

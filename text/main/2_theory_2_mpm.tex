@@ -1,7 +1,7 @@
 \section{Matrix Pencil Methods}
 \label{sec:mpm}
 In this section, a description the \ac{MPM}\,---\,also referred to as the
-generalized pencil-of-function method\cite{Hua1989}\,---\,is provided. This
+generalized pencil-of-function method~\cite{Hua1989}\,---\,is provided. This
 work is limited to the consideration of \ac{1D} and \ac{2D} \ac{NMR} data, and
 so both the original \ac{1D} \ac{MPM} and its \ac{2D} analogue, the \ac{MMEMPM}
 are discussed.
@@ -10,7 +10,7 @@ are discussed.
 \label{subsec:mpm}
 The \ac{MPM} provides a route to extracting the signal poles of a \ac{1D}
 dataset, based on the assumption that the number of signals $M$ that the data
-comprises is known\cite{Hua1990,Hua1990b,Hua1991}.
+comprises is known~\cite{Hua1990,Hua1990b,Hua1991}.
 To motivate how the \ac{MPM} works, first consider a dataset which is devoid of
 noise, given by \cref{eq:x-alpha-z} with $D=1$:
 \begin{equation}
@@ -103,7 +103,7 @@ equal to one of the signal poles i.e.  $\lambda = z_m\ \forall m \in
 \lbrace 1, \cdots, M \rbrace$: the element $[\symbf{Z}_{\text{D}} -
 \lambda \symbf{I}_M]_{m,m}$ becomes $0$, which will lead to the
 determinant of the matrix pencil being $0$. The signal poles are therefore the
-\emph{generalised eigenvalues} of $\Hxtwo - \lambda \Hxone$\cite[Section
+\emph{generalised eigenvalues} of $\Hxtwo - \lambda \Hxone$~\cite[Section
 7.7]{Golub2013}:
 \begin{equation}
     \symbf{z} = \left\lbrace
@@ -130,7 +130,7 @@ determining the $M$ signal poles. The Hankel matrix associated with
 $\rank(\Hy) = \min(N - L, L + 1)$. To minimise the influence of noise on
 the estimated signal poles, it is necessary to
 generate a rank-reduced matrix $\Hytilde$. By employing the \ac{EYM}
-theorem\cite[Section~2.2]{Golub2013}, an appropriate matrix can be obtained
+theorem~\cite[Section~2.2]{Golub2013}, an appropriate matrix can be obtained
 through \ac{SVD}:%
 \begin{subequations}%
     \begin{gather}%
@@ -195,7 +195,7 @@ $\symbf{U}_{M1}^+\symbf{U}_{M2}^{\vphantom{+}}$, with
 \cref{alg:mpm} provides a pseudo-code description of the \ac{MPM}, while
 \cref{lst:mpm} provides an example \Python implementation. For optimal
 results, the pencil parameter should adhere to $\lfloor \nicefrac{N}{3} \rfloor
-\leq L \leq \lfloor\nicefrac{2N}{3}\rfloor$\cite{Hua1990}. In this work,
+\leq L \leq \lfloor\nicefrac{2N}{3}\rfloor$~\cite{Hua1990}. In this work,
 $\lfloor\nicefrac{N}{3}\rfloor$ is always used, primarily since the computational
 burden of the method is at a maximum when $L = \nicefrac{N}{2}$\footnote{
     With $L = \lfloor\nicefrac{N}{2}\rfloor$, the matrix
@@ -287,7 +287,7 @@ burden of the method is at a maximum when $L = \nicefrac{N}{2}$\footnote{
 \subsection{The 2D MMEMPM}
 \label{subsec:mmempm}
 The \ac{MPM} was extended for the consideration of \ac{2D} data by Hua with the
-\acfi{MEMPM}\cite{Hua1992}. The method centers around the enhanced matrix $\EY
+\acfi{MEMPM}~\cite{Hua1992}. The method centers around the enhanced matrix $\EY
 \in \mathbb{C}^{\Lone \Ltwo \times (\None - \Lone + 1)(\Ntwo - \Ltwo + 1)}$,
 a block-Hankel matrix of the form
 \begin{subequations}
@@ -358,7 +358,7 @@ in the speed of the \ac{MEMPM} can be realised when, rather than compute the
 \ac{SVD} in its entirety, a \emph{truncated} \ac{SVD} is computed, in
 which only the first $M$ components of the \ac{SVD} are
 determined using iterative approaches like the Rayleigh-Ritz/Arnoldi
-method\cite{Arnoldi1951,svds}.
+method~\cite{Arnoldi1951,svds}.
 
 If the conditions $\Nd - L^{(d)} + 1 \geq M\ \forall d \in \lbrace 1, 2
 \rbrace$ are met, $\range\left(\symbf{U}_M\right) =
@@ -473,10 +473,10 @@ with the last and first $\Lone$ rows removed, respectively.
 \end{figure}
 In the original account on the \ac{MEMPM}, the final stage employed a
 pairing algorithm in order to assign the uncorrelated signal poles in $\bdzone$
-with those in $\bdztwo$\cite{Hua1992}. The \emph{modified} \ac{MEMPM} (\acs{MMEMPM}) was
+with those in $\bdztwo$~\cite{Hua1992}. The \emph{modified} \ac{MEMPM} (\acs{MMEMPM}) was
 developed in order to overcome two issues with the pairing algorithm: (a) it is
 computationally expensive, and (b) it is prone to return incorrect
-pairings\cite{Chen2007}.
+pairings~\cite{Chen2007}.
 The procedure for extracting the paired poles differs slightly depending on
 whether all the signal poles in $\symbf{z}^{(1)}$ are distinct or not.
 As well as the eigenvalues of
@@ -544,8 +544,8 @@ unable to recognise that certain heavily overlapping peaks in the spectrum
 constitute a more than one signal, leading to under-estimates of $M$.
 There are various non-subjective criteria which have been established for
 estimating the model order of a given signal, with probably the two most
-prominent being the \ac{AIC}\cite{Akaike1974} and
-\ac{MDL}\cite{Schwarz1978,Rissanen1978}. Both of these consider a family of
+prominent being the \ac{AIC}~\cite{Akaike1974} and
+\ac{MDL}~\cite{Schwarz1978,Rissanen1978}. Both of these consider a family of
 potential models which describe a given set of observations, parametrised by
 the vector $\bth$. For the purpose of \ac{1D} \ac{FID} estimation, the family
 of potential models comprise \cref{eq:x} with variable $M$. Both the \ac{AIC}
@@ -569,7 +569,7 @@ leads to a model which also features noise components. The penalising
 term $\mathcal{P}(k)$, which always increases with $k$, is introduced in order to
 obtain a parsimonious model order estimate. Wax and Kailath derived an
 expression for the likelihood at the \ac{MLE} for models comprising a summation
-of complex sinusoids\cite{Wax1985}\footnote{
+of complex sinusoids~\cite{Wax1985}\footnote{
     The expression in Wax and Kailath's paper considers the eigenvalues of the
     covariance matrix for the signal, rather than the singular values of $\Hy$;
     these are equivalent.
@@ -595,7 +595,7 @@ in decreasing order. The explicit forms of the \ac{AIC} and \ac{MDL} are
     \end{gather}
 \end{subequations}
 The \ac{AIC} has been shown to be inconsistent since it tends to overestimate
-the model order as the number of samples increases\cite{Wax1985}. For this
+the model order as the number of samples increases~\cite{Wax1985}. For this
 reason, the \ac{MDL} has found greater favour in signal processing
 applications, and is employed in this work\footnote{
     In practice, rather than compute the global minimum of the \ac{MDL}, the
@@ -646,7 +646,7 @@ applications, and is employed in this work\footnote{
 \end{figure}%
 Applying the \ac{MDL} for model order selection, and subsequently using the
 \ac{MPM} for parameter estimation is the basis of the \ac{ITMPM} from Pines and
-co-workers\cite{Lin1997}.
+co-workers~\cite{Lin1997}.
 \Cref{fig:mdl} illustrates the form of the \ac{MDL} for three \acp{FID}
 with equivalent underlying models, comprising $7$ signals, but with noise
 instances of differing variances. The first 14 singular values of $\Hy$

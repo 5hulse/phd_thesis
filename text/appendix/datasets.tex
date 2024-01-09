@@ -6,11 +6,11 @@
 
 \subsection{\textsc{Spinach} Spin Systems}
 Many of the simulated datasets presented in this work were generated using the
-\textsc{Spinach} \textsc{Matlab} package\cite{Hogben2011}.
+\textsc{Spinach} \textsc{Matlab} package~\cite{Hogben2011}.
 In each case, the dataset was generated via a call to the \texttt{new\_spinach}
 method associated with the relevant \texttt{Estimator} object in \ac{EsPy}.
 \texttt{new\_spinach} works by instantiating a \textsc{Matlab} engine from
-\textsc{Python}\cite{MatlabEngine}, which then runs a \textsc{\textsc{Spinach}}
+\textsc{Python}~\cite{MatlabEngine}, which then runs a \textsc{\textsc{Spinach}}
 simulation of the relevant experiment with the specifications provided. The
 \ac{FID} generated is then stored within in a new \texttt{Estimator} object
 along with other relevant information about the simulation.
@@ -21,7 +21,7 @@ shifts and scalar couplings that made up the spin systems used for the
 The relevant the spin systems were constructed as follows:.
 % \paragraph{Sucrose}
 % The chemical shifts and couplings for sucrose were extracted from a
-% \textsc{Gaussian}\cite{Gaussian03} logfile which ships with \textsc{Spinach} at
+% \textsc{Gaussian}~\cite{Gaussian03} logfile which ships with \textsc{Spinach} at
 % the path \path{SPINACHROOT/examples/standard_systems/sucrose.log}.
 % Isotropic chemical shifts were determined for each spin $i$ via
 % \begin{equation}
@@ -54,7 +54,7 @@ relaxation times, randomly sampled from $T_1 \sim \mathcal{U}(\qty{1}{\second},
 \qty{5}{\second})$, and $T_2 \sim \mathcal{U}(\qty{0.2}{\second},
 \qty{0.6}{\second})$.
 Relaxation of the spin system was defined to adhere to the \emph{extended
-$T_1$/$T_2$ approximation}\cite{SpinachRelax}. Under this model, all
+$T_1$/$T_2$ approximation}~\cite{SpinachRelax}. Under this model, all
 longitudinal states associated with a given spin relax exponentially at a rate
 $R_1 \coloneq \nicefrac{1}{T_1}$, while transverse states relax at a rate $R_2
 \coloneq \nicefrac{1}{T_2}$. For multi-spin order states, the relaxation rate
@@ -74,7 +74,7 @@ subjected to any relaxation.
 The strychnine spin system was derived from
 the \textsc{Spinach} function \path{<SPINACHROOT>/etc/strychnine.m}, which returns a
 spin system specification using chemical shifts and scalar couplings
-from\cite[Appendix 5]{Berger2004}. The system was not subjected to any relaxation.
+from~\cite[Appendix 5]{Berger2004}. The system was not subjected to any relaxation.
 
 \input{text/generated/shifts_and_couplings}
 
@@ -166,18 +166,18 @@ parameters are provided by \cref{tab:onedim-params}.
 Experiment parameters related to the diffusion datasets presented in
 \cref{sec:seq} are provided by \cref{tab:diff-params}.
 The andrographolide diffusion dataset (\cref{fig:andrographolide-dosy})
-was acquired using the one-shot \ac{DOSY} pulse sequence\cite{Pelta2002}
+was acquired using the one-shot \ac{DOSY} pulse sequence~\cite{Pelta2002}
 (version 1.0c, published on \formatdate{27}{03}{2012}), accessible via the webpage
 \url{https://www.nmr.chemistry.manchester.ac.uk/?q=node/264}. The pulse
 sequence is displayed in \cref{fig:oneshot-dosy}.
 The glucose/valine/threonine diffusion dataset (\cref{fig:gluc_val_thre})
 was acquired using \textsc{Bruker}'s \texttt{ledbpgp2s} pulse sequence (version 1.9, published on
 \formatdate{19}{02}{2011}). This is a stimulated echo pulse sequence, featuring
-bipolar gradients and a \ac{LED} component\cite{Wu1995}. The pulse sequence is
+bipolar gradients and a \ac{LED} component~\cite{Wu1995}. The pulse sequence is
 displayed in \cref{fig:ledbpgp2s}.
 Analysis of the dataset using the multivariate methods \ac{DECRA} and
 \ac{SCORE} was facilitated through use of The University of Manchester's
-\ac{GNAT} software\cite{Castanar2018}.
+\ac{GNAT} software~\cite{Castanar2018}.
 
 \begin{figure}[H]
     \centering
@@ -288,7 +288,7 @@ The 2D J-Resolved datasets presented were acquired using Bruker's
 \formatdate{31}{01}{2012}). This pulse sequence comprises
  $\nicefrac{\pi}{2}(\Phi_1) \rightarrow \nicefrac{\tone}{2} \rightarrow
 \pi(\Phi_{2}) \rightarrow \nicefrac{\tone}{2} \rightarrow \ttwo(\Phi_{\text{rx}})$, with
-the EXORCYCLE phase-cycling scheme used\cite[Section 11.6]{Keeler2010}:
+the EXORCYCLE phase-cycling scheme used~\cite[Section 11.6]{Keeler2010}:
 \begin{equation*}
     \begin{array}{lllll}
         \Phi_{1}: & \ang{0} & \ang{0} & \ang{0} & \ang{0} \\
@@ -373,7 +373,7 @@ were used for the basic setup as the estradiol 2DJ experiment, given in
         $\tau_a$: \qty{1.3}{\milli\second},
         $\tau_d$: \qty{18.9}{\milli\second}.
         The \ac{PSYCHE} element featured two saltire chirp pulses with a
-        \ac{WURST}\cite{ODell2013}
+        \ac{WURST}~\cite{ODell2013}
         amplitude envelope, with a target flip angle $\beta = \ang{20}$.
         Each saltire pulse
         had a bandwidth of \qty{10}{\kilo\hertz},

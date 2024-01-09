@@ -96,12 +96,12 @@ possibility that it does not lead to a decrease in the fidelity if the Hessian
 is not positive definite. Two primary strategies have emerged which are
 typically used instead:
 \begin{itemize}
-    \item \emph{Line search methods}\cite[Chapter 3]{Nocedal2006} determine an
+    \item \emph{Line search methods}~\cite[Chapter 3]{Nocedal2006} determine an
         appropriate direction $\symbf{p}^{(k)}$ along which the updated
         parameter vector is sourced.  After this, an appropriate step length
         $\alpha^{(k)}$ is determined\,---\,typically in an efficient, though not
         optimal manner\,---\,leading to $\bthkplusone = \bthk - \alpha^{(k)}\symbf{p}^{(k)}$.
-    \item \emph{Trust region methods}\cite[Chapter 4]{Nocedal2006} define a
+    \item \emph{Trust region methods}~\cite[Chapter 4]{Nocedal2006} define a
         radius $\Updelta^{(k)} > 0$, and determine the minimum of
         \cref{eq:quad-approx} subject to the constraint that
         $\left\lVert\symbf{h}\right\rVert \leq \Updelta^{(k)}$.
@@ -114,7 +114,7 @@ typically used instead:
     ]
     {
         The \acs{NLP} routine employed in this work. This makes use of
-        Algorithms 4.1 \& 7.2 in \cite{Nocedal2006}, with a extra check
+        Algorithms 4.1 \& 7.2 in ~\cite{Nocedal2006}, with a extra check
         inserted to deal with any negative-amplitude oscillators which may be
         generated as the routine evolves
         (\crefrange{state:neg-amp-start}{state:neg-amp-end}).
@@ -194,10 +194,10 @@ This sub-problem is not usually solved exactly, but instead an efficient
 means of determining a sufficiently good update is used.
 Common approaches include computing the Cauchy point, the Dogleg
 method, and a truncated conjugate-gradient
-approach commonly called the \ac{ST} method\cite[Chapter 7]{Nocedal2006}.
+approach commonly called the \ac{ST} method~\cite[Chapter 7]{Nocedal2006}.
 The latter is employed in this work (see \cref{alg:steihaug-toint} and
 \cref{lst:tr}). In the \ac{ST} approach, iterates of the conjugate-gradient
-method\cite[Chapter 5]{Nocedal2006} are computed, either until an iterate which
+method~\cite[Chapter 5]{Nocedal2006} are computed, either until an iterate which
 is outside the trust region is computed, or negative curvature is discovered.
 Once a provisional update $\bthkplusone = \bthk + \bpk$ is determined using the
 \ac{ST} method, a metric is considered which indicates how well the
@@ -326,9 +326,9 @@ there is considerable precedent for improving the efficiency of optimisation
 algorithms by generating approximations of the Hessian which are less demanding
 to compute.
 Examples include the \ac{GN} method and \ac{LM} algorithm,
-which are specifically for \ac{RSS} problems\cite[Chapter
+which are specifically for \ac{RSS} problems~\cite[Chapter
 10]{Nocedal2006}, as well as quasi-Newton methods such as the \ac{BFGS}
-method\cite[Chapter 6]{Nocedal2006}.
+method~\cite[Chapter 6]{Nocedal2006}.
 
 The \ac{GN} and \ac{LM} approaches replace the true Hessian matrix at each
 iteration with the following expression:
@@ -401,7 +401,7 @@ the first instance, the exact Hessian matrix given by \cref{eq:hess} was used
 in order to compute each update step, while in the second the Hessian
 approximation given by \cref{eq:hess-approx} was used. The initial
 radius of the trust region was set to $\nicefrac{1}{10}$ of the gradient norm
-($\approx 0.3$), which has a precedent in the literature\cite{Gould2005}. The
+($\approx 0.3$), which has a precedent in the literature~\cite{Gould2005}. The
 trajectories of the parameter vector are denoted by blue and red lines in
 \cref{fig:optim-vis}.c.
 In both cases, the \ac{NLP} routine successfully converged at a result $\bthstar$
@@ -502,7 +502,7 @@ However, with the inclusion of wrapping through application of
 + \delta\:\:\pi - \delta \right]\T$, and the linear phase
 variance would be large. A definition of variance which accounts for the
 periodicity of the phases is needed; the circular variance is defined
-as\cite[Chapter 3]{Fisher1993}
+as~\cite[Chapter 3]{Fisher1993}
 \begin{subequations}
     \begin{gather}
         [0, 1] \ni \circvar = 1 - \frac{R}{M},\\
