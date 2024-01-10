@@ -23,11 +23,12 @@ hypercomplex \ac{2D} \acp{FID} (the form which \ac{2DJ} datasets take).
 \ac{2D} data should be analysed holistically,
 rather than as successive \ac{1D} increments, as is the case in methods like
 \ac{CRAFT}~\cite{Krishnamurthy2017} and other previous approaches which will be
-discussed later. This is since better signal resolution is often available when
-both dimensions are considered at the same time; certain signals which exhibit
-clear resolution in a \ac{2D} dataset may be heavily overlapping in \ac{1D}
-data and are therefore more challenging if not impossible to quantify
-accurately.
+discussed later. \correction{
+    It is often the case that signals which heavily overlap in a
+    \ac{1D} \ac{NMR} dataset are well-separated in a dataset with more dimensions;
+    exploiting this concept means that holistic estimation approaches are able to
+    resolve and quantify individual signals more effectively.
+}\label{corr:1d-vs-2d}
 
 \paragraph{Time-domain based}
 As discussed in \cref{subsec:multidim}, due to the hypercomplex nature of
@@ -93,18 +94,16 @@ Additional supporting information can be found in the Appendix:
         \ac{EsPy} package.
     \item \textbf{\cref{chap:datasets}} outlines how the simulated and
         experimental datasets considered in this work were generated.
-    \item \textbf{\cref{chap:inserts}} provides two inserts from relevant
-        documents. The first is a chapter from the documentation of \ac{EsPy},
-        which comprises tutorials to help users gain familiarity with the
-        package. The second is the current state of a draft for a paper to be
-        submitted to \textit{Angewandte Chemie} (see below).
+    \item \textbf{\cref{chap:inserts}} is a chapter insert from the
+        documentation of \ac{EsPy}, comprising tutorials to help users gain
+        familiarity with the software.
 \end{itemize}
 
 The following publications are related to this work:
 
 \fullcite{Hulse2022}\mybibexclude{Hulse2022}
 
-At the time of writing (\today) a draft for a communication exists which
-outlines the \ac{2DJ}/pure shift work outlined in \cref{chap:cupid}. It is
-intended that this will be submitted to \textit{Angewandte Chemie} in the near
-future.  See \cref{chap:inserts}.2 for the current form of the draft.
+At the time of writing (\today) a draft for a communication is being being
+worked on which describes the \ac{2DJ} estimation work outlined in
+\cref{chap:cupid}. It is intended for this to be submitted to
+\textit{Angewandte Chemie} or \textit{ChemComm} in the near future.

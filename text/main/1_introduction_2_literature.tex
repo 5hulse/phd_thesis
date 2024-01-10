@@ -73,16 +73,27 @@ correction and baseline correction are applied to the resultant spectrum.
 \subsubsection{Apodisation}
 Apodisation refers to the process of mutating a signal by multiplying it with a
 specified function, often called a \emph{window function}~\cite[Section
-3.2.7]{Claridge2016}, as a means of enhancing either the sensitivity or the
-resolution of the final spectrum, albeit at the cost of worsening the other
-feature.
+3.2.7]{Claridge2016}, as a means of improving the sensitivity or the
+resolution of the final spectrum.
 
 \paragraph{Sensitivity Enhancement} As \iac{FID} progresses with time, the
 contributions from the desirable signal ($\bx$) and experimental noise ($\bw$)
 becomes more weighted towards the noise, as spin relaxation phenomena attenuate
-the signal.  Multiplying the \ac{FID} with a function which decreases in value
-with time can be used to enhance the \ac{SNR} of the \ac{FID}, as later points
-which are heavily noise-weighted are suppressed. The most common function to
+the signal.  Multiplying the \ac{FID} with a function which smoothly decreases
+in value with time can be used to enhance the \ac{SNR} of the \ac{FID}, as
+later points which are heavily noise-weighted are suppressed.
+\correction{
+    While not the optimal choice\footnote{
+        \correction{
+            The theoretically optimal window function is the Dolph-Chebycheff
+            window, which reduces the magnitude of truncation ripples for a given
+            degree of sensitivity enhancement\cite[Section 3.3.2.2]{Cavanagh2007}.
+            This is rarely used in \ac{NMR} however due to its complex
+            mathematical form.
+        }
+        \label{fn:dolph-cheb}
+    },
+}\label{corr:exp-apod} the most common function used to
 achieve this is the negative exponential, in which a given point is multiplied
 by $\exp(-\nicefrac{k n}{N - 1})$.  $k$ is referred to as the line broadening
 factor, since the increased damping applied to the \ac{FID} causes the
@@ -91,37 +102,50 @@ linewidth of the spectral peaks to increase (see
 
 \paragraph{Resolution Enhancement} By contrast, resolution enhancement can be
 achieved by applying a window function that artificially reduces the rate of
-signal decay. It is possible to do this by attenuating the early datapoints in
-\ac{FID}. Popular examples of window functions for resolution enhancement are
-the Lorentz-Gauss function, which bestows a sharper, Gaussian shape to the
-peaks, and the sine-bell, which is commonly used in multidimensional
-experiments.  Since the initial points in the \ac{FID} are reduced in
-magnitude, these window functions decrease the sensitivity of the resulting
-spectra.
+signal decay. It is possible to do this by attenuating the initial datapoints in
+\iac{FID}. The Lorentz-Gauss function bestows a Gaussian shape,
+\correction{featuring a narrower base relative to an equivalent
+Lorentzian,}\label{corr:gaussian} to spectral peaks. Another popular window
+function for resolution enhancement is the sine-bell, which is commonly used in
+multidimensional experiments. Since the initial points in the \ac{FID} are
+reduced in magnitude, these window functions decrease the sensitivity of the
+resulting spectra.
 
-By being defined to decay to a sufficiently small value (or $0$ itself) at the
-end of
-the \ac{FID}, window functions are also able to suppress \emph{truncation
-artefacts}, which appear when the \ac{FID} still possesses appreciable signal
-amplitude at the end of the acquisition period. Truncated \acp{FID} produce
-spectra with peaks of a form that is akin to the convolution of the \ac{FT} of
-the untruncated \ac{FID}, with the \ac{FT} of a box-function, which has the
-form of a sinc function ($\nicefrac{\sin(x)}{x}$). The resulting artefacts
-are often referred to as \emph{sinc wiggles} for this reason.
+\correction{
+As they are defined to decay to a small value or zero,
+window functions are also able to suppress artefacts which
+manifest in the spectra of \acp{FID} that possess
+appreciable signal amplitude at the end of the acquisition period; such
+\acp{FID} are often referred to as \emph{truncated}. The spectrum of a
+truncated \ac{FID} is akin to the convolution of spectrum of its untruncated
+analogue, with the \ac{FT} of a box-function defining the point
+at which acquisition ended; under these circumstances, spectral peaks take the
+form of sinc functions\footnote{
+    The sinc function is defined as $\operatorname{sinc}(x) = \nicefrac{\sin(x)}{x}$.
+}. The resulting artefacts are commonly called \emph{sinc wiggles} for
+this reason.
+}\label{corr:trunc}
 
 \subsubsection{Zero-filling}
 Zero-filling refers to the process of appending zeros to the end of an
 \ac{FID}. One reason why this is often done is to ensure that the number of
 points in the \ac{FID} is a power of 2, making the \ac{FID} of an optimal size
-for processing by divide and conquer methods like the Cooley-Tukey
-algorithm~\cite{Cooley1965}. Beyond this, it is actually
+for efficient processing by divide and conquer \ac{DFT} methods like the
+Cooley-Tukey algorithm~\cite{Cooley1965}. Beyond this, it is actually
 possible to enhance the information content of the real component of the
 spectrum if an \ac{FID} comprising $2^{x-1} < N \leq 2^x$ points is zero-filled
-to $2^{x+1}$ points~\cite{Bartholdi1973}. By doing this, the real and imaginary
+to $2^{x+1}$ points. By doing this, the real and imaginary
 components of
 the spectrum become causally linked; the real component can be derived from the
 imaginary component and vice versa via the Hilbert Transform, in accordance
-with the Kramers-Kronig relations.
+with the \correction{Kramers-Kronig relations~\cite{Bartholdi1973}:
+\begin{subequations}
+    \begin{gather}
+        \Re(s(F)) = \frac{1}{2\pi^2} \int_{-\infty}^{\infty} \frac{\Im(s(F^{\prime}))}{F - F^{\prime}} dF^{\prime},\\
+        \Im(s(F)) = -\frac{1}{2\pi^2} \int_{-\infty}^{\infty} \frac{\Re(s(F^{\prime}))}{F - F^{\prime}} dF^{\prime}.
+    \end{gather}
+\end{subequations}
+}\label{corr:kram-kron}
 Zero-filling beyond a factor of 2 can bestow a
 cosmetic improvement to spectra, but it does not incorporate any new
 information into them; any additional points are simply interpolations.
@@ -146,7 +170,18 @@ where $\mathcal{A}_m$ and  $\mathcal{D}_m$ denote \emph{absorption} and
 \end{subequations}
 As illustrated most clearly in \cref{fig:amp-phase-freq-damp}.c2, a peak with
 an absorption lineshape is far more desirable than one with a dispersion
-lineshape for two key reasons:
+lineshape\footnote{
+    \correction{
+        The consideration of dispersion lineshapes is preferred in certain
+        applications. As an example, the lock conventionally monitors the
+        solvent deuterium signal through consideration of its dispersion-mode spectrum.
+        This is since, if the magnetic field drifts, it is trivial to ascertain
+        the direction of the drift based on whether the zero of the
+        dispersion spectrum becomes positive or negative\cite{Webb2016}.
+        \label{fn:lock-disp}
+    }
+}
+for two key reasons:
 \begin{enumerate}
     \item Its maximum corresponds to the signal frequency, while a dispersion
         Lorentzian has a magnitude of $0$ at this frequency.
@@ -328,23 +363,16 @@ description of the data is desired. Some examples include:
         amplitudes of the signals in the data.
     \item Determining properties such as translational diffusion coefficients
         and relaxation rates, which can be achieved using a suite of \ac{2D}
-        experiments in which each successive \ac{1D} \acp{FID} exhibit
+        experiments in which successive \ac{1D} \acp{FID} exhibit
         attenuations in their signal amplitudes (these are discussed in
         \cref{sec:seq}).  Typical approaches to analysing these datasets
-        requires identification of the frequencies of spectral peaks of
+        require identification of the frequencies of spectral peaks of
         interest, from which amplitudes are extracted and fit to a
         function which models the expected decay profile of the data.
 \end{itemize}
 
 Most \ac{NMR} users are principally interested in the integrals and positions
-of peaks in spectra\footnote{
-    There may be some situations where the linewidth of the peaks are of
-    interest too. An absorption Lorentzian produced from an
-    exponentially-damped complex sinusoid with a damping factor $\eta$ will
-    have a linewidth at half its maximum intensity of $\nicefrac{\eta}{\pi}$.
-    Peak linewidths give an insight into the rate of transverse
-    relaxation ($T_2$) associated with a given spin.
-}.
+of peaks in spectra.\label{corr:delete-T2}
 Integrals are usually computed by applying a discrete integration method such
 as Simpson's rule on a collection of consecutive points in the spectrum which
 lie within user-specified regions.
@@ -401,8 +429,9 @@ where $L \in
 \mathbb{N}$ defines the order of the linear estimator, and $\symbf{c} \in
 \mathbb{R}^{L}$ is a set of \emph{forward} \ac{LP} coefficients. $\symbf{e} \in
 \mathbb{R}^L$ is a set of parameters, often called the innovations,
-which account of error in the \ac{LP} model. A datapoint can also be described
-by a linear combination of subsequent points, using the set of \emph{backward}
+which take account of error in the \ac{LP} model. A datapoint can also be
+described by a linear combination of subsequent points, using the set of
+\emph{backward}
 \ac{LP} coefficients $\symbf{b} \in \mathbb{R}^L$:
 \begin{equation}
     y_n = \sum_{l=1}^{L}
@@ -634,10 +663,12 @@ facilitates the imposition of a wider range of linear constraints on the
 parameter set~\cite{Vanhamme1997}; it is now established as one of the most
 prominent means of quantifying \ac{MRS} signals.
 
-There is not much precedent of using iterative methods in \ac{NMR} analysis,
-despite its widespread adoption in \ac{MRS}. The main cause of this is probably due to
-the requirement to supply a large amount of prior knowledge; in \ac{MRS}, it
-is likely that the practitioner has an intimate understanding of the expected signals
+There is little precedent for the use of iterative parametric estimation
+methods \correction{like \ac{VARPRO} and \ac{AMARES}}\label{corr:varpro-amares}
+in \ac{NMR} analysis, despite its widespread adoption in \ac{MRS}. One key reason
+for this is due to the requirement to supply a large amount of prior knowledge;
+in \ac{MRS}, it is likely that the practitioner has an intimate understanding
+of the expected signals
 which will be present in an acquired dataset, since all signals will derive
 from species which make up the human metabolome, whose chemical shifts and multiplet
 structures will be well-established. As \ch{^{31}P} is the most
@@ -647,9 +678,7 @@ adjustment to the information provided to the optimiser will need to be given,
 making the process facile. In \ac{NMR} experiments, there is a far greater
 variation in the appearance of the data, such that the process of defining
 \textit{a priori} information for each dataset of interest is likely to become
-time-consuming and cumbersome. Furthermore, there is also a good possibility
-that the expected form that the dataset adopts in unknown in \ac{NMR}, making
-any method which requires intimate knowledge about the data worthless.
+time-consuming and cumbersome.
 
 \subsubsection{Bayesian Methods}
 \Ac{CRAFT}~\cite{Krishnamurthy2013,Krishnamurthy2021} is a routine developed by
