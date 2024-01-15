@@ -79,8 +79,8 @@ nuclei are the most commonly studied in \ac{NMR}, as those with $I >
 quadrupole effects. A rigorous description of \ac{NMR} requires the application
 of quantum mechanics, with many excellent texts on the subject available to
 suit newcomers and experts alike; notable examples include the
-following citations (in order of complexity):
-~\cite{Hore2015,Levitt2007,Cavanagh2007,Goldman1988,Abragam1961}.
+following citations (in approximate order of complexity):
+~\cite{Hore2015,Levitt2007,Cavanagh2007,Goldman1988,Abragam1961,Kuprov2023}.
 Despite this, a basic
 appreciation can be gained using the Bloch (vector) model, a semi-classical
 description of the simplest possible system to study: a ensemble of
@@ -417,18 +417,26 @@ this occurs is called \emph{relaxation}.
             interactions also contribute to the dephasing of spins, and hence
             transverse relaxation.
     \end{itemize}
-}
-
-\correction{
     In the Bloch model, the influence of longitudinal and transverse relaxation are
     accounted for by the incorporation of two processes, with the respective rate
     constants $R_1$ and $R_2$. The processes are often expressed in terms of
     the associated relaxation times instead: $T_i \coloneq \nicefrac{1}{R_i}, i \in \lbrace 1, 2\rbrace$.
+    In the vast majority of situations, the rate of transverse relaxation is
+    greater than that of longitudinal relaxation, i.e. $T_2 \leq
+    T_1$~\cite[Section 11.9]{Levitt2007}. The rate of longitudinal relaxation
+    places a strict limit on the rate of transverse relaxation:
+    $T_2 \leq 2 T_1$; if this were violated, during
+    the evolution of the bulk magnetisation vector, its magnitude would surpass
+    its magnitude at equilibrium, which is a physical
+    impossibility~\cite{Traficante1991}.
+}
+
+\correction{
     The introduction of relaxation is phenomenological in the Bloch model; the
     reversion of the spin system to equilibrium is included purely to ensure
     the model agrees with observation. More sophisticated theories invoking
     Liouville-space quantum mechanics can account for
-    relaxation however~\parencites[Chapter 5]{Cavanagh2007}{Goldman2001}{Kuprov2007}.
+    relaxation however~\parencites[Chapter 5]{Cavanagh2007}[Chapter 6]{Kuprov2023}{Goldman2001}{Kuprov2007}.
 }
 
 \begin{figure}
@@ -442,7 +450,8 @@ this occurs is called \emph{relaxation}.
         \textbf{a.} An illustration of the free evolution of the bulk
         magnetisation of an ensemble of spin-$\nicefrac{1}{2}$ nuclei
         immediately after the application of a $\ang{90}_y$ pulse according to
-        the Bloch model.
+        the Bloch model. The rate of transverse relaxation was set to be double
+        that of longitudinal relaxation ($T_2 = \nicefrac{T_1}{2}$).
         The projections of the magnetisation vector onto the
         $x$- and  $y$-axes are plotted in panels \textbf{b.} and \textbf{c.},
         respectively. Modern \acs{NMR} spectrometers utilise quadrature

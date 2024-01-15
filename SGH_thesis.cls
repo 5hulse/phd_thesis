@@ -283,6 +283,7 @@
 ]{biblatex}
 \DeclareDelimFormat{postnotedelim}{\addcolon\space}
 \DeclareFieldFormat{postnote}{\mknormrange{#1}}
+\DeclareFieldFormat[report]{title}{\emph{#1}}
 
 %%% Footnotes
 % Symbols instead of numbers
