@@ -50,6 +50,7 @@ is hypercomplex in form, meaning that it obeys
             -\eta_m^{(d)}\right)
             \nd \Dtd\right),\label{eq:x}\\
         \wnonenD \sim \mathcal{N_C}\left(0, 2\sigma^2\right),%
+        \label{eq:complex-normal}
     \end{gather}%
     \label{eq:hypercomplex-fid}%
 \end{subequations}%
@@ -80,16 +81,39 @@ identity of all the quantities that describe the model component $\bX$, which
 are distilled into the vector $\bth \in \mathbb{R}^{2(D + 1)M}$, given by
 \cref{eq:theta}.
 Due to the assumed \ac{AWGN} nature of the noise array, the
-\ul{probability density function (PDF)}\acused{PDF} of an individual noise
-component is
+\ul{probability density functions (PDFs)}\acused{PDF} of the
+\correction{
+    real and imaginary components of an individual noise element are the
+    following (in accordance with \cref{eq:complex-normal}):
+    \begin{subequations}
+        \begin{gather}
+            p\left(\Re\left(\wnonenD\right)\right) =
+                \frac{1}{\sqrt{2\pi \sigma^2}}
+                \exp\left( -\frac{\Re\left(\wnonenD\right)^2}{2\pi\sigma^2}\right),
+                \label{eq:PDF-real}\\
+            p\left(\Im\left(\wnonenD\right)\right) =
+                \frac{1}{\sqrt{2\pi \sigma^2}}
+                \exp\left( -\frac{\Im\left(\wnonenD\right)^2}{2\pi\sigma^2}\right).
+                \label{eq:PDF-imag}
+        \end{gather}%
+        \label{eq:prob-density}%
+    \end{subequations}
+The real and imaginary noise elements are acquired under the same
+conditions, such that \cref{eq:PDF-real,eq:PDF-imag} are identical.
+Hence\footnote{
+    \correction{N.B.
+    $\left\lvert \wnonenD \right\rvert^2 \equiv \Re\left(\wnonenD\right)^2 + \Im\left(\wnonenD\right)^2$
+    }
+}:
 \begin{equation}
-    p(\wnonenD) =
+    p\left(\wnonenD\right) =
         \frac{1}{2\pi \sigma^2}
-        \exp\left( -\frac{\left\lvert \wnonenD \right\rvert^2}{2\sigma^2}\right).
-\end{equation}
-As the components are assumed to be independent and identically distributed, the
-joint \ac{PDF} describing the entire noise array is given by the product of the
-\acp{PDF} of all the components:
+        \exp\left( -\frac{\left\lvert\wnonenD\right\rvert^2}{2\pi\sigma^2}\right),%
+\end{equation}%
+}\label{corr:complex-normal}%
+As the noise components are assumed to be independent and identically
+distributed, the joint \ac{PDF} describing the entire noise array is given by
+the product of the \acp{PDF} of all the components:
 \begin{equation}
     \begin{split}
         p\left(\bW\right) &=
@@ -102,38 +126,39 @@ joint \ac{PDF} describing the entire noise array is given by the product of the
                 {\left\lvert \wnonenD \right\rvert^2}
                 {2\sigma^2}\right) \\
             &= \frac{1}{\left(2\pi \sigma^2\right)^{N_{\text{tot}}}}
-            \exp\left( -\frac{\left\lVert \bW \right\rVert^2}{2\sigma^2}\right).
+            \exp\left( -\frac{\left\lVert \bW \right\rVert^2}{2\sigma^2}\right),
     \end{split}
 \end{equation}
-As the noise array is the difference between the data and model, the
-\ul{likelihood function} of $\bth$ given the \ac{FID} $\bY$ is
+where $N_{\text{tot}} \coloneq \None \times \cdots \times \ND$.
+By noting that the noise array is the difference between the data and model,
+the \ul{likelihood function} of $\bth$ given the \ac{FID} $\bY$ is
 \begin{equation}
     \mathcal{L}(\bth \vert \bY) =
-    \frac{1}{\left(2\pi \sigma^2\right)^{N_{\text{tot}}}}
+        \frac{1}{\left(2\pi \sigma^2\right)^{N_{\text{tot}}}}
         \exp\left( -\frac{\left\lVert \bY - \bX(\bth) \right\rVert^2}{2\sigma^2}\right).
 \end{equation}
 It is common to consider instead the log-likelihood function,
 $\ell(\bth \vert \bY) \coloneq \ln \mathcal{L}(\bth \vert
 \bY)$:
 \begin{equation}
-    \ell(\bth \vert \bY) =
-        -N_{\text{tot}} \ln\left(2 \pi \sigma^2\right)
-        -\frac{\left\lVert \bY - \bX(\bth) \right\rVert^2}{2\sigma^2}.
-    \label{eq:log-likeihood}
+\ell(\bth \vert \bY) =
+-N_{\text{tot}} \ln\left(2 \pi \sigma^2\right)
+-\frac{\left\lVert \bY - \bX(\bth) \right\rVert^2}{2\sigma^2}.
+\label{eq:log-likeihood}
 \end{equation}
-As application of the logarithm is a monotonic transformation, the
+As the application of the logarithm is a monotonic transformation, the
 arguments of the maxima of $\mathcal{L}$ and $\ell$ are equivalent.
 \Cref{eq:log-likeihood} implies that the optimal set of parameters
 $\bth^{(*)}$, i.e. the \ac{MLE},
 is that which minimises the \ac{RSS} between the data and the model:
 \begin{equation}
-    \bthstar = \argmax_{\bth \in \mathbb{R}^{2(D+1)M}}
-        \ell\left(\bth \vert \bY\right) \equiv
-        \argmin_{\bth \in \mathbb{R}^{2(D+1)M}} \left\lVert \bY - \bX(\bth) \right\rVert^2.
-    \label{eq:argmin_y-x}
+\bthstar = \argmax_{\bth \in \mathbb{R}^{2(D+1)M}}
+\ell\left(\bth \vert \bY\right) \equiv
+\argmin_{\bth \in \mathbb{R}^{2(D+1)M}} \left\lVert \bY - \bX(\bth) \right\rVert^2.
+\label{eq:argmin_y-x}
 \end{equation}
 The application of \ac{NLP} is a well-established approach to solve such a
-problem~\cite{Fletcher1987,Nocedal2006}. The basic principle behind \ac{NLP} is
+problem~\cite{Nocedal2006,Fletcher1987}. The basic principle behind \ac{NLP} is
 to iteratively explore, in a methodical way, how a function varies with its
 arguments. By using information about the function and optionally its
 derivatives, such a routine attempts to find a minimum in the function, and
