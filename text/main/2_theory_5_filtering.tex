@@ -59,7 +59,7 @@ $\bdphi = \symbf{0} \in \mathbb{R}^M$, it can be described by
 \end{subequations}
 The frequency-dependence has been decomposed into its real and imaginary
 components. With this in mind, a conjugate pair of signals $\symbf{\psi}_{\pm}
-\in \mathbb{C}^N$ are defined:
+\in \mathbb{C}^N$ is defined:
 \begin{equation}
     \psi_{\pm,n} = \xi_n (c_n \pm \iu s_n) + w_n \equiv \Re(y_n) \pm \iu \Im(y_n)
 \end{equation}
@@ -96,7 +96,7 @@ equivalent to
         y_1^*
     \end{bmatrix}\T.
 \end{equation}
-As eluded to already, the \ac{FT} of $\by_{\text{VE}}$ produces a spectrum
+As alluded to already, the \ac{FT} of $\by_{\text{VE}}$ produces a spectrum
 $\symbf{s}_{\text{VE}}$ such that $\Im\left(\symbf{s}_{\text{VE}}\right) =
 \symbf{0}$, with $\Re\left(\symbf{s}_{\text{VE}}\right)$ featuring absorption
 Lorentzian peaks.
@@ -220,7 +220,7 @@ by \cref{fig:filtering}, while a pseudo-code description is provided by
 
 Thus far, the method described is able to reduce the number of signals,
 though the filtered sub-\ac{FID} still comprises the same number of datapoints.
-However, it is clear that there are a large number of points outside the region
+However, it is clear that there is a large number of points outside the region
 of interest in $\widetilde{\symbf{s}}_{\text{VE}}$ that do not possess any
 meaningful information. Discarding such points will then lead to a sub-\ac{FID}
 with the same information, but in a more compressed \ac{FID}. To achieve this,
@@ -254,7 +254,7 @@ The filtered spectrum is then sliced accordingly:
 Generation of the final sub-\ac{FID} is then achieved in a similar fashion to
 before, by performing \ac{IFT}, and retaining the first half of the signal.
 It is also necessary to scale the sub-\ac{FID} by the ratio of the number of
-points in the sliced spectrum and it's unsliced counterpart, in order to ensure
+points in the sliced spectrum and its unsliced counterpart, in order to ensure
 that the amplitudes of each signal are unaffected:
 \begin{subequations}
     \begin{gather}
@@ -277,6 +277,15 @@ corrected values can be computed using
         \right)
     \end{gather}
 \end{subequations}
+
+\correction{
+    Every result which involved filtering made use of the process
+    employed above. However in retrospect, a more straightforward method
+    of applying a rectangular filter, and slicing the filtered spectrum exactly
+    at the filter boundaries would likely yield sub-\acp{FID} with the
+    same information content, without the requirement to incorporate synthetic
+    noise into the filtered dataset.
+}\label{corr:rect-filter}
 
 \begin{algorithm}
     \begin{algorithmic}

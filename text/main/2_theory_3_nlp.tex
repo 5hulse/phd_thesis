@@ -210,7 +210,7 @@ quadratic estimate agrees with the true value of the fidelity:
 $\rho$ is the ratio between the actual reduction of the fidelity caused
 by taking the proposed step, and the predicted reduction based on the quadratic
 model. If $\rho$ is sufficiently large, the quadratic model being
-used to generate new iterate is deemed to be acting well enough to warrant
+used to generate a new iterate is deemed to be acting well enough to warrant
 accepting the proposed update
 (\cref{state:large-rho-start,state:large-rho-end}).
 Furthermore, if $\rho$ is particularly close to $1$ and the proposed
@@ -319,7 +319,7 @@ associated with the parameter estimates. More detail is provided in
 \subsection{Approximating the Hessian}
 \label{subsec:hess-approx}
 Despite many of the model second derivatives being zero, computation of those
-that are not zero, and subsequently using these the form the Hessian matrix,
+that are not zero, and subsequently using these to form the Hessian matrix,
 is an expensive part of the optimisation routine.
 Numerous optimisation problems exist where this is the case; as such,
 there is considerable precedent for improving the efficiency of optimisation

@@ -94,37 +94,31 @@ Due to the assumed \ac{AWGN} nature of the noise array, the
             p\left(\Im\left(\wnonenD\right)\right) =
                 \frac{1}{\sqrt{2\pi \sigma^2}}
                 \exp\left( -\frac{\Im\left(\wnonenD\right)^2}{2\pi\sigma^2}\right).
-                \label{eq:PDF-imag}
+                \label{eq:PDF-imag}%
         \end{gather}%
         \label{eq:prob-density}%
-    \end{subequations}
-The real and imaginary noise elements are acquired under the same
-conditions, such that \cref{eq:PDF-real,eq:PDF-imag} are identical.
-Hence\footnote{
+    \end{subequations}%
+}%
+As the noise components are assumed to be independent and identically
+distributed, the joint \ac{PDF} describing the entire noise array is given by
+the product of the \acp{PDF} of all its components\footnote{
     \correction{N.B.
     $\left\lvert \wnonenD \right\rvert^2 \equiv \Re\left(\wnonenD\right)^2 + \Im\left(\wnonenD\right)^2$
     }
 }:
 \begin{equation}
-    p\left(\wnonenD\right) =
-        \frac{1}{2\pi \sigma^2}
-        \exp\left( -\frac{\left\lvert\wnonenD\right\rvert^2}{2\pi\sigma^2}\right),%
-\end{equation}%
-}\label{corr:complex-normal}%
-As the noise components are assumed to be independent and identically
-distributed, the joint \ac{PDF} describing the entire noise array is given by
-the product of the \acp{PDF} of all the components:
-\begin{equation}
     \begin{split}
         p\left(\bW\right) &=
+        \correction{
             \prod_{\none=0}^{\None - 1}
             \cdots
             \prod_{\nD=0}^{\ND - 1}
-            \frac{1}{2\pi \sigma^2}
+            \left(\frac{1}{\sqrt{2\pi \sigma^2}}\right)^2
             \exp\left(
                 -\frac
                 {\left\lvert \wnonenD \right\rvert^2}
-                {2\sigma^2}\right) \\
+                {2\sigma^2}\right)
+            }\\
             &= \frac{1}{\left(2\pi \sigma^2\right)^{N_{\text{tot}}}}
             \exp\left( -\frac{\left\lVert \bW \right\rVert^2}{2\sigma^2}\right),
     \end{split}

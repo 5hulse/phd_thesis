@@ -1,4 +1,14 @@
-\section{Matrix Pencil Methods}
+\section[Matrix Pencil Methods]{Matrix Pencil Methods\footnote{
+        \correction{
+            For two matrices $\symbf{A},
+            \symbf{B} \in \mathbb{C}^{m \times n}$, their \emph{pencil} is the
+            set of all matrices of the form $\symbf{A} - \lambda \symbf{B}$,
+            with $\lambda \in \mathbb{C}$~\cite[Section 7.7]{Golub2013}. In
+            most applications, the matrices involved are assumed to be square
+            (i.e. $m = n$); this is not the case in the context of the \ac{MPM}
+            however.
+        }\label{fn:matrix-pencil}
+}}
 \label{sec:mpm}
 In this section, a description of the \ac{MPM}\,---\,also referred to as the
 generalized pencil-of-function method~\cite{Hua1989}\,---\,is provided. This
@@ -87,7 +97,7 @@ comprises:
    \end{gather}%
     \label{eq:HX-decomp}%
 \end{subequations}%
-The \emph{matrix pencil} $\Hxtwo - \lambda\Hxone$, with $\lambda \in
+The matrix pencil $\Hxtwo - \lambda\Hxone$, with $\lambda \in
 \mathbb{C}$, can therefore be expressed as
 \begin{equation}
     \Hxtwo - \lambda \Hxone = \symbf{Z}_{\text{L}} \symbf{A} \left(
@@ -101,15 +111,8 @@ $M$\,---\,the rank of the matrix pencil will be $M$.
 Now consider the case when the scalar $\lambda$ is
 equal to one of the signal poles i.e.  $\lambda = z_m\ \forall m \in
 \lbrace 1, \cdots, M \rbrace$: the element $[\symbf{Z}_{\text{D}} -
-\lambda \symbf{I}_M]_{m,m}$ becomes $0$, which will lead to the
-determinant of the matrix pencil being $0$. The signal poles are therefore the
-\emph{generalised eigenvalues} of $\Hxtwo - \lambda \Hxone$~\cite[Section
-7.7]{Golub2013}:
-\begin{equation}
-    \symbf{z} = \left\lbrace
-        z \in \mathbb{C} : \det\left(\Hxtwo - z \Hxone\right) = 0
-    \right\rbrace
-\end{equation}
+\lambda \symbf{I}_M]_{m,m}$ becomes $0$, which will lead to the matrix pencil's
+rank being reduced by $1$.
 One means of extracting the signal poles is by computing the eigenvalues of the
 matrix $\Hxone^+ \Hxtwo^{\vphantom{+}}$. Deriving the corresponding complex
 amplitudes can then be achieved by solving the set of linear equations given by
@@ -541,7 +544,7 @@ predict $M$ based on the number of peaks visible, however subjective means of
 predicting model order are typically viewed as disadvantageous as they have bias
 associated with them. On top of this, scenarios may crop up where a user is
 unable to recognise that certain heavily overlapping peaks in the spectrum
-constitute a more than one signal, leading to under-estimates of $M$.
+constitute more than one signal, leading to under-estimates of $M$.
 There are various non-subjective criteria which have been established for
 estimating the model order of a given signal, with probably the two most
 prominent being the \ac{AIC}~\cite{Akaike1974} and
@@ -631,7 +634,7 @@ applications, and is employed in this work\footnote{
         associated with the Hankel matrix $\Hy$, with the
         pencil parameter $L$ set to $\lfloor \nicefrac{N}{3} \rfloor =
         85$.
-        \textbf{c.} Square points with dotted lines: The negative log-likeliood
+        \textbf{c.} Square points with dotted lines: The negative log-likelihood
         at the \ac{MLE}, i.e. the first term of \cref{eq:mdl}.
         Grey line: the penalty component of the \ac{MDL}, i.e. the second
         term in \cref{eq:mdl}.
