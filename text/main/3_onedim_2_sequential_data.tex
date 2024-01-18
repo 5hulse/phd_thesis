@@ -19,7 +19,8 @@ eventually return to equilibrium due to relaxation. As introduced in
 \cref{chap:intro}, the simplest model of relaxation centers around two
 processes: longitudinal relaxation and transverse relaxation, whose rates are
 quantified by the times $T_1$ and  $T_2$ respectively.
-Numerous factors affect these times  including the rate at which the spin
+Numerous factors affect these times including the rate at which
+\correction{the molecule that the spin is associated with}\label{corr:spin-molecule}%
 tumbles in space, and its electronic environment.
 The $T_1$ and $T_2$ values of the spins in a sample provide valuable insight
 into the chemical system being studied, and can also help to guide
@@ -191,7 +192,7 @@ where
 $a_0$ is the amplitude of a given signal without the application of \acp{PFG},
 $\delta$ is the duration of each \ac{PFG} (\unit{\second}), and
 $\Updelta$ is the delay between the \acp{PFG}, often known as the \emph{diffusion time}
-(\unit{\second}),
+(\unit{\second}).
 While \cref{eq:stejskal_tanner} is widely stated in the diffusion \ac{NMR}
 literature, it is only strictly applicable when the \ac{PGSE} sequence is used,
 and \acp{PFG} with rectangular amplitude profiles are applied\footnote{
@@ -210,7 +211,7 @@ of the diffusion period being bisected by a
 end of the diffusion period.
 Hence, the extent of signal loss due to relaxation is affected by $T_1$ in
 \ac{PGSTE}, as opposed to $T_2$ in \ac{PGSE}. \ac{PGSTE} is therefore favoured
-in scenarios where $T_1 \ll T_2$, as improved data sensitivity is achievable.
+in scenarios where $T_1 \correction{\gg} T_2$\label{corr:t1-t2}, as improved data sensitivity is achievable.
 
 Both \ac{PGSE} and \ac{PGSTE} employ \emph{monopolar} \acp{PFG} for diffusion
 encoding.
@@ -229,16 +230,16 @@ phase-cycling scheme).  This is achieved through the use of bipolar gradients
 which comprise asymmetrical \acp{PFG} with relative powers $1 + \alpha : 1 -
 \alpha$ for some $\alpha \in (0, 1)$; commonly, $\alpha=0.2$.
 
-The most common means of conducting a diffusion experiment is to run one of
+The most common means of conducting a diffusion experiment is to run one of the
 pulse sequences mentioned above (or variants thereof) with $g$ varied across
 increments.
-It is virtually always the case that \ac{FID}'s signal amplitudes will
+It is virtually always the case that the \ac{FID}'s signal amplitudes will
 abide by the following general form of the Stejskal-Tanner equation,
 regardless of the exact pulse sequence used:
 \begin{equation}
     a(g) = a_0 \exp\left(- c g^2 D\right),
 \end{equation}
-for some constant $c$ (\unit{\tesla\per\second\squared}).
+for some constant $c$ \correction{(\unit{\second\per\tesla\squared})}\label{corr:c-unit}.
 The functional form of $c$ depends on the type of experiment used, as well as
 the amplitude profile (\emph{shape}) of the \acp{PFG}.
 A consideration of the Bloch-Torrey equations for a given experiment is
@@ -361,7 +362,7 @@ developed for diffusion data analysis are \ac{DECRA}~\cite{Windig1998} and
 \emph{speedy} component resolution (\acs{SCORE})~\cite{Nilsson2008}, an
 improvement of the original \acs{CORE}~\cite{Stilbs1996,Stilbs1996b}.
 \acused{SCORE}\acused{CORE}
-Multivariate techniques tend to only be only effective in situations where a
+Multivariate techniques tend to only be effective in situations where a
 few (2 or 3) different signal decay rates are present. In diffusion
 \ac{NMR}, each molecule in the sample will give rise to the same decay rate
 across its signals (effects such as chemical exchange can lead to exceptions to
@@ -698,7 +699,7 @@ $\psi_m$ and standard deviation $c \epsilon_m$, where $\epsilon_m$ is the
 estimation error associated with oscillator $m$'s parameter of interest, and $c
 \in \mathbb{R}_{>0}$ is an arbitrary broadening factor which can be chosen to
 ensure clear visibility of
-the peaks.\footnote{
+the peaks\footnote{
     In cases where the error in estimating $\psi_m$ is very small, it may be
     that the distribution derived from \cref{eq:distribution} satisfies
     $\text{max}(\symbf{d}_m)=0$ if the peak of the distribution does
@@ -706,7 +707,7 @@ the peaks.\footnote{
     oscillator will not appear in the \ac{DOSY}-like spectrum under these
     circumstances.
     Broadening the distribution (i.e. setting $c > 1$) resolves this.
-}
+}:
 \begin{subequations}
     \begin{gather}
         d_{m,r} = \frac{1}{\sqrt{2 \pi (c \epsilon_m)^2}}
@@ -719,8 +720,25 @@ the peaks.\footnote{
 \end{subequations}
 $p_{\text{min}}$ and $p_{\text{max}}$ specify the range of values over which to
 generate the distribution.
-The errors $\symbf{\epsilon}$ can be extracted from the Hessian matrix at
-convergence; more detail on this is provided in \cref{subsec:errors}.
+\correction{The errors in the parameter of interest $\symbf{\epsilon}$ can be extracted
+    from the Hessian matrix at convergence; more detail on the errors from
+    \ac{NLP} this is provided in \cref{subsec:errors}, in the context of \ac{FID}
+    estimation.}\label{corr:seq-errors}
+\begin{equation}
+    \epsilon\left(\psi_m^{(*)}\right) = \sqrt{
+        \frac{
+            \left\lVert \symbf{a}_m - a_0 \mathcal{A}\left(\psi_m^{(*)} \vert \symbf{p}\right) \right\rVert^2
+            \diag \left(\symbf{H}\left(a_{0,m}^{(*)}, \psi_m^{(*)}\right)^{-1}\right)
+        }
+        {K-1}
+    }
+\end{equation}
+        % \lVert
+        %     \symbf{a}_m - a_0 \mathcal{A}(\psi_m^{(*)} \vert \symbf{p})
+        % \rVert^2
+
+        % \diag\symbf{H}\psi
+    % }
 
 \subsection{Results}
 \label{subsec:seq-results}

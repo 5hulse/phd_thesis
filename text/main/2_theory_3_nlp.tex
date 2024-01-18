@@ -159,7 +159,7 @@ typically used instead:
                     \State \textbf{break};
                 \EndIf
             \EndFor
-            \State $\symbf{\theta}^{(*)} \gets \symbf{\theta}^{(k+1)}$
+            \State $\symbf{\theta}^{(*)} \gets \symbf{\theta}^{(k+1)}$;
             \State $\symbf{\epsilon}^{(*)} \gets
                 \sqrt{
                     \frac
@@ -169,7 +169,8 @@ typically used instead:
                         \right)
                     }
                     {(\None \cdots \ND) - 1}
-                }$
+                }$;
+            \Comment{See \cref{subsec:errors}.}
             \State \textbf{return} $\symbf{\theta}^{(*)}, \symbf{\epsilon}^{(*)}$;
         \EndProcedure
     \end{algorithmic}

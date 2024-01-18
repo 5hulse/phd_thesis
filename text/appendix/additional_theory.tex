@@ -223,9 +223,9 @@ The standard errors therefore take the form
 The mean and variance of the noise are $0$ and $2\sigma^2$, respectively,
 leading to:
 \begin{equation}
-    2 \sigma^2 = \frac{1}{\mathfrak{N} - 1}
+    2 \sigma^2 = \frac{1}{N_{\text{tot}} - 1}
     \left\lVert \bW \right\rVert^2 =
-    \frac{1}{\mathfrak{N} - 1} \left \lVert
+    \frac{1}{N_{\text{tot}} - 1} \left \lVert
         \bY - \bXthstar
     \right \rVert^2.
 \end{equation}
@@ -239,7 +239,7 @@ Finally a useable expression for the standard errors is arrived at:
                     \bdHthstar^{-1}
                 \right)
             }
-            {\mathfrak{N} - 1}
+            {N_{\text{tot}} - 1}
         }
 \end{equation}
 

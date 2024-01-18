@@ -639,15 +639,17 @@ Nyquist theorem~\cite{Shannon1949}.
 exponentials (signals). Each signal will be subjected to damping due to
 transverse relaxation, which is typically exponential in nature. An \ac{FID}
 therefore takes the form\footnote{
-    This provides an idealised model of an \ac{FID}, based on the
-    underlying theory of the experiment. In reality, there is the possibility
-    of significant deviations from this model being realised. One potential
-    cause of this is the influence of magnetic field inhomogeneities, which
-    will cause spectral peaks to deviate from having Lorentzian lineshapes
-    (\cref{subsec:nmr-proc}). In cases where distortions to the data have
-    occurred, techniques such as \emph{reference deconvolution}~\cite{Morris1997}
-    can be used as a corrective measure in a bid to make the data agree more
-    closely with this model.
+    \correction{
+        This provides an idealised model of an \ac{FID}, based on the
+        underlying theory of the experiment. In reality, there is the possibility
+        of significant deviations from this model being realised. One potential
+        cause of this is the influence of magnetic field inhomogeneities, which
+        will cause spectral peaks to deviate from having Lorentzian lineshapes
+        (\cref{subsec:nmr-proc}). In cases where distortions to the data have
+        occurred, techniques such as \emph{reference deconvolution}~\cite{Morris1997}
+        can be used as a corrective measure in a bid to make the data agree more
+        closely with this model.
+    }\label{fn:ref-decon}
 }
 \begin{subequations}
     \begin{gather}
