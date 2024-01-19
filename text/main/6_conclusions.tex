@@ -142,6 +142,23 @@ packages. However, the \ac{NLP} routine could
 benefit from significant improvements if the current \Python implementation
 were ported to one of the aforementioned languages.
 
+\correction{
+    There are certain aspects of the routine which could be made more efficient
+    through the use of \emph{multiprocessing}: the act of running distinct
+    parts of a program simultaneously on different \ac{CPU} cores. Most modern
+    computer systems are equipped with multi-core \acp{CPU}, each of which can
+    perform tasks concurrently. In the \ac{NLP} routine, the computation of the
+    necessary first- and second-derivatives required for the gradient and
+    Hessian stands out as a clear candidate for multiprocesing, where distinct
+    computations are run. In Lines \ref{ln:secondderivstart} to
+    \ref{ln:secondderivend} of \cref{lst:obj-grad-hess} for example, the
+    fidelity's second derivatives are computed in accordance with
+    \crefrange{eq:amp-phi-second-deriv}{eq:damp-second-deriv}, found in
+    \cref{sec:derivatives}. Each of the $MN$ gradients computed on each line
+    are setup to be computed one after. However, as these lines do not require
+    aren't reliant from the output of the other lines to be computed, ...
+}\label{corr:concurrency}
+
 \paragraph{A general-purpose platform}
 Thinking further afield from the specific estimation routine considered in this
 work, the \ac{EsPy} package provides a large number of useful features which

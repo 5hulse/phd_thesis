@@ -17,9 +17,18 @@ improvements in processing power. As an example, the account by Pines and
 co-workers from 1997 outlining the \ac{ITMPM} states that a signal comprising
 $1024$ points would take about
 \qty{4.5}{\minute} to be processed by the \ac{MDL} and \ac{MPM}, using a
-\qty{100}{\mega\hertz} \ac{CPU}~\cite{Lin1997}. On the system used for all
-results generated for this work (see \cref{rem:workstation}) an
-equivalent computation takes about \qty{100}{\milli\second}.
+SGI Indigo workstation with \qty{100}{\mega\hertz} \ac{CPU}~\cite{Lin1997}. On
+the system used for all results generated for this work (see
+\cref{rem:workstation}) an equivalent computation takes about
+\qty{100}{\milli\second}.
+\correction{
+    Furthermore, the consideration of larger datasets would have been
+    impossible on the workstation used by Pines \emph{et~al}., which supported a
+    maximal memory capacity of \qty{96}{\mebi\byte}; $N=1024$ is the largest
+    power of 2 for which the required amount of storage for processing using
+    the \ac{MPM} does not exceed \qty{96}{\mebi\byte}, as can be seen in
+    \cref{fig:mpm-profiling}.a2.
+}\label{corr:pines-ram}
 
 To derive the results presented in this section, \Python\ implementations of
 the aforementioned parts of the estimation routine were run, with software used
@@ -44,7 +53,7 @@ time-dependent \ac{RAM} usage~\cite{MemProf}.
         datapoints and constituent signals.
     ]
     {
-        The run time and peak memory consumption of
+        The \correction{wall clock time and peak memory usage} of
         the \acs{MPM} and \acs{MMEMPM}
         for \acsp{FID} with differing numbers of
         datapoints and constituent signals.
@@ -55,6 +64,11 @@ time-dependent \ac{RAM} usage~\cite{MemProf}.
         circular points.
         \textbf{a2.} Peak memory consumption in performing the \ac{MPM} as a
         function of the number of points.
+        \correction{
+            The smallest number of datapoints
+            that requires a least \qty{96}{\mebi\byte} of \ac{RAM} (1754) is
+            indicated.
+        }
         \textbf{b1.} The run time to compute the \ac{MMEMPM} of
         \acp{FID} with $\None = 64$, and variable $\Ntwo$ and $M$. Circular
         points have been fitted to quadratic functions.
@@ -67,7 +81,7 @@ time-dependent \ac{RAM} usage~\cite{MemProf}.
     \label{fig:mpm-profiling}
 \end{figure}
 
-A series of synthetic \ac{1D} \acp{FID} were constructed, comprising $10$ evenly-spaced
+A series of synthetic \ac{1D} \acp{FID} was constructed, comprising $10$ evenly-spaced
 signals, with a
 variable number of time-points $N \in \lbrace 512k : k \in \lbrace 1, 2, \cdots, 16 \rbrace \rbrace$.
 For each \ac{FID}, the \ac{MPM} routine outlined in \cref{lst:mpm} was

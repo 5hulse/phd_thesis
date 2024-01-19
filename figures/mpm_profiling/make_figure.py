@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Mon 14 Aug 2023 16:44:54 BST
+# Last Edited: Fri 19 Jan 2024 16:23:07 EST
 
 import os
 import re
@@ -157,6 +157,18 @@ axs[1, 0].scatter(
     **scatter_kwargs,
 )
 
+(a, b), _ = curve_fit(linear, mpm_pts, max_mem ** (1 / 2))
+x = np.array([mpm_pts[0], mpm_pts[-1]])
+axs[1, 0].plot(x, a * x + b, color=colors[0], zorder=0)
+max_gibi_pines = 0.09375
+n_thold_pines = ((max_gibi_pines ** 0.5) - b) / a
+lineopts = {"ls": ":", "color": "k"}
+axs[1, 0].plot((0, n_thold_pines), 2 * [max_gibi_pines ** 0.5], **lineopts, zorder=-1)
+axs[1, 0].plot((n_thold_pines, n_thold_pines), (0., max_gibi_pines ** 0.5), **lineopts, zorder=-1)
+axs[1, 0].set_xlim(left=axs[0, 0].get_xlim()[0])
+axs[1, 0].set_ylim(bottom=0)
+axs[1, 0].text(n_thold_pines + 64, 0.04, int(n_thold_pines), fontsize=6)
+axs[1, 0].text(400, 0.09375 ** 0.47, "\\qty{96}{\\mebi\\byte}", fontsize=6)
 
 ticks = np.linspace(0, 2. ** (1 / 2), 10)
 ticklabels = [f"{x ** 2:.2f}" for x in ticks]
@@ -337,6 +349,10 @@ axs[1, 1].scatter(
     np.array(max_mem) ** 0.5,
     **scatter_kwargs,
 )
+
+(a, b), _ = curve_fit(linear, mmempm_pts, max_mem ** (1 / 2))
+x = np.array([mmempm_pts[0], mmempm_pts[-1]])
+axs[1, 1].plot(x, a * x + b, color=colors[0], zorder=0)
 
 ticks = np.linspace(0, 4 ** 0.5, 10)
 ticklabels = [f"{x ** 2:.2f}" for x in ticks]

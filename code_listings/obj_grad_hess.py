@@ -1,3 +1,8 @@
+# obj_grad_hess.py
+# Simon Hulse
+# simonhulse@protonmail.com
+# Last Edited: Fri 19 Jan 2024 17:56:53 EST
+
 class FunctionFactory:
     """Object which computes and memoises the objective, gradient and
     Hessian for a given set of parameters."""
@@ -63,7 +68,7 @@ def obj_grad_hess_1d(   |\label{ln:objgradhessstart}|
     # Second partial derivatives
     d2 = np.zeros((N, 10 * M), dtype="complex")
     # Note $\nicefrac{\partial^2 x}{\partial a_m^2} = 0$ always.
-    d2[:, M : 2 * M] = 1j * d1[:, M : 2 * M]  # $\nicefrac{\partial^2 x}{\partial \phi_m^2}$
+    d2[:, M : 2 * M] = 1j * d1[:, M : 2 * M]  # $\nicefrac{\partial^2 x}{\partial \phi_m^2}\label{ln:secondderivstart}$
     d2[:, 2 * M : 3 * M] = \  # $\nicefrac{\partial^2 x}{\partial f_m^2}$
         np.einsum("ij,i->ij", d1[:, 2 * M : 3 * M], 2j * np.pi * tp)
     d2[:, 3 * M : 4 * M] = np.einsum("ij,i->ij", d2[: 3 * M :], -tp)  # $\nicefrac{\partial^2 x}{\partial \eta_m^2}$
@@ -73,7 +78,7 @@ def obj_grad_hess_1d(   |\label{ln:objgradhessstart}|
         np.einsum("ij,i->ij", d2[: 2 * M : 3 * M], -tp)
     d2[:, 7 * M : 8 * M] = d1[:, 2 * M : 3 * M] / theta[:M]  # $\nicefrac{\partial^2 x}{\partial a_m \partial f_m}$
     d2[:, 8 * M : 9 * M] = 1j * d1[:, 3 * M : 4 * M]  # $\nicefrac{\partial^2 x}{\partial \phi_m \partial \eta_m}$
-    d2[:, 9 * M :] = d1[:, 3 * M : 4 * M] / theta[:M]  # $\nicefrac{\partial^2 x}{\partial a_m \partial \eta_m}$
+    d2[:, 9 * M :] = d1[:, 3 * M : 4 * M] / theta[:M]  # $\nicefrac{\partial^2 x}{\partial a_m \partial \eta_m}\label{ln:secondderivend}$
 
     X = np.einsum("ij->i", X_per_osc)
     Y_minus_X = Y - X

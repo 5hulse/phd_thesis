@@ -322,8 +322,8 @@
 \RequirePackage[capitalize,noabbrev]{cleveref}
 \crefformat{equation}{Equation~#2#1#3}
 \Crefformat{equation}{Equation~#2#1#3}
-\crefrangeformat{equation}{Equations~(#3#1#4) to~(#5#2#6)}
-\Crefrangeformat{equation}{Equations~(#3#1#4) to~(#5#2#6)}
+\crefrangeformat{equation}{Equations~#3#1#4 to~#5#2#6}
+\Crefrangeformat{equation}{Equations~#3#1#4 to~#5#2#6}
 \crefmultiformat{equation}{Equations~#2#1#3}%
 { and~#2#1#3}{, #2#1#3}{ and~#2#1#3}
 \Crefmultiformat{equation}{Equations~#2#1#3}%
@@ -332,8 +332,8 @@
 \makeatletter
 \crefformat{tcb@cnt@mylisting}{Code Listing~#2#1#3}
 \Crefformat{tcb@cnt@mylisting}{Code Listing~#2#1#3}
-\crefrangeformat{tcb@cnt@mylisting}{Code Listings~(#3#1#4) to~(#5#2#6)}
-\Crefrangeformat{tcb@cnt@mylisting}{Code Listings~(#3#1#4) to~(#5#2#6)}
+\crefrangeformat{tcb@cnt@mylisting}{Code Listings~#3#1#4 to~#5#2#6}
+\Crefrangeformat{tcb@cnt@mylisting}{Code Listings~#3#1#4 to~#5#2#6}
 \crefmultiformat{tcb@cnt@mylisting}{Code Listings~#2#1#3}%
 { and~#2#1#3}{, #2#1#3}{ and~#2#1#3}
 \Crefmultiformat{tcb@cnt@mylisting}{Code Listings~#2#1#3}%

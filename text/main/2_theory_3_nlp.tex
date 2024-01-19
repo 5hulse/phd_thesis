@@ -610,14 +610,27 @@ $\circvar$ will be reduced. The presence of such oscillators is
 undesirable, as they are spurious in the context of phased data. As a
 result, the \ac{NLP} routine periodically checks for negative-amplitude oscillators
 (\crefrange{state:neg-amp-start}{state:neg-amp-end} in \cref{alg:nlp}). After a
-given number of iterations ($25$ is the value given in \cref{alg:nlp})
+given number of iterations ($25$ is the value given in \cref{alg:nlp}\footnote{
+    \correction{
+        The choice of the number of iterations between checks for negative
+        amplitudes is arbitrary. 25 is the default in the \ac{EsPy} software,
+        and was used to acquire the results presented in this thesis.
+        The value was chosen as it enables the optimiser to evolve considerably
+        before a check is made, such that any negative amplitudes that exist at
+        the point of the first check would likely remain until convergence.
+        Initially, the algorithm was setup to check for negative amplitudes
+        after every iteration, but this often led to the removal of excessive
+        numbers of oscillators from the parameter set, causing under-fits.
+    }\label{fn:neg-amps-25}
+})
 if any oscillators have acquired negative
-amplitudes, they are removed from the model, and the routine continues with a reduced number
-of oscillators. While not infallible, this can help to to get rid of excessive oscillators in the
+amplitudes, they are removed from the model, and the routine continues with a
+reduced number of oscillators. While not infallible, this can help to to get
+rid of excessive oscillators in the
 model which do not correspond to true signals in the data. For example, in
 scenarios where an overestimate of model order has occurred, either by the
 \ac{MDL} or from human error in inspecting the number of spectral peaks, noise
 components will be incorporated into the \ac{MPM} result. These typically have
 greater variability in their phases; often, such oscillators gain negative
-amplitudes as the \ac{NLP} routine evolves, leading to unwanted signals being
-removed and a more parsimonious result being obtained.
+amplitudes as the \ac{NLP} routine evolves, yielding a parsimonious estimation
+result.
