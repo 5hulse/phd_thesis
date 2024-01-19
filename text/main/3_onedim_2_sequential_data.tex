@@ -608,21 +608,19 @@ An outline of the estimation procedure is provided by \cref{alg:estimate-seq}.
 
 \subsubsection{Determining the Parameter of Interest}
 Having generated a parameter estimate for each \ac{FID} in the dataset, focus
-now moves to determining the parameter of interest for each signal $\symbf{\psi}$.
-For each oscillator, the maximal amplitude and parameter of
-interest are determined by solving the following problem:
-\begin{equation}
-    \begin{bmatrix}
-        a_{0,m}^{(*)} \\
-        \psi_{m}^{(*)}
-    \end{bmatrix} =
-    \argmin_{
-        [a_0 \hspace*{5pt} \psi]\T \in \mathbb{R}^2
-    }
-    \left\lVert
-        \symbf{a}_m - a_0 \mathcal{A} \left(\psi \hspace*{2pt} | \hspace*{2pt} \symbf{p}\right)
-    \right\rVert^2 \quad  \forall m \in \lbrace 1, \cdots, M \rbrace,
-\end{equation}
+now moves to determining the parameter of interest for each signal.
+For each oscillator $m \in \lbrace 1, \cdots, M \rbrace$, the maximal amplitude
+and parameter of interest are determined by solving the following problem:
+\begin{subequations}
+    \begin{gather}
+        \symbf{\vartheta}_m^{(*)} = \argmin_{\symbf{\vartheta} \in \mathbb{R}^2}
+        \left\lVert
+            \symbf{a}_m - a_0 \mathcal{A} \left(\psi \hspace*{2pt} | \hspace*{2pt} \symbf{p}\right)
+        \right\rVert^2,\\
+        \symbf{\vartheta} = \left[ a_0 \hspace{10pt} \psi \right]\T \implies
+        \symbf{\vartheta}_{m}^{(*)} = \left[ a_{0,m}^{(*)}  \hspace{10pt} \psi_{m}^{(*)} \right]\T,
+    \end{gather}
+\end{subequations}
 where $\symbf{a}_m$ corresponds to the $m$\textsuperscript{th} column of
 $\symbf{A}$.  This is another example of \iac{RSS} problem, which can be solved using
 \iac{NLP} routine as already described. The gradient vector and Hessian matrix
@@ -632,23 +630,23 @@ follows $\forall
 i, j \in \lbrace 1, 2 \rbrace$:
 \begin{subequations}
     \begin{gather}
-        g_i =
+        g(\symbf{\vartheta})_i =
             -2 \left \langle
                 \symbf{a}_m - a_0 \mathcal{A}(\psi | \symbf{p}),
                 \frac{\partial a_0 \mathcal{A} (\psi | \symbf{p})}
-                {\partial \theta_i}
+                {\partial \vartheta_i}
             \right \rangle,\\
-        h_{i,j} =
+        h(\symbf{\vartheta})_{i,j} =
             2 \left( \left \langle
-                \frac{\partial a_0 \mathcal{A} (\psi | \symbf{p})}{\partial \theta_i},
-                \frac{\partial a_0 \mathcal{A} (\psi | \symbf{p})}{\partial \theta_j}
+                \frac{\partial a_0 \mathcal{A} (\psi | \symbf{p})}{\partial \vartheta_i},
+                \frac{\partial a_0 \mathcal{A} (\psi | \symbf{p})}{\partial \vartheta_j}
             \right \rangle -
             \left \langle
                 \symbf{a}_m - a_0 \mathcal{A}(\psi | \symbf{p}),
                 \frac{\partial^2 a_0 \mathcal{A} (\psi | \symbf{p})}{\partial
-                \theta_i\partial \theta_j}
-            \right \rangle \right), \\
-            \symbf{\theta} = [a_0 \hspace*{10pt} \psi]\T,
+                \vartheta_i\partial \vartheta_j}
+            \right \rangle \right),
+            \label{eq:seq-hessian}\\
     \end{gather}
 \end{subequations}
 with explicit expressions for the requisite first and second derivatives being
@@ -720,25 +718,26 @@ the peaks\footnote{
 \end{subequations}
 $p_{\text{min}}$ and $p_{\text{max}}$ specify the range of values over which to
 generate the distribution.
-\correction{The errors in the parameter of interest $\symbf{\epsilon}$ can be extracted
-    from the Hessian matrix at convergence; more detail on the errors from
-    \ac{NLP} this is provided in \cref{subsec:errors}, in the context of \ac{FID}
-    estimation.}\label{corr:seq-errors}
-\begin{equation}
-    \epsilon\left(\psi_m^{(*)}\right) = \sqrt{
-        \frac{
-            \left\lVert \symbf{a}_m - a_0 \mathcal{A}\left(\psi_m^{(*)} \vert \symbf{p}\right) \right\rVert^2
-            \diag \left(\symbf{H}\left(a_{0,m}^{(*)}, \psi_m^{(*)}\right)^{-1}\right)
-        }
-        {K-1}
-    }
-\end{equation}
-        % \lVert
-        %     \symbf{a}_m - a_0 \mathcal{A}(\psi_m^{(*)} \vert \symbf{p})
-        % \rVert^2
-
-        % \diag\symbf{H}\psi
-    % }
+\correction{
+    The errors associated with the parameter of interest can be determined as
+    follows:
+    \begin{equation}
+        \epsilon_m = \sqrt{
+            \frac{
+                \left\lVert \symbf{a}_{m} - a_{0,m}^{(*)} \mathcal{A}\left(\psi_{m}^{(*)} \big\vert \hspace*{1pt}\symbf{p}\right) \right\rVert^2
+                \left[\symbf{H}\left(\symbf{\vartheta}_{m}^{(*)}\right)^{-1}\right]_{2,2}
+            }
+            {K-1}
+        },
+        \label{eq:seq-errors}
+    \end{equation}
+    where $\symbf{H}\left(\symbf{\vartheta}_m^{(*)}\right) \in \mathbb{C}^{2 \times
+    2}$ is the Hessian at convergence, comprising elements of the form
+    $h\left(\symbf{\vartheta}_m^{(*)}\right)_{i,j}$ (see \cref{eq:seq-hessian}).
+    The derivation of \cref{eq:seq-errors} is akin to that for the errors associated
+    with \ac{FID} estimation; more detail on \ac{FID} estimation errors is
+    provided in \cref{subsec:errors}.
+}\label{corr:seq-errors}
 
 \subsection{Results}
 \label{subsec:seq-results}
@@ -854,7 +853,7 @@ decent consistency.
 Lower intensity oscillators, especially those which
 significantly overlap with others, tended to be associated with
 less consistent diffusion constants and larger errors with examples of this
-phenomenon apparent in \cref{fig:andrographolide-dosy}.d of the figure. A few
+phenomenon apparent in \cref{fig:andrographolide-dosy}.d. A few
 oscillators also show a
 significant deviation at around \qty{2.5}{\partspermillion}. This is due to the
 presence of a 1:2:3:2:1 quintet from partially protonated \acs{DMSO}, due to
@@ -866,7 +865,7 @@ proton exchange with the residual water\footnote{
     the more familiar Pascal's triangle, the latter being applicable to
     couplings involving equivalent spin-$\nicefrac{1}{2}$ nuclei.
 }. As the
-data is insufficiently resolved to enable the separation of andrographoilde and
+data are insufficiently resolved to enable the separation of andrographoilde and
 \acs{DMSO} signals, oscillators exist in the model which have amplitude profiles
 influenced by both species, leading to an aggregated diffusion constant. As
 $D_{\text{DMSO}} > D_{\text{andrographoilide}}$, the affected oscillators
@@ -899,10 +898,9 @@ possess larger predicted diffusion constants.
 \end{figure}
 Another diffusion example is provided by \cref{fig:gluc_val_thre}, where the
 estimation routine was applied to a dataset derived from a sample comprising
-the molecules L-valine ($M_r = \qty{117.148}{\gram\per\mole}$,
-\cref{fig:structures}.c), L-threonine
-($M_r = \qty{119.120}{\gram\per\mole}$, \cref{fig:structures}.d), and D-(+)-glucose ($M_r =
-\qty{180.156}{\gram\per\mole}$, \cref{fig:structures}.e) dissolved in
+the molecules L-valine ($M_r = \qty{117.148}{\gram\per\mole}$),
+L-threonine ($M_r = \qty{119.120}{\gram\per\mole}$), and D-(+)-glucose ($M_r =
+\qty{180.156}{\gram\per\mole}$) dissolved in
 D\textsubscript{2}O at \qty{298}{\kelvin}. Not included in the figure is the
 result for the water signal, for which a diffusion constant of
 \qty{1.88e-9}{\meter\squared\per\second} was determined. The routine
@@ -923,12 +921,17 @@ complicated by the presence of two major anomeric forms:
     also be present, though in a negligible quantity.
 }~\cite[Chapter 3]{Davis2002}.
 There is some evidence of separation of these anomers, principally due
-to the downfield doublets at \qty{5.15}{\partspermillion} (\textalpha anomer) and
-\qty{4.56}{\partspermillion} (\textbeta monomer), which have estimated diffusion
+to the downfield doublets at \qty{5.15}{\partspermillion} (\textalpha-anomer) and
+\qty{4.56}{\partspermillion} (\textbeta-anomer), which have estimated diffusion
 coefficients of \qty{5.47e-10}{\meter\squared\per\second}
 and \qty{5.34e-10}{\meter\squared\per\second}, respectively. Beyond these
 however, the other estimated oscillators corresponding to glucose have
-associated errors which are too large for clear resolution of the two species.;
+associated errors which are too large for clear resolution of the two species.
+\correction{
+    The small difference in diffusion constants associated with the anomers is
+    likely related to how effectively they are able to hydrogen-bond to the
+    solvent.
+}\label{corr:gluc-D}
 
 As is to be expected, signals which are of greater intensity, and which are
 more clearly resolved, enable the determination of diffusion coefficients with

@@ -1,6 +1,6 @@
 \section{Pure Shift \acs{NMR}}
 In this section, a survey of some of the most prominent procedures for
-producing pure shift spectra are presented.
+producing pure shift spectra is presented.
 \subsection{The \acs{2DJ} Experiment}
 The \ac{2DJ} experiment~\cite{Aue1976, Morris2009} provided the first means to
 achieve broadband homodecoupling. It has the following simple pulse sequence:
@@ -135,11 +135,11 @@ appropriate
 processing to make the FID envelope symmetric in both dimensions;
 sine-bell apodisation and pseudo-echo reshaping~\cite{Bax1981} are common methods.
 However, these both cause a significant reduction in sensitivity being
-incurred, along with distortions in relative peak amplitudes such that the data is
-rendered unsuitable for quantitative applications. Examples of experimental
-pure shift spectra produced via sine-bell apodisation can be found in
-Figures \ref{fig:quinine-cupid}.a and \ref{fig:camphor-cupid}.a, where
-severe discrepancies in peak integrals exist.
+incurred, along with distortions in relative peak amplitudes such that the data
+are rendered unsuitable for quantitative applications. Examples of experimental
+pure shift spectra produced via sine-bell apodisation can be found in Figures
+\ref{fig:quinine-cupid}.a and \ref{fig:camphor-cupid}.a, where severe
+discrepancies in peak integrals exist.
 
 When present, another feature which limits the effectiveness of the \ac{2DJ}
 experiment are \emph{strong coupling artefacts}\footnote{
@@ -147,8 +147,9 @@ experiment are \emph{strong coupling artefacts}\footnote{
     but rather genuine signals which are expected to be present in the
     \ac{2DJ} dataset. Despite this, the term is widespread in the literature,
     most likely as it emphasises that the signals hinder analysis of the data.
-}, which arise due to mixing effects induced by the \ang{180}
-pulse~\cite{Wider1983,Thrippleton2005}.
+}, which arise due to chemical shifts associated with strongly coupled spins
+being imperfectly focussed by the \ang{180}
+pulse~\cite{Thrippleton2005,Wider1983}.
 These artefacts always have direct-dimension
 frequencies which match those of conventional, \emph{first order signals}\footnote{
     First order signals are those which arise under the assumption of the weak
@@ -197,16 +198,16 @@ without signal loss. A similar approach proposed by Mutzenhardt et al.
 instead constructs full echoes via \ac{LP} of each direct-dimension
 \ac{FID}, and generates a full echo by propagating into
 $-\ttwo$~\cite{Mutzenhardt1999}. Further to these \ac{LP} based methods,
-Mandelshtam and co-workers has also illustrated how the \ac{FDM} can be applied
+Mandelshtam and co-workers have also illustrated how the \ac{FDM} can be applied
 for parametric estimation, followed by pure shift spectrum
 construction~\cite{Mandelshtam1997,Mandelshtam1998}.
 
 \subsection{Chunking Methods}
-A popular set of experimental techniques for pure shift \ac{NMR} comprise
+A popular set of experimental techniques for pure shift \ac{NMR} comprises
 \ac{2D} pulse sequences in which a short initial section (chunk) of the
 \ac{FID} at each increment is retained~\cite{Adams2014}. The acquired chunks are
 subsequently concatenated to yield a \ac{1D} pure shift signal.  All of the
-sequences are designed such that they refocus the effects J-couplings at
+sequences are designed such that they refocus the effects J-couplings at a
 certain known point in time;
 the time at which refocussing occurs is adjusted by incrementing
 the indirect-dimension ($\tone$), so as to acquire
@@ -275,9 +276,9 @@ consists of the simultaneous application of a low \ac{RF} power \ang{180}
 pulse\,---\,conventionally, a r-SNOB pulse is used~\cite{Kupce1995}\,---\,and a
 weak \ac{PFG} along the laboratory $z$-axis.
 The \ac{PFG} induces a change in a given spin's Larmor frequency as a
-function of its position in the sample, as was descibed in
+function of its position in the sample, as was described in
 \cref{subsec:diffusion_experiments}. For a low-power \ac{RF} pulse to excite
-a given spin, its frequency must be at or very close to spin's the Larmor
+a given spin, its frequency must be at or very close to its Larmor
 frequency.
 For spins with different resonance frequencies, the sample region where
 excitation occurs differs since their Larmor frequencies must be perturbed by
@@ -330,18 +331,18 @@ arise in such cases.
 \acused{PSYCHE}
 The most recent major development in pure shift spectroscopy is the \ac{PSYCHE}
 experiment~\cite{Foroozandeh2014,Foroozandeh2018}, which has been hailed for its
-ability to generate clean pure shift with better sensitivity relative to
+ability to generate clean pure shift spectra with better sensitivity relative to
 alternative methods. \ac{PSYCHE} is inspired by
 the anti z-\ac{COSY} experiment~\cite{Thrippleton2003}, and involves the application
 of two low flip-angle ($\beta \ll \ang{90}$) pulses to achieve active/passive
-subset creation via coherence selection. The pair of low flip-angle pulses
+subset creation via coherence selection. The two low flip-angle pulses
 are usually either chirp pulses, with the sweep direction of the second being
 the opposite of the first, or \emph{saltire} pulses, which are a superposition
 of low-to-high and high-to-low chirp pulses. When applied in the presence of a
 \ac{PFG}, it has been illustrated that this pair of pulses is very effective at
 achieving J-refocussing of the active set of spins, while simultaneously
 refocussing other undesired (i.e. non-single quantum) coherences.
-The proportions of active and passive spins is dependent on the flip angle of
+The proportions of active and passive spins are dependent on the flip angle of
 the chirp pulses; these are $\sin^2 \beta$ and $\cos^2 \beta$,
 respectively. With larger flip angles, more signal from unwanted
 coherences is present in the final dataset. As with the \ac{ZS} element, this

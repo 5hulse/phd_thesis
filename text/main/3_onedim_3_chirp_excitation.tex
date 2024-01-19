@@ -29,7 +29,7 @@ that well-phased spectra can be obtained from excitation with a single \ac{FS}
 pulse when appropriate post-processing of the \ac{FID} is employed.
 The main advantage of being able to derive spectra with desirable features from
 a single chirp excitation experiment is the fact that ultra-broadband spectra
-can be generated using with a far shorter pulse sequence than state of the art
+can be generated using a far shorter pulse sequence than state of the art
 methods such as \ac{CHORUS}~\cite{Power2016,Foroozandeh2019}, where both a
 \ang{90} chirp pulse, and two \ang{180} chirp pulses are applied; spectra with
 improved signal intensity could therefore be realised. Here, a description of the
@@ -64,7 +64,7 @@ simulated and an experimental dataset.
     \label{fig:single-chirp}
 \end{figure}
 Focus is limited here to chirp pulses which sweep from low to high
-frequencies; the are parameterised by
+frequencies; they are parameterised by
 their duration $\tau_{\text{p}}$ (\unit{\second}),
 excitation bandwidth $\Updelta F$ (\unit{\hertz}),
 and \ac{RF} ``amplitude'' $\omega_{\text{RF}}$ (\unit{\hertz}).
@@ -96,7 +96,7 @@ For a pulse with flip angle  $\beta < \ang{180}$, $Q$ is related to $\beta$ via
 such that an appropriate pulse to achieve a flip angle of \ang{90} requires
 selecting a combination of $\omega_{\text{RF}}$, $\Updelta F$, and
 $\tau_{\text{p}}$ which satisfies $Q \approx 0.441$.
-The combination used in examples in this work are $\Updelta F =
+The combination used in examples in this work is $\Updelta F =
 \qty{400}{\kilo\hertz}$, $\tau_{\text{p}} = \qty{100}{\micro\second}$, and
 $\omega_{\text{RF}} \approx \qty{16.8}{\kilo\hertz}$.
 For a pulse with sufficiently low $\omega_{\text{RF}}$\,---\,this requires a
@@ -192,7 +192,7 @@ parameters.
         A comparison of quadratic phase correction vs frequency-dependent
         back-propagation in treating simulated single-chirp excitation data.
         \textbf{a.} Simulated spectrum for a spin system comprising 30 spins
-        with uniformly-separated resonance frequencies. The data was generated
+        with uniformly-separated resonance frequencies. The data were generated
         with
         $N=2^{14}$,
         $\fsw=\qty{400}{\kilo\hertz}$,
@@ -240,7 +240,7 @@ reasonably far apart, meaning each signal in the \ac{FID} becomes
 resolvable from the others early on into evolution.
 The spectrum generated via back-propagation is presented in
 \cref{fig:bbqchili-sim}.c, which is well-phased, and does not suffer from
-severe baseline distortion. The variation of the estimated oscillator
+baseline distortion. The variation of the estimated oscillator
 phases against their frequencies is plotted in \cref{fig:bbqchili-sim}.d, with
 the quadratic dependence clearly illustrated; fitting the blue points to a
 quadratic function yielded a second-order coefficient of
@@ -259,9 +259,9 @@ from a sample of 1\% \ch{Gd}-doped \ch{H2O} in \ch{D2O}\footnote{
 }.
 The dataset was acquired using a \ac{2D} experiment, in which the transmitter
 offset was adjusted in each increment. The resulting dataset was a series of
-\acp{FID}, each comprising a single \ch{H2O} signal with differing frequencies.
-When summed, these produce an \ac{FID} with multiple signals at frequencies
-defined the selections of transmitter frequencies. The resulting spectrum is
+\acp{FID}, each comprising a single \ch{H2O} signal.
+When summed, these produce an \ac{FID} with numerous signals at frequencies
+defined by the selected transmitter frequencies. The resulting spectrum is
 presented in \cref{fig:bbqchili-real}.a.
 
 To produce the phased spectrum in \cref{fig:bbqchili-real}.b, only the

@@ -82,12 +82,12 @@ diagram, outlining the relationship between different estimators in
         used to run a particular \ac{NMR} experiment. \texttt{ExpInfo} also has
         methods for the generation of the timepoints and chemical shifts sampled
         based on these parameters, and for producing synthetic \acp{FID} if a
-        set of signal parameters are provided.
+        set of signal parameters is provided.
     \item \textbf{\texttt{\_Estimator}} inherits experimental parameters from
-        \texttt{ExpInfo}, but also possess the \ac{NMR} dataset itself.
+        \texttt{ExpInfo}, but also possesses the \ac{NMR} dataset itself.
         This class is designed to contain the functionality which can be
         generalised across all \ac{NMR} data types supported by \ac{EsPy}. It
-        does not possess all the features necessary to useful as a standalone
+        does not possess all the features necessary to be useful as a standalone
         object, and as such the user is not supposed to use it directly (such
         an object is often referred to as an abstract class; this is emphasised
         by starting the object's name with an underscore).
