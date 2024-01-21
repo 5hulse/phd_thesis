@@ -389,7 +389,8 @@ $N = 64$, $\fsw = \qty{5.2}{\hertz}$ ($\Dt \approx
 \qty{0.192}{\second}$), and $\foff = \qty{0}{\hertz}$.
 It was constructed using the parameters $\bth \in \mathbb{R}^4$ comprising $a=1$,
 $\phi=\qty{0}{\radian}$, $f=\qty{1}{\hertz}$, and $\eta=\qty{0.2}{\per\second}$.
-\ac{AWGN} was added to the \ac{FID} to give it a target \iac{SNR} of
+\ac{AWGN}\label{corr:awgn}
+was added to the \ac{FID} to give it a target \iac{SNR} of
 \qty{10}{\deci\bel}. As the visualisation of 5D space is beyond the scope of
 this work, only two parameters, the frequency and damping factor, were optimised
 from an initial guess $\bthzero$; the amplitude and phase were fixed to
@@ -421,6 +422,13 @@ Hessian matrix tends to allow a better rate of convergence. However, for
 \acp{FID} comprising many signals and far more points, the approximated form
 often requires a shorter time to converge overall, especially for \ac{2D}
 \acp{FID}, as will be illustrated in \cref{sec:profiling}.
+
+\begin{remark}
+    \correction{
+        Whenever simulated \ac{NMR} data is corrupted with noise in later examples
+        in this thesis, the type of noise is always \ac{AWGN}.
+    }\label{rem:awgn}
+\end{remark}
 
 \subsection{Phase Variance Minimisation}
 \label{subsec:phase-variance}

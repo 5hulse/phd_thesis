@@ -13,7 +13,8 @@ To assess the effectiveness of including the phase variance-regularised
 For the experimental datasets considered (\cref{subsec:andro,subsec:cyclo}),
 the data were pre-processed using \textsc{Bruker}'s \textsc{TopSpin} software,
 using the series of commands \texttt{ft; pk; abs}; these perform \ac{FT},
-automatic phase correction, and baseline correction, respectively. The data was
+automatic phase correction, and baseline correction, respectively.
+The data was
 then converted back to the time-domain using \ac{IFT} prior to filtering and
 estimation.
 
@@ -98,7 +99,7 @@ $a_m \sim \mathcal{U}(1, 5)$, $f_m \sim \mathcal{U}(\qty{-55}{\hertz},
 \qty{8}{\per\second})$. The frequencies were subjected to an additional
 constraint; no two signals were permitted to have frequencies that
 differed by less than $\nicefrac{4 \fsw}{N} \approx \qty{0.49}{\hertz}$.
-Each noiseless \ac{FID} $\bx$ was then corrupted with \ac{AWGN}, with a target
+Each \ac{FID} $\bx$ was then corrupted with noise, with a target
 \ac{SNR} of \qty{25}{\deci\bel}, such that the desired noise variance for each
 \ac{FID} was given by (\emph{cf.} \cref{eq:snr,eq:snr-db}):
 \begin{equation}
@@ -262,7 +263,7 @@ multiplet structures considered.
 \centering
 \begin{tabular}{c c c}
 \hline
-Spin  & Coupling partners & Multiplet structure \\
+Spin  & Coupling partners & Apparent Multiplet structure \\
 \hline
 \multicolumn{3}{c}{\textbf{Andrographolide}}\\
 \hline
@@ -317,9 +318,21 @@ Spin  & Coupling partners & Multiplet structure \\
 \label{tab:andro-multiplets}
 \end{table}
 
-One of the most challenging aspects of estimating \ac{NMR} signals is
-the common presence of signals within the dataset that have incredibly similar
-frequencies due to the influence of scalar couplings.
+One of the most challenging aspects of estimating \ac{NMR} datasets is
+the presence of signals that have \correction{similar frequencies}\footnote{
+    \correction{
+        In this context, two frequencies $i, j$ are deemed to be similar
+        if their difference is approximately the same as the spectral resolution,
+        i.e. $\lvert f_i - f_j\rvert \approx \nicefrac{\fsw}{N}$.
+        In theory, two signals whose difference is exactly the
+        spectral resolution should be discernible.
+        However in practice it is usually necessary for $\lvert f_i - f_j
+        \rvert$ to be notably larger than the spectral resolution, as increased
+        uncertainty is imposed by signal damping caused by $T_2$ relaxation.
+        \label{fn:similar-freqs}
+    }
+}
+due to the influence of scalar couplings.
 Molecules with fused ring systems such as andrographolide are prime examples of spin
 systems which generate such datasets, as they tend to have very dense coupling
 networks leading to complex multiplet structures. Furthermore, fused systems often
@@ -327,7 +340,7 @@ exhibit appreciable long-range couplings (between spins separated by four or
 more bonds) alongside ubiquitous two-bond (\emph{geminal}) and three-bond
 (\emph{vicinal}) couplings. Long range couplings can be particularly challenging to
 resolve, as they are often of a comparable magnitude to the spectral resolution
-($\nicefrac{\fsw}{N}$), making individual signals barely perceptible.
+(see \cref{fn:similar-freqs}), making individual signals barely perceptible.
 
 Take the multiplet structure from spin (Q) as an example of a particularly
 challenging estimation problem.
@@ -359,20 +372,33 @@ many of the contributing signals coalesce to form what is apparently a quartet
 of doublets (dq).
 The estimation routine was able to resolve this dq structure,
 however the large deviations in the residual again imply that under-fitting has
-occurred, and each oscillator in the parameter set is in fact being used to fit
-two or more signals present in the \ac{FID}. Again, at the field strength used
-to acquire the \ac{FID}, it is unlikely that an accurate resolution of all 16
-signals by estimation is feasible.
+occurred, and each of the 4 ``central'' oscillators in the parameter set is in
+fact being used to fit three signals present in the \ac{FID}. Again, at the
+field strength used to acquire the \ac{FID}, it is unlikely that an accurate
+resolution of all 16 signals by estimation is feasible.
 
-% At this point, with two examples provided of cases where poor \ac{RSS} fits
-% have resulted, one may question whether the underlying model is actually suited
-% to describe the data.
-% There is for example precedent for fitting oscillators with non-exponential
-% decay profiles\,---\,profiles which lead to Voigt and Gaussian spectral
-% lineshapes are common\,---\,to improve the model fit~\cite{Sima2007}.
-% However, for some multiplet structures in Figure \ref{fig:andro-onedim},
-% exceptionally good agreement between the model and data are made, using a
-% parsimonious set of parameters.
+\correction{
+    One potential way to overcome the under-fit of crowded frequency
+    neighbourhoods is to retroactively adjust the parameter estimate, by
+    ``splitting'' oscillators. For the spin (V) example, one could
+    take the 8-oscillator estimate generated, and from this create a
+    16-oscillator estimate in which each of the original 4 central oscillators
+    is replaced by three new ones, each with a third of the amplitude
+    and frequencies given by $\lbrace f_m - \Updelta f, f_m, f_m + \Updelta f
+    \rbrace \forall m \in \lbrace 3, 4, 5, 6 \rbrace$, for an appropriate
+    initial splitting value $\Updelta f$. The new
+    parameter estimate could then be subjected to \ac{NLP} to ensure it agrees
+    well with the data. This idea was applied in some circumstances where
+    under-fits had occurred, however unsatisfactory results were common, since the
+    oscillators tended to acquire highly inconsistent amplitudes after
+    unconstrained \ac{NLP}. An
+    improvement could be made by imposing further constraints on the \ac{NLP}
+    routine; this is discussed in more detail in \cref{sec:future-work}.
+    Fundamentally though, as alluded to already, in some circumstances
+    frequency neighbourhoods may be so crowded that there simply isn't
+    sufficient information for each signal to be accurately resolved.
+}\label{corr:splitting}
+
 With three couplings of different magnitude, spin (O) exhibits a ``ddd''
 multiplet structure in which all 8 signals are discernible. The \ac{NLP}
 routine performed well in taking the initial guess from the
@@ -381,6 +407,12 @@ spurious phases\,---\, and generating a well-phased set of oscillators defining
 the ddd structure, with a very small associated residual. This highlights that
 in cases where all signals present in a given frequency neighbourhood are
 resolvable, effective estimation results are achievable.
+\correction{
+    The oscillators are not perfectly consistent in terms of their relative
+    amplitudes, which one would predict to be equal based on the coupling
+    scheme. This is attributable to the large error associated with significant
+    signal overlap in the frequency neighbourhood.
+}\label{corr:unequal-amps}
 
 \subsection{Cyclosporin A}
 \label{subsec:cyclo}

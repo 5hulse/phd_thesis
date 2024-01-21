@@ -144,6 +144,9 @@
             the origin of the scaling factor more clear.
         \item \cpageref{fn:matrix-pencil} -- Added \cref{fn:matrix-pencil} to
             give the definition of a matrix pencil.
+        \item \cpageref{corr:awgn} -- AWGN is referred to only the first time it
+            is added to simulated data; after this, I simply refer to it as ``noise''.
+            See also \cref{rem:awgn}, \cpageref{rem:awgn}.
         \item \cpageref{fn:neg-amps-25} -- Added \cref{fn:neg-amps-25} to
             provide a bit more context on why 25 was chosen as the number of
             iterations between negative amplitude checks.
@@ -154,12 +157,24 @@
             caption and y-axis texts equivalent. Indicated where $96MiB$
             appears on the MPM peak memory usage plot, to help with the 1997
             paper discussion.
+        \item \cpageref{corr:estimation-time} Tweak to the first sentences in
+            \cref{sec:filtering} to emphasise that NMR users are unlikely to
+            use software if it takes a long time to run.
         \item \cpageref{corr:rect-filter} -- Mentioned that the filtering
             process could likely be replaced by the simpler method of using a
             rectangular filter and slicing at the filter boundaries.
         \item \cpageref{fig:mpm_vs_nlp} -- \cref{fig:mpm_vs_nlp}: Replaced
             landscape figure with portrait version. Included a description of the
             different peak colours in the caption.
+        \item \cpageref{fn:similar-freqs} -- Added \cref{fn:similar-freqs} to
+            provide some additional context to the phase ``similar frequencies''.
+        \item \cpageref{corr:splitting} -- Mentioned that a possible approach
+            to under-fitting is to ``split'' oscillators in the parameter
+            estimate and re-optimise; discussed limitations associated with
+            this.
+        \item \cpageref{corr:unequal-amps} Noted that even when a parsimonious fit
+            occurred for spin (O), certain parameters are not perfectly consistent
+            with expectations (i.e. amplitudes are not exactly equal).
         \item \cpageref{fig:andro-onedim} -- \cref{fig:andro-onedim}: Replaced
             landscape figure with portrait version. Added structure of andrographolide.
         \item \cpageref{fig:cyclosporin} -- \cref{fig:cyclosporin}: Added structure of
@@ -212,7 +227,8 @@
         \item \cpageref{fig:estradiol-cupid} -- \cref{fig:estradiol-cupid}: Added
             structure of estradiol. Included a description of grey points in
             the figure.
-        \cpageref{corr:concurrency} -- Added a discussion of how
-            multiprocessing could be employed to improve NLP efficiency.
+        \item \cpageref{corr:concurrency} -- Added a discussion on how
+            multiprocessing could be employed to improve the efficiency of
+            \textsc{NMR-EsPy}.
     \end{itemize}
 \end{document}

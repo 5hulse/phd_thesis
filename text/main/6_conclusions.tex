@@ -145,19 +145,59 @@ were ported to one of the aforementioned languages.
 \correction{
     There are certain aspects of the routine which could be made more efficient
     through the use of \emph{multiprocessing}: the act of running distinct
-    parts of a program simultaneously on different \ac{CPU} cores. Most modern
-    computer systems are equipped with multi-core \acp{CPU}, each of which can
-    perform tasks concurrently. In the \ac{NLP} routine, the computation of the
-    necessary first- and second-derivatives required for the gradient and
-    Hessian stands out as a clear candidate for multiprocesing, where distinct
-    computations are run. In Lines \ref{ln:secondderivstart} to
-    \ref{ln:secondderivend} of \cref{lst:obj-grad-hess} for example, the
-    fidelity's second derivatives are computed in accordance with
-    \crefrange{eq:amp-phi-second-deriv}{eq:damp-second-deriv}, found in
-    \cref{sec:derivatives}. Each of the $MN$ gradients computed on each line
-    are setup to be computed one after. However, as these lines do not require
-    aren't reliant from the output of the other lines to be computed, ...
+    parts of a program simultaneously. Most modern
+    computer systems are equipped with multi-core \acp{CPU}, with the cores
+    being able to perform separate tasks concurrently\footnote{
+        \correction{
+            N.B. multiprocessing is a distinct concept to \emph{multithreading};
+            the latter describes the process by which a single \ac{CPU} core runs a
+            number of separate programs (\emph{threads}) by dedicating a
+            certain amount of time to one, before continuing to work on a
+            different thread etc. In essence, this means that a \ac{CPU} core
+            doesn't have to run one program to completion before starting a new
+            program.
+        }\label{fn:multithreading}
+    }. In situations where
+    different parts of a program are independent of each other, large
+    time-savings can be achieved by running each part in separate sub-programs
+    across different cores.  \textsc{Python}'s \texttt{multiprocessing} module
+    provides a straightforward interface to achieve
+    this~\cite{multiprocessing}.
 }\label{corr:concurrency}
+
+\correction{
+    At the time of writing (version 2.0.0), multiprocessing is not utilised by
+    \ac{EsPy}.
+    However, there are some aspects of the estimation routine which could
+    benefit from it.
+    One of these is the computation of the model first- and
+    second-derivatives, required to yield the gradient and Hessian of the
+    fidelity.
+    In Lines \ref{ln:secondderivstart} to \ref{ln:secondderivend} of
+    \cref{lst:obj-grad-hess} (a program which generates the fidelity and its
+    derivatives for the \ac{1D} case) the second derivatives are
+    computed in accordance with
+    \crefrange{eq:amp-phi-second-deriv}{eq:damp-second-deriv}, found in
+    \cref{sec:derivatives}. Each line computes $M\None$ of the required
+    $9M\None$ gradients, with each line being run in succession. Running each
+    of these in separate sub-programs\,---\,across 9 \ac{CPU} cores, if
+    available\,---\,may well be more efficient.
+    A 9-fold increase in speed will not be realised however, since there is an
+    overhead in setting up a ``pool'' of sub-programs; only in situations where
+    significant computational work is being carried out in each sub-program
+    will performance improvements be realised. It is unlikely that
+    much benefit will be seen for most \ac{1D} \acp{FID}, given that (a) the
+    number of derivatives to compute is generally not particularly large, and
+    (b) computing the model gradients isn't the most time-consuming aspect of
+    \ac{1D} Hessian computation anyway (recall \cref{tab:hess-steps}).
+    However, \ac{2D} \ac{FID} estimation could well be sped up considerably
+    with the use of multiprocessing, given that
+    generating the $20 M \None \Ntwo$ second derivatives takes up a
+    considerable amount of the total Hessian computation time (again, see
+    \cref{tab:hess-steps}). This would be particularly true if the \ac{CPU}
+    being used featured at least 20 cores, which is commonplace for
+    modern workstations.
+}
 
 \paragraph{A general-purpose platform}
 Thinking further afield from the specific estimation routine considered in this

@@ -1,11 +1,19 @@
 \section{Frequency Filtration}
 \label{sec:filtering}
-The previous section provides motivation for finding ways to reduce both the
-number of datapoints and the number of signals present in an \ac{FID},
-without compromising the ability of the estimation routine
-to parameterise it. A means of generating frequency-filtered ``sub-\acp{FID}''
-is presented in this section, which is able to achieve both of these. In
-essence, this sub-\ac{FID} approach transforms the problem of \ac{FID} estimation from a
+\correction{
+    A typical \ac{NMR} user is unlikely to make use of the estimation routine
+    outlined if it takes a considerable amount of time to run \,---\,on the
+    order of several minutes or even hours\,---\,especially if the information
+    they are interested in could be obtained by other means, such as running
+    additional \ac{NMR} experiments. The previous section highlights that
+    \acp{FID} which comprise smaller numbers of datapoints and signals can be
+    estimated more rapidly. A means of generating frequency-filtered
+    ``sub-\acp{FID}'' is presented in this section, which is able to reduce
+    both of these features, without compromising the ability of the estimation
+    routine to parameterise the original \ac{FID}.
+}\label{corr:estimation-time}
+In essence, this sub-\ac{FID} approach transforms the problem of \ac{FID}
+estimation from a
 single large-scale estimation problem to a plurality of smaller-scale problems.
 As well as realising vast improvements in computational speed, filtering also
 enables a user to focus solely on spectral regions that are of interest.
@@ -13,7 +21,9 @@ It is common for certain spectral regions to be so densely populated
 that it is futile to attempt to extract meaningful quantitative information at
 the per-signal level, especially with \ac{1D} \ac{NMR} data.
 Through data filtration, all focus can be devoted to those frequency regions
-which can realistically be studied and are of interest in the first place.
+which can realistically be studied and which are of interest in the first
+place.
+
 
 % The concept of estimating \ac{NMR} through the consideration of ``subbands''
 % has existed for a long time, and can be traced back to Tang and Norris's
@@ -102,6 +112,17 @@ $\symbf{s}_{\text{VE}}$ such that $\Im\left(\symbf{s}_{\text{VE}}\right) =
 Lorentzian peaks.
 
 \subsection{The Filtering Process}
+\begin{remark}
+    \correction{
+        Every result presented in this thesis which involved filtering made use
+        of the process outlined below. However in retrospect, a more
+        straightforward method of applying a rectangular filter, and slicing
+        the filtered spectrum exactly at the filter boundaries would likely
+        yield sub-\acp{FID} with the same information content, without the
+        requirement to incorporate synthetic noise into the filtered dataset.
+    }\label{corr:rect-filter}
+\end{remark}
+
 To filter the spectrum $\symbf{s}_{\text{VE}}$, it is subjected multiplication
 with a function which acts as a band-pass filter. An example of a suitable
 filter is a \emph{super-Gaussian} $\symbf{g} \in \mathbb{C}^{2N}$ defined by a
@@ -158,7 +179,7 @@ resides within the filter region will now seem to resemble true signal,
 as its amplitude is infinitely greater than the zeroed regions. A massive
 over-estimation of model order results from this.
 In order to obtain better predictions from model order selection, an array of
-synthetic \ac{AWGN} is
+synthetic noise is
 added to the filtered spectrum. To achieve this, a region in
 $\symbf{s}_{\text{VE}}$ is specified by the user (defined by the indices
 $l_{\text{N}}$ and  $r_{\text{N}}$) which contains no discernible
@@ -278,14 +299,6 @@ corrected values can be computed using
     \end{gather}
 \end{subequations}
 
-\correction{
-    Every result which involved filtering made use of the process
-    employed above. However in retrospect, a more straightforward method
-    of applying a rectangular filter, and slicing the filtered spectrum exactly
-    at the filter boundaries would likely yield sub-\acp{FID} with the
-    same information content, without the requirement to incorporate synthetic
-    noise into the filtered dataset.
-}\label{corr:rect-filter}
 
 \begin{algorithm}
     \begin{algorithmic}
