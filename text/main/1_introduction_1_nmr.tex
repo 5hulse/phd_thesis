@@ -297,23 +297,41 @@ Under free precession, the magnetisation rotates about the $z$-axis at the
     \label{fn:MHz}
 }
 
-\correction{The resonant contribution}\footnote{
-        \correction{
-            An \ac{RF} pulse produced by probe coil (\textit{vide infra}) can be
-            thought of as having three components\cite[Section 8.4.2]{Levitt2007}:
-            a longitudinal field, and two transverse fields which rotate in
-            opposite senses at the same frequency. Of the two transverse fields,
-            that which rotates with the same sense as the spin magnetisation is
-            resonant with the magnetisation, while that which rotates in the
-            opposite sense is non-resonant. In most circumstances, the longitudinal
-            and non-resonant components have a negligible influence on the spin
-            dynamics. \Cref{eq:B1} describes the resonant transverse component of
-            the pulse. N.B. $\omega_{\text{RF}}$ is negative for spins with
-            positive $\gamma$, and vice versa.
-            \label{fn:resonant-pulse}
-        }
-    }
-\correction{of an \ac{RF} pulse may be expressed as}\label{corr:rf-pulse}
+\correction{
+\ac{NMR} experiments typically employ \ac{RF} pulses which are linearly polarised
+and modulated cosinusoidally. A pulse which is polarised along the laboratory
+$x$-axis takes the form
+\begin{equation}
+    \symbf{B}_1(t) = 2 B_1 \cos(\omega_{\text{RF}} t + \phi_{\text{RF}}) \symbf{i},
+    \label{eq:linear-pulse}
+\end{equation}
+where $B_1$ is the strength of the \ac{RF} field (the presence of the factor of
+2 will become clear shortly), $\omega_{\text{RF}}$ is its angular frequency,
+and $\phi_{\text{RF}}$ is its phase. $\symbf{i}$, $\symbf{j}$ and $\symbf{k}$
+(encountered shortly) denote the unit vectors along the laboratory $x$-, $y$-,
+and $z$-axes, respectively.
+Such a pulse can instead be thought of as the
+superposition of two circular fields, rotating with opposite senses:
+\begin{equation}
+    \begin{split}
+        \symbf{B}_1(t) = &B_1(%
+                \cos(\omega_{\text{RF}} t + \phi_{\text{RF}}) \symbf{i} +
+                \sin(\omega_{\text{RF}} t + \phi_{\text{RF}}) \symbf{j}
+            )\\%
+            &+B_1(%
+                \cos(\omega_{\text{RF}} t + \phi_{\text{RF}}) \symbf{i} -
+                \sin(\omega_{\text{RF}} t + \phi_{\text{RF}}) \symbf{j}
+            ).
+    \end{split}
+    \label{eq:B1}
+\end{equation}
+Assuming that $\lvert \omega_{\text{RF}} \rvert$ and $\lvert \gamma B_0
+\rvert$ are close in value, the circular component which rotates with the same
+sense as the spin magnetisation is said to be \emph{on resonance}. The
+component which rotates with the opposite sense has a negligible effect on
+the magnetisation in most circumstances.
+An \ac{RF} pulse may therefore be expressed to a high degree of accuracy as
+}\label{corr:rf-pulse}
 \begin{equation}
     \symbf{B}_1(t) =
         B_1\left(
@@ -322,15 +340,11 @@ Under free precession, the magnetisation rotates about the $z$-axis at the
         \right),
         \label{eq:B1}
 \end{equation}
-with $\symbf{i}$, $\symbf{j}$ and $\symbf{k}$ (encountered shortly) being unit
-vectors along the laboratory $x$-, $y$-, and $z$-axes, respectively. $B_1$ is
-the strength of the \ac{RF} field, $\omega_{\text{RF}}$ is its angular
-frequency, and $\phi_{\text{RF}}$ is its phase.
-A great simplification to the model is realised by considering a frame
-of reference which, rather than being static, rotates at $\omega_{\text{RF}}$,
-as this makes the \ac{RF} field appear to be time-independent. This is referred
-to as the \emph{rotating frame}, and leads to \cref{eq:M-cross-B} being recast
-as
+A great simplification to the model of magnetisation evolution is realised by
+considering a frame of reference which, rather than being static, rotates at
+$\omega_{\text{RF}}$, as this makes the \ac{RF} field appear to be
+time-independent. This is referred to as the \emph{rotating frame}, and leads
+to \cref{eq:M-cross-B} being recast as
 \begin{subequations}
     \begin{gather}
         \frac{\mathrm{d}\tilde{\symbf{M}}(t)}{\mathrm{d}t} = \tilde{\symbf{M}}(t) \times \gamma \tilde{\symbf{B}}(t),\\
@@ -353,10 +367,10 @@ as
     \label{eq:rot-frame}%
 \end{subequations}%
 The tilde has been used to distinguish quantities in the rotating frame from
-their static-frame counterparts.
+their laboratory frame counterparts.
 $\Omega \coloneq \omega_0 - \omega_{\text{RF}}$ is the \emph{offset} of the spin
-magnetisation. When $\Omega = \qty{0}{\radian\per\second}$, the system is said to
-be on-resonance, and at times when an \ac{RF} field is not being applied, the
+magnetisation. When $\Omega = \qty{0}{\radian\per\second}$, the \ac{RF} field is
+perfectly on resonance, and at times when it is not being applied, the
 magnetisation vector appears to be static in the rotating frame.
 
 Consider a scenario where a short \ac{RF} pulse is applied to the system, which
@@ -386,7 +400,7 @@ this occurs is called \emph{relaxation}.
                 The surroundings of a particular spin system of interest is
                 often referred to as the \emph{lattice}, which contains all
                 degrees of freedom in the sample other than those of the spin
-                system itself, including rotational degrees of freedom of all
+                system itself, including motional degrees of freedom of all
                 molecules in the system, and the spin energy levels of all
                 other molecules.
             }. Molecular motion results in the net field in the $z$-direction
@@ -479,8 +493,7 @@ spin-$\nicefrac{1}{2}$ nuclei in the rotating frame:
     \end{bmatrix},
 \end{equation}
 \Cref{fig:quadrature}.a depicts the
-evolution of an off-resonance bulk
-magnetisation vector after the application of an
+evolution of a bulk magnetisation vector after the application of an
 \ac{RF} pulse with $\phi_{\text{RF}} = \nicefrac{\pi}{2}$, and an appropriate
 combination of duration and power to induce a clockwise rotation of \ang{90}
 about the $y$-axis; such a pulse is denoted $\ang{90}_{y}$.

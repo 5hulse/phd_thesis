@@ -31,30 +31,152 @@ The transmitter offset term has been neglected in the indirect dimension, since
 chemical shift evolution does not occur.
 For each signal in the \ac{FID}, the indirect- and direct-dimension
 frequencies are intimately linked. Consider a \ac{2DJ} dataset generated from a
-spin system with $S$ distinct (weakly coupled) spins. The signals which arise
+spin system with $S$ distinct spins.
+Under the assumption of the
+\emph{weak coupling approximation}~\cite[Section 2.5.2]{Cavanagh2007},
+the signals which arise
 from a particular spin $s \in \lbrace 1, \cdots, S \rbrace$ form a grouping $G_s
-\subset \lbrace 1, \cdots, M \rbrace$, where $M \equiv \sum_{s=1}^S \lvert G_s
-\rvert$ is the total number of signals that make up the \ac{FID}. All of the
-signals in $G_s$ will have (angular) frequencies given by
+\subset \lbrace 1, \cdots, M \rbrace$ (note that $M \equiv \sum_{s=1}^S \lvert
+G_s \rvert$).
+All the signals in $G_s$ will have frequencies given by
 \begin{subequations}
     \begin{gather}
-        2 \pi \fonem = \Updelta \omega_m,\\
-        2 \pi \ftwom = \omega_{0,s} + \Updelta \omega_m,\\
+        \fonem = d_m,\\
+        \ftwom = f_{0,s} + d_m,\\
         \forall m \in G_s\notag,
     \end{gather}%
     \label{eq:f1-f2-2dj}%
 \end{subequations}
-where $\omega_{0,s}$ is the Larmor frequency of
-the spin, and $\Updelta \omega_m$ is the displacement
-of the signal from $\omega_{0,s}$, as a result of J-couplings\footnote{
-    $\Updelta \omega_m$ will be a linear combination of all the J-couplings
+where $f_{0,s}$ is the Larmor frequency of
+the spin, and $d_m$ is the displacement
+of the signal from $f_{0,s}$, as a result of J-couplings\footnote{
+    $d_m$ will be a linear combination of all the J-couplings
     associated with the spin, with all the coefficients being $\pm
     \nicefrac{1}{2}$.
 }. Due to this relationship, all peaks in the Fourier domain which are part of
 the same multiplet will lie along a line which makes \ang{45} angles to both
 the $\Fone$ and $\Ftwo$ axes, as depicted in \cref{fig:jres-spectrum}.a.
+
+One limitation of the \ac{2DJ} experiment is the fact that peaks comprising
+pure absorption Lorentzian character cannot be produced. This is since, due
+to the absence of a mixing period, it is not possible to acquire a
+complementary pair of phase-modulated \acp{FID}; such a pair could be processed
+so as to nullify the dispersive contributions (see \cref{subsec:multidim}).
+The FT of a \ac{2DJ} \ac{FID} produces a spectrum with phase-twist
+peaks; an example is provided in \cref{fig:jres-spectrum}.a. As with
+other experiments which produce hypercomplex signals, such as \ac{COSY}, the
+data is conventionally displayed in \emph{magnitude-mode}
+(\cref{fig:jres-spectrum}.b) in which the absolute value of each complex point
+in the spectrum is plotted.
+
+\correction{
+When present, another disadvantageous trait of \ac{2DJ} datasets are \emph{strong
+coupling artefacts}, which arise due to coherence transfers induced by
+the \ang{180} pulse~\cite{Wider1983,Thrippleton2005}.
+As stressed in~\cite{Thrippleton2005}, these are not strictly artefacts, but
+rather genuine signals which are expected to be present in the \ac{2DJ}
+dataset; despite this, the term is widespread in the literature.
+An illustration of the influence of strong coupling effects is provided for a
+system of two coupled spins AB in \cref{fig:jres-ab}. A rigorous description of
+the theory behind a \ac{2DJ} experiment for an AB system is given
+in~\cite{Thrippleton2005}.
+As well as four \emph{first-order} signals (those that are be accounted for
+when the weak-coupling approximation is invoked)
+four additional signals appear in the dataset due to strong coupling effects.
+The frequencies of and relative amplitudes of the eight signals are provided in
+\cref{tab:jres-ab}.
+}\label{corr:strong-coupling-artefacts}
+\begin{longtable}{c c c}
+    \hline
+    $a$ & $\fone$ & $\ftwo$\\
+    \hline
+    \multicolumn{3}{c}{\textbf{First order signals}}\\
+    \hline
+    1 & $\frac{J_{\text{AB}}}{2}$ & $f_{\text{A}} + \frac{J_{\text{AB}}}{2}$\\
+    1 & $-\frac{J_{\text{AB}}}{2}$ & $f_{\text{A}} - \frac{J_{\text{AB}}}{2}$\\
+    1 & $\frac{J_{\text{AB}}}{2}$ & $f_{\text{B}} + \frac{J_{\text{AB}}}{2}$\\
+    1 & $-\frac{J_{\text{AB}}}{2}$ & $f_{\text{B}} - \frac{J_{\text{AB}}}{2}$\\
+    \hline
+    \multicolumn{3}{c}{\textbf{Strong coupling artefacts}}\\
+    \hline
+    $\rho_{\text{AB}}$ & $\frac{J_{\text{AB}}}{2} + \xi_{\text{AB}}$ & $f_{\text{A}} + \frac{J_{\text{AB}}}{2}$\\
+    $\rho_{\text{AB}}$ & $-\frac{J_{\text{AB}}}{2} + \xi_{\text{AB}}$ & $f_{\text{A}} - \frac{J_{\text{AB}}}{2}$\\
+    $\rho_{\text{AB}}$ & $\frac{J_{\text{AB}}}{2} - \xi_{\text{AB}}$ & $f_{\text{B}} + \frac{J_{\text{AB}}}{2}$\\
+    $\rho_{\text{AB}}$ & $-\frac{J_{\text{AB}}}{2} - \xi_{\text{AB}}$ & $f_{\text{B}} - \frac{J_{\text{AB}}}{2}$\\
+    \hline
+    \caption[
+        The frequencies and relative amplitudes of signals which feature in the
+        \acs{2DJ} spectrum of an AB spin system.
+    ]{
+        The frequencies and relative amplitudes of signals which feature in the
+        \acs{2DJ} spectrum of an AB spin system. The quantities $\xi_{\text{AB}}$
+        and  $\rho_{\text{AB}}$ are defined in \cref{eq:ab-sep,eq:ab-amp},
+        respectively.
+    }\label{tab:jres-ab}
+\end{longtable}
+\correction{
+Each of the strong coupling artefacts has a direct-dimension frequency that
+matches that of one of the
+first-order signals. However, each pair of signals that abide by this
+are displaced in the indirect dimension by $\xi_{\text{AB}}$, give by
+\begin{equation}
+    \xi_{\text{AB}} = \frac{1}{2} \sqrt{(f_{\text{A}} - f_{\text{B}})^2 +
+    J_{\text{AB}}^2}.\label{eq:ab-sep}.
+\end{equation}
+The magnitude of the displacement is such that strong coupling artefacts are
+frequently aliased in the indirect dimension, which tends to have a small
+spectral width ($\approx \qty{50}{\hertz}$).
+Due to their displacement in the indirect dimension, strong coupling artefacts
+lie along different \ang{45} cross sections to the first-order signals
+they are associated with.
+The intensities of the strong coupling artefacts relative to the
+first-order signals is given by:
+\begin{equation}
+    \rho_{\text{AB}} = \tan^{-1}\left(\frac{J_{\text{AB}}}{f_{\text{A}} - f_{\text{B}}}\right).
+    \label{eq:ab-amp}
+\end{equation}
+From this expression, it can be seen that as the difference in chemical shift
+increases, the magnitude of the strong coupling artefacts diminishes, until
+their effect is negligible, such that the spin system may be deemed as weakly
+coupled.
+}
+
 \begin{figure}%
     \centering%
+    \includegraphics{figures/jres_ab/jres_ab.pdf}
+    \caption[
+        The appearance of \acs{2DJ} spectra associated with AB spin systems
+        with varying chemical shift differences.
+    ]{
+        \correction{
+        The appearance of magnitude-mode spectra \acs{2DJ} associated with AB
+        spin systems with varying chemical shift differences. For each spin system,
+        $J_{\text{AB}} = \qty{20}{\hertz}$, and the resonance frequencies of the
+        two spins were set to be $f_{\text{A}} = \nicefrac{\Updelta f}{2}$ and
+        $f_{\text{B}} = \nicefrac{-\Updelta f}{2}$, with $\Updelta f$ given by
+        $\qty{150}{\hertz}$ (panel a),  $\qty{100}{\hertz}$ (panel b), and
+        $\qty{50}{\hertz}$ (panel c). Each spectrum features 8 signals, with
+        their frequencies and relative amplitudes defined in accordance
+        with~\cite[Table 1]{Thrippleton2005}. Along with the 4 first-order
+        signals (labelled ``f''), 4 strong coupling artefacts are present in
+        each spectrum (labelled ``s''). The artefacts
+        have the following amplitudes relative to the first order signals, in
+        accordance with \cref{eq:ab-amp}: 0.133 (panel a), 0.197 (panel b),
+        0.381 (panel c). Each of these have a direct-dimension
+        frequency which matches that of a first-order signal; in the indirect
+        dimension the frequencies of each signal pair differ by the quantity
+        $\xi_{\text{AB}}$ (\cref{eq:ab-sep}):
+        \qty{75.7}{\hertz} (panel a),
+        \qty{51.0}{\hertz} (panel b),
+        \qty{26.9}{\hertz} (panel c).
+        N.B. the sweep width in the indirect dimension (\qty{200}{\hertz}) is
+        considerably larger than typical values used for \textsuperscript{1}H
+        \acs{2DJ} experiments; this as been done to ensure the strong coupling
+        artefacts are not aliased, which occurs commonly in real datasets.
+    }
+    }
+    \label{fig:jres-ab}
+    \vspace{20pt}
     \includegraphics{jres_spectrum/jres_spectrum_new.pdf}%
     \caption[
         A region of a \acs{2DJ} spectrum of strychnine, processed in different
@@ -79,19 +201,7 @@ the $\Fone$ and $\Ftwo$ axes, as depicted in \cref{fig:jres-spectrum}.a.
         from strong coupling artefacts in the \ac{2DJ} spectrum.
    }%
     \label{fig:jres-spectrum}%
-\end{figure}%
-
-One limitation of the \ac{2DJ} experiment is the fact that peaks comprising
-pure absorption Lorentzian character cannot be produced. This is since, due
-to the absence of a mixing period, it is not possible to acquire a
-complementary pair of phase-modulated \acp{FID}; such a pair could be processed
-so as to nullify the dispersive contributions (see \cref{subsec:multidim}).
-The FT of a \ac{2DJ} \ac{FID} produces a spectrum with phase-twist
-peaks; an example is provided in \cref{fig:jres-spectrum}.a. As with
-other experiments which produce hypercomplex signals, such as \ac{COSY}, the
-data is conventionally displayed in \emph{magnitude-mode}
-(\cref{fig:jres-spectrum}.b) in which the absolute value of each complex point
-in the spectrum is plotted.
+    \end{figure}
 
 \subsubsection{The Shear and Projection Approach}
 A pure shift spectrum can be acquired from a \ac{2DJ} spectrum by performing a
@@ -141,48 +251,16 @@ pure shift spectra produced via sine-bell apodisation can be found in Figures
 \ref{fig:quinine-cupid}.a and \ref{fig:camphor-cupid}.a, where severe
 discrepancies in peak integrals exist.
 
-When present, another feature which limits the effectiveness of the \ac{2DJ}
-experiment are \emph{strong coupling artefacts}\footnote{
-    As stressed in ~\cite{Thrippleton2005}, these are not strictly artefacts,
-    but rather genuine signals which are expected to be present in the
-    \ac{2DJ} dataset. Despite this, the term is widespread in the literature,
-    most likely as it emphasises that the signals hinder analysis of the data.
-}, which arise due to chemical shifts associated with strongly coupled spins
-being imperfectly focussed by the \ang{180}
-pulse~\cite{Thrippleton2005,Wider1983}.
-These artefacts always have direct-dimension
-frequencies which match those of conventional, \emph{first order signals}\footnote{
-    First order signals are those which arise under the assumption of the weak
-    coupling regime~\cite[Section 2.5.2]{Cavanagh2007}.
-}, though they do not lie along the same \ang{45} cross sections as
-these. As a result, the final spectrum produced by shearing and projecting onto
-$\Ftwo$ will feature additional low-intensity nuisance signals that
-compound the task of interpreting the spectrum (see peaks marked with asterisks
-in Figures \ref{fig:jres-spectrum}.c, \ref{fig:quinine-cupid}.a, and
-\ref{fig:camphor-cupid}.a.
-
 \correction{
-    AB spin system: as well as 4 expected signals from a first-order analysis
-    of experiment, 4 additional signals appear.
-    System defined by frequencies $f_{\text{A}} > f_{\text{B}}$, and
-    scalar coupling $J_{\text{AB}}$. Find that each of the strong coupling
-    artefacts has a direct-dimension frequency that matches one of the
-    first-order signals. However, it is displaced in the indirect dimension by
-    $\xi_{\text{AB}} = \sqrt{(f_{\text{A}} - f_{\text{B}})^2 + J_{\text{AB}}^2}$,
-    and has a relative intensity of $\tan^{-1}\left(
-    \nicefrac{J_{\text{AB}}}{f_{\text{A}} - f_{\text{B}}}\right)$.
-    See \cref{fig:jres-ab}.
+    When strong coupling artefacts feature in the \ac{2DJ} data,
+    spectra produced by shearing and projecting onto $\Ftwo$ will feature
+    additional low-intensity nuisance signals\,---\,recall from above that
+    these tend to lie along different \ang{45} cross-sections to first-order
+    signals in the \ac{2DJ} spectrum\,---\,that compound the task of
+    interpreting the spectrum (see peaks marked with asterisks in Figures
+\ref{fig:jres-spectrum}.c, \ref{fig:quinine-cupid}.a, and
+\ref{fig:camphor-cupid}.a.
 }
-\begin{figure}
-    \centering
-    \includegraphics{figures/jres_ab/jres_ab.pdf}
-    \caption[
-        TODO
-    ]{
-        TODO
-    }
-    \label{fig:jres-ab}
-\end{figure}
 
 \subsubsection{Pure Shift Spectra from 2DJ Estimation}
 Beyond the shearing and projection method, procedures based on the estimation

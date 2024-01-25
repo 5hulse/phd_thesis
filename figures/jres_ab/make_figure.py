@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simonhulse@protonmail.com
-# Last Edited: Tue 23 Jan 2024 19:24:54 EST
+# Last Edited: Wed 24 Jan 2024 19:41:42 EST
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -103,8 +103,9 @@ fig, axs = plt.subplots(
     ncols=3,
     nrows=1,
     gridspec_kw={
-        "left": 0.06,
+        "left": 0.07,
         "right": 0.99,
+        "bottom": 0.12,
         "wspace": 0.05,
     },
     figsize=(6., 2.5),
@@ -124,12 +125,11 @@ for i, (diff, ax) in enumerate(zip(diffs, axs)):
     omega_a, omega_b = offset + 0.5 * diff, offset - 0.5 * diff
     dataset = JresAB(pts1, pts2, sw1, sw2, offset, omega_a, omega_b, J_ab)
     f1, f2, spectrum = dataset.full_spectrum()
-    ax.contour(f2, f1, spectrum, colors="#808080", levels=levels, linewidths=0.4)
+    ax.contour(f2, f1, spectrum, colors="k", levels=levels, linewidths=0.4)
     for j, (finfo, ainfo) in enumerate(zip(dataset.first_order_info, dataset.artefact_info)):
         f_f1, f_f2 = finfo[1]
         a_f1, a_f2 = ainfo[1]
         ax.axvline(f_f2, color=colors[j], zorder=-1)
-        ax.scatter(a_f2, a_f1, marker="o", color="k", edgecolor="none", s=6, zorder=100)
         if i == 0:
             tinfo = textinfo[j]
             hpad = 2.5
@@ -150,7 +150,7 @@ for i, (diff, ax) in enumerate(zip(diffs, axs)):
                 )
             )
             if j == 1:
-                xpos = 30.0
+                xpos = 20.0
                 ax.plot([a_f2, xpos], [a_f1, a_f1], color="k", ls=":")
                 ax.plot([a_f2, xpos], [f_f1, f_f1], color="k", ls=":")
                 arrow = mpl.patches.FancyArrowPatch([xpos, a_f1], [xpos, f_f1], arrowstyle="<->", shrinkA=0.0, shrinkB=0.0, color="k", mutation_scale=10.0, lw=0.8)
@@ -161,8 +161,11 @@ for i, (diff, ax) in enumerate(zip(diffs, axs)):
     if i != 0:
         ax.set_yticks([])
     else:
-        ax.set_ylabel("Hz")
+        ax.set_ylabel("$F^{(1)}$ (Hz)")
     if i == 1:
-        ax.set_xlabel("Hz")
+        ax.set_xlabel("$F^{(2)}$ (Hz)")
+    ax.text(0.02, 0.94, f"\\textbf{{{chr(97 + i)}.}}", transform=ax.transAxes)
+axs[0].text(0.5, 0.5, "s", fontsize=7, ha="center", va="center")
+axs[0].text(0.5, 0.6, "f", fontsize=7, ha="center", va="center")
 
 fig.savefig("figures/jres_ab/jres_ab.pdf")
