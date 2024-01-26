@@ -133,44 +133,7 @@ nuclei commonly encountered in \ac{NMR}, along with some which
 \correction{do not possess spin}\label{corr:no-spin}
 and are therefore inert in the context of \ac{NMR}.
 
-\begin{table}
-    \begin{center}
-        \begin{tabular}{ c c c c }
-            \toprule
-            Nucleus & $I$ & $\gamma (\si{\per \tesla \per \second})$ & Relative Abundance (\%) \\
-            \midrule
-            \ch{^{1}H} & \nicefrac{1}{2} & \num{2.6752e8} & 99.9885 \\
-            \ch{^{2}H} & 1 & \num{4.1066e7} & 0.0115 \\
-            \ch{^{6}Li} & 1 & \num{3.9371e7} & 7.59 \\
-            \ch{^{7}Li} & \nicefrac{3}{2} & \num{1.0398e8} & 92.41 \\
-            \ch{^{12}C} & 0 & - & 98.93 \\
-            \ch{^{13}C} & \nicefrac{1}{2} & \num{6.7279e7} & 1.07 \\
-            \ch{^{14}N} & 1 & \num{1.9329e7} & 99.636 \\
-            \ch{^{15}N} & \nicefrac{1}{2} & \num{-2.7114e7} & 0.364 \\
-            \ch{^{16}O} & 0 & - & 99.756 \\
-            \ch{^{17}O} & \nicefrac{5}{2} & \num{-3.6276e7} & 0.038 \\
-            \ch{^{19}F} & \nicefrac{1}{2} & \num{2.5176e8} & 100 \\
-            \ch{^{31}P} & \nicefrac{1}{2} & \num{1.0833e8} & 100 \\
-            \bottomrule
-        \end{tabular}
-    \end{center}
-    \caption[
-        Statistics related to a number of nuclei which are regularly-encountered in \acs{NMR}.
-    ]{
-        \correction{
-            Statistics related to a number of nuclei which are
-            regularly-encountered in \acs{NMR}.
-            Also listed are common nuclei which do not possess spin.
-            The gyromagnetic ratios were determined by obtaining the relevant
-            nuclear magnetic dipole moments $\mu$ in units of nuclear magneton
-            $\mu_{\text{N}}$~\cite{Stone2019},
-            and applying the equation $\gamma = \nicefrac{\mu \mu_{\text{N}}}{I \hbar}$,
-            where $\mu_{\text{N}} =
-            \qty{5.0507837461e-27}{\joule\per\tesla}$~\cite{Tiesinga2021}).
-        }
-    }
-    \label{tab:nuclei}
-\end{table}
+\input{text/generated/gyromagnetic_ratios.tex}
 
 Without the presence of an external magnetic field, the different nuclear spin
 states are degenerate. However, once a magnetic field is applied, the
@@ -231,26 +194,39 @@ At equilibrium, the $x$- and $y$-components of the bulk magnetisation are zero:
 \end{equation}
 such that the bulk magnetisation is collinear with the field direction, with a
 magnitude $M_0$.
-\correction{By invoking the \emph{high temperature approximation}\footnote{
-        \correction{
-            \cref{eq:M0} is arrived at under the assumption that
-            $\nicefrac{m\hbar\gamma B_0}{k_{\text{B}} T} \ll 1$. Given typical
-            values of $\gamma$ ($\approx\!\!\qty{1e8}{\per\tesla\per\second}$) and
-            $B_0$ ($\approx\!\!\qty{10}{\tesla}$), the implicit requirement for
-            the temperature to be sufficiently large is virtually always
-            adhered to in solution-state \ac{NMR}.
-        }\label{fn:corr-high-temp}
-    }, $M_0$ may be expressed as~\cite[Section 1.1]{Cavanagh2007}:
+\correction{
+    The Boltzmann distribution describes the relative populations of the spin states:
+    \begin{equation}
+        p_{m} = \frac{\exp\left(\frac{m\hbar \gamma B_0}{k_{\text{B}} T}\right)}
+        {\sum\limits_{m=-I}^I \exp\left(\frac{m\hbar \gamma B_0}{k_{\text{B}} T}\right)},
+        \label{eq:boltzmann}
+    \end{equation}
+    where $k_{\text{B}}$ is the Boltzmann constant
+    (\qty{1.381e-23}{\joule\per\kelvin}),
+    and $T$ is the sample temperature.
+    N.B. $\sum_{m=-I}^I p_m = 1$.
+    Given typical values of $\gamma$ ($\approx\!\!\qty{1e8}{\per\tesla\per\second}$) and
+    $B_0$ ($\approx\!\!\qty{10}{\tesla}$),
+    the inequality
+    $\nicefrac{m\hbar\gamma B_0}{k_{\text{B}} T} \ll 1$ can be safely assumed
+    to be satisfied at all temperatures used in
+    solution-state \ac{NMR}. For this reason, the exponential terms in
+    \cref{eq:boltzmann} may be approximated using a Taylor expansion truncated
+    at the first-order term.
+    Through this, it can be shown that the magnitude of the bulk magnetisation
+    is given by
+\begin{subequations}
+    \begin{gather}
+        M_0 = \sum_{s=1}^S \mu_{z,s} = S \hbar \gamma \sum_{m=-I}^{I} m p_m
+            \approx \frac{S \gamma^2 \hbar^2 B_0 I (I + 1)}{3 k_{\text{B}} T}\\
+        \implies M_0(I=\nicefrac{1}{2}) \approx
+            \frac{S \gamma^2 \hbar^2 B_0}{4k_{\text{B}} T},%
+        \label{eq:M0}%
+    \end{gather}%
+\end{subequations}
 }\label{corr:high-temp}
-\begin{equation}
-    M_0 \approx \frac{S \gamma^2 \hbar^2 B_0 I (I + 1)}{3 k_{\text{B}} T},
-    \label{eq:M0}
-\end{equation}
-where $k_{\text{B}}$ is the Boltzmann constant
-(\qty{1.381e-23}{\joule\per\kelvin}),
-and $T$ is the sample temperature. To maximise experiment sensitivity, it is
-desirable to
-utilise nuclei with high natural abundance (affecting $S$ for a given sample
+To maximise experiment sensitivity, it is desirable to
+study nuclei with high natural abundance (affecting $S$ for a given sample
 concentration), and high
 gyromagnetic ratio. Along with other favourable attributes such as its ubiquity
 in organic molecules, \ch{^1H} is therefore by far the most popular nucleus to
@@ -274,16 +250,15 @@ Whenever the magnetisation vector is not collinear with the field vector\footnot
     The cross product of two collinear vectors is $0$, so $\symbf{M}$ remains
     fixed when it is aligned with $\symbf{B}$, as is the case at equilibrium.
 }, it
-undergoes \emph{precession} about the field vector. Free precession occurs
+\emph{precesses} about the field vector. Free precession occurs
 when the magnetisation is aligned away from the $z$-axis and $\symbf{B}_1 =
-\symbf{0}$, such that
+\symbf{0}$, leading to
 \begin{equation}
   \frac{\mathrm{d}\symbf{M}(t)}{\mathrm{d}t} =
-  -\gamma B_0
-  \begin{bmatrix}
-      M_y \\ -M_x \\ 0
-  \end{bmatrix}
+  -\gamma B_0 ( M_y(t) \symbf{i} -M_x(t) \symbf{j} + 0 \symbf{k}),
 \end{equation}
+where $\symbf{i}$, $\symbf{j}$ and $\symbf{k}$ denote the unit vectors along
+the laboratory $x$-, $y$-, and $z$-axes, respectively.
 Under free precession, the magnetisation rotates about the $z$-axis at the
 \emph{Larmor frequency} $\omega_0 = -\gamma B_0$.\footnote{
     While the \ac{SI} unit of magnetic field strength is the Tesla
@@ -292,45 +267,45 @@ Under free precession, the magnetisation rotates about the $z$-axis at the
     the Larmor frequency of a reference \proton\ nucleus at the
     given field strength. For example, a \qty{500}{\mega\hertz} spectrometer
     operates at a field strength of
-    $\nicefrac{\qty{5e8}{\hertz}}{\qty{4.2577e7}{\per\tesla\hertz}}
+    $\nicefrac{2 \pi \times \qty{5e8}{\per\second}}{\qty{2.6752e8}{\radian\per\tesla\per\second}}
     \approx \qty{11.74}{\tesla}$.
     \label{fn:MHz}
 }
 
 \correction{
-\ac{NMR} experiments typically employ \ac{RF} pulses which are linearly polarised
-and modulated cosinusoidally. A pulse which is polarised along the laboratory
-$x$-axis takes the form
+\ac{NMR} experiments employ \ac{RF} pulses which are linearly polarised
+and modulated cosinusoidally. As an example, a pulse which is polarised along
+the laboratory $x$-axis takes the form
 \begin{equation}
     \symbf{B}_1(t) = 2 B_1 \cos(\omega_{\text{RF}} t + \phi_{\text{RF}}) \symbf{i},
     \label{eq:linear-pulse}
 \end{equation}
-where $B_1$ is the strength of the \ac{RF} field (the presence of the factor of
-2 will become clear shortly), $\omega_{\text{RF}}$ is its angular frequency,
-and $\phi_{\text{RF}}$ is its phase. $\symbf{i}$, $\symbf{j}$ and $\symbf{k}$
-(encountered shortly) denote the unit vectors along the laboratory $x$-, $y$-,
-and $z$-axes, respectively.
-Such a pulse can instead be thought of as the
+where $B_1 \ll B_0$ is the strength of the \emph{resonant} \ac{RF} field
+(\emph{vide infra}),
+$\omega_{\text{RF}}$ is its angular frequency,
+and $\phi_{\text{RF}}$ is its phase.
+This pulse can instead be thought of as the
 superposition of two circular fields, rotating with opposite senses:
 \begin{equation}
     \begin{split}
-        \symbf{B}_1(t) = &B_1(%
+        \symbf{B}_1(t) = B_1(%
                 \cos(\omega_{\text{RF}} t + \phi_{\text{RF}}) \symbf{i} +
                 \sin(\omega_{\text{RF}} t + \phi_{\text{RF}}) \symbf{j}
             )\\%
-            &+B_1(%
+            + B_1(%
                 \cos(\omega_{\text{RF}} t + \phi_{\text{RF}}) \symbf{i} -
                 \sin(\omega_{\text{RF}} t + \phi_{\text{RF}}) \symbf{j}
             ).
     \end{split}
     \label{eq:B1}
 \end{equation}
-Assuming that $\lvert \omega_{\text{RF}} \rvert$ and $\lvert \gamma B_0
-\rvert$ are close in value, the circular component which rotates with the same
+Assuming that $\lvert \omega_{\text{RF}} \rvert$ and $\lvert \omega_0 \rvert$
+are close in value, the circular component which rotates with the same
 sense as the spin magnetisation is said to be \emph{on resonance}. The
 component which rotates with the opposite sense has a negligible effect on
 the magnetisation in most circumstances.
-An \ac{RF} pulse may therefore be expressed to a high degree of accuracy as
+An \ac{RF} pulse may therefore be considered to take the following form to a
+high degree of accuracy:
 }\label{corr:rf-pulse}
 \begin{equation}
     \symbf{B}_1(t) =
@@ -340,7 +315,7 @@ An \ac{RF} pulse may therefore be expressed to a high degree of accuracy as
         \right),
         \label{eq:B1}
 \end{equation}
-A great simplification to the model of magnetisation evolution is realised by
+A great simplification to \cref{eq:M-cross-B} is realised by
 considering a frame of reference which, rather than being static, rotates at
 $\omega_{\text{RF}}$, as this makes the \ac{RF} field appear to be
 time-independent. This is referred to as the \emph{rotating frame}, and leads
@@ -353,7 +328,7 @@ to \cref{eq:M-cross-B} being recast as
             B_1 \sin(\phi_{\text{RF}}) \tilde{\symbf{j}} +
             \Updelta B_0 \tilde{\symbf{k}},\\
         \Updelta B_0 = -\frac{\Omega}{\gamma},\\
-        \Omega = -\gamma B_0 - \omega_{\text{RF}},\\
+        \Omega = \omega_0 - \omega_{\text{RF}},\\
         \correction{
             \tilde{\symbf{i}} = \cos(\omega_{\text{RF}} t) \symbf{i} +
                 \sin(\omega_{\text{RF}} t) \symbf{j},
@@ -368,7 +343,7 @@ to \cref{eq:M-cross-B} being recast as
 \end{subequations}%
 The tilde has been used to distinguish quantities in the rotating frame from
 their laboratory frame counterparts.
-$\Omega \coloneq \omega_0 - \omega_{\text{RF}}$ is the \emph{offset} of the spin
+$\Omega$ is the \emph{offset} of the spin
 magnetisation. When $\Omega = \qty{0}{\radian\per\second}$, the \ac{RF} field is
 perfectly on resonance, and at times when it is not being applied, the
 magnetisation vector appears to be static in the rotating frame.
@@ -403,11 +378,11 @@ this occurs is called \emph{relaxation}.
                 system itself, including motional degrees of freedom of all
                 molecules in the system, and the spin energy levels of all
                 other molecules.
-            }. Molecular motion results in the net field in the $z$-direction
-            experienced by a given spin to vary with time.
+            }. Molecular motion results in the $z$-component of the magnetic
+            field experienced by a given spin to vary with time.
             The associated Larmor frequency of the spin is perturbed in
             accordance with this field variation.
-            On a wider scale, spins in different locations, experiencing
+            Spins in different locations, experiencing
             differing local $z$-field fluctuations, will gradually lose
             synchronisation with each other (i.e. become \emph{dephased}) as
             their instantaneous Larmor frequencies are non-equivalent. The
@@ -425,11 +400,11 @@ this occurs is called \emph{relaxation}.
             As such, nonadiabatic interactions contribute towards
             \emph{longitudinal relaxation}, also referred to as
             \emph{spin-lattice relaxation}.
-            Furthermore, due to the finite lifetimes of the spin states, there
-            is an uncertainty in their associated energies in accordance with
-            the Heisenberg uncertainty principle. Because of this, nonadiabatic
-            interactions also contribute to the dephasing of spins, and hence
-            transverse relaxation.
+            Furthermore, due to the finite lifetimes of the spin states,
+            their associated energies are not perfectly defined, in accordance
+            with the Heisenberg uncertainty principle. Because of this,
+            nonadiabatic interactions also contribute to the dephasing of
+            spins, and hence transverse relaxation.
     \end{itemize}
     In the Bloch model, the influence of longitudinal and transverse relaxation are
     accounted for by the incorporation of two processes with respective rate
@@ -482,9 +457,9 @@ spin-$\nicefrac{1}{2}$ nuclei in the rotating frame:
 \begin{equation}
     \frac{\mathrm{d}\tilde{\symbf{M}}(t)}{\mathrm{d}t} =
     \begin{bmatrix}
-        -R_2 & -\Omega & -\gamma B_1 \sin(\phi_{\text{RF}}) \\
-        \Omega & -R_2 & \gamma B_1 \cos(\phi_{\text{RF}}) \\
-        \gamma B_1 \sin(\phi_{\text{RF}}) & -\gamma B_1 \cos(\phi_{\text{RF}}) & -R_1
+        -R_2 & -\Omega & \omega_1 \sin(\phi_{\text{RF}}) \\
+        \Omega & -R_2 & -\omega_1 \cos(\phi_{\text{RF}}) \\
+        -\omega_1 \sin(\phi_{\text{RF}}) & \omega_1 \cos(\phi_{\text{RF}}) & -R_1
     \end{bmatrix}
     \tilde{\symbf{M}}(t)
     + R_1 M_0
@@ -492,6 +467,7 @@ spin-$\nicefrac{1}{2}$ nuclei in the rotating frame:
         0 \\ 0 \\ 1
     \end{bmatrix},
 \end{equation}
+where $\omega_1 \coloneq -\gamma B_1$.
 \Cref{fig:quadrature}.a depicts the
 evolution of a bulk magnetisation vector after the application of an
 \ac{RF} pulse with $\phi_{\text{RF}} = \nicefrac{\pi}{2}$, and an appropriate
@@ -514,12 +490,10 @@ detected by the spectrometer probe circuitry
 resulting signal, called the \acfi{FID}, is given by
 \begin{subequations}
     \begin{gather}
-        y(t) = c \tilde{M}_+(t),\\
-        \tilde{M}_+(t) = \tilde{M}_x (t) + \iu \tilde{M}_y (t) = M_0 \exp(\iu \Omega t - R_2 t),
+        y(t) \propto \tilde{M}_+(t),\\
+        \tilde{M}_+(t) = \tilde{M}_x (t) + \iu \tilde{M}_y (t) = M_0 \exp(\iu \Omega t - R_2 t).
     \end{gather}
 \end{subequations}
-with $c \in \mathbb{R}_{>0}$ being a proportionality constant.
-
 
 \subsection{The NMR Spectrometer}
 

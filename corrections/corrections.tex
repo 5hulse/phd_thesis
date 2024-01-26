@@ -35,6 +35,8 @@
 ]
 
 \usepackage{acronym}
+\usepackage{upgreek} % For upright capital delta
+\usepackage{siunitx}
 \usepackage{varioref}
 \usepackage[capitalize,noabbrev]{cleveref}
 \crefformat{equation}{Equation~#2#1#3}
@@ -162,6 +164,9 @@
         \item \cpageref{corr:rect-filter} -- Mentioned that the filtering
             process could likely be replaced by the simpler method of using a
             rectangular filter and slicing at the filter boundaries.
+        \item \cpageref{corr:onedim-timings} -- Mentioned that timings for 1D
+            estimation are available in the new \cref{tab:onedim-metrics}
+            (\cpageref{tab:onedim-metrics}).
         \item \cpageref{fig:mpm_vs_nlp} -- \cref{fig:mpm_vs_nlp}: Replaced
             landscape figure with portrait version. Included a description of the
             different peak colours in the caption.
@@ -180,9 +185,24 @@
             cyclosporin, and edited the caption accordingly.
         \item \cpageref{corr:spin-molecule} -- Replaced ``the spin tumbles''
             with ``the molecule that the spin is associated with tumbles''.
+        \item \cpageref{corr:T2-issues} -- Discussed issues with chemical shift
+            evolution if na\"ive \ang{90} -- delay -- detect experiment were
+            used for $T_2$ determination.
+        \item \cpageref{corr:diffusion-time} -- Corrected the definition for
+            diffusion time $\Updelta$.
         \item \cpageref{fig:diffusion_sequences} -- \cref{fig:diffusion_sequences}:
             Tweaked the relative widths of pulses and gradients.
        \item \cpageref{corr:t1-t2} -- $T_1 \ll T_2 \rightarrow T_1 \gg T_2$.
+       \item \cpageref{corr:stej-tann} -- ``It is virtually always the case
+           that FID’s signal amplitudes will abide by the following general
+           form of the Stejskal-Tanner equation, regardless of the exact pulse
+           sequence used:'' $\rightarrow$
+            ``The \ac{FID}'s signal amplitudes always abide by the following general form
+            of the Stejskal-Tanner equation, regardless of the exact pulse sequence
+            used:''.
+            Ralph queried whether I knew of any diffusion experiments which are
+            exceptions to the equation I provide; I do not, so have changed the
+            text accordingly.
         \item \cpageref{corr:c-unit} -- Fixed unit of constant $c$ in
             Stejskal-Tanner.
         \item \cpageref{corr:seq-errors} -- Provided an explicit expression for

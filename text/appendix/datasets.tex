@@ -371,31 +371,157 @@ were used for the basic setup as the estradiol 2DJ experiment, given in
 \clearpage
 
 \begin{landscape}
-\section{\acs{CUPID} result metrics}
+\section{Result metrics}
+\subsection{\acs{1D} datasets}
+\label{subsec:onedim-metrics}
+    \begin{longtable}{ccccccc}
+        \caption[
+            Metrics for the estimation results related to \acs{1D} experimental data.
+        ]
+        {
+            Metrics for the estimation results related to \acs{1D} experimental data,
+            presented in \cref{subsec:andro,subsec:cyclo}.
+            \emph{Initial} $M$ specifies the number of oscillators given to the
+                \ac{MPM}. Values with a * indicate that they were determined by
+                applying the \ac{MDL}.
+                Values with a \textsuperscript{\textdagger} indicate that
+                they were manually provided.
+            \emph{M after \ac{MPM}} indicates how many
+                oscillators were present in the initial guess
+                $\symbf{\theta}^{(0)}$. This can differ from \emph{Initial M}, as
+                any oscillators possessing negative damping factors in the
+                \ac{MPM} result are removed.
+            \emph{M after \ac{NLP}} indicates how many oscillators were present
+                in $\symbf{\theta}^{(*)}$, the result of \ac{NLP}. When this value
+                is smaller than \emph{M after \ac{MPM}}, negative-amplitude
+                oscillators were found and removed during the optimisation.
+        }
+        \label{tab:onedim-metrics}\\
+        \hline
+        Region (\unit{\partspermillion}) &
+        Initial $M$ &
+        \ac{MPM} time  (\unit{\second}) &
+        $M$ after \ac{MPM} &
+        \ac{NLP} time (\unit{\second}) &
+        \ac{NLP} iterations &
+        $M$ after \ac{NLP} \\
+        \hline
+        \endfirsthead
+        \hline
+        Region (\unit{\partspermillion}) &
+        Initial $M$ &
+        \ac{MPM} time  (\unit{\second}) &
+        $M$ after \ac{MPM} &
+        \ac{NLP} time (\unit{\second}) &
+        \ac{NLP} iterations &
+        $M$ after \ac{NLP} \\
+        \hline
+        \endhead
+        \hline
+        \endlastfoot
+        \hline
+        \multicolumn{7}{r}{Continues on next page...}\\
+        \hline
+        \endfoot
+        \hline
+        \multicolumn{7}{c}{\textbf{Andrographolide}}\\
+        \hline
+        6.7 -- 6.55 &
+        8* &
+        0.014 &
+        8 &
+        2.81 &
+        193 &
+        6 \\
+        5.8 -- 5.62 &
+        3* &
+        0.021 &
+        3 &
+        0.504 &
+        66 &
+        2 \\
+        4.86 -- 4.78 &
+        6* &
+        0.003 &
+        6 &
+        1.29 &
+        135 &
+        4 \\
+        4.68 -- 4.56 &
+        6* &
+        0.004 &
+        6 &
+        3.1 &
+        252 &
+        4 \\
+        3.7 -- 2.8 &
+        12\textsuperscript{\dagger} &
+        0.2 &
+        12 &
+        3.89 &
+        195 &
+        11 \\
+        2.37 -- 2.27 &
+        8* &
+        0.004 &
+        8 &
+        0.747 &
+        56 &
+        8 \\
+        2.0 -- 1.82 &
+        11* &
+        0.019 &
+        11 &
+        3.11 &
+        193 &
+        10 \\
+        1.45 -- 1.285 &
+        12* &
+        0.007 &
+        12 &
+        4.13 &
+        190 &
+        8 \\
+        \hline
+        \multicolumn{7}{c}{\textbf{Cyclosporin}}\\
+        \hline
+        5.535 -- 5.415 &
+        12* &
+        0.017 &
+        12 &
+        4.24 &
+        74 &
+        9 \\
+        5.287 -- 5.185 &
+        13* &
+        0.008 &
+        13 &
+        11.66 &
+        192 &
+        11 \\
+        5.04 -- 4.859 &
+        21* &
+        0.047 &
+        21 &
+        26.4 &
+        225 &
+        19 \\
+        \hline
+\end{longtable}
+
+\subsection{\acs{CUPID}}
     \begin{longtable}{cccccccc}
         \caption[
             Metrics for all the results generated using \acs{CUPID}.
         ]
         {
             Metrics for all the results generated using \acs{CUPID}
-            (\cref{subsec:cupid-results}).
-            \emph{Initial} $M$ specifies the number of oscillators given to the
-                \ac{MMEMPM}. Values with a * indicate that they were determined by
-                applying the \ac{MDL} on the first direct-dimension slice of the
-                data. Values with a \textsuperscript{\textdagger} indicate that
-                they were manually provided.
-            The \emph{M after \ac{MMEMPM}} column indicates how many
-                oscillators were present in the initial guess
-                $\symbf{\theta}^{(0)}$. This can differ from \emph{Initial M}, as
-                any oscillators possessing negative damping factors in the
-                \ac{MMEMPM} result were purged.
-            \emph{M after \ac{NLP}} indicates how many oscillators were present
-                in $\symbf{\theta}^{(*)}$, the result of \ac{NLP}. When this value
-                is smaller than \emph{M after \ac{MMEMPM}}, negative-amplitude
-                oscillators were found and purged during the optimisation.
-            \emph{Purged oscillators} indicates how many oscillators were
-                removed from the final estimation result, based on the
-                first-order signal criteria outlined in
+            (\cref{subsec:cupid-results}). Most of the columns are equivalent
+            to those in \cref{tab:onedim-metrics}, with ``\ac{MPM}'' replaced
+            with ``\acs{MMEMPM}''.
+            These is one additional column: \emph{Purged oscillators} indicates
+                how many oscillators were removed from the final estimation
+                result, based on the first-order signal criteria outlined in
                 \cref{subsec:mp-selection}.
         }
         \label{tab:cupid-metrics}\\

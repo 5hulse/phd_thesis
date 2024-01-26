@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Tue 13 Jun 2023 13:48:00 BST
+# Last Edited: Thu 25 Jan 2024 13:29:48 EST
 
 import numpy as np
 
@@ -24,6 +24,102 @@ class Arrow3D(FancyArrowPatch):
         self.set_positions((xs[0],ys[0]),(xs[1],ys[1]))
 
         return np.min(zs)
+
+
+def Ry(beta):
+    return np.array(
+        [
+            [np.cos(beta), 0.0, np.sin(beta)],
+            [0.0, 1.0, 0.0],
+            [-np.sin(beta), 0.0, np.cos(beta)],
+        ]
+    )
+
+def Rz(beta):
+    return np.array(
+        [
+            [np.cos(beta), -np.sin(beta), 0.0],
+            [np.sin(beta), np.cos(beta), 0.0],
+            [0.0, 0.0, 1.0],
+        ]
+    )
+
+def bloch_model(
+    omega_0: float,
+    omega_1: float,
+    omega_RF: float,
+    phi_RF:float,
+    alpha: float,
+    T_1: float,
+    T_2: float,
+    pulse_steps: int,
+    free_steps: int,
+    free_time: float,
+):
+    Omega = omega_0 - omega_RF
+    print(f"Omega: {Omega:.3f}Hz")
+
+    if Omega == 0.0:
+        theta = np.pi
+    else:
+        theta = np.arctan(omega_1 / Omega)
+
+    # Simulate the pulse
+    alpha_per_step = alpha / (pulse_steps - 1)
+    Rz_phi = Rz(phi_RF)
+    Ry_theta = Ry(theta)
+    Rz_alpha = Rz(alpha_per_step)
+    Ry_minus_theta = Ry(-theta)
+    Rz_minus_phi = Rz(-phi_RF)
+    prop = Rz_phi @ Ry_theta @ Rz_alpha @ Ry_minus_theta @ Rz_minus_phi
+    M_pulse = np.zeros((pulse_steps, 3))
+    Mz_0 = 1.0
+    M_pulse[0, 2] = Mz_0 # equilibrium state
+    for i in range(pulse_steps - 1):
+        M_pulse[i + 1] = prop @ M_pulse[i]
+
+    # Simulate free precession
+    M_free = np.zeros((free_steps, 3))
+    M_free[0] = M_pulse[-1]
+    free_step = free_time / (free_steps - 1)
+
+    T1_prop = np.exp(-free_step / T_1)
+    T2_prop = np.exp(-free_step / T_2)
+
+    cos_Omega = np.cos(Omega * free_step)
+    sin_Omega = np.sin(Omega * free_step)
+
+    def prop(M):
+        Mx, My, Mz= M
+        M_prop = np.zeros((3,))
+        M_prop[0] = (Mx * cos_Omega + My * sin_Omega) * T2_prop
+        M_prop[1] = (My * cos_Omega - Mx * sin_Omega) * T2_prop
+        M_prop[2] = (Mz - Mz_0) * T1_prop + Mz_0
+        return M_prop
+
+    for i in range(free_steps - 1):
+        M_free[i + 1] = prop(M_free[i])
+
+    return M_pulse, M_free
+    fig = plt.figure()
+    ax = fig.add_subplot(projection='3d')
+    ax.plot(M_pulse[:, 0], M_pulse[:, 1], M_pulse[:, 2])
+    ax.plot(M_free[:, 0], M_free[:, 1], M_free[:, 2])
+    fig.savefig("delete-me.pdf")
+
+
+M_pulse, M_free = bloch_model(
+    omega_0=100.0e6,
+    omega_1=10.0e3,
+    omega_RF=99.99997e6,
+    phi_RF=np.pi / 2,
+    alpha=0.5 * np.pi,
+    T_1=1.0,
+    T_2=0.5,
+    pulse_steps=1000,
+    free_steps=20000,
+    free_time=5.0,
+)
 
 
 fig = plt.figure(figsize = (6, 2.5))

@@ -20,7 +20,7 @@ eventually return to equilibrium due to relaxation. As introduced in
 processes: longitudinal relaxation and transverse relaxation, whose rates are
 quantified by the times $T_1$ and  $T_2$ respectively.
 Numerous factors affect these times including the rate at which
-\correction{the molecule that the spin is associated with}\label{corr:spin-molecule}%
+\correction{the molecule that the spin is associated with}\label{corr:spin-molecule}
 tumbles in space, and its electronic environment.
 The $T_1$ and $T_2$ values of the spins in a sample provide valuable insight
 into the chemical system being studied, and can also help to guide
@@ -74,8 +74,15 @@ relaxation to take place. An example of a series of spectra acquired using a
 \label{subsec:cpmg}
 Inspired by the inversion recovery experiment, one might assume
 that the pulse sequence $\ang{90} \rightarrow \tau \rightarrow \tone$ would be
-effective for  $T_2$ determination. However the effects of J-modulation would
-generate undesirable spectra with phase-modulated peaks. As well as this the
+effective for  $T_2$ determination.
+\correction{
+    However, this is not so; due to chemical shift evolution in the $\tau$
+    period, large first-order phase effects will result, with the extent of the
+    phase being dependent on $\tau$. Furthermore, the effects of
+    J-modulation would cause additional phase-modulations within multiplet
+    structures, which could not be resolved by phase correction.
+}\label{corr:T2-issues}
+Beyond phase issues with the resultant data, the
 presence of field inhomogeneities will cause relaxation at a faster rate than
 anticipated; the effect of field inhomogeneities is incorporated into the
 ``observed'' transverse relaxation time, $T_2^* < T_2^{\vphantom{*}}$\footnote{
@@ -84,10 +91,9 @@ anticipated; the effect of field inhomogeneities is incorporated into the
     where $\Updelta B_0$ is the variation in magnetic field strength across the
     sample volume.
     \label{fn:t2-star}
-}~\cite{Chavhan2009}. The effects of
-J-modulation and field inhomogeneity can be nullified if rapid refocussing is
-applied, by subjecting the spin system to a train of spin echoes. The classic
-route to $T_2$ measurement is the \ac{CPMG}
+}~\cite{Chavhan2009}. All the effects noted above can be nullified if rapid
+refocussing is applied, by subjecting the spin system to a train of spin
+echoes. The classic route to $T_2$ measurement is the \ac{CPMG}
 experiment~\cite{Carr1954,Meiboom1958}, comprising $\ang{90}_x \rightarrow
 \left[ \tau \rightarrow \ang{180}_y \rightarrow \tau \right]_n \rightarrow
 \tone$, where the spin echo duration $\tau$ is short and fixed, and the number
@@ -191,7 +197,10 @@ magnetisation~\cite{Torrey1956}, the following equation, known as the
 where
 $a_0$ is the amplitude of a given signal without the application of \acp{PFG},
 $\delta$ is the duration of each \ac{PFG} (\unit{\second}), and
-$\Updelta$ is the delay between the \acp{PFG}, often known as the \emph{diffusion time}
+\correction{
+    $\Updelta$ is the time from the start of the first \ac{PFG} to the start
+    of the next,
+}\label{corr:diffusion-time} often known as the \emph{diffusion time}
 (\unit{\second}).
 While \cref{eq:stejskal_tanner} is widely stated in the diffusion \ac{NMR}
 literature, it is only strictly applicable when the \ac{PGSE} sequence is used,
@@ -233,9 +242,11 @@ which comprise asymmetrical \acp{PFG} with relative powers $1 + \alpha : 1 -
 The most common means of conducting a diffusion experiment is to run one of the
 pulse sequences mentioned above (or variants thereof) with $g$ varied across
 increments.
-It is virtually always the case that the \ac{FID}'s signal amplitudes will
-abide by the following general form of the Stejskal-Tanner equation,
-regardless of the exact pulse sequence used:
+\correction{
+    The \ac{FID}'s signal amplitudes always abide by the following general form
+    of the Stejskal-Tanner equation, regardless of the exact pulse sequence
+    used:
+}\label{corr:stej-tann}
 \begin{equation}
     a(g) = a_0 \exp\left(- c g^2 D\right),
 \end{equation}
@@ -324,13 +335,15 @@ important for accurate measurements of the diffusion coefficient.
 Determining the quantity of interest from the above experiments is most
 typically done using the following procedure:
 \begin{enumerate}
-    \item The series of \acp{FID} are processed in an equivalent fashion,
+    \item Each of the \acp{FID} in the series is processed using the same protocol,
         leading to a set of \ac{1D} spectra.
     \item Peak-picking is performed to locate the chemical shift values which
         correspond to signals of interest within the spectra.
-    \item For each chemical shift of interest, the values of the spectra are
-        extracted, and the relevant function describing how signal amplitudes
-        decay (see \cref{tab:seq-equations}) is fit to the values.
+    \item For each chemical shift corresponding to a peak location, the values
+        of the spectra are extracted across increments. The relevant
+        function describing how the amplitude is expected to decay across
+        increments is then fit to these values, to extract the quantity of
+        interest.
 \end{enumerate}
 This method is \emph{univariate} in the sense that it considers a single sample
 (chemical shift) in isolation from the rest of the data.
@@ -847,9 +860,9 @@ and their estimated diffusion coefficients are considerably different compared
 with those of the non-hydroxyl protons, due chemical exchange with water in the
 sample~\cite{Chen1998}.
 The diffusion profile generated suggests a diffusion constant of andrographolide of
-\qty{2.07e-10}{\meter\squared\per\second}. The predicted diffusion constant for
-each estimated oscillator, especially those with greater intensity, shows
-decent consistency.
+\qty{2.07e-10}{\meter\squared\per\second}. The predicted diffusion constants for
+each estimated oscillator, especially those with greater intensity, show
+good consistency.
 Lower intensity oscillators, especially those which
 significantly overlap with others, tended to be associated with
 less consistent diffusion constants and larger errors with examples of this
@@ -904,8 +917,8 @@ L-threonine ($M_r = \qty{119.120}{\gram\per\mole}$), and D-(+)-glucose ($M_r =
 D\textsubscript{2}O at \qty{298}{\kelvin}. Not included in the figure is the
 result for the water signal, for which a diffusion constant of
 \qty{1.88e-9}{\meter\squared\per\second} was determined. The routine
-achieved decent separation of the three species in the sample. Predicted
-diffusion coefficients for valine and threonine were
+was able to separate of the three species in the sample along the diffusion
+axis. Predicted diffusion coefficients for valine and threonine were
 \qty{6.20e-10}{\meter\squared\per\second} and
 \qty{6.39e-10}{\meter\squared\per\second}, respectively. For glucose, the situation is
 complicated by the presence of two major anomeric forms:
