@@ -18,7 +18,7 @@
 % abided by the two criteria in \cref{subsec:mp-selection} were removed.
 
 A number of examples of the application of \ac{CUPID} is now presented.
-For details relating to generation of the presented datasets, see
+For details relating to the acquisition of the presented datasets, see
 \cref{sec:simulated-datasets,subsec:cupid-experimental,subsec:psyche-datasets}.
 Useful metrics, such as run times and the number of oscillators present at
 different stages of the estimation routine are provided in
@@ -232,7 +232,7 @@ except that scalar couplings are set to \qty{0}{\hertz}.
 \end{figure}
 
 \Cref{fig:quinine-cupid} illustrates the result of applying \ac{CUPID} on
-a dataset generated from a sample comprising quinine in \ch{CD3OD},
+a dataset collected from a sample comprising quinine in \ch{CD3OD},
 with all signals arising from non-aromatic protons considered.
 
 For comparison with \ac{CUPID}, \cref{fig:quinine-cupid}.a shows the
@@ -449,13 +449,13 @@ it~\cite{Foroozandeh2014}.
 
 The \ac{PSYCHE} experiment produced a spectrum with very poor
 \ac{SNR}, such that it is barely sensitive enough for pure shift peaks to be
-distinguished from the noise. However due to the innately higher
-sensitivity associated with the \ac{2DJ} experiment it was still possible to
-generate a reasonable parameter estimate of the \ac{2DJ} dataset, and
-subsequently to yield an agreeable pure shift spectrum via the \ang{-45}
-signal. Due to the severe signal overlap in the first
+distinguished from the experiment noise. Despite this, due to the innately higher
+sensitivity associated with the \ac{2DJ} experiment, \ac{CUPID} was still able
+to produce a pure shift spectrum with well-defined peaks for each chemical
+environment present. Due to the severe signal overlap in the first
 direct-dimension \ac{FID}, model order estimates had to be
-manually specified. It is clear from inspection of the most downfield region
+manually specified, as the \ac{MDL} returned considerable under-estimates. It
+is clear from inspection of the most downfield region
 that certain strong coupling artefacts have been incorporated into the
 estimation result, manifesting in the appearance of artefacts in the pure shift
 spectrum (see the positions marked by the grey vertical lines in

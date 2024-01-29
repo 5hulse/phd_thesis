@@ -35,11 +35,12 @@
 
 %%% Refer to same footnote in multiple places
 % https://tex.stackexchange.com/questions/35043/reference-different-places-to-the-same-footnote
+\usepackage{bigfoot}
 \makeatletter
 \newcommand\footnoteref[1]{\protected@xdef\@thefnmark{\ref{#1}}\@footnotemark}
 \makeatother
 % prevent footnote breaking
-\interfootnotelinepenalty=10000
+\interfootnotelinepenalty=100000
 
 %%% Nomenclature: see text/front/nomenclature.tex
 \usepackage{nomencl}
@@ -66,6 +67,14 @@
 
 \DeclareBibliographyCategory{fullcited}
 \newcommand{\mybibexclude}[1]{\addtocategory{fullcited}{#1}}
+\usepackage{xpatch}
+
+%%% Italicise "et al" in citations
+\xpatchbibmacro{name:andothers}{%
+  \bibstring{andothers}%
+}{%
+  \bibstring[\emph]{andothers}%
+}{}{}
 
 %%% Correction annotations
 % To highlight minor corrections, set this color to red.

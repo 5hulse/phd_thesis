@@ -52,12 +52,9 @@ together those which belong to the same multiplet, as will be discussed in
 Similar information can be obtained
 by extracting cross-sections of a sheared magnitude-mode \ac{2DJ} spectrum at
 appropriate values of $F^{(2)}$, though the lineshapes of peaks suffer from the
-undesirable characteristics described above. The
-\ac{ZS}-\ac{2DJ}~\cite{Pell2007} and
-\ac{PSYCHE}-\ac{2DJ}~\cite{Foroozandeh2015,Kiraly2017} experiments are also able
-to generate individual multiplet structures, though with long \ac{3D} pulse
-sequences, and with reduced sensitivity relative to a conventional \ac{2DJ}
-experiment.
+undesirable characteristics described above. The Keeler-Pell
+approach~\cite{Pell2007,Foroozandeh2015} produces pure absorption-mode at the
+cost of reduced sensitivity due to the application of a J-refocussing element.
 
 As was mentioned in \cref{subsec:model-order}, application of the
 \ac{MDL} on a \ac{2D} \ac{FID} is not desirable, since a complete \ac{SVD}
@@ -282,3 +279,16 @@ an indirect-dimension frequency of \qty{0}{\hertz}. Oscillators which do agree
 with the two points above can be assumed to be related to either strong
 coupling artefacts or noise, and can be automatically discarded from the final
 parameter estimate.
+
+\correction{
+    It is worth mentioning that the procedure of multiplet prediction outlined
+    does not naturally allow one to determine the coupling constants associated
+    with each spin. With a complete list of the
+    frequencies associated with a multiplet structure, the relevant spin's
+    coupling network can be predicted. However, it is not guaranteed that the
+    estimation routine will extract all frequencies within a multiplet; this is
+    particularly so with complex multiplets with significant signal overlap.
+    However, it is typically the case that the frequencies extracted by the
+    estimation routine can be used as a starting point to manually determine
+    the coupling constants.
+}\label{corr:coupling-constants}

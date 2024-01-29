@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simonhulse@protonmail.com
-# Last Edited: Wed 24 Jan 2024 19:41:42 EST
+# Last Edited: Mon 29 Jan 2024 12:03:16 EST
 
 import matplotlib as mpl
 import matplotlib.pyplot as plt
@@ -98,13 +98,13 @@ sw1 = 200.0
 sw2 = 220.0
 offset = 0.0
 J_ab = 20.0
-diffs = [150, 100, 50]
+diffs = [150, 50]
 fig, axs = plt.subplots(
-    ncols=3,
+    ncols=len(diffs),
     nrows=1,
     gridspec_kw={
         "left": 0.07,
-        "right": 0.99,
+        "right": 0.7,
         "bottom": 0.12,
         "wspace": 0.05,
     },
@@ -167,5 +167,7 @@ for i, (diff, ax) in enumerate(zip(diffs, axs)):
     ax.text(0.02, 0.94, f"\\textbf{{{chr(97 + i)}.}}", transform=ax.transAxes)
 axs[0].text(0.5, 0.5, "s", fontsize=7, ha="center", va="center")
 axs[0].text(0.5, 0.6, "f", fontsize=7, ha="center", va="center")
+
+
 
 fig.savefig("figures/jres_ab/jres_ab.pdf")

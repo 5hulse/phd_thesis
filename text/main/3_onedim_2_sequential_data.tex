@@ -796,8 +796,33 @@ Each dataset was simulated using \textsc{Spinach}, using spin systems which
 were defined such that within a
 known region of the generated spectrum
 (\SIrange{0.15}{-0.15}{\partspermillion}) five ddd
-multiplet structures with significant overlap, abiding by the weak coupling
-approximation, were present.
+multiplet structures with significant overlap, abiding by the
+\emph{weak coupling approximation}\footnote{
+    \label{fn:weak-coupling}
+    \correction{
+    Two spins $i,j$ are said to be weakly coupled when the difference in their
+    resonance frequencies is far larger than their scalar coupling, i.e.
+    $\lvert f_i - f_j \rvert \gg J_{ij}$. When this is the case for all spins
+    within an $S$-spin system, the scalar coupling contribution to the
+    Hamiltonian, which in general is
+    \[
+        \symbf{H}_{J} = \sum_{i=1}^S \sum_{j \neq i}
+        2 \pi J_{ij} (
+        \symbf{I}_{x,i} \symbf{I}_{x,j} +
+        \symbf{I}_{y,i} \symbf{I}_{y,j} +
+        \symbf{I}_{z,i} \symbf{I}_{z,j}
+        ),
+    \] may be simplified to the form
+    \[
+    \symbf{H}_{J, \text{weak}} = \sum_{i=1}^S \sum_{j \neq i}
+        2 \pi J_{ij} \symbf{I}_{z,i} \symbf{I}_{z,j},
+    \]
+    where the matrices $\symbf{I}_{c,i}$, $c \in \lbrace x, y, z \rbrace$
+    are spin angular momentum operators for spin $i \in \lbrace 1, \cdots, S
+    \rbrace$ in the Cartesian basis~\cite[Section
+    2.5.2]{Cavanagh2007}.
+    }
+}, were present.
 Constraints were placed on the shifts and
 couplings of the spin system to ensure that no two signals would have
 frequencies with a difference less than $\nicefrac{\fswone}{\None}$.

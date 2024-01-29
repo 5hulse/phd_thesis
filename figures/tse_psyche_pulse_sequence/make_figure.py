@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Tue 13 Jun 2023 10:06:17 BST
+# Last Edited: Mon 29 Jan 2024 17:07:07 EST
 
 import numpy as np
 import matplotlib as mpl
@@ -158,7 +158,7 @@ class Widths:
             2 * taua +
             taub +
             d1 +
-            12 * d16 +
+            6 * d16 +
             acqu
         )
         for k, v in locals().items():
@@ -181,13 +181,9 @@ sin(axs[1], left, widths.p16, 0.49, "$g_1$")
 left += widths.p16
 delay(axs, "$d_{16}$", left, widths.d16)
 left += widths.d16
-delay(axs, "$d_{16}$", left, widths.d16)
-left += widths.d16
 chirp(axs[0], left, widths.p21, 0.5, "$\\pi$ ($\\Phi_2$)", "lohi")
 rect(axs[1], left, widths.p21, 0.02, "$g_2$")
 left += widths.p21
-delay(axs, "$d_{16}$", left, widths.d16)
-left += widths.d16
 sin(axs[1], left, widths.p16, 0.49, "$g_1$")
 left += widths.p16
 delay(axs, "$d_{16}$", left, widths.d16)
@@ -200,16 +196,12 @@ sin(axs[1], left, widths.p16, 0.35, "$g_3$")
 left += widths.p16
 delay(axs, "$d_{16}$", left, widths.d16)
 left += widths.d16
-delay(axs, "$d_{16}$", left, widths.d16)
-left += widths.d16
 chirp(axs[0], left, widths.p20, 0.3, "", "saltire")
 rect(axs[1], left, 2 * widths.p20, 0.03, "$g_4$")
 left += widths.p20
 axs[0].text(left, 0.36, "$\\beta$ ($\\Phi_3$)", ha="center")
 chirp(axs[0], left, widths.p20, 0.3, "", "saltire")
 left += widths.p20
-delay(axs, "$d_{16}$", left, widths.d16)
-left += widths.d16
 sin(axs[1], left, widths.p16, 0.35, "$g_3$")
 left += widths.p16
 delay(axs, "$d_{16}$", left, widths.d16)
@@ -218,13 +210,9 @@ sin(axs[1], left, widths.p16, 0.77, "$g_5$")
 left += widths.p16
 delay(axs, "$d_{16}$", left, widths.d16)
 left += widths.d16
-delay(axs, "$d_{16}$", left, widths.d16)
-left += widths.d16
 chirp(axs[0], left, widths.p22, 0.5, "$\\pi$ ($\\Phi_4$)", "hilo")
 rect(axs[1], left, widths.p22, 0.02, "$g_6$")
 left += widths.p22
-delay(axs, "$d_{16}$", left, widths.d16)
-left += widths.d16
 sin(axs[1], left, widths.p16, 0.77, "$g_5$")
 left += widths.p16
 delay(axs, "$d_{16}$", left, widths.d16)

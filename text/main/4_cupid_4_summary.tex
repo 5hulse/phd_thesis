@@ -3,24 +3,31 @@ In this chapter, \ac{CUPID}, a procedure for the construction of pure shift
 spectra via the holistic estimation of \ac{2DJ} datasets, is presented.
 Such spectra possess myriad beneficial features relative to alternative
 methods, albeit with the requirement of a complex post-processing procedure.
-
-% The original method for pure shift spectrum generation consisted of shearing a
-% magnitude-mode \ac{2DJ} spectrum by \ang{45}, and computing the projection onto
-% the $\Ftwo$ axis. To overcome the grotesque lineshapes which arise due to the
-% presence of dispersion character, and non-linearities in the magnitude-mode
-% spectrum, severe data treatment such as the used of sine-bell apodisation are
-% applied. The resulting pure shift spectra suffer from reduced intensities
-% because of this. On top of this, the intensities of peaks are attenuated by
-% different extents, such that relative peak integrals become meaningless. The
-% presence of strong coupling in the spin system also introduces unwanted
-% artefacts into the spectra.
-
-% Experimental procedures  based on ``chunking'' the initial sections of the
-% \acp{FID} in a \ac{2D} experiment\,---\,including \ac{ZS}, \ac{BIRD} and
-% \ac{PSYCHE}\,---\,have largely superseded the shear and summation approach.
-% One key disadvantage of all of these is that only a fraction of the available
-% spin magnetisation contributes to the final pure shift spectrum, leading to
-% poorer sensitivity.
+\correction{
+\label{corr:cupid-steps}
+The following steps must be carried out in order to use \ac{CUPID}:
+\begin{enumerate}
+    \item Acquire a conventional hypercomplex \ac{2DJ} dataset of the sample of
+        interest. If a \textsc{Bruker} system is being used, this can be
+        achieved using the built-in \texttt{jresqf} pulse sequence.
+    \item Inspect the (magnitude mode) \ac{2DJ} spectrum to locate
+        direct-dimension regions of
+        interest. If particular regions are very crowded, featuring overlapping
+        multiplet structures, a rough estimate of the number of peaks present
+        in these should be made. It is better for an over-estimate of the
+        number of peaks to be given to the estimation routine, rather than an
+        under-estimate.
+    \item Apply phase correction to the direct dimension of the dataset; this
+        ensures that the incorporation of phase variance into the \ac{NLP}
+        fidelity is valid.
+    \item Estimate the regions of interest in turn (using the \ac{MMEMPM}
+        followed by \ac{NLP}).
+    \item Inspect the estimation result, and generate the final pure shift
+        spectrum via the \ang{-45} signal.
+\end{enumerate}
+As will be illustrated in the next chapter, steps 2 onwards can be carried out
+easily using the \ac{EsPy} package.
+}
 
 Through a number of examples, it has been shown that by employing parametric
 estimation, a simple \ac{2DJ} experiment can be harnessed to generate pure
