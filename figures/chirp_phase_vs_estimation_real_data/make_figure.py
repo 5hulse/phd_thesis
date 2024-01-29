@@ -1,14 +1,14 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Wed 21 Jun 2023 11:16:37 BST
+# Last Edited: Sat 27 Jan 2024 08:12:14 PM EST
 
 from pathlib import Path
 import nmrespy as ne
 import numpy as np
 import matplotlib as mpl
 import matplotlib.pyplot as plt
-
+mpl.use("tkAgg")
 
 data_root = Path("/home/simon/Documents/DPhil/data/Single_Chirp_Experimental/")
 data_dirs = [data_root / f"{i}/pdata/1001" for i in range(1, 4)]
@@ -66,7 +66,30 @@ for i in range(5):
         )
     )
 
+from scipy.signal import argrelmax
 shifts, = estimator.get_shifts()
+maxima = (np.array([arg for arg in argrelmax(spectra[1])[0] if spectra[1][arg] > 3.0e7]),)
+
+def signif(x, p):
+    x = np.asarray(x)
+    x_positive = np.where(np.isfinite(x) & (x != 0), np.abs(x), 10**(p-1))
+    mags = 10 ** (p - 1 - np.floor(np.log10(x_positive)))
+    return np.round(x * mags) / mags
+
+print(signif(shifts[maxima] + 152.086, 4))
+exit()
+import matplotlib as mpl
+mpl.use("tkAgg")
+import matplotlib.pyplot as plt
+fig = plt.figure()
+ax = fig.add_subplot()
+ax.plot(spectra[1])
+plt.show()
+exit()
+print(locs)
+print(shifts[locs])
+exit()
+
 axs[0].plot(shifts, spectra[0], color="k")
 axs[1].plot(shifts, spectra[1], color="k")
 axs[2].plot(shifts, spectra[1], color="k")
@@ -89,10 +112,10 @@ for i, (ax, lim) in enumerate(zip(axs, limits)):
     ax.set_yticks([])
 
 axs[4].set_xlabel("\\unit{\\kilo\\hertz}")
-axs[4].set_xticks([-i * 50000 for i in range(7)])
-axs[4].set_xticklabels([f"{-i * 50}" for i in range(7)])
+# axs[4].set_xticks([-i * 50000 for i in range(7)])
+# axs[4].set_xticklabels([f"{-i * 50}" for i in range(7)])
 
 for i, ax in enumerate((axs[0], axs[1], axs[3])):
     ax.text(48e3, 3.e7, f"\\textbf{{{chr(97 + i)}.}}")
-
-fig.savefig("figures/chirp_phase_vs_estimation_real_data/chirp_phase_vs_estimation_real_data.pdf")
+plt.show()
+# fig.savefig("figures/chirp_phase_vs_estimation_real_data/chirp_phase_vs_estimation_real_data.pdf")

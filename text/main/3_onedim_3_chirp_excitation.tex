@@ -22,8 +22,14 @@ There are well-established methods for overcoming this using
 pulse sequences featuring an initial excitation, followed by one or more
 refocussing \ac{FS}
 pulses~\cite{Bohlen1989,Bohlen1993,Cano2002,Power2016,Foroozandeh2019}.
+\correction{
+    Further to methods involving chirp pulses, optimal control
+    theory~\cite{Skinner2003} has yielded effective pulses for broadband
+    excitation and inversion, albeit across narrower bandwidths, including
+    \ac{BEBOP}~\cite{Skinner2004,Kobzar2012}.
+}\label{corr:opt-con-pulses}
 
-With knowledge of the form of the chirp pulse, the expected phase of a
+With knowledge of the form of a chirp pulse, the expected phase of a
 particular signal is determinable, and in this section, it will be shown
 that well-phased spectra can be obtained from excitation with a single \ac{FS}
 pulse when appropriate post-processing of the \ac{FID} is employed.
@@ -44,9 +50,11 @@ simulated and an experimental dataset.
         An illustration of an experiment comprising a single chirp pulse.
     ]
     {
-        An illustration of an experiment comprising a single chirp pulse sweeping
-        low to high frequencies of duration $\tau_{\text{p}}$, followed by
-        a pre-scan delay period of time $\tau_{\text{del}}$, prior to
+        An illustration of an experiment comprising a single chirp pulse \correction{
+            of nominal flip angle \ang{90},
+        }\label{corr:ninty-flip} which sweeps from
+        low to high frequencies for a duration $\tau_{\text{p}}$, before
+        a pre-scan delay period of time $\tau_{\text{del}}$, and then
         acquisition. The fate of three resonances with different frequencies is
         denoted, with $f_{\text{red}} < f_{\text{blue}} <
         f_{\text{yellow}}$. Each resonance is excited at different points
@@ -117,7 +125,7 @@ between excitation and detection for the on-resonance case, in which
 excitation occurs exactly halfway through the pulse. Resonances
 with a frequency smaller than that of the transmitter are excited earlier and hence
 have a larger $\tau_0$, while the converse is true for resonances with greater
-frequencies. The resulting overall phase as of a signal a function of its
+frequencies. The resulting overall phase as of a signal as a function of its
 frequency can be approximated as~\cite{Foroozandeh2019}
 \begin{equation}
     \phi(f) = \phi_0 + 2 \pi \left(\tau_{\text{del}} + \frac{\tau_{\text{p}}}{2} \right) (f - \foff) -
@@ -203,7 +211,9 @@ parameters.
         Coloured lines depict individual oscillators generated using the
         \ac{MPM}; these have been slightly offset for clarity.
         \textbf{b.} Spectrum generated using quadratic phase correction
-        (\cref{eq:spec-phase-chili}).
+        (\cref{eq:spec-phase-chili}). \correction{
+            Baseline distortions are most prominent in the downfield (i.e. low-frequency) region of the spectrum.
+        }\label{corr:baseline-dist}
         \textbf{c.} Spectrum generated using the back-propagation approach.
         \textbf{d.} Estimated phases of each oscillator as a function of
         frequency. Red points: phases wrapped within the range $(-\pi, \pi]$.
@@ -229,15 +239,26 @@ Noise was added to the \ac{FID}, with a target \ac{SNR} of
 The spectrum after quadratic phase correction (\cref{fig:bbqchili-sim}.b)
 exhibits the undesired baseline distortions as discussed, with more intense,
 narrower baseline distortions associated with lower-frequency signals.
-The \ac{MPM} was used to estimate the \ac{FID}'s parameters,
-with only the first 2048 points considered
-Performing the \ac{MPM} on a signal with $2^{14}$ points would take (a) a
+The first 2048 points of the \ac{FID} were estimated using the \ac{MPM}.
+Performing the \ac{MPM} on the full $2^{14}$ point \ac{FID} would take (a) a
 long time, and (b) require a very large amount of \ac{RAM} (see Figures
 \ref{fig:mpm-profiling}.a1 and \ref{fig:mpm-profiling}.a2).
 Estimating a truncated \ac{FID} comprising the first 2048 points of the
 data is justifiable here, since all signal frequencies are spaced
 reasonably far apart, meaning each signal in the \ac{FID} becomes
 resolvable from the others early on into evolution.
+\correction{
+    For datasets with closely-spaced signals (i.e. where J-couplings lead to
+    multiplet structures) such a severe truncation of the data may not be
+    feasible, since the individual signals will not have evolved for sufficient
+    time to be resolvable. In such cases, a less truncated \ac{FID} would need
+    to be considered, at greater computational cost. Alternatively, the data
+    could be filtered to form appropriate sub-\acp{FID}, as outlined in
+    \cref{sec:filtering}. The efficacy of the filtering for this type of data
+    may not be sub-optimal, as slowly decaying peaks with dispersion character
+    will be feature.
+}\label{corr:bbq-limitations}
+
 The spectrum generated via back-propagation is presented in
 \cref{fig:bbqchili-sim}.c, which is well-phased, and does not suffer from
 baseline distortion. The variation of the estimated oscillator
@@ -248,15 +269,20 @@ $\qty{-7.85e-10}{\radian\second\squared}$, in agreement with the expected value
 of $-2 \pi \left(\nicefrac{\tau_{\text{p}}}{2 \Updelta F}\right)$.
 
 \Cref{fig:bbqchili-real} features an experimental dataset, acquired
-from a sample of 1\% \ch{Gd}-doped \ch{H2O} in \ch{D2O}\footnote{
-    The paramagnetic species \ch{Gd^{III}} is a popular
-    contrast agent used in \ac{MRI}, owing to its ability to decrease the $T_1$
-    of nearby spins. This typically has an influence on $T_2$ too, with it
-    being shortened at high enough concentrations.
-    The signal from \ch{H2O} therefore decays at a more rapid rate, such that
-    the baseline distortions observed in the phased spectrum of
-    \cref{fig:bbqchili-real}.b are more pronounced.
-}.
+from a reference sample featuring
+\correction{
+    1\% \ch{H2O} by volume in a solution
+    comprising \qty{0.1}{\milli\gram} \ch{GdCl3}/\qty{1}{\milli\litre}
+    \ch{D2O}\footnote{
+        The paramagnetic species \ch{Gd^{III}} is a popular contrast agent used
+        in \ac{MRI}, owing to its ability to decrease the $T_1$ of nearby
+        spins. This typically has an influence on $T_2$ too, with it being
+        shortened at high enough concentrations.  The signal from \ch{H2O}
+        therefore decays at a more rapid rate, such that the baseline
+        distortions observed in the phased spectrum of
+        \cref{fig:bbqchili-real}.b are more pronounced.
+    }.
+}\label{corr:gd-h2o}
 The dataset was acquired using a \ac{2D} experiment, in which the transmitter
 offset was adjusted in each increment. The resulting dataset was a series of
 \acp{FID}, each comprising a single \ch{H2O} signal.
@@ -300,11 +326,27 @@ phasing approach.
     ]{
         A comparison of quadratic phase correction vs frequency-dependent
         back-propagation in treating experimental single-chirp excitation data
-        generated from a sample of 1\% Gd-doped H\textsubscript{2}O in
-        D\textsubscript{2}O.
-        \textbf{a.} Spectrum generated directly from the acquired \ac{FID}.
-        \textbf{b.} Spectrum generated using quadratic phase correction.
-        \textbf{c.} Spectrum generated using the back-propagation approach.
+        generated from a sample of
+        \correction{
+            1\% \ch{H2O} by volume in a solution
+            comprising \qty{0.1}{\milli\gram} \ch{GdCl3}/\qty{1}{\milli\litre}
+            \ch{D2O}.
+        }%
+        \correction{
+            The data were acquired using a \ac{2D} experiment in which the
+            transmitter offset was varied across 13 increments. For each increment, $N
+            = 2^{17}$ and $\fsw = \qty{394.7}{\kilo\hertz}$.
+            The transmitter offsets took the values $\foff =
+            \qty{-21.8}{\kilo\hertz}$ to $\foff = \qty{-273.8}{\kilo\hertz}$,
+            in equal steps of \qty{-21}{\kilo\hertz}. 4 transients were acquired
+            per increment. The 13 increments were then summed to produce
+            the final \ac{FID}.%
+        }\label{corr:chirp-exp-desc}%
+        \textbf{a.} Spectrum generated through \ac{FT} of the \ac{FID}.
+        \textbf{b.} Spectrum generated using quadratic phase correction on the
+        spectrum in panel a.
+        \textbf{c.} Spectrum generated using the back-propagation approach,
+        using the first 2048 points of the \ac{FID}.
     }
     \label{fig:bbqchili-real}
 \end{figure}
