@@ -26,7 +26,7 @@ listings in this chapter.
 \section{Matrix Pencil Methods}
 \subsection{\acs{MDL}}
 \mylisting{python3}{code_listings/mdl.py}{%
-A \Python implementation of the \acl{MDL} for estimating the model order
+\Python implementation of the \acl{MDL} for estimating the model order
 of a \acs{1D} \acs{FID}.
 }{%
 The \acs{MDL} for estimation of the model order of a \acs{1D} \acs{FID}.
@@ -37,7 +37,7 @@ the estimate of $M$, rather than the global minimum (Line \ref{ln:argmin}; see
 
 \subsection{\acs{MPM}}
 \mylisting{python3}{code_listings/mpm.py}{
-A \Python implementation of the \acl{MPM} for \acs{1D} \acs{FID} estimation.
+\Python implementation of the \acl{MPM} for \acs{1D} \acs{FID} estimation.
 }{
 The \acs{MPM} for \acs{1D} \ac{FID} estimation, with the option of
 predicting the model order using the \acs{MDL}.
@@ -45,7 +45,7 @@ predicting the model order using the \acs{MDL}.
 
 \subsection{\acs{MMEMPM}}
 \mylisting{python3}{code_listings/mmempm.py}{
-A \Python implementation of the \acl{MMEMPM} for \acs{2D} hypercomplex
+\Python implementation of the \acl{MMEMPM} for \acs{2D} hypercomplex
 \acs{FID} estimation.
 }{
 The \acs{MMEMPM} for \acs{2D} hypercomplex \acs{FID} estimation. Due
@@ -60,7 +60,7 @@ sparse form in \textsc{SciPy} (Lines \ref{ln:sparse1}--\ref{ln:sparse2}; see
 \subsection{Trust Region Algorithm}
 
 \mylisting{python3}{code_listings/trust_region.py}{
-A \Python implementation of the \acl{ST} trust region algorithm.
+\Python implementation of the \acl{ST} trust region algorithm.
 }{
 The \acl{ST} trust region algorithm. Included is a check for oscillators with
 negative amplitudes, which causes the routine to terminate in order for said
@@ -74,7 +74,7 @@ oscillators to be purged (Lines \ref{ln:negamp1}--\ref{ln:negamp2}).
 }
 
 \mylisting{python3}{code_listings/obj_grad_hess.py}{
-A \Python implementation for generating the fidelity, and its gradient and
+\Python implementation for generating the fidelity, and its gradient and
 Hessian, as part of the \acl{NLP} routine.
 }{
 Code for generating the fidelity, gradient and Hessian as
@@ -97,7 +97,7 @@ approximated Hessian instead, the reader is directed to the
 \subsection{The Main Routine}
 
 \mylisting{python3}{code_listings/nlp_routine.py}{
-    A \Python implementation for running the \acl{NLP} routine.
+    \Python implementation for running the \acl{NLP} routine.
 }{
     Code which runs the \acs{NLP} routine for \acs{FID} estimation. The
     routine consists of running the \ac{ST} algorithm (\cref{lst:tr})
@@ -111,7 +111,7 @@ approximated Hessian instead, the reader is directed to the
 \subsection{Assigning Multiplet Structures}
 
 \mylisting{python3}{code_listings/mp_assign.py}{
-A \Python implementation which performs multiplet assignment as part of
+\Python implementation which performs multiplet assignment as part of
 \acs{CUPID}.
 }{
     Code which performs multiplet assignment as part of \acs{CUPID}.

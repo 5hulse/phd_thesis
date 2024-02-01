@@ -1,7 +1,7 @@
 # gyromagnetic_ratios.py
 # Simon Hulse
 # simonhulse@protonmail.com
-# Last Edited: Thu 25 Jan 2024 18:55:27 EST
+# Last Edited: Wed 31 Jan 2024 16:15:04 EST
 
 import re
 import numpy as np
@@ -29,9 +29,9 @@ def gamma(mu, I):
 
 table = """\\begin{table}
     \\begin{center}
-        \\begin{tabular}{ c c c c }
+        \\begin{tabular}{ c c c c c }
             \\toprule
-            Nucleus & $I$ & $\\gamma (\\si{\\radian\\per\\tesla\\per\\second})$ & Relative Abundance (\\%) \\\\
+            Nucleus & $I$ & $\\mu$ ($\\mu_{\\text{N}}$) & $\\gamma (\\si{\\radian\\per\\tesla\\per\\second})$ & Relative Abundance (\\%) \\\\
             \\midrule
 <DATA>
             \\bottomrule
@@ -46,10 +46,9 @@ table = """\\begin{table}
             Also listed are common nuclei which do not possess spin.
             The gyromagnetic ratios were determined by obtaining the relevant
             nuclear magnetic dipole moments $\\mu$ in units of nuclear magneton
-            $\\mu_{\\text{N}}$~\\cite{Stone2019},
-            and applying the equation $\\gamma = \\nicefrac{\\mu \\mu_{\\text{N}}}{I \hbar}$,
-            where $\\mu_{\\text{N}} =
-            \\qty{5.05078e-27}{\\joule\\per\\tesla}$~\\cite{Tiesinga2021}).
+            $\\mu_{\\text{N}}=\\qty{5.05078e-27}{\\joule\\per\\tesla}$,
+            and applying the equation $\\gamma = \\nicefrac{\\mu
+            \\mu_{\\text{N}}}{I \hbar}$~\\cite{Stone2019,Tiesinga2021}).
         }
     }
     \\label{tab:nuclei}
@@ -64,6 +63,7 @@ for (nuc, mu, I, abun) in info:
 
 
     if mu is None:
+        mu_lab = "--"
         gamma_lab = "--"
         I_lab = "$0$"
     else:
@@ -72,11 +72,12 @@ for (nuc, mu, I, abun) in info:
             I_lab = "$1$"
         else:
             I_lab = f"$\\nicefrac{{{I_num}}}{{{I_denom}}}$"
+        mu_lab = "\\num{{{0:.3f}}}".format(mu)
         gamma_lab = "\\num{{{0:.4e}}}".format(gamma(mu, I)).replace("+0", "")
 
     abun_lab = f"\\num{{{abun}}}"
 
-    data += "            {0} & {1} & {2} & {3} \\\\\n".format(nuc_lab, I_lab, gamma_lab, abun_lab)
+    data += "            {0} & {1} & {2} & {3} & {4} \\\\\n".format(nuc_lab, I_lab, mu_lab, gamma_lab, abun_lab)
 data = data[:-1]
 table = table.replace("<DATA>", data)
 

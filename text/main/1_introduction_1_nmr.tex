@@ -15,9 +15,9 @@ separation~\cite{Becker1993}. Both received the Nobel Prize in Physics in 1952
 measurements and discoveries in connection therewith''~\cite{Nobel1952}. A
 notable mention should also be given
 to Yevgeny Zavoisky, the father of the related field of electron paramagnetic
-resonance, who probably observed NMR as far back as 1941~\cite{Eaton1998}. Alas,
-he dismissed
-his results as irreproducible. A few years subsequently, works investigating
+resonance, who probably observed NMR as far back as 1941,
+though he dismissed his results as irreproducible~\cite{Eaton1998}. A few years
+subsequently, works investigating
 \ac{NMR} spectra from compounds containing nuclei such as \ch{^{63}Cu},
 \ch{^{65}Cu}, \ch{^{31}P}, \ch{^{14}N}, and \ch{^{19}F} led to an
 understanding of the \emph{chemical shift}, a phenomenon in
@@ -41,7 +41,7 @@ took to digitise the signal, and subsequently compute its FT~\cite{Freeman2015}.
 Instead, the first commercial pulsed \ac{FT} spectrometer was produced by
 \textsc{Bruker Corp.} in 1969, which revolutionised NMR. The innovation emerged
 shortly after Cooley and Tukey's introduction of the \ac{FFT}
-algorithm~\cite{Cooley1965}, which incentivised the development of the pulsed
+algorithm~\cite{Cooley1965}, which incentivised the use of the pulsed
 \ac{FT} approach.
 
 The concept of \ac{2D} \ac{NMR} spectroscopy was proposed by Jean Jeener in
@@ -50,8 +50,8 @@ years later in the form of a \ac{COSY} experiment~\cite{Aue1976a}. The use of
 multiple dimensions to spread out signals enabled vastly more complex
 structures to be studied. In 1985, the first protein assignment by
 \ac{NMR}\,---\,using \ac{COSY} and \ac{NOESY} experiments\,---\,was reported
-by Kurt W\"uthrich and co-workers~\cite{Williamson1985}. Over time, extensive
-developments in techniques for biomolecular systems have occurred, including
+by Kurt W\"uthrich and co-workers~\cite{Williamson1985}. Over time, there have
+been extensive developments in techniques for biomolecular systems, including
 the creation of 3D and 4D ``triple resonance'' experiments~\cite{Marion1989,
 Kay1990}, as well \ac{TROSY} experiments~\cite{Pervushin1997} for the study of
 large proteins.
@@ -100,7 +100,7 @@ vector\footnote{
     frequently encountered in the literature is used, which violates this.
 } with squared magnitude
 \begin{equation}
-    \symbf{I}^2 = \symbf{I} \cdot \symbf{I} = \hbar\correction{^2} I (I + 1),
+    \symbf{I}^2 \coloneq \symbf{I} \cdot \symbf{I} = \hbar\correction{^2} I (I + 1),
   \label{eq:I-squared}
 \end{equation}
 where $\hbar \coloneq \nicefrac{h}{2 \pi}$ is the reduced Planck constant
@@ -194,11 +194,12 @@ At equilibrium, the $x$- and $y$-components of the bulk magnetisation are zero:
 \end{equation}
 such that the bulk magnetisation is collinear with the field direction, with a
 magnitude $M_0$.
+
 \correction{
-    The Boltzmann distribution describes the relative populations of the spin states:
+    The fractional population of the state $m$ is given by:
     \begin{equation}
         p_{m} = \frac{\exp\left(\frac{m\hbar \gamma B_0}{k_{\text{B}} T}\right)}
-        {\sum\limits_{m=-I}^I \exp\left(\frac{m\hbar \gamma B_0}{k_{\text{B}} T}\right)},
+        {\sum\limits_{m} \exp\left(\frac{m\hbar \gamma B_0}{k_{\text{B}} T}\right)},
         \label{eq:boltzmann}
     \end{equation}
     where $k_{\text{B}}$ is the Boltzmann constant
@@ -209,10 +210,9 @@ magnitude $M_0$.
     $B_0$ ($\approx\!\!\qty{10}{\tesla}$),
     the inequality
     $\nicefrac{m\hbar\gamma B_0}{k_{\text{B}} T} \ll 1$ can be safely assumed
-    to be satisfied at all temperatures used in
-    solution-state \ac{NMR}. For this reason, the exponential terms in
-    \cref{eq:boltzmann} may be approximated using a Taylor expansion truncated
-    at the first-order term.
+    at all temperatures used in solution-state \ac{NMR}. For this reason, the
+    exponential terms in \cref{eq:boltzmann} may be approximated using a Taylor
+    expansion truncated at the first-order term.
     Through this, it can be shown that the magnitude of the bulk magnetisation
     is given by
 \begin{subequations}
@@ -223,8 +223,8 @@ magnitude $M_0$.
             \frac{S \gamma^2 \hbar^2 B_0}{4k_{\text{B}} T},%
         \label{eq:M0}%
     \end{gather}%
-\end{subequations}
-}\label{corr:high-temp}
+\end{subequations}%
+}\label{corr:high-temp}%
 To maximise experiment sensitivity, it is desirable to
 study nuclei with high natural abundance (affecting $S$ for a given sample
 concentration), and high
@@ -232,7 +232,7 @@ gyromagnetic ratio. Along with other favourable attributes such as its ubiquity
 in organic molecules, \ch{^1H} is therefore by far the most popular nucleus to
 study using \ac{NMR}, at least in solution-state contexts.
 
-The bulk magnetism experiences a torque induced by the magnetic field, with its
+The bulk magnetisation experiences a torque induced by the magnetic field, with its
 evolution described by
 \begin{equation}
   \frac{\mathrm{d}\symbf{M}(t)}{\mathrm{d}t} = \symbf{M}(t) \times \gamma \symbf{B}(t).
@@ -257,10 +257,11 @@ when the magnetisation is aligned away from the $z$-axis and $\symbf{B}_1 =
   \frac{\mathrm{d}\symbf{M}(t)}{\mathrm{d}t} =
   -\gamma B_0 ( M_y(t) \symbf{i} -M_x(t) \symbf{j} + 0 \symbf{k}),
 \end{equation}
-where $\symbf{i}$, $\symbf{j}$ and $\symbf{k}$ denote the unit vectors along
-the laboratory $x$-, $y$-, and $z$-axes, respectively.
-Under free precession, the magnetisation rotates about the $z$-axis at the
-\emph{Larmor frequency} $\omega_0 = -\gamma B_0$.\footnote{
+where $\lbrace \symbf{i}, \symbf{j}, \symbf{k}\rbrace \in \mathbb{R}^3$ denote the
+unit vectors along the laboratory $x$-, $y$-, and $z$-axes, respectively.
+Under free precession, the magnetisation rotates about the $z$-axis (i.e.
+$\symbf{B}_0$) at the \emph{Larmor frequency} $\omega_0 = -\gamma
+B_0$.\footnote{
     While the \ac{SI} unit of magnetic field strength is the Tesla
     (\unit{\tesla}), when referring to the field strength that a spectrometer
     operates at, it is common to use \unit{\mega\hertz} instead. This refers to
@@ -273,8 +274,8 @@ Under free precession, the magnetisation rotates about the $z$-axis at the
 }
 
 \correction{
-\ac{NMR} experiments employ \ac{RF} pulses which are linearly polarised
-and modulated cosinusoidally. As an example, a pulse which is polarised along
+The most common \ac{RF} pulses used in \ac{NMR} are linearly polarised and
+sinusoidally modulated. As an example, a pulse which is polarised along
 the laboratory $x$-axis takes the form
 \begin{equation}
     \symbf{B}_1(t) = 2 B_1 \cos(\omega_{\text{RF}} t + \phi_{\text{RF}}) \symbf{i},
@@ -348,36 +349,38 @@ magnetisation. When $\Omega = \qty{0}{\radian\per\second}$, the \ac{RF} field is
 perfectly on resonance, and at times when it is not being applied, the
 magnetisation vector appears to be static in the rotating frame.
 
-Consider a scenario where a short \ac{RF} pulse is applied to the system, which
-is then allowed to undergo free precession. \cref{eq:rot-frame} implies that
-$\tilde{\symbf{M}}$ will rotate indefinitely about the $z$-axis with a
+\Cref{eq:rot-frame} implies that at times when $\tilde{\symbf{M}}$ is tilted
+away from $z$-axis, and not \ac{RF} pulse is being applied, it rotate
+indefinitely about the $z$-axis with a
 frequency of $\Omega$. However, in reality the system is driven to re-establish
-its thermal equilibrium state, $\symbf{M}_{\text{eq}} \equiv
-\tilde{\symbf{M}}_{\text{eq}} = [0, 0, M_0]^{\mathrm{T}}$. The process by which
+its thermal equilibrium state:
+\begin{equation}
+    \symbf{M}_{\text{eq}} \equiv \tilde{\symbf{M}}_{\text{eq}} = 0 \symbf{i} + 0\symbf{j} + M_0 \symbf{k}.
+\end{equation}
+The process by which
 this occurs is called \emph{relaxation}.
 \correction{
     \label{corr:relaxation}
     Spin relaxation is driven by the stochastic motion of the molecules in
     the sample, which give rise to variations in the magnetic fields
-    present in the sample. Crucially:
-    \begin{enumerate}
-        \item The fields induced by molecular motion vary with time, and average to zero.
-        \item In different locations within the sample, the variation in these
-            fields with time is uncorrelated. As a result, these fields are
-            often referred to as \emph{local} fields.
-    \end{enumerate}
+    present. The fields induced by molecular motion vary with time, and average
+    to zero. Furthermore, in different locations within the sample, the
+    variation in these fields with time is uncorrelated. As a result, these
+    fields are often referred to as \emph{local} fields.
     The presence of time-varying local fields in the sample lead to a number of
     mechanisms that contribute to relaxation. These mechanisms are often classified
-    based on whether they are associated with an energy transfer:
+    based on whether or not they are associated with an energy transfer:
     \begin{itemize}
         \item \emph{Adiabatic interactions} do not require a transfer of energy
             between a spin system of interest and its surroundings\footnote{
-                The surroundings of a particular spin system of interest is
-                often referred to as the \emph{lattice}, which contains all
-                degrees of freedom in the sample other than those of the spin
-                system itself, including motional degrees of freedom of all
-                molecules in the system, and the spin energy levels of all
-                other molecules.
+                \correction{
+                    The surroundings of a particular spin system of interest is
+                    often referred to as the \emph{lattice}, which contains all
+                    degrees of freedom in the sample other than those of the spin
+                    system itself, including motional degrees of freedom of all
+                    molecules in the system, and the spin energy levels of all
+                    other molecules.
+                }
             }. Molecular motion results in the $z$-component of the magnetic
             field experienced by a given spin to vary with time.
             The associated Larmor frequency of the spin is perturbed in
@@ -392,7 +395,7 @@ this occurs is called \emph{relaxation}.
             relaxation}.
         \item \emph{Nonadiabatic interactions} involve the transfer of energy
             between a spin and its surroundings. Molecular motion which leads
-            to varying transverse ($xy-$) magnetisation with a component that
+            to varying transverse ($xy-$) magnetic fields with a component that
             fluctuates at the spin's Larmor frequency is able to induce such an
             energy transfer. This mechanism drives the relative populations of
             the spin's energy levels towards their equilibrium configuration,
@@ -403,12 +406,12 @@ this occurs is called \emph{relaxation}.
             Furthermore, due to the finite lifetimes of the spin states,
             their associated energies are not perfectly defined, in accordance
             with the Heisenberg uncertainty principle. Because of this,
-            nonadiabatic interactions also contribute to the dephasing of
-            spins, and hence transverse relaxation.
+            nonadiabatic interactions also contribute towards transverse
+            relaxation.
     \end{itemize}
     In the Bloch model, the influence of longitudinal and transverse relaxation are
     accounted for by the incorporation of two processes with respective rate
-    constants $R_1$ and $R_2$ (both with units of \unit{\per\second}). The
+    constants $R_1$ and $R_2$ (both with units of \unit{\per\second}). These
     processes are often described in terms of relaxation times
     instead: $T_i \coloneq \nicefrac{1}{R_i}, i \in \lbrace 1, 2\rbrace$.  In
     the vast majority of situations, the rate of transverse relaxation is
@@ -418,9 +421,6 @@ this occurs is called \emph{relaxation}.
     T_1$; if this were violated, during the evolution of the bulk magnetisation
     vector, its magnitude would surpass its magnitude at equilibrium, which is
     a physical impossibility~\cite{Traficante1991}.
-}
-
-\correction{
     The introduction of relaxation is phenomenological in the Bloch model; the
     reversion of the spin system to equilibrium is included purely to ensure
     the model agrees with observation. More sophisticated theories invoking
@@ -432,9 +432,8 @@ this occurs is called \emph{relaxation}.
     \centering
     \includegraphics{quadrature_detection/quadrature_detection.pdf}
     \caption[
-        An illustration of the free evolution of the bulk
-        magnetisation of an ensemble of spin-$\nicefrac{1}{2}$ nuclei
-        according to the Bloch model.
+        The free evolution of the bulk magnetisation of an ensemble of
+        spin-$\nicefrac{1}{2}$ nuclei according to the Bloch model.
     ]{
         \textbf{a.} An illustration of the free evolution of the bulk
         magnetisation of an ensemble of spin-$\nicefrac{1}{2}$ nuclei
@@ -473,8 +472,8 @@ evolution of a bulk magnetisation vector after the application of an
 \ac{RF} pulse with $\phi_{\text{RF}} = \nicefrac{\pi}{2}$, and an appropriate
 combination of duration and power to induce a clockwise rotation of \ang{90}
 about the $y$-axis; such a pulse is denoted $\ang{90}_{y}$.
-Assuming that negligible evolution due to the offset occurs during the pulse,
-the magnetisation vector will land on the $x$-axis, and evolve according to
+Neglecting off-resonance effects, the magnetisation vector will land on the
+$x$-axis, and evolve according to
 \begin{subequations}
     \begin{gather}
         \tilde{M}_x(t) = M_0 \cos(\Omega t) \exp(-R_2 t),\\
@@ -514,11 +513,11 @@ dewar containing liquid nitrogen,
 \correction{which is finally encased in a vacuum chamber.\label{corr:vacuum}}
 A bore passes through the $z$-direction of
 the magnet, which is maintained at a user-specified temperature. Within the
-bore sits the probe as well as the sample. Magnets with high field
+bore sits the probe. Magnets with high field
 strengths are desirable, as both the resolution ($\propto B_0$) and \ac{SNR}
 ($\propto B_0^{\nicefrac{3}{2}}$) of the data are affected. At the
 time of writing, commercial spectrometers which operate at and above a
-\proton\ Larmor frequency of \qty{1}{\giga\hertz} (\qty{23.5}{\tesla}) exist,
+\ch{^1H} Larmor frequency of \qty{1}{\giga\hertz} (\qty{23.5}{\tesla}) exist,
 though these are uncommon and are employed primarily for the study of large
 biomolecules
 \correction{and solid-state \ac{NMR}\label{corr:solid-state}}.
@@ -536,7 +535,8 @@ sample. Each coil produces a weak magnetic field with a specific spatial
 profile in accordance with a spherical harmonic function; a collection of shims
 can cancel out
 \correction{small\label{corr:small-inhomog}}
-inhomogeneities inherent to the main magnet.
+inhomogeneities inherent to the main magnet~\cite[Chapter1, Appendix
+B]{Webb2016}.
 A field-frequency lock is used to ensure the stability of the
 field. The lock is effectively a small \ac{NMR} spectrometer, tuned to a
 specified isotope (typically \textsuperscript{2}H\footnote{
@@ -555,7 +555,7 @@ throughout the sample volume.
 \correction{The probe sits inside the bore of the magnet and has a number of
 responsibilities including holding the sample, regulating the sample temperature,
 and housing the coils used to pulse the sample with \ac{RF}
-radiation as well as coils which are used to generate field
+radiation, as well as coils which are used to generate field
 gradients\cite[Section 4.7]{Levitt2007}.\label{corr:probe}}
 The \ac{RF} coils also receive the response from the sample during detection.
 The principle source of data corruption in \ac{NMR} experiments is thermal
@@ -619,12 +619,13 @@ function of time,
 and $N$ (often a power of 2) is the number of points sampled. The inverse of
 the sampling rate,
 $\nicefrac{1}{\Dt}$ is the \correction{\emph{spectral width}\label{corr:sw}} $\fsw$ which
-defines how wide the range of samplable frequencies is, in accordance with the
+defines how large the range of samplable frequencies is, in accordance with the
 Nyquist theorem~\cite{Shannon1949}.
 
 \acp{FID} adopt the form of a summation of $M \in \mathbb{N}$ complex
-exponentials (signals). Each signal will be subjected to damping due to
-transverse relaxation, which is typically exponential in nature. An \ac{FID}
+exponentials; these will be referred to as \emph{signals} in this text. Each
+signal will be subjected to damping due to transverse relaxation, which is
+typically exponential in nature. An \ac{FID}
 therefore takes the form\footnote{
     \correction{
         This provides an idealised model of an \ac{FID}, based on the
@@ -651,10 +652,10 @@ therefore takes the form\footnote{
     \end{gather}
     \label{eq:1d}%
 \end{subequations}%
-\cref{eq:1d} indicates that \iac{FID} comprises contributions from the
-(deterministic) evolution of the spin magnetisation $\bx$ and experimental
-noise $\bw$ (\emph{vide infra}). Each signal which contributes to $\bx$ is
-defined by four parameters:
+\cref{eq:1d} indicates that \iac{FID} comprises a deterministic contributions
+from the evolution of the spin magnetisation $\bx$, as well as one from
+experimental noise $\bw$ (\emph{vide infra}). Each signal which contributes to
+$\bx$ is defined by four parameters:
 \begin{itemize}
     \item Amplitude $a \in \mathbb{R}_{>0}$ ,
     \label{pg:param-constraints}
@@ -694,11 +695,11 @@ are depicted in Figures \ref{fig:amp-phase-freq-damp}.a1 to
     \centering
     \includegraphics{amp_phase_freq_damp/amp_phase_freq_damp.pdf}
     \caption[
-        An illustration of the influence of the four parameters associated
+        The influence of the four parameters associated
         with an exponentially damped complex sinusoidal signal in both the
         time-domain and the Fourier-domain.
     ]{
-        An illustration of the influence of the four parameters associated
+        The influence of the four parameters associated
         with an exponentially damped complex sinusoidal signal in both the
         time-domain (a1 to d1) and Fourier-domain (a2 to d2).
         The red signal is generated with the same parameters across all panels:
@@ -723,7 +724,8 @@ are depicted in Figures \ref{fig:amp-phase-freq-damp}.a1 to
     \label{fig:amp-phase-freq-damp}%
 \end{figure}
 
-Multidimensional experiments involve incrementing one or more delays within the
+Multidimensional experiments~\cite[Chapter 4]{Cavanagh2007} involve
+incrementing one or more delays within a
 pulse sequence, in order to obtain an array of \ac{1D} \acp{FID}. In a
 $D$-dimensional dataset, each contributing signal is parameterised by an
 amplitude and phase as before, along with $D$ distinct frequencies and damping
@@ -746,7 +748,7 @@ is given by
 where $\bdfD$ and $\bdetaD$ are the frequencies and damping factors in the
 actively acquired (direct) dimension, and $\lbrace \bdfone, \cdots,
 \bdfDminusone \rbrace$ and
-$\lbrace \bdetaone, \cdots, \bdetaDminusone \rbrace$ are those for the indirect
+$\lbrace \bdetaone, \cdots, \bdetaDminusone \rbrace$ are those of the indirect
 dimension(s).
 Indirect dimensions can exhibit different forms of evolution, depending on
 the precise nature of the pulse sequence, of which two are very
@@ -772,7 +774,7 @@ infra}). In general, a $D$-dimensional \ac{FID} $\bY \in \mathbb{C}^{\None
         \begin{cases}
             = \exp(\iu\cdot) & d = D \\
             \in \left\lbrace \cos(\cdot), \sin(\cdot), \exp(\iu\cdot) \exp(-\iu\cdot)\right\rbrace & \text{otherwise}
-        \end{cases},
+        \end{cases}.
     \end{gather}
     \label{eq:general-fid}%
 \end{subequations}%
@@ -792,8 +794,7 @@ of their time separation:
         \end{gathered}
     \end{gather}
 \end{subequations}
-The extent by which \iac{FID} is corrupted by noise is given by its \ac{SNR},
-the ratio of signal power and noise power:
+The extent by which \iac{FID} is corrupted by noise is given by its \acf{SNR}:
 \begin{equation}
     \SNR\left(\bY\right) \coloneq
         \frac{1}{2 N_{\text{tot}} \sigma^2}

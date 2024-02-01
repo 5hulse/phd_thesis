@@ -25,9 +25,9 @@ rather than as successive \ac{1D} increments, as is the case in methods like
 \ac{CRAFT}~\cite{Krishnamurthy2017} and other previous approaches which will be
 discussed later. \correction{
     It is often the case that signals which heavily overlap in a
-    \ac{1D} \ac{NMR} dataset are well-separated in a dataset with more dimensions;
-    exploiting this concept means that holistic estimation approaches are able to
-    resolve and quantify individual signals more effectively.
+    \ac{1D} \ac{NMR} dataset are better-separated in a dataset with more dimensions;
+    exploiting this concept means that holistic estimation approaches are often
+    able to resolve and quantify individual signals more effectively.
 }\label{corr:1d-vs-2d}
 
 \paragraph{Time-domain based}
@@ -50,7 +50,7 @@ familiarity with easily.
 
 \subsection{Thesis Overview}
 The remainder of this thesis comprises the following chapters:
-\begin{itemize}
+\begin{itemize}[label={},leftmargin=*]
     \item \textbf{\cref{chap:theory}} discusses the theory behind routines
         which can be applied to determine parameter estimates related to
         \ac{1D} and \ac{2D} \acp{FID}.
@@ -58,24 +58,24 @@ The remainder of this thesis comprises the following chapters:
         performance of the estimation routine on \ac{1D} \ac{NMR} datasets.
         Furthermore, means in which parametric estimation routine can be
         harnessed for two applications are explored:
-        \begin{itemize}
+        \begin{enumerate}
             \item The analysis of amplitude-attenuated datasets, such as those
                 derived from diffusion-, $T_1$- and $T_2$-measuring
                 experiments (\cref{sec:seq}).
             \item Overcoming quadratic phase behaviour and baseline distortions
                 associated with ultra-broadband excitation by a single
                 \acl{FS} pulse (\cref{sec:bbqchili}).
-        \end{itemize}
+        \end{enumerate}
     \item \textbf{\cref{chap:cupid}} outlines a devised method, given the acronym
         \acs{CUPID}, for generating pure shift spectra via \ac{2DJ} estimation.
     \item \textbf{\cref{chap:nmrespy}} describes the source code developed as
         part of this project, called \ac{EsPy}.
-    \item Finally, conclusions and considerations for further potential
-        developments are made in \textbf{\cref{chap:conclusions}}.
+    \item \textbf{cref{chap:conclusions}} provides conclusions and
+        considerations for further potential developments.
 \end{itemize}
 
 Additional supporting information can be found in the Appendix:
-\begin{itemize}
+\begin{itemize}[label={},leftmargin=*]
     % \item \textbf{\cref{chap:nmr-glossary}} provides a glossary of terms
     %     related to \ac{NMR} which are not introduced in much detail in the main
     %     text.
@@ -93,7 +93,7 @@ Additional supporting information can be found in the Appendix:
         These are effectively minimalist variants of code found in the
         \ac{EsPy} package.
     \item \textbf{\cref{chap:datasets}} outlines how the simulated and
-        experimental datasets considered in this work were generated.
+        experimental datasets considered in this work were acquired.
     \item \textbf{\cref{chap:inserts}} is a chapter insert from the
         documentation of \ac{EsPy}, comprising tutorials to help users gain
         familiarity with the software.

@@ -1,7 +1,7 @@
-# cupid_spinach_parameters.py
+# invrec_spinach_parameters.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Mon 02 Oct 2023 14:43:21 BST
+# Last Edited: Wed 31 Jan 2024 15:25:08 EST
 
 from pathlib import Path
 import nmrespy as ne

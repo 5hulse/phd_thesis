@@ -173,6 +173,35 @@ given:
         \cref{eq:complex-amplitudes-2d} (Lines \ref{ln:compamps2dstart} to
         \ref{ln:compamps2dend}).
 \end{enumerate}
+\begin{table}
+    \begin{center}
+        \begin{tabular}{ c c c c c c c }
+            \toprule
+            $\Ntwo$ &
+            $M$ &
+            Step 1 &
+            Step 2 &
+            Step 3 &
+            Step 4 &
+            Step 5 \\
+            \midrule
+            64 & 10 & 12.2\% & 60.6\% & 2.9\% & 9.7\% & 13.8\% \\
+            64 & 40 & 4\% & 74.6\% & 1.9\% & 8.9\% & 9.6\% \\
+            512 & 10 & 22.1\% & 67.2\% & 0.2\% & 3.1\% & 7.2\% \\
+            512 & 40 & 7.4\% & 81.9\% & 0.1\% & 1.3\% & 9.4\% \\
+            512 & 80 & 3.8\% & 85.8\% & 0.1\% & 0.8\% & 9.4\% \\
+            \bottomrule
+        \end{tabular}
+    \end{center}
+    \caption[
+        The relative times to perform the steps in the \acs{MMEMPM}.
+    ]{
+        The relative times to perform the steps in the
+        \acs{MMEMPM}, for selected pairings on $M$ and $\Ntwo$. See the main
+        text for a description of what each step entails.
+    }
+    \label{tab:mmempm-steps}
+\end{table}
 A comparison of the relative times to perform these steps for some select
 pairings of $M$ and $\Ntwo$ is provided by \cref{tab:mmempm-steps}. It can be
 seen that as $M$ increases, the relative amount of time spent performing
@@ -208,35 +237,6 @@ increasing  $\None$ from  $64$ to $128$ would cause all the run times and peak
 memory usages in Figures \ref{fig:mpm-profiling}.b1 and
 \ref{fig:mpm-profiling}.b3 to quadruple in value.
 
-\begin{table}
-    \begin{center}
-        \begin{tabular}{ c c c c c c c }
-            \toprule
-            $\Ntwo$ &
-            $M$ &
-            Step 1 &
-            Step 2 &
-            Step 3 &
-            Step 4 &
-            Step 5 \\
-            \midrule
-            64 & 10 & 12.2\% & 60.6\% & 2.9\% & 9.7\% & 13.8\% \\
-            64 & 40 & 4\% & 74.6\% & 1.9\% & 8.9\% & 9.6\% \\
-            512 & 10 & 22.1\% & 67.2\% & 0.2\% & 3.1\% & 7.2\% \\
-            512 & 40 & 7.4\% & 81.9\% & 0.1\% & 1.3\% & 9.4\% \\
-            512 & 80 & 3.8\% & 85.8\% & 0.1\% & 0.8\% & 9.4\% \\
-            \bottomrule
-        \end{tabular}
-    \end{center}
-    \caption[
-        A comparison of the relative times to perform the steps in the \acs{MMEMPM}.
-    ]{
-        A comparison of the relative times to perform the steps in the
-        \acs{MMEMPM}, for selected pairings on $M$ and $\Ntwo$. See the main
-        text for a description of what each step entails.
-    }
-    \label{tab:mmempm-steps}
-\end{table}
 
 \subsection{Computing the Hessian for \acs{NLP}}
 \begin{figure}
@@ -330,12 +330,12 @@ required iterations for convergence.
         \end{tabular}
     \end{center}
     \caption[
-        A comparison of the relative times to perform the steps for
-        computing the Hessian matrix for \acs{NLP}.
+        The relative times to perform the steps for computing the Hessian
+        matrix for \acs{NLP}.
     ]{
-        A comparison of the relative times to perform the steps for
-        computing the Hessian matrix for \acs{NLP}, for selected pairings of
-        $M$ and $N$ (\ac{1D})/$\Ntwo$ (\ac{2D}).
+        The relative times to perform the steps for computing the Hessian
+        matrix for \acs{NLP}, for selected pairings of $M$ and $N$
+        (\ac{1D})/$\Ntwo$ (\ac{2D}).
     }
     \label{tab:hess-steps}
 \end{table}

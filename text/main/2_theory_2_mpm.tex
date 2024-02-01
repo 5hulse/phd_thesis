@@ -1,14 +1,4 @@
-\section[Matrix Pencil Methods]{Matrix Pencil Methods\footnote{
-        \correction{
-            For two matrices $\symbf{A},
-            \symbf{B} \in \mathbb{C}^{m \times n}$, their \emph{pencil} is the
-            set of all matrices of the form $\symbf{A} - \lambda \symbf{B}$,
-            with $\lambda \in \mathbb{C}$~\cite[Section 7.7]{Golub2013}. In
-            most applications, the matrices involved are assumed to be square
-            (i.e. $m = n$); this is not the case in the context of the \ac{MPM}
-            however.
-        }\label{fn:matrix-pencil}
-}}
+\section{Matrix Pencil Methods}
 \label{sec:mpm}
 In this section, a description of the \ac{MPM}\,---\,also referred to as the
 generalized pencil-of-function method~\cite{Hua1989}\,---\,is provided. This
@@ -97,7 +87,17 @@ comprises:
    \end{gather}%
     \label{eq:HX-decomp}%
 \end{subequations}%
-The matrix pencil $\Hxtwo - \lambda\Hxone$, with $\lambda \in
+The matrix pencil\footnote{
+        \correction{
+            For two matrices $\symbf{A},
+            \symbf{B} \in \mathbb{C}^{m \times n}$, their \emph{pencil} is the
+            set of all matrices of the form $\symbf{A} - \lambda \symbf{B}$,
+            with $\lambda \in \mathbb{C}$~\cite[Section 7.7]{Golub2013}. In
+            most contexts, the matrices involved are assumed to be square
+            (i.e. $m = n$); this is not the case in the context of the \ac{MPM}
+            however.
+        }\label{fn:matrix-pencil}
+} $\Hxtwo - \lambda\Hxone$, with $\lambda \in
 \mathbb{C}$, can therefore be expressed as
 \begin{equation}
     \Hxtwo - \lambda \Hxone = \symbf{Z}_{\text{L}} \symbf{A} \left(
@@ -112,8 +112,9 @@ Now consider the case when the scalar $\lambda$ is
 equal to one of the signal poles i.e.  $\lambda = z_m\ \forall m \in
 \lbrace 1, \cdots, M \rbrace$: the element $[\symbf{Z}_{\text{D}} -
 \lambda \symbf{I}_M]_{m,m}$ becomes $0$, which will lead to the matrix pencil's
-rank being reduced by $1$.
-One means of extracting the signal poles is by computing the eigenvalues of the
+rank being reduced by $1$, i.e. the signal poles are the rank-reducing values
+of the matrix pencil.
+One means of extracting these poles is by computing the eigenvalues of the
 matrix $\Hxone^+ \Hxtwo^{\vphantom{+}}$. Deriving the corresponding complex
 amplitudes can then be achieved by solving the set of linear equations given by
 \cref{eq:complex-amplitudes}, with $\by$ replaced by $\bx$.
@@ -360,7 +361,7 @@ Due to the large size of the enhanced matrix, a vast improvement
 in the speed of the \ac{MEMPM} can be realised when, rather than compute the
 \ac{SVD} in its entirety, a \emph{truncated} \ac{SVD} is computed, in
 which only the first $M$ components of the \ac{SVD} are
-determined using iterative approaches like the Rayleigh-Ritz/Arnoldi
+determined using iterative approaches like the Rayleigh-Ritz
 method~\cite{Arnoldi1951,svds}.
 
 If the conditions $\Nd - L^{(d)} + 1 \geq M\ \forall d \in \lbrace 1, 2
@@ -446,11 +447,11 @@ with the last and first $\Lone$ rows removed, respectively.
     \centering
     \includegraphics{mmempm_poles/mmempm_poles.pdf}
     \caption[
-        A comparison of the structure of the matrix $\symbf{G}$ from the
-        \acs{MMEMPM}, for the cases of an \acs{FID} with distinct and repeated
-        signal poles in the indirect dimension.
+        The structure of the matrix $\symbf{G}$ from the \acs{MMEMPM}, for the
+        cases of an \acs{FID} with distinct and repeated signal poles in the
+        indirect dimension.
     ]{
-        A comparison of the structure of the matrix $\symbf{G}$ from the
+        The structure of the matrix $\symbf{G}$ from the
         \acs{MMEMPM} (\cref{eq:G}), for the cases of an \acs{FID} with \textbf{a.} distinct
         signal poles in $\Fone$ and \textbf{b.} repeated signal poles.
         \textbf{a1.} Magntiude-mode spectrum of a hypercomplex \ac{2D}
@@ -489,8 +490,11 @@ $\symbf{W}^{(1)}$. Assuming that there are no repeated poles in
 $\bdzone$\footnote{
     For the purposes of \ac{FID} estimation, it is deemed that a given pair
     $i,j \in \lbrace 1, \cdots, M \rbrace$ of poles is repeated if their
-    frequencies satisfy $\lvert \fone_i - \fone_j \rvert <
-    \nicefrac{\fswone}{\None}$ (recall \cref{eq:poles-to-f}, which states the
+    frequencies satisfy
+    \[
+        \lvert \fone_i - \fone_j \rvert < \nicefrac{\fswone}{\None}
+    \]
+    (recall \cref{eq:poles-to-f}, which states the
     relationship between a signal pole and its frequency).
     \label{fn:similar-freqs}
 }, the following holds:
@@ -617,11 +621,11 @@ applications, and is employed in this work\footnote{
     \centering
     \includegraphics{mdl/mdl.pdf}
     \caption[%
-        A visualisation of the behaviour of the \acs{MDL} for three different
+        The behaviour of the \acs{MDL} for three different
         \acsp{FID} comprising the same deterministic component, but with
         different noise variances.
     ]{%
-        A visualisation of the behaviour of the \acs{MDL} for three different
+        The behaviour of the \acs{MDL} for three different
         \acsp{FID} comprising the same deterministic component ($\bx$) but
         with noise instances of differing variances. The model used
         to construct the \acp{FID} features 7

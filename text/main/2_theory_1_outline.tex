@@ -8,8 +8,8 @@ observed dataset.
 The chemical shifts, J-couplings, dipolar couplings, etc. of the spin system
 may be recast as a list of signal amplitudes, phases, frequencies and
 damping factors, which define the form that the \ac{FID} is expected to take.
-Sophisticated pieces of software such as \textsc{Spinach}~\cite{Hogben2011}
-solve this forward problem, yielding \ac{NMR} experiment simulations.
+Sophisticated pieces of software such as \textsc{Spinach}~\cite{Hogben2011} and
+\textsc{SpinDynamica}~\cite{Bengs2018} can solve this forward problem.
 Simulating an \ac{NMR} experiment is a \emph{well-posed} problem, since it
 satisfies the following properties:
 \begin{enumerate}
@@ -31,8 +31,8 @@ one of the three properties above. For example, given \iac{FID}, it is possible
 to conceive of numerous signal parameter specifications which would lead to a
 faithful representation of the data in a least squares sense, especially when
 considering \acp{FID} corrupted with noise which comprise signals of similar
-frequencies. Therefore, determining the ``optimal'' parameter set is a rather
-difficult challenge.
+frequencies. Therefore, determining the ``optimal'' parameter set has
+considerable challenges.
 
 For the purposes of this work, it is always assumed that an \ac{FID} to be
 estimated
@@ -69,7 +69,7 @@ signals poles as follows:
 \end{subequations}%
 Under this model, it is assumed that
 \iac{FID} consists of a summation of $M$ damped complex sinusoids in the
-presence in \ac{AWGN}.
+presence in noise.
 It should be noted that, prior to estimating the dataset, it is normalised
 such that the signal actually under consideration is $\nicefrac{\bY}{\lVert \bY
 \rVert}$.
