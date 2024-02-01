@@ -247,51 +247,28 @@ Finally a useable expression for the standard errors is arrived at:
 
 \section{Multidimensional \aclp{VE}}
 \label{sec:multidim-ve}
-The \ac{VE} concept (\cref{subsec:ve}) can be generalised to any number
+The \ac{VE} concept (\cref{subsec:ve}, \cpageref{subsec:ve}) can be generalised to any number
 of dimensions, assuming that a pair of amplitude-modulated signals exist for
 each indirect-dimension. Thus a set of $2^{D-1}$ signals is required for a
 $D$-dimensional \ac{FID}.
+
 For the \ac{2D} case, this corresponds to the pair of signals $\lbrace
-\bY^{\cos}, \bY^{\sin} \rbrace$, given by \cref{eq:general-fid} with $D=2$ and
-$\zeta = \lbrace \cos(\cdot), \sin(\cdot) \rbrace$, taking the forms (with
-noise neglected)
-\begin{subequations}
-    \begin{gather}
-        y^{\cos}_{\none,\ntwo} =
-            \xi^{\vphantom{(1)}}_{\none,\ntwo}
-            c^{(1)}_{\none,\ntwo}
-            \left(c^{(2)}_{\none,\ntwo} + \iu s^{(2)}_{\none,\ntwo}\right),\\
-        y^{\sin}_{\none,\ntwo} =
-            \xi^{\vphantom{(1)}}_{\none,\ntwo}
-            s^{(1)}_{\none,\ntwo}
-            \left(c^{(2)}_{\none,\ntwo} + \iu s^{(2)}_{\none,\ntwo}\right),\\
-        \xi^{\vphantom{(1)}}_{\none,\ntwo} =
-            \sum_m a_m \exp\left(-\etaonem \none \Dtone -\etatwom \ntwo \Dttwo\right),\\
-        (c/s)^{(1/2)}_{\none,\ntwo} =
-            \sum_m \cos / \sin \left(2 \pi f^{(1/2)} n^{(1/2)} \Updelta^{(1/2)}\right),\\
-        \forall M \in \lbrace 1, \cdots M \rbrace,
-        \ \forall \none \in \lbrace 0, \cdots \None - 1 \rbrace,
-        \ \forall \ntwo \in \lbrace 0, \cdots \Ntwo - 1 \rbrace,\notag
-    \end{gather}
-\end{subequations}
-where, as with the \ac{1D} case in the main text, it has been assumed the data
-is phased, such that $\phi_m = 0\ \forall m$.
-Four matrices $\symbf{\psi}_{\pm\pm}$ are then constructed of the form
+\bY^{\cos}, \bY^{\sin} \rbrace$, given by \cref{eq:general-fid}
+(\cpageref{eq:general-fid}) with $D=2$ and $\zeta = \lbrace \cos(\cdot),
+\sin(\cdot) \rbrace$.
+Four matrices $\symbf{\Psi}_{\pm^{(1)}\pm^{(2)}} \in \mathbb{C}^{\None \times
+\Ntwo}$ are constructed using the pair of amplitude-modulated \acp{FID}:
 \begin{equation}
     \begin{gathered}
-        \psi_{\pm\pm, \none, \ntwo} =
-            \xi_{\none,\ntwo}^{\vphantom{(1)}}
-            \left(c^{(1)}_{\none,\ntwo} \pm^{(1)} \iu s^{(1)}_{\none,\ntwo}\right)
-            \left(c^{(2)}_{\none,\ntwo} \pm^{(2)} \iu s^{(2)}_{\none,\ntwo}\right)\\
-         \equiv
-             \Re\left( y^{\cos}_{\none,\ntwo} \right)
+        \symbf{\Psi}_{\pm^{(1)}\pm^{(2)}} =
+            \Re\left( \bY^{\cos\vphantom{i}} \right)
              \pm^{(1)} \pm^{(2)} -
-             \Im\left( y^{\sin}_{\none,\ntwo} \right)
+             \Im\left( \bY^{\sin} \right)
              + \iu \left(
              \pm^{(1)}
-             \Re\left( y^{\sin}_{\none,\ntwo} \right)
+             \Re\left( \bY^{\sin} \right)
              \pm^{(2)}
-             \Im\left( y^{\cos}_{\none,\ntwo} \right)
+             \Im\left( \bY^{\cos\vphantom{i}} \right)
              \right),
     \end{gathered}
 \end{equation}
@@ -323,12 +300,14 @@ from which the matrices $\symbf{T}_{1 \rightarrow 4} \in \mathbb{C}^{2 \None
 \end{subequations}
 The virtual echo is then given by $\symbf{Y}_{\text{VE}} = \sum_{i=1}^4
 \symbf{T}_i$, with the first row and column divided by two. For a full outline
-of the 2D filtering procedure, see \cref{alg:filter-2d}.
+of the 2D filtering procedure, see \cref{alg:filter-2d}
+(\cpageref{alg:filter-2d}).
 
 It is possible to construct a virtual echo using an appropriate set of
 phase-modulated signals too, which for the \ac{2D} case would be $\lbrace
 \symbf{Y}^{\text{pos}}, \symbf{Y}^{\text{neg}}\rbrace$, given by
-\cref{eq:general-fid} with $D=2$ and  $\zeta = \lbrace \exp(\iu \cdot),
+\cref{eq:general-fid} with $D=2$ and\linebreak
+$\zeta = \lbrace \exp(\iu \cdot),
 \exp(-\iu\cdot)\rbrace$. These can be used to generate an amplitude modulated pair via
 \begin{subequations}
     \begin{gather}

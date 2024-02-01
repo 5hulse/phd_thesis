@@ -9,8 +9,8 @@ is employed.
 \subsection{An Overview of \ac{NLP}}
 \label{subsec:nlp-overview}
 In an optimisation problem, the goal is to determine the minimum\footnote{
-    In certain applications, the interest could actually be to find the maximum of
-    a function. However, it is trivial to transform a maximisation problem into
+    In certain applications, the interest could be to find the maximum of
+    the function instead. It is trivial to transform a maximisation problem into
     a minimisation problem by finding the minimum of the negative of the fidelity.
 }
 of a function $\Fth: \mathbb{R}^n \rightarrow \mathbb{R}, n \in \mathbb{N}$, often
@@ -114,7 +114,7 @@ typically used instead:
     ]
     {
         The \acs{NLP} routine employed in this work. This makes use of
-        Algorithms 4.1 \& 7.2 in ~\cite{Nocedal2006}, with a extra check
+        Algorithms 4.1 and 7.2 in ~\cite{Nocedal2006}, with a extra check
         inserted to deal with any negative-amplitude oscillators which may be
         generated as the routine evolves
         (\crefrange{state:neg-amp-start}{state:neg-amp-end}).
@@ -126,7 +126,7 @@ typically used instead:
             \State $\trmax \gets 16 \trustradius{0}$;
             \For {$k = 0, 1, \cdots $}
             \State $\symbf{p}^{(k)} \gets \textsc{SteihaugToint}\left(\symbf{Y}, \symbf{\theta}^{(k)}, \trustradius{k}\right)$;
-                \Comment{See \cref{alg:steihaug-toint}}
+                \Comment{See \cref{alg:steihaug-toint} (\cpageref{alg:steihaug-toint})}
                 \State $\rho^{(k)} \gets
                     \frac
                         {\Fphithk - \Fphithkpk}
@@ -170,14 +170,15 @@ typically used instead:
                     }
                     {(\None \cdots \ND) - 1}
                 }$;
-            \Comment{See \cref{subsec:errors}.}
+            \label{state:epsilon}
+            \Comment{See \cref{subsec:errors} (\cpageref{subsec:errors})}
             \State \textbf{return} $\symbf{\theta}^{(*)}, \symbf{\epsilon}^{(*)}$;
         \EndProcedure
     \end{algorithmic}
 \end{algorithm}
 A trust region method is applied in this work,
 with the typical steps involved given in
-\cref{alg:nlp} (ignoring \crefrange{state:neg-amp-start}{state:neg-amp-end}, which is a custom addition,
+\cref{alg:nlp} (ignoring \crefrange{state:neg-amp-start}{state:neg-amp-end}, which is a custom addition;
 see \cref{subsec:phase-variance}). An initial radius for the trust region
 $\trustradius{0}$ is defined, along with a maximum permitted radius
 $\trmax$, to ensure that excessively adventurous steps do not take place.
@@ -196,8 +197,9 @@ means of determining a sufficiently good update is used.
 Common approaches include computing the Cauchy point, the Dogleg
 method, and a truncated conjugate-gradient
 approach commonly called the \ac{ST} method~\cite[Chapter 7]{Nocedal2006}.
-The latter is employed in this work (see \cref{alg:steihaug-toint} and
-\cref{lst:tr}). In the \ac{ST} approach, iterates of the conjugate-gradient
+The latter is employed in this work (see \cref{alg:steihaug-toint},
+\cpageref{alg:steihaug-toint} and \cref{lst:tr}, \cpageref{lst:tr}). In the
+\ac{ST} approach, iterates of the conjugate-gradient
 method~\cite[Chapter 5]{Nocedal2006} are computed, either until an iterate which
 is outside the trust region is computed, or negative curvature is discovered.
 Once a provisional update $\bthkplusone = \bthk + \bpk$ is determined using the
@@ -266,15 +268,16 @@ respect to the elements in $\bth$:
                     \right\rangle
                 }_{\circled{2}}
             \biggl),
-            \label{eq:hess}\\
-        \forall i,j \in \lbrace 1, \cdots, 2(1+D)M \rbrace.\notag
+            \label{eq:hess}
     \end{gather}
     \label{eq:fidelity-grad-hess}%
 \end{subequations}
+$\forall i,j \in \lbrace 1, \cdots, 2(1+D)M \rbrace$.
 Computing these requires the generation of a large number of first and second
 partial derivatives; the complete set of these are given in
-\cref{sec:derivatives}, and a \Python implementation to compute them is given
-in \cref{lst:obj-grad-hess}.
+\cref{sec:derivatives} (\cpageref{sec:derivatives}), and a \Python
+implementation to compute them is given
+in \cref{lst:obj-grad-hess} (\cpageref{lst:obj-grad-hess}).
 Fortunately, fewer second partial derivatives need to be computed than one
 might initially suspect; $4(1 + D)^2 M^2$ of these exist per datapoint.
 However, all of those involving parameters associated with different
@@ -287,8 +290,9 @@ which further reduces the number of explicit computations that are necessary.
 Finally, the derivatives satisfying $\theta_i = \theta_j = a_m$ are always
 zero as well. The upshot of these features is that the total number of second
 derivatives that need to be computed is reduced to $(2D^2 + 5D + 2)M$ per
-datapoint (see \cref{tab:number-of-derivatives}). This is still rather large,
-especially when $D>1$, as will be evidenced in \cref{sec:profiling}.
+datapoint (see \cref{tab:number-of-derivatives}). This is still large,
+especially when $D>1$, as will be evidenced by a consideration of how long it
+takes to compute the Hessian (\cref{sec:profiling}).
 \begin{table}
     \begin{center}
         \begin{tabular}{ c c c }
@@ -318,8 +322,10 @@ especially when $D>1$, as will be evidenced in \cref{sec:profiling}.
 \end{table}
 
 The Hessian matrix at convergence can be employed to determine errors
-associated with the parameter estimates. More detail is provided in
-\cref{subsec:errors}.
+associated with the parameter estimates $\symbf{\epsilon}^{(*)}$, which are
+computed on \cref{state:epsilon} of \cref{alg:nlp}. A derivation of the
+expression for the parameter estimates is provided in
+\cref{subsec:errors} (\cpageref{subsec:errors}).
 
 \subsection{Approximating the Hessian}
 \label{subsec:hess-approx}
@@ -388,13 +394,12 @@ example.
 \end{figure}
 \Cref{fig:optim-vis} provides a visual example of the application of \ac{NLP}
 to estimate a simulated \ac{1D} \ac{FID} comprising a single signal.
-The FID was constructed using \cref{eq:general-fid} with $M=1$,
-$N = 64$, $\fsw = \qty{5.2}{\hertz}$ ($\Dt \approx
-\qty{0.192}{\second}$), and $\foff = \qty{0}{\hertz}$.
-It was constructed using the parameters $\bth \in \mathbb{R}^4$ comprising $a=1$,
+The FID was constructed using \cref{eq:general-fid} (\cpageref{eq:general-fid})
+with $M=1$, $N = 64$, $\fsw = \qty{5.2}{\hertz}$ ($\Dt \approx
+\qty{0.192}{\second}$), and $\foff = \qty{0}{\hertz}$, with the
+parameter vector $\bth \in \mathbb{R}^4$ featuring $a=1$,
 $\phi=\qty{0}{\radian}$, $f=\qty{1}{\hertz}$, and $\eta=\qty{0.2}{\per\second}$.
-\ac{AWGN}\label{corr:awgn}
-was added to the \ac{FID} to give it a target \iac{SNR} of
+Noise was added to the \ac{FID} to give it a target \iac{SNR} of
 \qty{10}{\deci\bel}. As the visualisation of 5D space is beyond the scope of
 this work, only two parameters, the frequency and damping factor, were optimised
 from an initial guess $\bthzero$; the amplitude and phase were fixed to
@@ -423,16 +428,10 @@ criterion $\epsilon = \num[print-unity-mantissa=false]{1e-8}$
 when the true Hessian was used, while 81 were required for the approximated
 case. Despite being an anecdotal example, this highlights that use of the true
 Hessian matrix tends to allow a better rate of convergence. However, for
-\acp{FID} comprising many signals and far more points, the approximated form
-often requires a shorter time to converge overall, especially for \ac{2D}
-\acp{FID}, as will be illustrated in \cref{sec:profiling}.
+\acp{FID} comprising many signals and more points, the approximated form
+often requires a shorter time to converge overall, especially for
+multidimensonal \acp{FID}.
 
-\begin{remark}
-    \correction{
-        Whenever simulated \ac{NMR} data is corrupted with noise in later examples
-        in this thesis, the type of noise is always \ac{AWGN}.
-    }\label{rem:awgn}
-\end{remark}
 
 \subsection{Phase Variance Minimisation}
 \label{subsec:phase-variance}
@@ -447,7 +446,8 @@ it is desirable to produce an estimate which not only achieves a good fit to
 the data in \iac{RSS} sense, but which is also in agreement with the process
 underpinning the observation. It is for this reason that iterative procedures
 typically require significant quantities of prior knowledge, beyond basic
-assumptions of the underlying model, in order to produce meaningful estimation
+assumptions of the underlying mathematical model, in order to produce
+meaningful estimation
 results.  This is also why they are often able to produce results which agree
 better with a spectroscopist's conception of what the ``correct'' parameter
 estimate should look like, relative to other methods where such detailed
@@ -458,7 +458,7 @@ estimates,
 one particular feature of these has been noticed on many occasions;
 oscillators in the result often exhibit ``spurious phase behaviour''.
 As has been discussed (see the description of phase correction,
-\cref{subsec:nmr-proc}),
+\cref{subsec:nmr-proc}, \cpageref{subsec:nmr-proc}),
 \ac{NMR} datasets for most experiments comprise signals whose phases
 depend on their frequencies to first order. This is routinely
 corrected in conventional \ac{NMR} spectral processing, such that all signals
@@ -637,12 +637,12 @@ given number of iterations ($25$ is the value given in \cref{alg:nlp}\footnote{
 })
 if any oscillators have acquired negative
 amplitudes, they are removed from the model, and the routine continues with a
-reduced number of oscillators. While not infallible, this can help to to get
-rid of excessive oscillators in the
+reduced number of oscillators. While not infallible, this can help to
+eliminate excessive oscillators in the
 model which do not correspond to true signals in the data. For example, in
 scenarios where an overestimate of model order has occurred, either by the
 \ac{MDL} or from human error in inspecting the number of spectral peaks, noise
 components will be incorporated into the \ac{MPM} result. These typically have
 greater variability in their phases; often, such oscillators gain negative
-amplitudes as the \ac{NLP} routine evolves, yielding a parsimonious estimation
-result.
+amplitudes and are hence removed as the \ac{NLP} routine evolves, yielding a
+parsimonious estimation result.

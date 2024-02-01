@@ -197,9 +197,10 @@ $\symbf{U}_{M1}^+\symbf{U}_{M2}^{\vphantom{+}}$, with
     \end{gather}
 \end{subequations}
 \cref{alg:mpm} provides a pseudo-code description of the \ac{MPM}, while
-\cref{lst:mpm} provides an example \Python implementation. For optimal
-results, the pencil parameter should adhere to $\lfloor \nicefrac{N}{3} \rfloor
-\leq L \leq \lfloor\nicefrac{2N}{3}\rfloor$~\cite{Hua1990}. In this work,
+\cref{lst:mpm} (\cpageref{lst:mpm}) provides an example \Python implementation.
+For optimal results, the pencil parameter should adhere to $\lfloor
+\nicefrac{N}{3} \rfloor \leq L \leq
+\lfloor\nicefrac{2N}{3}\rfloor$~\cite{Hua1990}. In this work,
 $\lfloor\nicefrac{N}{3}\rfloor$ is always used, primarily since the computational
 burden of the method is at a maximum when $L = \nicefrac{N}{2}$\footnote{
     With $L = \lfloor\nicefrac{N}{2}\rfloor$, the matrix
@@ -536,8 +537,9 @@ finally computed as follows:
     \label{eq:complex-amplitudes-2d}%
 \end{equation}
 
-See \cref{alg:mmempm} for a pseudo-code outline, and \cref{lst:mmempm} for a
-\Python implementation of the \ac{MMEMPM}.
+See \cref{alg:mmempm} (\cpageref{alg:mmempm}) for a pseudo-code outline, and
+\cref{lst:mmempm} (\cpageref{lst:mmempm}) for a \Python implementation of the
+\ac{MMEMPM}.
 
 \subsection{Model Order Selection}
 \label{subsec:model-order}
@@ -555,15 +557,14 @@ prominent being the \ac{AIC}~\cite{Akaike1974} and
 \ac{MDL}~\cite{Schwarz1978,Rissanen1978}. Both of these consider a family of
 potential models which describe a given set of observations, parametrised by
 the vector $\bth$. For the purpose of \ac{1D} \ac{FID} estimation, the family
-of potential models comprise \cref{eq:x} with variable $M$. Both the \ac{AIC}
-and \ac{MDL} take the same general form:
+of potential models comprise \cref{eq:x} (\cpageref{eq:x}) with variable $M$.
+Both the \ac{AIC} and \ac{MDL} take the same general form:
 \begin{equation}
-    \mathcal{C}(k) = -c \ln \left(\mathcal{L} \left(\bthstar | \by \right)
-    \right) + \mathcal{P}(k) \text{ with } \bthstar \in \mathbb{R}^{4k}
+    \mathcal{C}(k) = -c \ln \left(\Lbdthstary\right) +
+    \mathcal{P}(k) \text{ with } \bthstar \in \mathbb{R}^{4k}
     \quad \forall k \in \lbrace 0, 1, \cdots \rbrace.
 \end{equation}
- $\mathcal{L} \left(\bthstar |
-\by \right)$ is the likelihood
+$\Lbdthstary$ is the likelihood
 function of the model with order $k$ at the \ac{MLE}, $c \in
 \mathbb{R}_{>0}$ is a scaling constant, and $\mathcal{P}$ is a penalising
 function, which acts to correct
@@ -582,7 +583,7 @@ of complex sinusoids~\cite{Wax1985}\footnote{
     these are equivalent.
 }:
 \begin{equation}
-    \mathcal{L}\left(\bthstar \in \mathbb{R}^{4k} | \by\right) = \left(
+    \mathcal{L}\left(\bthstar \in \mathbb{R}^{4k} | \hspace{2pt} \by\right) = \left(
         \frac{
             \prod_{r=k}^{L-1} \sigma_{r+1}^{\nicefrac{1}{L-k}}
         }{
@@ -597,8 +598,8 @@ $\symbf{\sigma} \in
 in decreasing order. The explicit forms of the \ac{AIC} and \ac{MDL} are
 \begin{subequations}
     \begin{gather}
-        \operatorname{AIC}(k) = -2 \ln\left( \mathcal{L} \left(\bthstar | \by\right) \right) + 2k(2 L - k), \\
-        \operatorname{MDL}(k) = -\ln\left( \mathcal{L} \left(\bthstar | \by\right) \right) + \tfrac{1}{2} k(2 L - k) \ln N. \label{eq:mdl}
+        \operatorname{AIC}(k) = -2 \ln\left( \Lbdthstary \right) + 2k(2 L - k), \\
+        \operatorname{MDL}(k) = -\ln\left( \Lbdthstary \right) + \tfrac{1}{2} k(2 L - k) \ln N. \label{eq:mdl}
     \end{gather}
 \end{subequations}
 The \ac{AIC} has been shown to be inconsistent since it tends to overestimate
@@ -606,13 +607,12 @@ the model order as the number of samples increases~\cite{Wax1985}. For this
 reason, the \ac{MDL} has found greater favour in signal processing
 applications, and is employed in this work\footnote{
     In practice, rather than compute the global minimum of the \ac{MDL}, the
-    first relative minimum is determined (see \cref{alg:mpm},
-    \cref{state:mdl}). When $k$ is very large, it has been noticed that the
-    \ac{MDL} can spuriously jump in value. This often occurs when \acp{FID}
-    with very high \acp{SNR} are analysed; the singular values involved
-    can tend so closely to zero that issues related to the instability of
-    floating-point arithmetic manifest.
-    \label{fn:argrelmin}
+    first relative minimum is determined (see \cref{state:mdl} of
+    \cref{alg:mpm}, \cpageref{alg:mpm}). When $k$ is very large, it has been
+    observed that the \ac{MDL} can spuriously jump in value. This often occurs
+    when \acp{FID} with very high \acp{SNR} are analysed; the singular values
+    involved can tend so closely to zero that issues related to the instability
+    of floating-point arithmetic manifest.  \label{fn:argrelmin}
 }:
 \begin{equation}%
     M = \argmin_{k \in \mathbb{N}_0 :\ k < L} \operatorname{MDL} (k).%
@@ -645,7 +645,7 @@ applications, and is employed in this work\footnote{
         Circular points with solid lines: the \ac{MDL}.
         Stars denote the minimum of the \ac{MDL} for a given \ac{FID}. The
         \qty{20}{\deci\bel}
-        signal is correctly deemed to have a model order of 7, while the other
+        \acs{FID} is correctly deemed to have a model order of 7, while the other
         two are underestimated (predicted model orders are 5 and 3 for the
         \qty{12}{\deci\bel} and \qty{7}{\deci\bel} \acsp{FID}, respectively).
     }%

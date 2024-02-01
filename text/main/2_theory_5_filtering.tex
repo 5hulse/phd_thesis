@@ -42,7 +42,8 @@ summation of exponentially damped complex sinusoids, it is necessary that the
 spectral peaks of interest lie (effectively) entirely within the filter
 region\footnote{
     A Lorentzian function tends to but never explicitly reaches zero as the
-    distance from its maximum tends to $\infty$ (\cref{eq:lorentzian}).
+    distance from its maximum tends to $\infty$ (\cref{eq:lorentzian},
+    \cpageref{eq:lorentzian}).
     However, as long as a sufficiently wide filter region is defined, the
     extent to which the ``tails'' of the Lorentzian fall outside the filter
     window can be assumed to be negligible, especially when in the presence of
@@ -56,60 +57,55 @@ signal with double the size of the original \ac{FID}, with the key
 characteristic that its \ac{FT} has an imaginary component of zeros. The
 \ac{VE} concept can be applied to data of any number of dimensions. However,
 discussion in this section will be limited to \ac{1D} \acp{VE};
-an account of the \ac{2D} \ac{VE} is provided in \cref{sec:multidim-ve}.
+an account of the \ac{2D} \ac{VE} is provided in \cref{sec:multidim-ve}
+(\cpageref{sec:multidim-ve}).
 
-Assuming that a \ac{1D} \ac{FID} $\by \in \mathbb{C}^N$ is phased, such that
-$\bdphi = \symbf{0} \in \mathbb{R}^M$, it can be described by
-\begin{subequations}
-    \begin{gather}
-        y_n = \xi_n (c_n + \iu s_n) + w_n,\\
-        \xi_n = \sum_m a_m \exp(-\eta_m n \Dt),\\
-        c_n / s_n = \sum_m \cos / \sin(2 \pi f_m n \Dt).
-    \end{gather}
-\end{subequations}
-The frequency-dependence has been decomposed into its real and imaginary
-components. With this in mind, a conjugate pair of signals $\symbf{\psi}_{\pm}
-\in \mathbb{C}^N$ is defined:
-\begin{equation}
-    \psi_{\pm,n} = \xi_n (c_n \pm \iu s_n) + w_n \equiv \Re(y_n) \pm \iu \Im(y_n)
-\end{equation}
-Two vectors $\symbf{t}_{1}, \symbf{t}_2 \in \mathbb{C}^{2N}$
-are constructed using the conjugate pair.
-$\symbf{t}_1$ is given by $\symbf{\psi}_+$ padded with zeros from below:
+\correction{
+    \label{corr:ve-edit}
+    Two vectors $\symbf{t}_{1}, \symbf{t}_2 \in \mathbb{C}^{2N}$
+    are constructed from the original \ac{FID} $\by \in \mathbb{C}^N$:
+    \begin{itemize}
+        \item $\symbf{t}_1$ is given by $\by$ padded with zeros from below:
+        \begin{equation}
+            \symbf{t}_1 = \begin{bmatrix}
+                \by \\ \symbf{0} \in \mathbb{C}^{N}
+            \end{bmatrix}.
+        \end{equation}
+    \item $\symbf{t}_2$ is given by the complex conjugate of $\by$ with its elements in
+        reversed order ($\cdot^{{\leftrightsquigarrow}}$), padded with zeros
+        from above, and finally subjected to a right circular shift by one
+        element ($\cdot^{{\circlearrowright}}$):
+        \begin{equation}
+            \symbf{t}_2 = \begin{bmatrix}
+                \symbf{0} \in \mathbb{C}^{N} \\ (\by^*)^{{\leftrightsquigarrow}}
+        \end{bmatrix}^{{\circlearrowright}}.
+       \end{equation}
+    \end{itemize}
+    The \ac{VE} $\by_{\text{VE}}$ is then given by $\symbf{t}_1 +
+    \symbf{t}_2$, with the first element divided by $2$.
+    This process is equivalent to:
     \begin{equation}
-        \symbf{t}_1 = \begin{bmatrix}
-            \symbf{\psi}_+ \\ \symbf{0} \in \mathbb{C}^{N}
-        \end{bmatrix}.
+        \by_{\text{VE}} =
+        \begin{bmatrix}
+            \Re(y_0^{\vphantom{*}}) &
+            y_1^{\vphantom{*}} &
+            \cdots &
+            y_{N-1}^{\vphantom{*}} &
+            0 &
+            y_{N-1}^* &
+            \cdots &
+            y_1^*
+        \end{bmatrix}\T.
     \end{equation}
-$\symbf{t}_2$ is given by $\symbf{\psi}_{-}$ with its elements in
-    reversed order ($\cdot^{{\leftrightsquigarrow}}$), padded with zeros
-    from above, and finally subjected to a right circular shift by one
-    element ($\cdot^{{\circlearrowright}}$):
-    \begin{equation}
-        \symbf{t}_2 = \begin{bmatrix}
-            \symbf{0} \in \mathbb{C}^{N} \\ \symbf{\psi}_-^{{\leftrightsquigarrow}}
-    \end{bmatrix}^{{\circlearrowright}}.
-   \end{equation}
-The \ac{VE} $\by_{\text{VE}}$ is then given by $\symbf{t}_1 +
-\symbf{t}_2$, with the first element divided by $2$. This entire process is
-equivalent to
-\begin{equation}
-    \by_{\text{VE}} =
-    \begin{bmatrix}
-        \Re(y_0^{\vphantom{*}}) &
-        y_1^{\vphantom{*}} &
-        \cdots &
-        y_{N-1}^{\vphantom{*}} &
-        0 &
-        y_{N-1}^* &
-        \cdots &
-        y_1^*
-    \end{bmatrix}\T.
-\end{equation}
+    While the means of describing the process using the vectors $\symbf{t}_1$
+    and $\symbf{t}_2$ might seem abstract, it is instructive when considering
+    the \acp{VE} of multidimensional \acp{FID}.
+}
 As alluded to already, the \ac{FT} of $\by_{\text{VE}}$ produces a spectrum
 $\symbf{s}_{\text{VE}}$ such that $\Im\left(\symbf{s}_{\text{VE}}\right) =
 \symbf{0}$, with $\Re\left(\symbf{s}_{\text{VE}}\right)$ featuring absorption
-Lorentzian peaks.
+Lorentzian peaks, assuming that appropriate phase correction has been applied
+to the data.
 
 \subsection{The Filtering Process}
 \begin{remark}
