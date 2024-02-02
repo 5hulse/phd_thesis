@@ -14,11 +14,11 @@ For the experimental datasets considered (\cref{subsec:andro,subsec:cyclo}),
 the data were pre-processed using \textsc{Bruker}'s \textsc{TopSpin} software,
 using the series of commands \texttt{ft; pk; abs}; these perform \ac{FT},
 automatic phase correction, and baseline correction, respectively.
-The data was
+The data were
 then converted back to the time-domain using \ac{IFT} prior to filtering and
 estimation. \correction{Relevant metrics, including timings, are presented for the
 experimental datasets in \cref{tab:onedim-metrics}
-(\cref{subsec:onedim-metrics}).}\label{corr:onedim-timings}
+(\cpageref{tab:onedim-metrics}).}\label{corr:onedim-timings}
 
 \subsection{``Twenty Signals''}
 %%% Previously had this as landscape:
@@ -56,8 +56,7 @@ experimental datasets in \cref{tab:onedim-metrics}
         variance-regularised \acs{NLP} used afterwards.
     ]{
         The result of estimating a series of 5 simulated \acp{FID} comprising
-        20 signals. See the main text for details on how the \acp{FID} were
-        constructed.
+        20 signals.
         \textbf{a.} Spectra of the \acp{FID} generated.
         \textbf{b.} Spectral lines corresponding to the set of signals
         used to generate each \ac{FID}.
@@ -89,7 +88,8 @@ experimental datasets in \cref{tab:onedim-metrics}
     \label{fig:mpm_vs_nlp}
 \end{figure}
 A series of five simulated \acp{FID} were constructed using
-\cref{eq:hypercomplex-fid} with $D=1$. For each \ac{FID}, a model order
+\cref{eq:hypercomplex-fid} (\cpageref{eq:hypercomplex-fid}) with $D=1$. For
+each \ac{FID}, a model order
 of $M=20$ was used, the number of points sampled was $N = 1024$, the spectral
 width was $\fsw=\qty{125}{\hertz}$, and the transmitter offset was $\foff
 = \qty{0}{\hertz}$.  Each oscillator was assigned a phase of \ang{0}, while the
@@ -99,11 +99,11 @@ $\forall m \in \lbrace 1, \cdots, 20\rbrace$:
 $a_m \sim \mathcal{U}(1, 5)$, $f_m \sim \mathcal{U}(\qty{-55}{\hertz},
 \qty{55}{\hertz})$, $\eta_m \sim \mathcal{U}(\qty{2}{\per\second},
 \qty{8}{\per\second})$. The frequencies were subjected to an additional
-constraint; no two signals were permitted to have frequencies that
+constraint: no two signals were permitted to have frequencies that
 differed by less than $\nicefrac{4 \fsw}{N} \approx \qty{0.49}{\hertz}$.
 Each \ac{FID} $\bx$ was then corrupted with noise, with a target
 \ac{SNR} of \qty{25}{\deci\bel}, such that the desired noise variance for each
-\ac{FID} was given by (\emph{cf.} \cref{eq:snr,eq:snr-db}):
+\ac{FID} was given by (\emph{cf.} \cref{eq:snr,eq:snr-db}, \cpageref{eq:snr}):
 \begin{equation}
     \sigma^2 = \frac{1}{20^{2.5} \times 1024}
         \sum_{n=0}^{1023} \lvert x_n \rvert^2.
@@ -119,8 +119,8 @@ For each \ac{FID}, the \ac{MPM} was performed, assuming a model order of
 30, constituting a considerable over-fit of oscillators. The \ac{MDL} tended to
 produce under-estimates of $M$ when applied to these \acp{FID}, so the
 hard-coded value was used instead to ensure sufficient oscillators were given
-to the model. The under-estimates were likely due to the
-low \ac{SNR} of the signals\,---\,recall the red signal in \cref{fig:mdl}\,---\,in
+to the model. The under-estimates were due to the
+low \ac{SNR} of the signals, in
 conjunction with severe signal overlap. When an excessive model order is
 provided to the \ac{MPM}, it is typical that oscillators corresponding to the
 noise subspace of the data matrix $\Hy$ are characterised by small amplitudes
@@ -176,15 +176,14 @@ leading to it being removed from the parameter set. This typically occurred with
 oscillators that had an initial phase which was either $>
 \nicefrac{\pi}{2}$\,\unit{\radian}, or $< -\nicefrac{\pi}{2}$\,\unit{\radian}.
 Therefore, yellow oscillators indicate cases where the final result
-under-fit the dataset.
+under-fit the frequency neighbourhood.
 
 There are a couple of instances, denoted by red oscillators,
 where the \ac{MPM} assigned too few oscillators to a particular frequency
 neighbourhood, and as such the \ac{NLP} routine would not have been able to
-yield any major improvement. This occurred in what can safely be described as
-fiendishly difficult cases, where severe signal overlap and low \ac{SNR} make
-it very difficult to associate certain spectral regions with more than one
-signal by eye.
+yield any major improvement. This typically occurred in frequency
+neighbourhoods where severe signal overlap was present, such that it would be
+difficult to associate the neighbourhoods with more than one signal by eye.
 
 The final two oscillator groupings, coloured purple and orange respectively,
 indicate scenarios where the \ac{MPM} generated more oscillators than true
@@ -197,7 +196,7 @@ to the orange ones in \cref{fig:mpm_vs_nlp}.c. Finally, the purple oscillators
 denote the one
 occasion (Run 3) where an over-fit occurred, and the model order was not
 successfully reduced by the \ac{NLP} routine. One of the purple oscillators in
-the \ac{MPM} appears to agree closely with a significant ``blip'' in the noise,
+the \ac{MPM} agrees closely with a significant blip in the noise,
 denoted by an asterisk in \cref{fig:mpm_vs_nlp}.a.
 The over-fit has therefore occurred because this noise component was
 incorporated into the final result; it was neither purged based on the
@@ -240,8 +239,8 @@ Various spectral regions were chosen for study, and for each one, a
 frequency-filtered sub-\ac{FID} was produced using the approach in
 \cref{sec:filtering}.
 The \ac{MPM} was used to generate an initial guess of parameters, using the
-\ac{MDL} to predict the model order in each case. The result of applying the
-\ac{MPM} are presented in \cref{fig:andro-onedim}.b. The initial guess
+\ac{MDL} to predict the model order in each case. The \ac{MPM} result
+is presented in \cref{fig:andro-onedim}.b. The initial guess
 was then subjected to \ac{NLP}, giving rise to the result
 \cref{fig:andro-onedim}.c.
 
@@ -251,7 +250,7 @@ The estimation method's ability to parametrise signals with high
 dynamic range and high variation of damping factors is also evidenced;
 a broad intense singlet from water, and a low-intensity quartet from
 residual ethanol in the sample, present in the same sub-\ac{FID}, could both be
-estimated admirably for example.
+parameterised effectively, for example.
 For some of the sub-\acp{FID} considered, the \ac{MPM} output featured
 oscillators, commonly with very high damping factor and/or phases far from
 \ang{0}, which were removed during the \ac{NLP} routine (see the red
@@ -320,8 +319,10 @@ Spin  & Coupling partners & Apparent Multiplet structure \\
 \label{tab:andro-multiplets}
 \end{table}
 
-One of the most challenging aspects of estimating \ac{NMR} datasets is
-the presence of signals that have \correction{similar frequencies}\footnote{
+Despite this, in a number of the examples presented, the parameter estimate is
+not actually in agreement with the true number of signals present in the region
+considered. One of the most challenging aspects of estimating \ac{NMR} datasets
+is the presence of signals that have \correction{similar frequencies}\footnote{
     \correction{
         In this context, two frequencies $i, j$ are deemed to be similar
         if their difference is approximately the same as the spectral resolution,
@@ -373,19 +374,22 @@ expected. However, 3 of the couplings are of similar magnitudes, such that
 many of the contributing signals coalesce to form what is apparently a quartet
 of doublets (dq).
 The estimation routine was able to resolve this dq structure,
-however the large deviations in the residual again imply that under-fitting has
-occurred, and each of the 4 ``central'' oscillators in the parameter set is in
-fact being used to fit three signals present in the \ac{FID}. Again, at the
-field strength used to acquire the \ac{FID}, it is unlikely that an accurate
-resolution of all 16 signals by estimation is feasible.
+however the large deviations in the residual, predominantly focussed around the
+four central oscillators in the model, again imply that under-fitting has
+occurred. Each of the 4 ``central'' oscillators in the parameter set is
+fact being used to fit three signals present in the \ac{FID} which have almost
+identical frequencies. As with spin (Q), at the field strength used to acquire the
+\ac{FID}, it is unlikely that an accurate resolution of all 16 signals by
+estimation is feasible, at least using a method that relies on such little
+\emph{a priori} information.
 
 \correction{
     One potential way to overcome the under-fit of crowded frequency
     neighbourhoods is to retroactively adjust the parameter estimate, by
     ``splitting'' oscillators. For the spin (V) example, one could
     take the 8-oscillator estimate generated, and from this create a
-    16-oscillator estimate in which each of the original 4 central oscillators
-    is replaced by three new ones, each with a third of the amplitude
+    16-oscillator estimate in which each of the 4 central oscillators
+    is replaced by three new ones, all of which have a third of the amplitude
     and frequencies given by $\lbrace f_m - \Updelta f, f_m, f_m + \Updelta f
     \rbrace \forall m \in \lbrace 3, 4, 5, 6 \rbrace$, for an appropriate
     initial splitting value $\Updelta f$. The new
@@ -413,7 +417,9 @@ resolvable, effective estimation results are achievable.
     The oscillators are not perfectly consistent in terms of their relative
     amplitudes, which one would predict to be equal based on the coupling
     scheme. This is attributable to the large error associated with significant
-    signal overlap in the frequency neighbourhood.
+    signal overlap in the frequency neighbourhood. Again, as noted above,
+    incorporating appropriate constraints may be beneficial in such
+    circumstances.
 }\label{corr:unequal-amps}
 
 \subsection{Cyclosporin A}
@@ -454,7 +460,7 @@ that used for the andrographolide example.
 
 For the most downfield region
 considered, featuring signals from spins (A) and (B), the \ac{MPM} performed
-admirably, with the two well-resolved dd multiplet structures present
+strongly, with the two well-resolved dd multiplet structures present
 accurately parametrised by the 8 oscillators in the model; the \ac{NLP} routine
 hardly perturbed the initial guess as a result.
 
@@ -470,8 +476,7 @@ oscillators, subtly adjusted the parameter estimate to achieve a set of
 oscillator amplitudes that are more consistent with this ratio.
 
 The most downfield region contains three separate multiplet structures
-featuring significant signal overlap in the Fourier domain, particularly
-involving those corresponding to spins (E) and (F).
+featuring significant overlap in the Fourier domain.
 The \ac{MPM} produced sufficient oscillators to model these
 structures (see \cref{tab:andro-multiplets} for an outline of the structures
 present).
@@ -479,7 +484,7 @@ However, particularly in the most crowded section around
 \SIrange{4.96}{4.92}{\partspermillion} it can be seen that certain oscillators
 have phases which noticeably deviate from \ang{0}. In applying the \ac{NLP}
 routine, not only did the phases become more consistent,
-but the oscillator amplitudes also become more agreeable.
+but the oscillator amplitudes do too.
 For example, the highest- and lowest-frequency model oscillators
 associated with the 1:3:6:3:1 quintet of spin (F) (denoted by
 \textdagger\ in Figures \ref{fig:cyclosporin}.b and \ref{fig:cyclosporin}.c)
@@ -495,7 +500,4 @@ regions, since there is a larger set of values in the parameter space which
 will lead to acceptable fits of the data in an \ac{RSS} sense. Nonetheless,
 armed simply with knowledge that the data is phased, the routine performs
 admirably in highlighting  how the spectrum breaks down into its various
-signal components. An improved estimation result could be attained by
-supplying the \ac{NLP} routine with more knowledge in the form of parameter
-constraints. While this has not been implemented in this work, it is discussed
-in \cref{sec:future-work} as a possible pursuit for the future.
+signal components.

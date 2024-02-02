@@ -7,10 +7,10 @@ leads to the generation of a series of
 In this section, an extension of the established \ac{1D} estimation
 technique is described, facilitating the analysis of datasets acquired using
 these experiments.
-After the most prominent examples of this class of experiment have been
-introduced, the methodology of the technique to analyse them is described.
-Finally, the technique's performance when applied to both simulated and
-experimental datasets is showcased.
+After the most well-known examples of this class of experiment have been
+discussed, the methodology behind the proposed estimation technique is described.
+Finally, examples of its performance when applied to both simulated and
+experimental datasets are given.
 
 \subsection{Relaxation Experiments}
 \label{subsec:relaxation_experiments}
@@ -52,7 +52,9 @@ signals with maximal amplitude, but phases of \ang{180} (equivalent to a
 negative amplitude) will result\footnote{
     Here it is being assumed that a perfect $\ang{90}_y$ pulse is being
     applied, such that magnetisation along $-z$ will be rotated onto the $-x$
-    axis.
+    axis. Even though this doesn't usually happen in real experiments, the data
+    spectra generated are phase-corrected to ensure the initial (small $\tau$)
+    ones are negative.
 }. At the other extreme of $\tau \gg T_1$,
 the spin system will have reverted
 back to equilibrium, such that the signals will also have maximal amplitudes,
@@ -68,12 +70,11 @@ has returned to equilibrium. Note that $a(0) = -a_{\infty}$, as the magnetisatio
 has been completely inverted, and no time has been allowed for longitudinal
 relaxation to take place. An example of a series of spectra acquired using a
 (simulated) inversion recovery experiment is given by
-\cref{fig:five-multiplets-invrec}.d.
+\cref{fig:five-multiplets-invrec}.d (\cpageref{fig:five-multiplets-invrec}).
 
-\subsubsection{Measuring $T_2$: \acs{CPMG}}
-\label{subsec:cpmg}
-Inspired by the inversion recovery experiment, one might assume
-that the pulse sequence $\ang{90} \rightarrow \tau \rightarrow \tone$ would be
+\subsubsection{Measuring $T_2$: \acs{CPMG}} \label{subsec:cpmg}
+Inspired by the inversion recovery experiment, one might a na\"ively assume
+that the pulse sequence $\ang{90} \rightarrow \tau \rightarrow \tone$ is
 effective for  $T_2$ determination.
 \correction{
     However, this is not so; due to chemical shift evolution in the $\tau$
@@ -199,8 +200,8 @@ where
 $a_0$ is the amplitude of a given signal without the application of \acp{PFG},
 $\delta$ is the duration of each \ac{PFG} (\unit{\second}), and
 \correction{
-    $\Updelta$ is the time from the start of the first \ac{PFG} to the start
-    of the next,
+    $\Updelta$ is the time from the start of the first \ac{PFG}
+    to the start of the second,
 }\label{corr:diffusion-time} often known as the \emph{diffusion time}
 (\unit{\second}).
 While \cref{eq:stejskal_tanner} is widely stated in the diffusion \ac{NMR}
@@ -588,7 +589,7 @@ An outline of the estimation procedure is provided by \cref{alg:estimate-seq}.
             M
             \right)
         $;
-        \Comment{Estimate first increment, see \cref{alg:1d-2d-summary}.}
+        \Comment{Estimate first increment, see \cref{alg:1d-2d-summary} (\cpageref{alg:1d-2d-summary}).}
         \State $M \gets \nicefrac{\text{len}(\bth_{1})}{4}$;
         \State $\bth, \symbf{\epsilon} \gets  \symbf{0} \in \mathbb{R}^{(K + 3)M}, \symbf{0} \in \mathbb{R}^{(K + 3)M}$;
         \Comment{Initialise complete parameter vector.}
@@ -606,10 +607,10 @@ An outline of the estimation procedure is provided by \cref{alg:estimate-seq}.
                 \chi,
                 \right);
                 $
-            \Comment{\cref{alg:filter-1d}.}
+            \Comment{\cref{alg:filter-1d} (\cpageref{alg:filter-1d}).}
             \State $\bth_{k}, \symbf{\epsilon}_{k} \gets
             \textsc{NLPAmp}\left(\widetilde{\by}, \bth_{k-1}\right)$;
-            \Comment{Similar to \cref{alg:nlp}, though see the caption.}
+            \Comment{Similar to \cref{alg:nlp} (\cpageref{alg:nlp}), though see the caption.}
             \State $\bth[kM : (k+1)M], \symbf{\epsilon}[kM : (k+1)M] \gets \bth_k[:M], \symbf{\epsilon}_k[:M]$;
             \Comment{Extract amplitudes.}
         \EndFor
@@ -750,7 +751,7 @@ generate the distribution.
     $h\left(\symbf{\vartheta}_m^{(*)}\right)_{i,j}$ (see \cref{eq:seq-hessian}).
     The derivation of \cref{eq:seq-errors} is akin to that for the errors associated
     with \ac{FID} estimation; more detail on \ac{FID} estimation errors is
-    provided in \cref{subsec:errors}.
+    provided in \cref{subsec:errors} (\cpageref{subsec:errors}).
 }\label{corr:seq-errors}
 
 \subsection{Results}
@@ -830,9 +831,10 @@ For each spin, a $T_1$ value was sampled from $\mathcal{U}(\qty{1}{\second},
 \qty{5}{\second})$, and a $T_2$ value was sampled from
 $\mathcal{U}(\qty{0.2}{\second}, \qty{0.6}{\second})$.
 Relaxation phenomena were modelled using the ``extended $T_1$/$T_2$
-approximation''~\cite{SpinachRelax} (see \cref{subsec:invrec-datasets} for more
+approximation''~\cite{SpinachRelax} (see \cref{subsec:invrec-datasets},
+\cpageref{subsec:invrec-datasets} for more
 information).
-Each \ac{FID} generated dataset was corrupted by noise with a target
+Each of he three datasets w corrupted by noise with a target
 \ac{SNR} of \qty{40}{\deci\bel}. The \ac{MDL} was used for model order
 prediction; it successfully predicted that 40 signals were present on each
 occasion.
@@ -843,12 +845,12 @@ with the $T_1$ of the spin giving rise to it (see
 \cref{fig:five-multiplets-invrec}.b). As is to be
 expected, in scenarios where little overlap existed between signals with
 different decay rates, $T_1$ predictions tended to be more accurate, with
-smaller associated errors (see for example the purple and orange multiplets in Run 1.
+smaller associated errors; see for example the purple and orange multiplets in Run 1.
 Nevertheless, good estimates could still be obtained in cases of severe
-overlap between signals from different spins (see the red, blue and yellow
-multiplets in Run 1). Reassuringly, particular oscillators for which the
-estimate of $T_1$ was notably far from the true value tended to be associated
-with large errors, with examples denoted with an asterisk in
+overlap between signals from different spins, with the red, blue and yellow
+multiplets in Run 1 being a good example. Reassuringly, particular oscillators
+for which the estimate of $T_1$ was notably far from the true value tended to
+be associated with large errors, with examples denoted with an asterisk in
 \cref{fig:five-multiplets-invrec}.c.
 
 \subsubsection{Andrographolide Diffusion}
@@ -890,25 +892,24 @@ The diffusion profile generated suggests a diffusion constant of andrographolide
 each estimated oscillator, especially those with greater intensity, show
 good consistency.
 Lower intensity oscillators, especially those which
-significantly overlap with others, tended to be associated with
+significantly overlap with others, were be associated with
 less consistent diffusion constants and larger errors with examples of this
 phenomenon apparent in \cref{fig:andrographolide-dosy}.d. A few
 oscillators also show a
 significant deviation at around \qty{2.5}{\partspermillion}. This is due to the
-presence of a 1:2:3:2:1 quintet from partially protonated \acs{DMSO}, due to
-proton exchange with the residual water\footnote{
+presence of a 1:2:3:2:1 quintet from partially protonated \acs{DMSO}, formed
+through proton exchange with the residual water\footnote{
     This multiplet structure arises from the \ch{^1H} in \acs{DMSO} coupling to
     two
     equivalent spin-$1$ \ch{^2H} nuclei. The relative amplitudes of the signals
     can be deduced by considering the ``trinomial triangle'', an extension of
-    the more familiar Pascal's triangle, the latter being applicable to
-    couplings involving equivalent spin-$\nicefrac{1}{2}$ nuclei.
+    the more familiar binomial (Pascal's) triangle, the latter being applicable
+    to couplings involving equivalent spin-$\nicefrac{1}{2}$ nuclei.
 }. As the
 data are insufficiently resolved to enable the separation of andrographoilde and
 \acs{DMSO} signals, oscillators exist in the model which have amplitude profiles
-influenced by both species, leading to an aggregated diffusion constant. As
-$D_{\text{DMSO}} > D_{\text{andrographoilide}}$, the affected oscillators
-possess larger predicted diffusion constants.
+influenced by both species, leading to an aggregated diffusion constant (N.B.
+$D_{\text{DMSO}} > D_{\text{andrographoilide}}$).
 
 \subsubsection{Glucose/Valine/Threonine Diffusion}
 \begin{figure}
@@ -943,7 +944,7 @@ L-threonine ($M_r = \qty{119.120}{\gram\per\mole}$), and D-(+)-glucose ($M_r =
 D\textsubscript{2}O at \qty{298}{\kelvin}. Not included in the figure is the
 result for the water signal, for which a diffusion constant of
 \qty{1.88e-9}{\meter\squared\per\second} was determined. The routine
-was able to separate of the three species in the sample along the diffusion
+was able to separate the three species in the sample along the diffusion
 axis. Predicted diffusion coefficients for valine and threonine were
 \qty{6.20e-10}{\meter\squared\per\second} and
 \qty{6.39e-10}{\meter\squared\per\second}, respectively. For glucose, the situation is
@@ -967,9 +968,9 @@ and \qty{5.34e-10}{\meter\squared\per\second}, respectively. Beyond these
 however, the other estimated oscillators corresponding to glucose have
 associated errors which are too large for clear resolution of the two species.
 \correction{
-    The small difference in diffusion constants associated with the anomers is
-    likely related to how effectively they are able to hydrogen-bond to the
-    solvent.
+    The small but apparent difference in diffusion constants associated with
+    the anomers is likely related to how effectively they are able to
+    hydrogen-bond to the solvent.
 }\label{corr:gluc-D}
 
 As is to be expected, signals which are of greater intensity, and which are
