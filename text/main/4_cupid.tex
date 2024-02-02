@@ -1,14 +1,19 @@
 \chapter{2DJ Estimation for Pure Shift NMR}
 \label{chap:cupid}
 Two key features of the \ac{NMR} experiment for which improvements are
-constantly being sought are sensitivity and resolving power. There are numerous
-means of enhancing sensitivity, such as the use of magnets with higher field
-strengths~\cite{Maeda2019} (sensitivity $\propto B_0^{\nicefrac{3}{2}}$) and
-cryogenic probes~\cite{Kovacs2020}, as well as simply
-increasing the number of scans (sensitivity $\propto \operatorname{NS}^{\nicefrac{1}{2}}$)\label{corr:ns}.
+constantly being sought are sensitivity and resolving power.
+\correction{
+    \label{corr:ns}
+    There are numerous means of enhancing sensitivity, such as the use of
+    magnets with higher field strengths ($\operatorname{SNR} \propto
+    B_0^{3/2}$)~\cite{Maeda2019} and cryogenic probes~\cite{Kovacs2020}, as
+    well as simply increasing the number of transients ($\operatorname{SNR}
+    \propto N_{\text{t}}^{1/2}$)~\cite[Section 5.2]{Levitt2007}.
+}
 However, few means of achieving better resolution exist beyond increased field
-strengths (resolution $\propto B_0$), and ensuing that a homogeneous magnetic
-field is used through the use of shimming. Significant interest has therefore
+strengths (resolution $\propto B_0$), and ensuing that a magnetic
+field with a high degree of homogeneity is used through the use of shimming.
+Significant interest has therefore
 been given to the development of techniques which generate broadband homodecoupled
 (\emph{pure shift}) spectra, in which the effects of homonuclear scalar
 couplings are absent from the data. While often valuable for structural
@@ -20,7 +25,7 @@ far more challenging. At the time of writing, there are a number of approaches
 for acquiring pure shift spectra; the most popular modern approach
 involves running a suitable \ac{2D} pulse sequence, and concatenating the initial
 sections of each \ac{FID}, in a process referred to as
-``chunking''~\cite{Meyer2013,Adams2014,Zangger2015}. The key drawback of all of
+\emph{chunking}~\cite{Meyer2013,Adams2014,Zangger2015}. The key drawback of all of
 these techniques is that the resultant pure shift signal is considerably less
 sensitive relative to a standard pulse-acquire experiment, since only a
 fraction of the available spin magnetisation contributes to that which is

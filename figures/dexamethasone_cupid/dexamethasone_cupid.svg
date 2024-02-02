@@ -6,7 +6,7 @@
    version="1.2"
    id="svg1392"
    sodipodi:docname="dexamethasone_cupid.svg"
-   inkscape:version="1.3 (1:1.3+202307231459+0e150ed6c4)"
+   inkscape:version="1.3.2 (091e20e, 2023-11-25)"
    xmlns:inkscape="http://www.inkscape.org/namespaces/inkscape"
    xmlns:sodipodi="http://sodipodi.sourceforge.net/DTD/sodipodi-0.dtd"
    xmlns:xlink="http://www.w3.org/1999/xlink"
@@ -23,13 +23,13 @@
      inkscape:deskcolor="#d1d1d1"
      inkscape:document-units="pt"
      showgrid="false"
-     inkscape:zoom="1.9764826"
-     inkscape:cx="204.15055"
-     inkscape:cy="357.20022"
-     inkscape:window-width="3756"
-     inkscape:window-height="2096"
-     inkscape:window-x="84"
-     inkscape:window-y="27"
+     inkscape:zoom="2.7951685"
+     inkscape:cx="209.28971"
+     inkscape:cy="430.74326"
+     inkscape:window-width="3840"
+     inkscape:window-height="2057"
+     inkscape:window-x="0"
+     inkscape:window-y="28"
      inkscape:window-maximized="1"
      inkscape:current-layer="svg1392" />
   <defs
@@ -9042,7 +9042,7 @@
   <g
      style="fill:#000000;fill-opacity:1"
      id="g1392"
-     transform="translate(-415.99301,330.02148)">
+     transform="translate(-408.07757,323.9172)">
     <use
        xlink:href="#glyph5-1"
        x="824.422"
@@ -9063,6 +9063,31 @@
        x="833.74707"
        y="69.119003"
        id="use1392" />
+  </g>
+  <g
+     style="fill:#000000;fill-opacity:1"
+     id="g1392-3"
+     transform="translate(-404.38396,109.81482)">
+    <use
+       xlink:href="#glyph5-1"
+       x="824.422"
+       y="69.119003"
+       id="use1389-6" />
+    <use
+       xlink:href="#glyph5-2"
+       x="828.00854"
+       y="69.119003"
+       id="use1390-7" />
+    <use
+       xlink:href="#glyph5-3"
+       x="830.87781"
+       y="69.119003"
+       id="use1391-5" />
+    <use
+       xlink:href="#glyph5-4"
+       x="833.74707"
+       y="69.119003"
+       id="use1392-3" />
   </g>
   <g
      id="g1400-5"

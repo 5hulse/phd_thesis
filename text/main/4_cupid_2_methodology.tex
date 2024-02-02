@@ -5,8 +5,8 @@ of it is given.
 
 \subsection{The Estimation Routine}
 Recall the assumption that a \ac{2DJ} \ac{FID} takes the functional form
-of \cref{eq:jres-fid}. The primary steps involved in estimating a \ac{2DJ}
-dataset, for a given spectral region of interest, are:
+of \cref{eq:jres-fid} (\cpageref{eq:jres-fid}). The primary steps involved in
+estimating a \ac{2DJ} dataset, for a given spectral region of interest, are:
 \begin{enumerate}
     \item Generation of a frequency-filtered sub-\ac{FID} corresponding to
         the region of interest (\textit{vide infra}:
@@ -16,13 +16,12 @@ dataset, for a given spectral region of interest, are:
             The first increment of a \ac{2DJ} experiment, for which $\tone =
             \qty{0}{\second}$, effectively takes the same form as an \ac{FID}
             derived from a pulse-acquire experiment.
-        }(\cref{subsec:model-order}) or
-        by manually specifying a
-        value.
+        } (\cref{subsec:model-order}, \cpageref{subsec:model-order}) or
+        by manually specifying a value.
     \item Generation of an initial parameter estimate using the \ac{MMEMPM}
-        (\cref{subsec:mmempm}).
+        (\cref{subsec:mmempm}, \cpageref{subsec:mmempm}).
     \item Subjection of the initial parameter estimate to phase
-        variance-regularised \ac{NLP} (\cref{sec:nlp}).
+        variance-regularised \ac{NLP} (\cref{sec:nlp}, \cpageref{sec:nlp}).
 \end{enumerate}
 Instead of estimating successive \ac{1D} \acp{FID}, as proposed by
 Nuzillard and Mutzenhardt \emph{et~al.}, \ac{2DJ} sub-\acp{FID} are considered
@@ -38,10 +37,10 @@ On top of this, there is an additional resolution advantage relative to the
 estimation of \emph{direct} dimension \ac{1D} \acp{FID}. Due to the presence of a spin
 echo during $\tone$, signal damping effects caused by field inhomogeneities are
 nullified, such that damping is dictated solely by transverse relaxation
-($T_2^{\vphantom{*}}$). During $\ttwo$ however, the influence of field
+($T_2^{\vphantom{*}}$). However, during $\ttwo$, the influence of field
 inhomogeneities is not
 corrected, such that damping occurs at a faster rate, characterised by $T_2^*$
-(see \cref{fn:t2-star} in \cref{sec:seq}).
+(see \cref{fn:t2-star} in \cref{sec:seq}, \cpageref{fn:t2-star}).
 As such, multiplet structures in the indirect dimension exhibit better
 resolution (assuming $\nicefrac{\fswone}{\None}$ and
 $\nicefrac{\fswtwo}{\Ntwo}$ are comparable).
@@ -52,14 +51,13 @@ together those which belong to the same multiplet, as will be discussed in
 Similar information can be obtained
 by extracting cross-sections of a sheared magnitude-mode \ac{2DJ} spectrum at
 appropriate values of $F^{(2)}$, though the lineshapes of peaks suffer from the
-undesirable characteristics described above. The Keeler-Pell
-approach~\cite{Pell2007,Foroozandeh2015} produces pure absorption-mode at the
-cost of reduced sensitivity due to the application of a J-refocussing element.
+undesirable characteristics described above.
 
-As was mentioned in \cref{subsec:model-order}, application of the
-\ac{MDL} on a \ac{2D} \ac{FID} is not desirable, since a complete \ac{SVD}
-computation would need to be undertaken on the typically very large
-block-Hankel matrix $\symbf{E}_{\symbf{Y}}$.
+As was mentioned in \cref{subsec:model-order} (\cpageref{subsec:model-order})
+applying the \ac{MDL} on a \ac{2D} \ac{FID} is time-consuming,
+since a complete \ac{SVD} computation on the
+very large block-Hankel matrix $\symbf{E}_{\symbf{Y}}$ would need to be
+performed.
 Assuming that the spectral region being considered is not too
 crowded, applying the \ac{MDL} on the first direct-dimension \ac{FID} can
 return reasonable estimates of $M$ at a far smaller computational cost. For
@@ -68,25 +66,25 @@ order by inspecting the \ac{2DJ} spectrum is the best solution currently
 available.
 An interesting benefit is sometimes realised when the \ac{1D} \ac{MDL} is
 used for model order selection.
-The presence of strong coupling artefacts leads to
-additional nuisance peaks featuring in spectra produced by the
-shear-and-project approach. Exactly the
-same phenomenon would occur when estimation is employed, assuming
+As has been discussed above, the presence of strong coupling artefacts in the
+\ac{2DJ} dataset leads to additional nuisance peaks appearing in pure shift spectra
+produced by the shear-and-project approach. Exactly the
+same phenomenon would occur when parametric estimation is employed, assuming
 that the strong coupling artefacts are incorporated into the parameter
 set. However, since the
 artefacts have direct-dimension frequencies which are identical to those of
 first-order signals in the dataset, it is incredibly challenging to resolve
-these using the \ac{1D} \ac{MDL} approach. Therefore, the \ac{MDL} is often
+these using the \ac{1D} \ac{MDL}. Therefore, the \ac{MDL} is often
 found to predict a model order which agrees with the number of first-order
 signals, rather than the \emph{true} number of signals in the \ac{FID}. As the
-\ac{MMEMPM} generates a parameter estimate based on the first $M$ significant
-components of the dataset, the more intense first-order signals are expected to
+\ac{MMEMPM} generates a parameter estimate based on the $M$ most significant
+components of in dataset, the more intense first-order signals are expected to
 be quantified, whereas the weaker strong coupling artefacts will be neglected.
-It should be noted that this concept is not infallible; it has simply been
+It should be noted that this concept is not infallible, though it has been
 observed on a number of occasions. There are instances where strong coupling
 artefacts are incorporated into the estimation result, either because the
 prediction of $M$ was excessive, or certain artefacts possess particularly
-large amplitudes; example of these situations will be given later.
+large amplitudes; examples of these situations will be seen later.
 
 \subsection{The \ang{-45} Signal}
 \begin{figure}
@@ -105,7 +103,7 @@ large amplitudes; example of these situations will be given later.
         the amount and rate of sampling in the direct dimension is greater than
         in the indirect dimension (i.e. $\None \ll \Ntwo$ and $\fswone \ll
         \fswtwo$). The bright red dots correspond to the first direct-dimension
-        signal $y_{\text{2DJ}}(0,\ttwo)$, which has the same form as
+        signal $\bY_{\text{2DJ}}(0,\ttwo)$, which has the same form as
         \iac{FID} from a pulse-acquire experiment. A hypothetical signal
         generated by propagating the \ac{FID} into $-\tone$, with the same rate
         of sampling in both dimensions, is denoted with pale blue dots. Taking
@@ -143,14 +141,12 @@ The \ang{-45} signal
 takes the form of a conventional \ac{1D} \ac{FID},
 except that the frequency of each oscillator, which would be $\ftwo_m$ in a
 pulse-acquire experiment,
-is replaced with $\ftwo_m - \fone_m$. Oscillators belonging to the same
-multiplet $s$ will all provide a contribution to the \ac{FID} with the
-angular frequency $\omega_{0,s}$.
+is replaced with $\ftwo_m - \fone_m$. In the \ang{-45} signal, oscillators
+belonging to the same multiplet $s$ will all provide a contribution to the
+\ac{FID} with the frequency $f_{0,s}$.
 Assuming that the parameters associated with the \ac{2DJ}
 \ac{FID} are accurately determined, a pure shift spectrum with sharp
-absorption-mode lineshapes and no loss of signal can be generated by
-constructing the \ang{-45} signal.
-
+absorption-mode lineshapes and no loss of signal can be generated by this approach.
 
 \subsection{Filtration of \ac{2DJ} Data}
 \label{subsec:jres-filtering}
@@ -159,9 +155,9 @@ peaks in the Fourier domain, the indirect dimension of \ac{2DJ} datasets tends
 to be densely populated since all multiplet structures are centered at
 \qty{0}{\hertz}, and rarely span beyond $\pm \qty{50}{\hertz}$. As such,
 the generation of frequency-filtered sub-\acp{FID} is limited to
-the direct dimension in \ac{CUPID}.
+the direct dimension in \ac{2DJ} estimation.
 The filtering procedure applied to \ac{2DJ} data is an extension of that
-for \ac{1D} data described in \cref{sec:filtering}:
+for \ac{1D} data described in \cref{sec:filtering} (\cpageref{sec:filtering}):
 \begin{enumerate}
     \item The array $\symbf{Y}_{\text{VE}} \in \mathbb{C}^{\None \times 2
         \Ntwo}$, is constructed, which contains the \ac{VE} of each
@@ -194,7 +190,8 @@ for \ac{1D} data described in \cref{sec:filtering}:
         \end{equation}
         where $\symbf{1} \in \mathbb{R}^{\None}$ is a vector of ones, and
         $\symbf{g}^{(2)} \in \mathbb{R}^{2\Ntwo}$ is a super-Gaussian vector
-        given by \cref{eq:super-Gaussian-onedim}.
+        given by \cref{eq:super-Gaussian-onedim}
+        (\cpageref{eq:super-Gaussian-onedim}).
     \item A matrix of additive noise is generated by extracting the variance
         $\sigma^2$ of a direct-dimension strip of $\symbf{S}_{\text{VE}}$ which
         is devoid of peaks, and generating an array $\symbf{W}_{\sigma^2} \in
@@ -229,8 +226,8 @@ the filtered sub-\ac{FID}.
         \textbf{d.} Filtered spectrum $\widetilde{\symbf{S}}_{\text{VE}}$
         Figures \ref{fig:jres-filtering}.a to \ref{fig:jres-filtering}.d
         are analogous to
-        Figures \ref{fig:jres-filtering}.b to \ref{fig:jres-filtering}.e
-        for the \ac{1D} case.
+        Figures \ref{fig:filtering}.b to \ref{fig:filtering}.e
+        for the \ac{1D} case (\cpageref{fig:filtering}).
     }
     \label{fig:jres-filtering}
 \end{figure}
@@ -243,7 +240,7 @@ multiplet structures relies on simultaneously knowing both the indirect- and
 direct-dimension frequencies of each model oscillator. As has already been
 established, for oscillators which are associated with the same multiplet
 grouping $G_s$, the quantities $\ftwo_{m_1} - \fone_{m_1}$ and $\ftwo_{m_2} -
-\fone_{m_2}$ should be equal ($\omega_{0,s}$) for any pairing  $m_1, m_2 \in
+\fone_{m_2}$ should be equal ($f{0,s}$) for any pairing  $m_1, m_2 \in
 G_s$. An assessment of whether two oscillators belong to the same multiplet can
 therefore be made using the following criterion:
 \begin{equation}
@@ -259,8 +256,8 @@ $\min\left(\nicefrac{\fswone}{\None},
 \nicefrac{\fswtwo}{\Ntwo}\right)$.  However, limitations in resolution due to
 relaxation-induced signal damping and field inhomogeneities can require
 $\epsilon$ to be increased beyond this for effective assignments
-to be achieved. \Cref{lst:mp-assign} provides a \Python routine that
-can be used for multiplet prediction.
+to be achieved. \Cref{lst:mp-assign} (\cpageref{lst:mp-assign}) provides a
+\Python routine that can be used for multiplet prediction.
 
 There are certain circumstances where it is safe to assume that a
 particular oscillator in the estimation result is not associated with a

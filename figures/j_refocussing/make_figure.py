@@ -1,7 +1,7 @@
 # make_figure.py
 # Simon Hulse
 # simon.hulse@chem.ox.ac.uk
-# Last Edited: Tue 19 Sep 2023 14:37:41 BST
+# Last Edited: Fri 02 Feb 2024 16:23:23 EST
 
 from dataclasses import dataclass
 import matplotlib as mpl
@@ -76,7 +76,7 @@ def sine(ax, left, width, height, neg=False):
     ax.fill(xs, ys, "k", transform=ax.transAxes)
 
 
-def acquisition(ax, left, width, height):
+def acquisition(ax, left, one_over_sw, extra_acqu, height):
     right = left + width
     xs = np.linspace(left, right, 1000)
     xs_fid = np.linspace(0, 30, 1000)
@@ -112,33 +112,28 @@ def acquisition(ax, left, width, height):
     )
 
 
-class Widths:
-    ninty = 0.01
-    acqu = 0.2
-    left_pad = 0.02
-    right_pad = 0.
-
-    def __init__(self, n_ninty, **kwargs):
-        names = []
-        widths = []
-        for n, w in kwargs.items():
-            names.append(n)
-            widths.append(w)
-        widths = normalise_widths(*widths)
-        extra_scale = 1 - (n_ninty * self.ninty + self.acqu + self.left_pad + self.right_pad)
-        widths = [w * extra_scale for w in widths]
-
-        for n, w in zip(names, widths):
-            setattr(self, n, w)
-
-
 class JWidths(Widths):
 
-    def __init__(self):
-        super().__init__(n_ninty=3, t_one=0.1, grad=0.03, j_elem=0.1, gap=0.05)
-        self.t_one /= 2.
-        self.grad /= 3.
-        self.gap /= 2.
+    def __init__(
+        self,
+        left_pad,
+        ninty,
+        t_one,
+        grad,
+        one_over_sw,
+        j_refocus,
+        extra_acqu,
+        right_pad,
+    ):
+        total_width = left_pad + 3 * ninty + t_one + 3 * grad + 1.5 * one_over_sw + j_refocus + extra_acqu + right_pad
+        self.left_pad = left_pad / total_width
+        self.ninty = left_pad / total_width
+        self.t_one = left_pad / total_width
+        self.grad = left_pad / total_width
+        self.one_over_sw = left_pad / total_width
+        self.j_refocus = left_pad / total_width
+        self.extra_acqu = left_pad / total_width
+        self.right_pad = left_pad / total_width
 
 
 widths = JWidths()

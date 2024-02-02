@@ -13,6 +13,8 @@ bottom=1in,%
 \usepackage{datetime}
 \dmyyyydate
 \usepackage{xcolor}
+\definecolor{linkblue}{HTML}{0000ee}
+
 %%% font configuration
 \usepackage{fontspec}
 \usepackage[%
@@ -43,6 +45,13 @@ bottom=1in,%
 ]
 
 \usepackage{acronym}
+\usepackage{hyperref}
+\hypersetup{
+    colorlinks=true,
+    linkcolor=black,
+    urlcolor=linkblue,
+    citecolor=black,
+}
 \usepackage{upgreek} % For upright capital delta
 \usepackage{siunitx}
 \usepackage{varioref}
@@ -69,19 +78,23 @@ bottom=1in,%
     \maketitle
     \subsubsection*{General}
     \begin{itemize}
-        \item I have made some stylistic changes to the thesis (specifically, the
-            formatting of the title page and chapter titles). Ralph asked about Oxford
-            formatting guidelines. I am unaware of Oxford having specific thesis format
-            guidelines, and haven't been able to find any guidance on this, so I am
-            assuming that my thesis format is acceptable.
-        \item Spaces were added to between text and citations.
+        \item I have made some stylistic changes to the thesis, including the
+            formatting of the title page and chapter titles. Ralph asked about Oxford
+            formatting guidelines: I haven't been able to find specific any
+            guidance on this, so I am assuming that my thesis format is acceptable.
+            While the \LaTeX\ template I have used is my own, there is a very
+            widely used one which is similar:
+            \url{https://github.com/mcmanigle/OxThesis}.
+        \item Spaces were added between text and citations.
+        \item When I reference locations in the thesis which are many pages away, I
+            have included the page number for of ease of navigation.
     \end{itemize}
     \subsubsection*{Corrections by page}
-    Below is a list of corrections made which are not typo fixes. Text
-    corrections have been highlighted in red.
+    In the updated thesis, the text related to the most of corrections below
+    have been highlighted in red.
     \begin{itemize}
-        \item \cpagerefrange{sec:lof}{sec:loc} -- Tweaked articles of descriptions
-            for consistency.
+        \item \cpagerefrange{sec:lof}{sec:loc} -- Tweaked articles of
+            Figure/Table/etc. descriptions for consistency.
         \item \cpageref{corr:prot-neut} -- Specified that only nuclei with odd
             numbers of protons and/or neutrons possess spin.
         \item \cpageref{corr:mol-rot} -- Mentioned molecular rotation as
@@ -96,16 +109,16 @@ bottom=1in,%
             do not possess spin''.
         \item \cpageref{fig:energy_levels} --  \cref{fig:energy_levels}:
             Mentioned the sign of $\gamma$ for each nucleus in the caption.
-        \item \cpageref{corr:high-temp} --  Mentioned that the high temperature
-            approximation is applied in arriving at \cref{eq:M0}. See also
-            \cref{fn:corr-high-temp}.
-        \item \cpageref{corr:rf-pulse} --  Re-worded description of RF pulse.
+        \item \cpageref{corr:high-temp} -- Tweaked the description of he high
+            temperature approximation.
+        \item \cpageref{corr:rf-pulse} --  Corrected the description of a
+            linearly polarised RF pulse.
         \item \cpageref{eq:rot-frame} -- \cref{eq:rot-frame}: Corrected the
             expressions for $\tilde{\symbf{i}}$ and $\tilde{\symbf{j}}$.
         \item \cpageref{corr:relaxation} -- Included a more detailed
             qualitative description of relaxation.
         \item \cpageref{corr:vacuum} -- Explicitly mentioned the presence of a
-            vacuum chamber.
+            vacuum chamber as part of the spectrometer.
         \item \cpageref{corr:solid-state} -- Included solid-state NMR as an
             area that requires very high field strengths.
         \item \cpageref{corr:small-inhomog} -- ``inhomogeneities''
@@ -140,8 +153,9 @@ bottom=1in,%
             aware, the typical method of performing metabolomics fingerprinting
             is to break up spectrum into small regions (bins), integrate these
             bins, and then input the integrals into some routine for multivariate
-            analysis, such as PCA. I have added the phrase ``like VARPRO and
-            AMARES'' to clarify what I mean by an ``iterative method''.
+            analysis, such as PCA. Please let me know if I am wrong about this!
+            I have added the phrase ``like VARPRO and
+            AMARES'' to clarify what I mean by an iterative method.
         \item \cpageref{corr:1d-vs-2d} -- Improved wording of why holistically
             analysing a 2D dataset can be better than sequentially analysing 1D
             increments.
@@ -164,10 +178,10 @@ bottom=1in,%
             on FID size, based on RAM requirements, in the context of Pines'
             1997 paper on the MPM.
         \item \cpageref{fig:mpm-profiling} -- \cref{fig:mpm-profiling}: Made
-            caption and y-axis texts equivalent. Indicated where $96MiB$
+            caption and y-axis texts equivalent. Indicated where 96MiB
             appears on the MPM peak memory usage plot, to help with the 1997
             paper discussion.
-        \item \cpageref{corr:estimation-time} Tweak to the first sentences in
+        \item \cpageref{corr:estimation-time} -- Tweak to the first sentences in
             \cref{sec:filtering} to emphasise that NMR users are unlikely to
             use software if it takes a long time to run.
         \item \cpageref{corr:ve-edit} -- Realised that some of the maths
@@ -184,15 +198,15 @@ bottom=1in,%
             different peak colours in the caption.
         \item \cpageref{fn:similar-freqs} -- Added \cref{fn:similar-freqs} to
             provide some additional context to the phase ``similar frequencies''.
+        \item \cpageref{fig:andro-onedim} -- \cref{fig:andro-onedim}: Replaced
+            landscape figure with portrait version. Added structure of andrographolide.
         \item \cpageref{corr:splitting} -- Mentioned that a possible approach
             to under-fitting is to ``split'' oscillators in the parameter
             estimate and re-optimise; discussed limitations associated with
             this.
-        \item \cpageref{corr:unequal-amps} Noted that even when a parsimonious fit
+        \item \cpageref{corr:unequal-amps} -- Noted that even when a parsimonious fit
             occurred for spin (O), certain parameters are not perfectly consistent
             with expectations (i.e. amplitudes are not exactly equal).
-        \item \cpageref{fig:andro-onedim} -- \cref{fig:andro-onedim}: Replaced
-            landscape figure with portrait version. Added structure of andrographolide.
         \item \cpageref{fig:cyclosporin} -- \cref{fig:cyclosporin}: Added structure of
             cyclosporin, and edited the caption accordingly.
         \item \cpageref{corr:spin-molecule} -- Replaced ``the spin tumbles''
@@ -240,10 +254,10 @@ bottom=1in,%
         \item \cpageref{corr:ninty-flip} -- \cref{fig:single-chirp}: Explicitly
             stated that the flip angle of the chirp pulse is \ang{90} in the
             caption.
-        \item \cpageref{corr:bbq-limitations} -- Included a discussion of how
-            J-couplings may influence the efficacy of the method.
         \item \cpageref{corr:baseline-dist} -- \cref{fig:bbqchili-sim}: Made
             explicit reference to baseline distortions in panel b.
+        \item \cpageref{corr:bbq-limitations} -- Included a discussion of how
+            J-couplings may influence the efficacy of the method.
         \item \cpageref{corr:gd-h2o} -- Improved description of Gd-doped sample.
             See also the caption of \cref{fig:bbqchili-real}.
         \item \cpageref{fig:bbqchili-real} -- \cref{fig:bbqchili-real}:
@@ -251,9 +265,9 @@ bottom=1in,%
             dataset in the caption.
         \item \cpageref{corr:limited-scope} -- Reworded a sentence in the summary.
         \item \cpageref{corr:ns} -- Peter queried my statement that data
-            sensitivity is proportional to $\sqrt{\text{NS}}$. I believe this
-            to be correct; when the number of scans is quadrupled, a doubling
-            in sensitivity is expected.
+            sensitivity is proportional to the square root of the number of
+            transients. I believe this to be correct. I have included a
+            citation which supports this.
         \item \cpageref{corr:strong-coupling-artefacts} -- Provided further discussion
             of strong coupling artefacts in 2DJ NMR. Added a detailed
             account of the form of a dataset produced by an AB spin system (see
@@ -261,7 +275,7 @@ bottom=1in,%
             strong coupling artefacts in the indirect dimension is common.
         \item \cpageref{corr:PSYCHE-2DJ} -- Separated discussions for using
             PSYCHE in a Keeler-Pell-style experiment, and PSYCHE-2DJ.
-        \item \cpageref{corr:coupling-constants} Clarified that CUPID does not
+        \item \cpageref{corr:coupling-constants} -- Clarified that CUPID does not
             directly produce coupling constant predictions.
         \item \cpageref{fig:strychnine-cupid} -- \cref{fig:strychnine-cupid}: Added
             structure of strychnine.

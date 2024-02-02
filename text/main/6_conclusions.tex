@@ -47,10 +47,9 @@ automate this process, though with minimal success\footnote{
     points which belong to the spectral baseline, as employed in baseline
     correction methods~\cite{Dietrich1991}. Any section of the spectrum which
     comprised a sufficiently large number of consecutive points which were
-    classified as ``non-baseline'' was deemed to be a region of interest. Alas,
-    this approach proved to be temperamental, with considerable tweaking
-    of hyperparameters necessary to yield reasonable results. For this reason,
-    the idea was discarded.
+    classified as ``non-baseline'' was deemed to be a region of interest.
+    This approach proved to be temperamental, with considerable tweaking
+    of hyperparameters often being necessary to yield adequate results.
 }. Because of this\,---\,alongside the requirement to sometimes specify a
 prediction of the model order when the \ac{MDL} performs inadequately\,---\,the
 routine is not fully automated; some user intervention is required to run it.
@@ -58,13 +57,14 @@ routine is not fully automated; some user intervention is required to run it.
 Impressive parametrisations of hypercomplex \ac{2DJ} \acp{FID} were achieved using
 the estimation routine, which forms a part of \ac{CUPID}, a new protocol that
 is able to generate pure shift spectra featuring no loss of signal (\textit{cf.}
-``chunking'' methods), and peaks with sharp absorption Lorentzian lineshapes
+chunking methods which employ a J-refocussing element), and peaks with sharp
+absorption Lorentzian lineshapes
 (\textit{cf.} the classic \ac{2DJ} shear-and-project approach).
 Furthermore, through a knowledge of the signal frequencies in both dimensions
 of the dataset, \ac{CUPID} can decompose \ac{1D} spectra into their constituent
 multiplet structures. Acquiring the information that \ac{CUPID} can generate
 with a simple \ac{2DJ} dataset usually requires bespoke \ac{3D} pulse sequences
-which have very large run-times.
+which have very large run-times~\cite{Kiraly2017}.
 
 Beyond to the original goal of \ac{2DJ} estimation, two other applications
 have been developed and presented. The first is an alternative means for
@@ -83,13 +83,13 @@ resolving each component leads to similar signal aggregation issues.
 In these circumstances, the use of a pure shift element in
 combination with the relevant pulse sequence, as exemplified by the
 \ac{3D} \ac{PSYCHE}-i\ac{DOSY} pulse sequence~\cite{Foroozandeh2016}, is likely
-the best course of action for resolving crowded signals (assuming J-couplings
-are the cause of said crowding).
+the best course of action for resolving crowded signals, assuming J-couplings
+are the cause of said crowding.
 
 The last application discussed in this work involves generating ultra-broadband
 \ac{NMR} spectra from an experiment involving excitation by a single chirp
-pulse. With appropriate processing, where each signal is estimated using the
-\ac{MPM}, and appropriately back-propagating it based on its frequency, phased
+pulse. With appropriate processing, in which each signal is estimated using the
+\ac{MPM}, and appropriately back-propagated based on its frequency, phased
 spectra with flat baselines are achievable.
 This work is fairly nascent, and while the initial results presented here show
 promise, the method is yet to be applied to datasets of greater interest. If
@@ -159,10 +159,10 @@ were ported to one of the aforementioned languages.
         }\label{fn:multithreading}
     }. In situations where
     different parts of a program are independent of each other, large
-    time-savings can be achieved by running each part in separate sub-programs
-    across different cores.  \textsc{Python}'s \texttt{multiprocessing} module
-    provides a straightforward interface to achieve
-    this~\cite{multiprocessing}.
+    time-savings can be achieved by running different parts in a separate
+    sub-programs across different cores.  \textsc{Python}'s
+    \texttt{multiprocessing} module provides a straightforward interface to
+    achieve this~\cite{multiprocessing}.
 }\label{corr:concurrency}
 
 \correction{
@@ -174,13 +174,14 @@ were ported to one of the aforementioned languages.
     second-derivatives, required to yield the gradient and Hessian of the
     fidelity.
     In Lines \ref{ln:secondderivstart} to \ref{ln:secondderivend} of
-    \cref{lst:obj-grad-hess} (a program which generates the fidelity and its
-    derivatives for the \ac{1D} case) the second derivatives are
+    \cref{lst:obj-grad-hess} (\cpageref{lst:obj-grad-hess}),
+    a program which generates the fidelity and its
+    derivatives for the \ac{1D} case, the second derivatives are
     computed in accordance with
-    \crefrange{eq:amp-phi-second-deriv}{eq:damp-second-deriv}, found in
-    \cref{sec:derivatives}. Each line computes $M\None$ of the required
-    $9M\None$ gradients, with each line being run in succession. Running each
-    of these in separate sub-programs\,---\,across 9 \ac{CPU} cores, if
+    \crefrange{eq:amp-phi-second-deriv}{eq:damp-second-deriv}
+    (\cpageref{eq:amp-phi-second-deriv}). Each line computes $M\None$ of the
+    required $9M\None$ gradients, with each line being run in succession.
+    Running each of these in separate sub-programs\,---\,across 9 \ac{CPU} cores, if
     available\,---\,may well be more efficient.
     A 9-fold increase in speed will not be realised however, since there is an
     overhead in setting up a ``pool'' of sub-programs; only in situations where
@@ -189,14 +190,15 @@ were ported to one of the aforementioned languages.
     much benefit will be seen for most \ac{1D} \acp{FID}, given that (a) the
     number of derivatives to compute is generally not particularly large, and
     (b) computing the model gradients isn't the most time-consuming aspect of
-    \ac{1D} Hessian computation anyway (recall \cref{tab:hess-steps}).
+    \ac{1D} Hessian computation anyway (recall \cref{tab:hess-steps},
+    \cpageref{tab:hess-steps}).
     However, \ac{2D} \ac{FID} estimation could well be sped up considerably
     with the use of multiprocessing, given that
     generating the $20 M \None \Ntwo$ second derivatives takes up a
     considerable amount of the total Hessian computation time (again, see
     \cref{tab:hess-steps}). This would be particularly true if the \ac{CPU}
     being used featured at least 20 cores, which is commonplace for
-    modern workstations.
+    modern high-performance workstations.
 }
 
 \paragraph{A general-purpose platform}
@@ -224,8 +226,8 @@ azimuth and elevation angles) as well as the frequency of waves arriving at an
 antenna are sought~\cite{Yilmazer2006}.
 However, the computational burden required would likely be too high, both
 in terms of \ac{CPU} usage and memory requirements, for the routine to be
-practicable beyond the simplest \ac{3D} datasets made of few datapoints and
-constituent signals.
+practicable beyond the simplest \ac{3D} \ac{NMR} datasets made of few
+datapoints and constituent signals.
 
 \ac{2DJ} datasets are rather anomalous among multidimensional datasets in
 that they have very densely populated indirect dimensions, due to the chemical
