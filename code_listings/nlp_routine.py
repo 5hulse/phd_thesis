@@ -1,8 +1,3 @@
-# nlp_routine.py
-# Simon Hulse
-# simonhulse@protonmail.com
-# Last Edited: Tue 09 Jan 2024 17:39:49 EST
-
 def nlp(
     y: np.ndarray,
     sw: float,

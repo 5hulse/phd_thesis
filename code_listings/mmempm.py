@@ -1,8 +1,3 @@
-# mmempm.py
-# Simon Hulse
-# simonhulse@protonmail.com
-# Last Edited: Tue 09 Jan 2024 17:38:53 EST
-
 def mmempm(
     Y: np.ndarray, sw1: float, sw2: float,
     off1: float, off2: float, M: int = 0,

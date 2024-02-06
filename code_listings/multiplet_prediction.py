@@ -1,8 +1,3 @@
-# multiplet_prediction.py
-# Simon Hulse
-# simon.hulse@chem.ox.ac.uk
-# Last Edited: Tue 20 Dec 2022 17:13:57 GMT
-
 from typing import Dict, Iterable
 import numpy as np
 np.set_printoptions(precision=3)

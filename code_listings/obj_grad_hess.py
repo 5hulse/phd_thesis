@@ -1,8 +1,3 @@
-# obj_grad_hess.py
-# Simon Hulse
-# simonhulse@protonmail.com
-# Last Edited: Fri 19 Jan 2024 17:56:53 EST
-
 class FunctionFactory:
     """Object which computes and memoises the objective, gradient and
     Hessian for a given set of parameters."""

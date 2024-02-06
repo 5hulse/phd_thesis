@@ -1,8 +1,3 @@
-# mpm.py
-# Simon Hulse
-# simonhulse@protonmail.com
-# Last Edited: Tue 09 Jan 2024 17:38:34 EST
-
 def mpm(y: np.ndarray, sw: float, offset: float, M: int = 0) -> np.array:
     """Matrix Pencil Method for estimating a 1D FID.
 
