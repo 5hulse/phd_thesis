@@ -2,7 +2,7 @@
 matplotlibrc
 __pycache__/
 *.egg-info/
-thesis.mylist
+*.mylist
 .venv
 
 #### Below here is a default LaTeX gitgnore

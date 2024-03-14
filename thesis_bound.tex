@@ -1,0 +1,82 @@
+% Options: % --> bindversion
+% Generates version suitable for constructing a bound version (asymmetrical
+% margins)
+
+\documentclass[black,bindversion]{SGH_thesis}
+% asymmetrical margin for bound version
+
+\input{packages}
+\input{macros}
+
+\title{Estimation of NMR Signals in the Time Domain: Methodology, Applications and Software}
+\author{Simon G. Hulse}
+\college{Balliol College}
+\degree{Doctor of Philosophy}
+\degreedate{Trinity Term, 2023}
+
+\addbibresource{references.bib}
+\supervisorstrue
+\supervisors{
+Dr Mohammadali Foroozandeh,\\
+Prof. Timothy Claridge,\\
+\& Dr Fay Probert}
+
+\raggedbottom
+\begin{document}
+\pagenumbering{roman}
+\maketitle
+\pagestyle{plain}
+\input{text/front/dedication}
+\cleardoublepage
+\tableofcontents
+\input{text/front/acknowledgements}
+\input{text/front/abstract}
+\input{text/front/declaration}
+\input{text/front/acrons}
+\input{text/front/nomenclature}
+\clearpage
+\label{sec:lof}
+\listoffigures
+\phantomsection
+\addcontentsline{toc}{chapter}{List of Figures}
+\listoftables
+\phantomsection
+\addcontentsline{toc}{chapter}{List of Tables}
+\listofalgorithms
+\phantomsection
+\addcontentsline{toc}{chapter}{List of Algorithms}
+\label{sec:loc}
+\tcblistof[\chapter*]{mylist}{List of Code Listings}
+\phantomsection
+\addcontentsline{toc}{chapter}{List of Code Listings}
+\cleardoublepage
+\pagenumbering{arabic}
+\pagestyle{fancy}
+\acresetall  % reset all acronyms
+\input{text/main/1_introduction}
+\cleardoublepage
+\input{text/main/2_theory}
+\cleardoublepage
+\input{text/main/3_onedim}
+\cleardoublepage
+\input{text/main/4_cupid}
+\cleardoublepage
+\input{text/main/5_nmrespy}
+\cleardoublepage
+\input{text/main/6_conclusions}
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{chapter}{Bibliography}
+\pagestyle{plain}
+\printbibliography[notcategory=fullcited]
+\appendix
+\clearpage
+\pagestyle{fancy}
+\input{text/appendix/additional_theory}
+\cleardoublepage
+\input{text/appendix/code_listings.tex}
+\cleardoublepage
+\input{text/appendix/datasets}
+\cleardoublepage
+\input{text/appendix/inserts}
+\end{document}
